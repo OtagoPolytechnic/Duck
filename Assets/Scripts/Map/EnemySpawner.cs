@@ -14,15 +14,16 @@ public class EnemySpawner : MonoBehaviour
     {
         if (Time.time > spawnTime)
         {
-            Spawn();
+            int enemyNum = Random.Range(0, enemies.Length);
+            Spawn(enemyNum);
             spawnTime = Time.time + timeBetweenSpawn;
         }
     }
 
-    void Spawn()
+    void Spawn(int enemyNum)
     {
         float randX = Random.Range(-spawnRadius, spawnRadius);
         float randY = Random.Range(-spawnRadius, spawnRadius);
-        Instantiate(enemies[0], transform.position + new Vector3(randX, randY, 0), transform.rotation);
+        Instantiate(enemies[enemyNum], transform.position + new Vector3(randX, randY, 0), transform.rotation);
     }
 }
