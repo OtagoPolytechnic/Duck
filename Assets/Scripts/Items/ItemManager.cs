@@ -11,7 +11,11 @@ public abstract class Item
     {
 
     }
-    public virtual void OnPickup(int level) //requires player connection to be able to be called and used i.e (Player player)
+    public virtual void OnPickup(int level) //also needs the above player connection
+    {
+
+    }
+    public virtual void OnHit(int level) //requires enemy connection and the player connection to be able to be called and used i.e (Player player, Enemy enemy)
     {
 
     }
