@@ -32,7 +32,7 @@ public class Timer : MonoBehaviour
 
     private void setTimerText()
     {
-        timerText.text = currentTime.ToString("0") + "s";
+        timerText.text = currentTime.ToString("0.00") + " s";
     }
 
     private void nextWave()
