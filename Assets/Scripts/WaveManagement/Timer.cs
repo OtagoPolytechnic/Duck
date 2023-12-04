@@ -5,6 +5,7 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
+    public TextMeshProUGUI waveNumberText;
     public TextMeshProUGUI timerText;
     public float waveLength;
     public float currentTime;
@@ -14,6 +15,7 @@ public class Timer : MonoBehaviour
     void Start()
     {
         currentTime = waveLength;
+        waveNumberText.text = "Wave: " + waveNumber.ToString();
     }
 
     // Update is called once per frame
@@ -30,12 +32,13 @@ public class Timer : MonoBehaviour
 
     private void setTimerText()
     {
-        timerText.text = currentTime.ToString("0");
+        timerText.text = currentTime.ToString("0") + "s";
     }
 
     private void nextWave()
     {
         waveNumber += 1;
         currentTime = waveLength;
+        waveNumberText.text = "Wave: " + waveNumber.ToString();
     }
 }
