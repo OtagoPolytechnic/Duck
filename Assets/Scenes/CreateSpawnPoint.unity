@@ -453,6 +453,10 @@ PrefabInstance:
       value: SpawnPoint
       objectReference: {fileID: 0}
     - target: {fileID: 4043444901413562697, guid: 2c64df07091bf91469406911a53d6caa, type: 3}
+      propertyPath: spawnTimer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4043444901413562697, guid: 2c64df07091bf91469406911a53d6caa, type: 3}
       propertyPath: enemies.Array.size
       value: 1
       objectReference: {fileID: 0}

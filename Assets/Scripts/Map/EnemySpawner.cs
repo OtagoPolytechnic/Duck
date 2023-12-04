@@ -6,17 +6,20 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject[] enemies;
     public float spawnRadius;
-    public float timeBetweenSpawn;
-    public float spawnTime;
+    public float spawnTimer; //Time between spawns
+    public float lastSpawn; //Time since last spawn
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > spawnTime)
+
+        if (lastSpawn > spawnTimer)
         {
-            int enemyNum = Random.Range(0, enemies.Length);
-            Spawn(enemyNum);
-            spawnTime = Time.time + timeBetweenSpawn;
+            Spawn(Random.Range(0, enemies.Length));
+            lastSpawn = 0;
+        }
+        else{
+            lastSpawn += Time.deltaTime;
         }
     }
 
