@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour
     public TextMeshProUGUI timerText;
     public float waveLength;
     public float currentTime;
-    public bool running;
+    public int waveNumber;
 
     // Start is called before the first frame update
     void Start()
@@ -19,12 +19,10 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(running){
-            currentTime -= Time.deltaTime;
-        }
+        currentTime -= Time.deltaTime;
+        
         if(currentTime <= 0){
-            running = false;
-            currentTime = 0;
+            nextWave();
         }
 
         setTimerText();
@@ -33,5 +31,11 @@ public class Timer : MonoBehaviour
     private void setTimerText()
     {
         timerText.text = currentTime.ToString("0");
+    }
+
+    private void nextWave()
+    {
+        waveNumber += 1;
+        currentTime = waveLength;
     }
 }
