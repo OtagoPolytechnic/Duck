@@ -31,7 +31,7 @@ public class Healonhit : Item
     {
         return "Common";
     }
-    public override void Update(int level) //also needs the above player connection
+    public override void OnHit(int level) //also needs the above player connection
     {
         //player.health += 5 * level;
     }
@@ -64,5 +64,20 @@ public class SpeedIncrease : Item
     public override void OnPickup(int level) //also needs the above player connection
     {
         //player.speed += player.speed * level;
+    }
+}
+public class Bleed : Item //needs to be changed to on hit but also update, will revise
+{
+    public override string Name()
+    {
+        return "Bleed on hit";
+    }
+    public override string Rarity()
+    {
+        return "Common";
+    }
+    public override void Update(int level) //needs player and enemy connection
+    {
+        //enemy.health -= 5 * level;
     }
 }
