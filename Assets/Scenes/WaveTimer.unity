@@ -583,6 +583,7 @@ MonoBehaviour:
   waveLength: 30
   currentTime: 0
   waveNumber: 1
+  running: 1
 --- !u!1 &1427706239
 GameObject:
   m_ObjectHideFlags: 0

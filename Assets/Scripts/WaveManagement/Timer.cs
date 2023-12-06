@@ -10,6 +10,7 @@ public class Timer : MonoBehaviour
     public float waveLength;
     public float currentTime;
     public int waveNumber;
+    public bool running;
 
     // Start is called before the first frame update
     void Start()
@@ -21,10 +22,15 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentTime -= Time.deltaTime;
+        if(running)
+        {
+            currentTime -= Time.deltaTime;
+        }
         
-        if(currentTime <= 0){
-            nextWave();
+        if(currentTime <= 0)
+        {
+            running = false;
+            // nextWave();
         }
 
         setTimerText();
@@ -40,5 +46,6 @@ public class Timer : MonoBehaviour
         waveNumber += 1;
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
+        running = true;
     }
 }
