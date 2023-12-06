@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         DamageIncrease item = new DamageIncrease();
-        items.Add(new ItemList(item, item.Name(), item.Rarity(), 1));
+        items.Add(new ItemList(item, item.Name(), item.Rarity(), 1)); //this should be done when the round has ended, here for testing
     }
 
     // Update is called once per frame
