@@ -76,7 +76,7 @@ public class Bleed : Item //needs to be changed to on hit but also update, will 
     {
         return "Common";
     }
-    public override void Update(int level) //needs player and enemy connection
+    public override void OnHit(int level) //needs player and enemy connection
     {
         //enemy.health -= 5 * level;
     }
