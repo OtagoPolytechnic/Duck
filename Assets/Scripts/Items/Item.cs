@@ -7,7 +7,7 @@ public abstract class Item
 {
     public abstract string Name();
     public abstract string Rarity();
-    public virtual void Update(int level) //requires player connection to be able to be called and used i.e (Player player)
+    public virtual void OnTick(int level) //requires player connection to be able to be called and used i.e (Player player)
     {
 
     }
@@ -51,11 +51,11 @@ public class DamageIncrease : Item
         //player.damage += player.damage * level;
     }
 }
-public class SpeedIncrease : Item
+public class Speed : Item
 {
     public override string Name()
     {
-        return "Speed Increase";
+        return "Speed";
     }
     public override string Rarity()
     {
