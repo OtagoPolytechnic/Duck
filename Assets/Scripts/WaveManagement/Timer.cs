@@ -26,11 +26,14 @@ public class Timer : MonoBehaviour
         {
             currentTime -= Time.deltaTime;
         }
+        else if(Input.GetKeyDown("space"))
+        {
+            nextWave();
+        }
         
         if(currentTime <= 0)
         {
             running = false;
-            // nextWave();
         }
 
         setTimerText();
