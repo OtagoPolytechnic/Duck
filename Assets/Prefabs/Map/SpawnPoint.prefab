@@ -100,5 +100,5 @@ MonoBehaviour:
   enemies:
   - {fileID: 3723277650304258859, guid: d3709ecd55fc5064cb6afaba0bcc1dde, type: 3}
   spawnRadius: 2
-  timeBetweenSpawn: 3
-  spawnTime: 0
+  spawnTimer: 3
+  lastSpawn: 0
