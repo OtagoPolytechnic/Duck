@@ -1007,7 +1007,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 826391640}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6996f52486a108d48ba3fbb451474836, type: 3}
+  m_Script: {fileID: 11500000, guid: d46993a6e33d2d54780e712ae90cee79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   patrolPoints:
