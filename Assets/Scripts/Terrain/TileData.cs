@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
-public class TileData : MonoBehaviour
+[CreateAssetMenu]
+public class TileData : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public TileBase[] tiles;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float moveSpeedModifier;
+
 }
