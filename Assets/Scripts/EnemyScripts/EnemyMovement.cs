@@ -7,6 +7,13 @@ public class EnemyMovement : MonoBehaviour
     public Transform[] patrolPoints;
     public int targetPoint;
     public float speed;
+
+    private MapManager mapManager;
+    private void Awake()
+    {
+        mapManager = FindObjectOfType<MapManager>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +27,10 @@ public class EnemyMovement : MonoBehaviour
         {
             increaseTargetInt();
         }
-        transform.position = Vector3.MoveTowards(transform.position, patrolPoints[targetPoint].position, speed * Time.deltaTime);
+
+        float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
+
+        transform.position = Vector3.MoveTowards(transform.position, patrolPoints[targetPoint].position, (speed*tileSpeedModifier) * Time.deltaTime);
     }
 
     void increaseTargetInt()
