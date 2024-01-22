@@ -28,12 +28,24 @@ public class MapManager : MonoBehaviour
 
     public float GetTileWalkingSpeed(Vector2 worldPosition)
     {
+        float modifier = 1;
+
         Vector3Int gridPosition = map.WorldToCell(worldPosition);
 
         TileBase tile = map.GetTile(gridPosition);
 
-        float moveSpeedModifier = dataFromTiles[tile].moveSpeedModifier;
+        /*
+        This is kinda inefficient, however I was struggling to get it working by calling the tile from the dictionary.
+        modifier = dataFromTiles[tile].moveSpeedModifier
+        */
+        foreach (var tileData in tileDatas)
+        {
+            if (tile.name == tileData.name)
+            {
+                modifier = tileData.moveSpeedModifier;
+            }
+        }
 
-        return moveSpeedModifier;
+        return modifier;
     }
 }

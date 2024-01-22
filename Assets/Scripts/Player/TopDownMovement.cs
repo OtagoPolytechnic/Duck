@@ -30,8 +30,8 @@ public class TopDownMovement : MonoBehaviour
 
         moveInput.Normalize();
 
-        // float adjustedSpeed = mapManager.GetTileWalkingSpeed(transform.position);
+        float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
 
-        rb2d.velocity = moveInput * moveSpeed;
+        rb2d.velocity = moveInput * (moveSpeed * tileSpeedModifier);
     }
 }

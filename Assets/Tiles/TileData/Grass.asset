@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d1485d36c0115c4ca99ef1d2d8c730f, type: 3}
-  m_Name: ForestTileData
+  m_Name: Grass
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: 7f9bd94398a85c1499c3e35251e2493c, type: 2}
-  moveSpeedModifier: 0.5
+  - {fileID: 11400000, guid: 9a87c5cbe5fe2ca46909e9458b104949, type: 2}
+  moveSpeedModifier: 1
