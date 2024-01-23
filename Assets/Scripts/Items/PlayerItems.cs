@@ -10,13 +10,24 @@ public class PlayerItems : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Speed item = new Speed();
+        Regen item = new Regen();
         items.Add(new ItemList(item, item.Name(), item.Rarity(), 1)); //this should be done when the round has ended, here for testing
+        StartCoroutine(CallItemOnTick());    
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+     
+    }
+
+    IEnumerator CallItemOnTick()
+    {
+        foreach (ItemList i in items)
+        {
+            i.item.OnTick(this, i.level);
+        }
+        yield return new WaitForSeconds(1);
+        StartCoroutine(CallItemOnTick());
     }
 }
