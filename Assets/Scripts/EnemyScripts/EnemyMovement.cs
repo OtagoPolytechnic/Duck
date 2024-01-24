@@ -8,6 +8,13 @@ public class EnemyMovement : MonoBehaviour
     public float speed;
     public int health;
     private float distance;
+    
+    private MapManager mapManager;
+    private void Awake()
+    {
+        mapManager = FindObjectOfType<MapManager>();
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +24,8 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
+
         distance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;
         
@@ -24,7 +33,7 @@ public class EnemyMovement : MonoBehaviour
         direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (speed * tileSpeedModifier) * Time.deltaTime);
         transform.rotation = Quaternion.Euler(Vector3.forward * angle);
         
     }

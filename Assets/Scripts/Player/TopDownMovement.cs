@@ -8,6 +8,13 @@ public class TopDownMovement : MonoBehaviour
     public Rigidbody2D rb2d;
     private Vector2 moveInput;
 
+    private MapManager mapManager;
+
+    private void Awake()
+    {
+        mapManager = FindObjectOfType<MapManager>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +30,8 @@ public class TopDownMovement : MonoBehaviour
 
         moveInput.Normalize();
 
-        rb2d.velocity = moveInput * moveSpeed;
+        float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
+
+        rb2d.velocity = moveInput * (moveSpeed * tileSpeedModifier);
     }
 }
