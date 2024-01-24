@@ -6,6 +6,7 @@ public class EnemyMovement : MonoBehaviour
 {
     public GameObject player;
     public float speed;
+    public int health;
     private float distance;
     // Start is called before the first frame update
     void Start()
