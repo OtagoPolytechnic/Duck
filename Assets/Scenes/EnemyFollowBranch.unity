@@ -963,8 +963,8 @@ GameObject:
   m_Component:
   - component: {fileID: 826391644}
   - component: {fileID: 826391643}
-  - component: {fileID: 826391642}
   - component: {fileID: 826391641}
+  - component: {fileID: 826391645}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -998,24 +998,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0743434, y: 1.0920702}
   m_EdgeRadius: 0
---- !u!114 &826391642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826391640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d46993a6e33d2d54780e712ae90cee79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrolPoints:
-  - {fileID: 1410594837}
-  - {fileID: 1291346657}
-  - {fileID: 340047792}
-  targetPoint: 0
-  speed: 4
 --- !u!212 &826391643
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1083,6 +1065,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &826391645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826391640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b08f7ef46493ec040a6fad13bf51f1aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 2047021146}
+  speed: 3
 --- !u!1 &952486417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,6 +1729,11 @@ PrefabInstance:
 --- !u!4 &1981226725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8650686727299347629, guid: 16e92e0f59ac7ce409a4c6e9b1f48660, type: 3}
+  m_PrefabInstance: {fileID: 1981226724}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2047021146 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8650686727299347630, guid: 16e92e0f59ac7ce409a4c6e9b1f48660, type: 3}
   m_PrefabInstance: {fileID: 1981226724}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2131520552
