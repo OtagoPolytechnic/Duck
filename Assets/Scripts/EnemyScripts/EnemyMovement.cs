@@ -4,31 +4,37 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public Transform[] patrolPoints;
-    public int targetPoint;
+    public GameObject player;
     public float speed;
+    public int health;
+    private float distance;
+    
+    private MapManager mapManager;
+    private void Awake()
+    {
+        mapManager = FindObjectOfType<MapManager>();
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
-        targetPoint = 0;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.position == patrolPoints[targetPoint].position)
-        {
-            increaseTargetInt();
-        }
-        transform.position = Vector3.MoveTowards(transform.position, patrolPoints[targetPoint].position, speed * Time.deltaTime);
-    }
+        float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
 
-    void increaseTargetInt()
-    {
-        targetPoint++;
-        if (targetPoint >= patrolPoints.Length)
-        {
-            targetPoint = 0;
-        }
+        distance = Vector2.Distance(transform.position, player.transform.position);
+        Vector2 direction = player.transform.position - transform.position;
+        
+        //turns enemy towards player
+        direction.Normalize();
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (speed * tileSpeedModifier) * Time.deltaTime);
+        transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+        
     }
 }
