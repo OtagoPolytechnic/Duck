@@ -9,17 +9,27 @@ public class EnemySpawner : MonoBehaviour
     public float spawnTimer; //Time between spawns
     public float lastSpawn; //Time since last spawn
 
+    public GameObject timerManager;
+    Timer timer;
+
     // Update is called once per frame
     void Update()
     {
-
-        if (lastSpawn > spawnTimer)
-        {
-            Spawn(Random.Range(0, enemies.Length));
-            lastSpawn = 0;
+        //This wasn't working when I tried to decleare the timer in start for some reason, so I am assigning it on the first update as a workaround
+        if(timer == null){
+            timer = timerManager.GetComponent<Timer>();
         }
-        else{
-            lastSpawn += Time.deltaTime;
+
+        if(timer.running)
+        {
+            if (lastSpawn > spawnTimer)
+            {
+                Spawn(Random.Range(0, enemies.Length));
+                lastSpawn = 0;
+            }
+            else{
+                lastSpawn += Time.deltaTime;
+            }
         }
     }
 
