@@ -29,4 +29,14 @@ public class EnemyBulletScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        //destroys bullet on hit with player and lowers health
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<PlayerItems>().health -= 20;
+            Destroy(gameObject);
+        }
+    }
 }
