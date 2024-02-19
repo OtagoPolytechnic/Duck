@@ -22,9 +22,9 @@ public class EnemySpawner : MonoBehaviour
             timer = timerManager.GetComponent<Timer>();
         }
 
-        if(waveNumber != timer.waveNumber){
+        if((waveNumber != timer.waveNumber) && (spawnTimer > 0.2)){
             waveNumber = timer.waveNumber;
-            spawnTimer -= 0.1f;
+                spawnTimer -= 0.1f;
         }
 
         if(timer.running)
