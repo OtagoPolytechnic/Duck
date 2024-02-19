@@ -9,6 +9,8 @@ public class EnemySpawner : MonoBehaviour
     public float spawnTimer; //Time between spawns
     public float lastSpawn; //Time since last spawn
 
+    public int waveNumber;
+
     public GameObject timerManager;
     Timer timer;
 
@@ -18,6 +20,11 @@ public class EnemySpawner : MonoBehaviour
         //This wasn't working when I tried to decleare the timer in start for some reason, so I am assigning it on the first update as a workaround
         if(timer == null){
             timer = timerManager.GetComponent<Timer>();
+        }
+
+        if(waveNumber != timer.waveNumber){
+            waveNumber = timer.waveNumber;
+            spawnTimer -= 0.1f;
         }
 
         if(timer.running)
