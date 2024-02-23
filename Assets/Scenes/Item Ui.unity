@@ -203,7 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2109,6 +2109,10 @@ PrefabInstance:
     - target: {fileID: 956115365525452334, guid: a4012c6969c6fdb4eb5cd68187d286d5, type: 3}
       propertyPath: m_Name
       value: Inventory
+      objectReference: {fileID: 0}
+    - target: {fileID: 956115365525452334, guid: a4012c6969c6fdb4eb5cd68187d286d5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 956115365525452335, guid: a4012c6969c6fdb4eb5cd68187d286d5, type: 3}
       propertyPath: m_Pivot.x

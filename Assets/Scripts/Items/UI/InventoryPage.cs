@@ -11,7 +11,7 @@ public class InventoryPage : MonoBehaviour
     
     List<InventoryItem> listOfItems = new List<InventoryItem>();
 
-    public void InitilaizeInventoryUI(int inventorySize)
+    public void InitializeInventoryUI(int inventorySize)
     {
         for (int i = 0; i < inventorySize; i++)
         {
