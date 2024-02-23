@@ -13,6 +13,7 @@ public class EnemyMovement : MonoBehaviour
     private void Awake()
     {
         mapManager = FindObjectOfType<MapManager>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
     
     // Start is called before the first frame update
@@ -24,6 +25,10 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
 
         distance = Vector2.Distance(transform.position, player.transform.position);

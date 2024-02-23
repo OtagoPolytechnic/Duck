@@ -18,7 +18,10 @@ public class PlayerItems : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     
+        if(health <= 0)
+        {
+            Destroy(gameObject); //This will be where game over code will go
+        }
     }
 
     IEnumerator CallItemOnTick()
