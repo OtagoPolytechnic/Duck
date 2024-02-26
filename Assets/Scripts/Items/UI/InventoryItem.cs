@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class InventoryItem : MonoBehaviour
+public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+
+    private bool mouse_over = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -11,8 +14,23 @@ public class InventoryItem : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+   void Update()
     {
-        
+        if (mouse_over)
+        {
+            Debug.Log("Mouse Over");
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData pointerEventData)
+    {
+        mouse_over = true;
+        Debug.Log("Mouse enter");
+    }
+
+    public void OnPointerExit(PointerEventData pointerEventData)
+    {
+        mouse_over = false;
+        Debug.Log("Mouse exit");
     }
 }
