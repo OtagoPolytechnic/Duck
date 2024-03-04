@@ -17,6 +17,7 @@ public class InventoryPage : MonoBehaviour
         {
             InventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
             item.transform.SetParent(contentPanel);
+            item.transform.localScale = new Vector3(1, 1, 1); //this is to fix the parent scale issue. See https://github.com/BIT-Studio-4/Duck-Game/issues/65 for context
             listOfItems.Add(item);
         }
     }

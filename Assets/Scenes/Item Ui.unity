@@ -2309,6 +2309,14 @@ PrefabInstance:
       propertyPath: inventoryUI
       value: 
       objectReference: {fileID: 1504814574}
+    - target: {fileID: 5008000847883296568, guid: 16e92e0f59ac7ce409a4c6e9b1f48660, type: 3}
+      propertyPath: timerManager
+      value: 
+      objectReference: {fileID: 521487406}
+    - target: {fileID: 5008000847883296568, guid: 16e92e0f59ac7ce409a4c6e9b1f48660, type: 3}
+      propertyPath: inventorySize
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8650686727299347626, guid: 16e92e0f59ac7ce409a4c6e9b1f48660, type: 3}
       propertyPath: player
       value: 
