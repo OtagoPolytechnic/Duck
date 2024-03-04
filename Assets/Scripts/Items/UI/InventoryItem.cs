@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-
+//This code is currently for a mouse pointer, if we want updates for a controller or joystick, will need to refactor slightly
     private bool mouse_over = false;
     // Start is called before the first frame update
     void Start()

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
+    //this is the controller for the inventory panel's control.
     public GameObject timerManager;
     public Timer timer;
    [SerializeField]
@@ -18,17 +19,13 @@ public class InventoryController : MonoBehaviour
 
     public void Update() 
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (!timer.running)
         {
-            if (inventoryUI.isActiveAndEnabled == false)
-            {
-                inventoryUI.Show();
-            }
-            else 
-            {
-                inventoryUI.Hide();
-            }
-
+            inventoryUI.Show();
+        }
+        else
+        {     
+            inventoryUI.Hide();
         }
     }
 }
