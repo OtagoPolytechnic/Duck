@@ -10,9 +10,11 @@ public class InventoryPage : MonoBehaviour
     private RectTransform contentPanel;
     
     List<InventoryItem> listOfItems = new List<InventoryItem>();
+    List<int> listOfIDs = new List<int>();
 
     public void InitializeInventoryUI(int inventorySize)
     {
+        //generateItem(inventorySize = 3);
         for (int i = 0; i < inventorySize; i++)
         {
             InventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
@@ -30,4 +32,26 @@ public class InventoryPage : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+//    public void generateItem(int inventorySize)
+//    {
+//        bool reserved;
+//
+//        while (listOfIDs.Count > inventorySize)
+//        {
+//        	reserved = false;
+//        	int number = Random.Range(1, 4); //change last number with amount of total items + 1
+//        	foreach (int card in listOfIDs)
+//        	{
+//        		if (number == card)
+//        		{
+//        			reserved = true;
+//        		}
+//        	}
+//        	if (!reserved)
+//        	{
+//        		listOfIDs.Add(number);
+//        	}
+//        }
+//    }
 }
