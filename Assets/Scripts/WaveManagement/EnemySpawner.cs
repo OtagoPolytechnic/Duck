@@ -17,21 +17,13 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
+        timerManager = GameObject.Find("TimerManager");
         timer = timerManager.GetComponent<Timer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(waveNumber != timer.waveNumber){
-            waveNumber = timer.waveNumber;
-            enemyHealth += 10;
-
-            if (spawnTimer > 0.2){
-                spawnTimer -= 0.1f;
-            }
-        }
-
         if(timer.running)
         {
             if (lastSpawn > spawnTimer)

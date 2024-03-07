@@ -11,12 +11,16 @@ public class Timer : MonoBehaviour
     public float currentTime;
     public int waveNumber;
     public bool running;
+    private GameObject[] spawnPoints;
+
 
     // Start is called before the first frame update
     void Start()
     {
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
+        spawnPoints = GameObject.FindGameObjectsWithTag("Spawner");
+        Debug.Log(spawnPoints);
     }
 
     // Update is called once per frame
@@ -50,5 +54,10 @@ public class Timer : MonoBehaviour
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
         running = true;
+
+        for (int i=0; i<spawnPoints.Length; i++){
+            spawnPoints[i].GetComponent<EnemySpawner>().enemyHealth += 10;
+            spawnPoints[i].GetComponent<EnemySpawner>().spawnTimer -= 0.1f;
+        }
     }
 }
