@@ -21,7 +21,6 @@ public class EnemySpawner : MonoBehaviour
         timer = timerManager.GetComponent<Timer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(timer.running)
