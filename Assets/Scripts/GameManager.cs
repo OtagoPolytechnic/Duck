@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject gameOverUI;
-   bool playerDead = false;
+   private bool playerDead = false;
    public void GameOver()
    {
         if (!playerDead)
