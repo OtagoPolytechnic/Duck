@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,9 +12,25 @@ public class GameManager : MonoBehaviour
         if (!playerDead)
         {
             playerDead = true;
+            //disables shooting, movement and timer on game over
+            FindObjectOfType<shooting>().enabled = false;
+            FindObjectOfType<Timer>().enabled = false;
+            FindObjectOfType<TopDownMovement>().enabled = false;
+            FindObjectOfType<EnemySpawner>().enabled = false;
+            //call game over UI
             gameOverUI.SetActive(true);
             Debug.Log("Game Over");
         }
-        
+   }
+
+     public void Restart() 
+   {
+      // Load current scene
+      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+   }
+
+   public void MainMenu() 
+   {
+      SceneManager.LoadScene("Titlescreen");
    }
 }
