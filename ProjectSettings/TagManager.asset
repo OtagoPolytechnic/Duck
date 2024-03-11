@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Edges
   - Enemy
+  - Spawner
   layers:
   - Default
   - TransparentFX
