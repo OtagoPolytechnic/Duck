@@ -352,7 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770f63443005d0444bfdba7ff6252549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomItem: 0
+  inventory: {fileID: 956115365525452334, guid: a4012c6969c6fdb4eb5cd68187d286d5, type: 3}
   itemName: {fileID: 6838685768968059868}
   itemDesc: {fileID: 7618078054851828033}
 --- !u!1 &4814540259637625435
