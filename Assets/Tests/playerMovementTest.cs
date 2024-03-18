@@ -24,7 +24,7 @@ public class playerMovementTest
         Assert.AreEqual(new Vector2(5f, 0f), rb2d.velocity);
 
        
-        Object.Destroy(gameObject);
+        Object.DestroyImmediate(gameObject);
         
         
     }
