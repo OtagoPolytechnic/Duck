@@ -8,25 +8,21 @@ public class EnemySpawner : MonoBehaviour
     public float spawnRadius;
     public float spawnTimer; //Time between spawns
     public float lastSpawn; //Time since last spawn
+    public int enemyHealth = 100;
 
     public int waveNumber;
 
     public GameObject timerManager;
     Timer timer;
 
-    // Update is called once per frame
+    private void Awake()
+    {
+        timerManager = GameObject.Find("TimerManager");
+        timer = timerManager.GetComponent<Timer>();
+    }
+
     void Update()
     {
-        //This wasn't working when I tried to decleare the timer in start for some reason, so I am assigning it on the first update as a workaround
-        if(timer == null){
-            timer = timerManager.GetComponent<Timer>();
-        }
-
-        if((waveNumber != timer.waveNumber) && (spawnTimer > 0.2)){
-            waveNumber = timer.waveNumber;
-                spawnTimer -= 0.1f;
-        }
-
         if(timer.running)
         {
             if (lastSpawn > spawnTimer)
@@ -42,8 +38,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Spawn(int enemyNum)
     {
-        float randX = Random.Range(-spawnRadius, spawnRadius);
-        float randY = Random.Range(-spawnRadius, spawnRadius);
-        Instantiate(enemies[enemyNum], transform.position + new Vector3(randX, randY, 0), transform.rotation);
+        GameObject enemy = Instantiate(enemies[enemyNum], transform.position + new Vector3(Random.Range(-spawnRadius, spawnRadius), Random.Range(-spawnRadius, spawnRadius), 0), transform.rotation);
+        enemy.GetComponent<EnemyMovement>().health = enemyHealth;
     }
 }
