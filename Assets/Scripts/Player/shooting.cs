@@ -11,6 +11,25 @@ public class shooting : MonoBehaviour
     Vector2 lookDirection;
     float lookAngle;
 
+        public void Shoot()
+    {
+        // Capture mouse position and calculate shooting direction
+        lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        lookDirection = new Vector2(lookDirection.x - transform.position.x, lookDirection.y - transform.position.y);
+        lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+
+        // Rotate firePoint towards mouse position
+        firePoint.rotation = Quaternion.Euler(0, 0, lookAngle);
+
+        // Instantiate bullet clone and set its position and rotation
+        GameObject bulletClone = Instantiate(bullet);
+        bulletClone.transform.position = firePoint.position;
+        bulletClone.transform.rotation = Quaternion.Euler(0, 0, lookAngle);
+
+        // Apply velocity to the bullet clone
+        bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
+    }
+
     void Update()
     {
         lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition);
