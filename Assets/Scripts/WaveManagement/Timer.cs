@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+
 public class Timer : MonoBehaviour
 {
     public TextMeshProUGUI waveNumberText;
