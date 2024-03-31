@@ -6,20 +6,24 @@ using UnityEngine.TestTools;
 
 public class PlayerTest
 {
-    // A Test behaves as an ordinary method
-    [Test]
-    public void PlayerTestSimplePasses()
-    {
-        // Use the Assert class to test conditions
-    }
-
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
     [UnityTest]
     public IEnumerator PlayerTestWithEnumeratorPasses()
     {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
+        GameObject gameObject = new GameObject();
+        Rigidbody2D rb2d = gameObject.AddComponent<Rigidbody2D>();
+        TopDownMovement movementScript = gameObject.AddComponent<TopDownMovement>();
+
+        movementScript.moveSpeed = 5f;
+
+        Vector3 initialPosition = gameObject.transform.position;
+
+        yield return null; // Wait for one frame to apply velocity
+
+        // Simulate pressing the up arrow key (or equivalent)
+        movementScript.moveInput = Vector2.up;
+
+        yield return new WaitForSeconds(1f); // Wait for 1 second
+
+        Assert.Greater(gameObject.transform.position.y, initialPosition.y); // Assert that the object has moved upwards
     }
 }
