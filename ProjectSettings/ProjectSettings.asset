@@ -818,11 +818,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: c01369e6-dbd8-4a18-8334-f44c0c49132d
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: Duck-Game
+  organizationId: y_jun_x
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

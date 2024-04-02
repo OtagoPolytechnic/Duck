@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4043444901413562697}
   m_Layer: 0
   m_Name: SpawnPoint
-  m_TagString: Untagged
+  m_TagString: Spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 3723277650304258859, guid: d3709ecd55fc5064cb6afaba0bcc1dde, type: 3}
+  - {fileID: 5656455698361903583, guid: 70e29cb3f36869e49ba6761acacc67cd, type: 3}
   spawnRadius: 2
   spawnTimer: 3
   lastSpawn: 0
+  enemyHealth: 100
+  waveNumber: 1
+  timerManager: {fileID: 0}
