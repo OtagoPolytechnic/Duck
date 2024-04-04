@@ -8,9 +8,7 @@ public class PlayerHealth : MonoBehaviour
 
     [HideInInspector]
     public float currentHealth;
-
-    public int lives;
-
+    public List<GameObject> lifeEggs;
     
     // Start is called before the first frame update
     void Start()
@@ -23,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if(currentHealth <= 0)
         {
-            if (lives > 1)
+            if (lifeEggs.Count > 0)
             {
                 Respawn();
             }
@@ -37,7 +35,10 @@ public class PlayerHealth : MonoBehaviour
     void Respawn()
     {
         Debug.Log("respawned");
-        lives -= 1;
+
+        Destroy(lifeEggs[lifeEggs.Count -1]);
+        lifeEggs.Remove(lifeEggs[lifeEggs.Count -1]);
+
         gameObject.transform.position = new Vector3(0,0,0); //Will use position of nest gameObject once it is added
         currentHealth = maxHealth;
     }
