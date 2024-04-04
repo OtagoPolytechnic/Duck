@@ -36,10 +36,13 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("respawned");
 
-        Destroy(lifeEggs[lifeEggs.Count -1]);
-        lifeEggs.Remove(lifeEggs[lifeEggs.Count -1]);
+        if (lifeEggs.Count > 0) //This should never run if there are no eggs, but this is here just in case
+        {
+            Destroy(lifeEggs[lifeEggs.Count -1]);
+            lifeEggs.Remove(lifeEggs[lifeEggs.Count -1]);
+        }
 
-        gameObject.transform.position = new Vector3(0,0,0); //Will use position of nest gameObject once it is added
+        gameObject.transform.position = new Vector3(0,0,0); //use position of egg
         currentHealth = maxHealth;
     }
 }
