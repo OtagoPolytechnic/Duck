@@ -6,18 +6,17 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-
-    public static ScoreManager scoreManager;
+    public static ScoreManager Instance;
     public TMP_Text pointsText;
     public TMP_Text highscoreText;
 
-    public int points = 0;
-    public int highscore = 0;
+    public int score;
+    public int highscore;
     // Start is called before the first frame update
     void Start()
     {
-        //EnemyHealth.enemy.OnEnemyDeath.AddListener(IncreasePoints());
-        pointsText.text = "Points: " + points.ToString();
+        //EnemyHealth.OnEnemyDeath.AddListener(IncreasePoints);
+        pointsText.text = "Score: " + score.ToString();
         highscoreText.text = "Highscore: " + highscore.ToString();
     }
 
@@ -27,15 +26,15 @@ public class ScoreManager : MonoBehaviour
         
     }
 
-    public void Awake()
+    public void IncreasePoints(int amount)
     {
-        scoreManager = this;
+        score += amount;
+        pointsText.text = "Points: " + score.ToString();
     }
 
-    private void IncreasePoints(int amount)
+    private void Awake()
     {
-        points += amount;
-        pointsText.text = "Points: " + points.ToString();
+        Instance = this;
     }
 
 }

@@ -5,9 +5,9 @@ using UnityEngine.Events;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public static EnemyHealth enemy;
-    public UnityEvent OnEnemyDeath = new UnityEvent();
+    //public UnityEvent OnEnemyDeath = new UnityEvent();
     public int health;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -19,13 +19,10 @@ public class EnemyHealth : MonoBehaviour
     {
         if (health <= 0)
         {
-            OnEnemyDeath?.Invoke();
+            //OnEnemyDeath?.Invoke();
+            ScoreManager.Instance.IncreasePoints(10);
             Destroy(gameObject);
         }
     }
-
-    void Awake()
-    {
-        enemy = this;
-    }
+    
 }
