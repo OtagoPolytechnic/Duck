@@ -131,7 +131,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0.06512454, z: 0, w: -0.032714847}
+  m_margin: {x: 0, y: 44.15493, z: 0, w: -41.52899}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -352,9 +352,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770f63443005d0444bfdba7ff6252549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textName: 
+  textDesc: 
   inventory: {fileID: 956115365525452334, guid: a4012c6969c6fdb4eb5cd68187d286d5, type: 3}
   itemName: {fileID: 6838685768968059868}
   itemDesc: {fileID: 7618078054851828033}
+  bordercolor: {fileID: 5707937286055462829}
 --- !u!1 &4814540259637625435
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,7 +490,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: -42.793068}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
