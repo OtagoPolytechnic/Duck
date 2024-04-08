@@ -9,8 +9,8 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 {
 //This code is currently for a mouse pointer, if we want updates for a controller or joystick, will need to refactor slightly
     private bool mouseOver = false;
-    public int textName;
-    public int textDesc;
+    public string textName;
+    public string textDesc;
     public GameObject inventory;
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemDesc;
@@ -19,8 +19,8 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         // InventoryPage itemRender = inventory.GetComponent<InventoryPage>();
         // Debug.Log($"In Item: {itemRender.randomItem}");
-        itemName.text = textName.ToString();
-        itemDesc.text = textDesc.ToString();
+        itemName.text = textName;
+        itemDesc.text = textDesc;
     }
 
     // Update is called once per frame

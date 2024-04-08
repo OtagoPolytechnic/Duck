@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 956115365525452338}
   - component: {fileID: 956115365525452333}
   - component: {fileID: 956115365525452332}
-  - component: {fileID: 5491783553672786323}
+  - component: {fileID: 8331263402200163150}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &5491783553672786323
+--- !u!114 &8331263402200163150
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -220,5 +220,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16b1b2e46cadc164ab238866b1e658dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 8210585930333393427, guid: 9ebb4b1608d0e7d448c5c4b0ae4ee02f, type: 3}
-  contentPanel: {fileID: 956115364427803934}
+  itemPrefab: {fileID: 0}
+  contentPanel: {fileID: 0}
+  index: 0
+  randomItemName: 
+  randomItemDesc: 
+  itemList:
+  - name: Sharp Bullets
+    desc: Makes your bullets sharper; therefore, dealing more damage
+    rarity: Common
+  - name: Bigger Heart
+    desc: Gives you more health
+    rarity: Common
+  - name: Bigger Bullets
+    desc: Makes your bullets bigger; therefore, hitting more people
+    rarity: Common
+  - name: Egg
+    desc: You lay another egg
+    rarity: Rare
+  - name: Cheese
+    desc: Cheese
+    rarity: Uncommon
+  - name: Exposive Boolets
+    desc: Boom
+    rarity: Common

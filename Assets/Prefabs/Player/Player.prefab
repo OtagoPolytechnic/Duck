@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4316639253410503295}
   - component: {fileID: 4316639253410503290}
   - component: {fileID: 4893901211425009371}
+  - component: {fileID: 1586632224694171079}
   - component: {fileID: 6300385405140103751}
   - component: {fileID: 970100736}
   m_Layer: 0
@@ -140,6 +141,22 @@ MonoBehaviour:
   bullet: {fileID: 1970858085864543839, guid: 699c37d916ee4864c970c209d0813901, type: 3}
   firePoint: {fileID: 4316639253410503293}
   bulletSpeed: 50
+--- !u!114 &1586632224694171079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4316639253410503294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed6a224020b27b1418e24591170c2fce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerManager: {fileID: 0}
+  timer: {fileID: 0}
+  inventoryUI: {fileID: 0}
+  inventorySize: 3
 --- !u!114 &6300385405140103751
 MonoBehaviour:
   m_ObjectHideFlags: 0

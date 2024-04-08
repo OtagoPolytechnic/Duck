@@ -9,12 +9,12 @@ public class InventoryController : MonoBehaviour
     public Timer timer;
    [SerializeField]
     private InventoryPage inventoryUI;
+    [HideInInspector]
     public int inventorySize = 3;
 
     public void Start() 
     {
         timer = timerManager.GetComponent<Timer>();
-        inventoryUI.InitializeInventoryUI(inventorySize);
     }
 
     public void Update() 

@@ -6,12 +6,17 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
+    [SerializeField]
+    private InventoryPage inventoryUI;
+    [HideInInspector]
+    public int inventorySize = 3;
     public TextMeshProUGUI waveNumberText;
     public TextMeshProUGUI timerText;
     public float waveLength;
     public float currentTime;
     public int waveNumber;
     public bool running;
+    bool geninventory = false;
     private GameObject[] spawnPoints;
 
 
@@ -35,7 +40,15 @@ public class Timer : MonoBehaviour
         
         if(currentTime <= 0)
         {
+            
             running = false;
+      
+            if (!geninventory)
+            {
+                inventoryUI.InitializeInventoryUI(inventorySize);
+                geninventory = true;
+            }
+            
         }
 
         setTimerText();
@@ -59,5 +72,6 @@ public class Timer : MonoBehaviour
         }
 
         running = true;
+        geninventory = false;
     }
 }
