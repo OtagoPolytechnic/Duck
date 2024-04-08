@@ -15,8 +15,9 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //couldn't get this working now, but might save for later
         //EnemyHealth.OnEnemyDeath.AddListener(IncreasePoints);
-        pointsText.text = "Score: " + score.ToString();
+        //pointsText.text = "Score: " + score.ToString();
         highscoreText.text = "Highscore: " + highscore.ToString();
     }
 

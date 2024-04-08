@@ -19,6 +19,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if (health <= 0)
         {
+            //save for if we need event
             //OnEnemyDeath?.Invoke();
             ScoreManager.Instance.IncreasePoints(10);
             Destroy(gameObject);
