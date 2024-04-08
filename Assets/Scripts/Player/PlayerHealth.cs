@@ -41,11 +41,11 @@ public class PlayerHealth : MonoBehaviour
 
         if (lifeEggs.Count > 0) //This should never run if there are no eggs, but this is here just in case
         {
+            gameObject.transform.position = lifeEggs[lifeEggs.Count -1].transform.position;
             Destroy(lifeEggs[lifeEggs.Count -1]);
             lifeEggs.Remove(lifeEggs[lifeEggs.Count -1]);
         }
 
-        gameObject.transform.position = new Vector3(0,0,0); //use position of egg
         currentHealth = maxHealth;
     }
 }
