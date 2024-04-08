@@ -17,7 +17,7 @@ public class ScoreManager : MonoBehaviour
     {
         //couldn't get this working now, but might save for later
         //EnemyHealth.OnEnemyDeath.AddListener(IncreasePoints);
-        //pointsText.text = "Score: " + score.ToString();
+ 
         highscoreText.text = "Highscore: " + highscore.ToString();
     }
 
