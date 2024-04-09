@@ -40,6 +40,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
+        
         Debug.Log("Click");
     }
 

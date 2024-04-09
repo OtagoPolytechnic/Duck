@@ -29,8 +29,8 @@ public class InventoryPage : MonoBehaviour
         List<Item> tempItems = new List<Item>(itemList);
         for (int i = preGenItems.Count - 1; i >= 0; i--) //makes sure the items previously generated are cleared to not bunch up on the inventory window
         {
-            Destroy(preGenItems[i].gameObject);
-            preGenItems.RemoveAt(i);
+            Destroy(preGenItems[i].gameObject); //removes item
+            preGenItems.RemoveAt(i); //removes floating null pointer
         } 
 
         for (int i = 0; i < inventorySize; i++) //generates an item without duplication an assigns it to the prefab.

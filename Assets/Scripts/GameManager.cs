@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
             FindObjectOfType<Timer>().enabled = false;
             FindObjectOfType<TopDownMovement>().enabled = false;
             FindObjectOfType<EnemySpawner>().enabled = false;
+            //call kill all active enemies
             //call game over UI
             gameOverUI.SetActive(true);
             Debug.Log("Game Over");
