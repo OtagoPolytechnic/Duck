@@ -18,13 +18,15 @@ public class Timer : MonoBehaviour
     public bool running;
     bool geninventory = false;
     private GameObject[] spawnPoints;
-
+    public InventoryItem item;
+    public GameObject itemPrefab;
 
     void Start()
     {
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
         spawnPoints = GameObject.FindGameObjectsWithTag("Spawner");
+        item = itemPrefab.GetComponent<InventoryItem>();
     }
 
     void Update()
@@ -33,14 +35,15 @@ public class Timer : MonoBehaviour
         {
             currentTime -= Time.deltaTime;
         }
-        else if(Input.GetKeyDown("space"))
+        else if(item.itemChosen == true)
         {
+            Debug.Log("Item Picked!");
             nextWave();
         }
         
         if(currentTime <= 0)
         {
-            
+
             running = false;
       
             if (!geninventory)
@@ -73,5 +76,6 @@ public class Timer : MonoBehaviour
 
         running = true;
         geninventory = false;
+        item.itemChosen = false;
     }
 }

@@ -352,12 +352,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770f63443005d0444bfdba7ff6252549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemChosen: 0
   textName: 
   textDesc: 
   inventory: {fileID: 956115365525452334, guid: a4012c6969c6fdb4eb5cd68187d286d5, type: 3}
   itemName: {fileID: 6838685768968059868}
   itemDesc: {fileID: 7618078054851828033}
   bordercolor: {fileID: 5707937286055462829}
+  timerManager: {fileID: 709565837640871389, guid: 8748f22728d1eb84da3b210474b5c18b, type: 3}
+  timer: {fileID: 709565837640871388, guid: 8748f22728d1eb84da3b210474b5c18b, type: 3}
 --- !u!1 &4814540259637625435
 GameObject:
   m_ObjectHideFlags: 0

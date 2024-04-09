@@ -7,7 +7,7 @@ public class InventoryController : MonoBehaviour
     //this is the controller for the inventory panel's control.
     public GameObject timerManager;
     public Timer timer;
-   [SerializeField]
+    [SerializeField]
     private InventoryPage inventoryUI;
     [HideInInspector]
     public int inventorySize = 3;
