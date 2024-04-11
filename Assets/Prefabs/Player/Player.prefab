@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.8873035, g: 0.9339623, b: 0.118948035, a: 1}
   m_FlipX: 0
@@ -152,7 +152,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9076b06a673bc004888e527c9cf3c8f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  maxHealth: 100
+  currentHealth: 0
+  lifeEggs: []
+  onPlayerRespawn:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &970100736
 BoxCollider2D:
   m_ObjectHideFlags: 0
