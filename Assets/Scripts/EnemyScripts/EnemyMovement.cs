@@ -6,7 +6,6 @@ public class EnemyMovement : MonoBehaviour
 {
     public GameObject player;
     public float speed;
-    public int health;
     private float distance;
     
     private MapManager mapManager;
@@ -25,10 +24,6 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
 
         distance = Vector2.Distance(transform.position, player.transform.position);
