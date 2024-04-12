@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditorInternal;
 
 
 public class Timer : MonoBehaviour
@@ -16,39 +17,50 @@ public class Timer : MonoBehaviour
     public float currentTime;
     public int waveNumber;
     public bool running;
+    private bool gotItems = true;
     bool geninventory = false;
     private GameObject[] spawnPoints;
-    public InventoryItem item;
-    public GameObject itemPrefab;
+    public List<InventoryItem> inventoryItems = new List<InventoryItem>();
+    public GameObject[] itemObjects;
 
     void Start()
     {
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
         spawnPoints = GameObject.FindGameObjectsWithTag("Spawner");
-        item = itemPrefab.GetComponent<InventoryItem>();
     }
 
     void Update()
     {
+        if (!gotItems) //function is needed because unity cannot parse tags on same frame as instantiation 
+        {     
+            GetItems();
+        }
         if(running)
         {
             currentTime -= Time.deltaTime;
         }
-        else if(item.itemChosen == true)
+        else 
         {
-            Debug.Log("Item Picked!");
-            nextWave();
+            for (int i = 0; i < inventoryItems.Count; i++)
+            {
+                if (inventoryItems[i].itemChosen)
+                {
+                    Debug.Log("Item Picked!");
+                    nextWave();
+                }
+            }
+
         }
         
         if(currentTime <= 0)
         {
-
             running = false;
-      
+            gotItems = false;
             if (!geninventory)
             {
                 inventoryUI.InitializeInventoryUI(inventorySize);
+                
                 geninventory = true;
             }
             
@@ -57,6 +69,15 @@ public class Timer : MonoBehaviour
         setTimerText();
     }
 
+    private void GetItems()
+    {
+        itemObjects = GameObject.FindGameObjectsWithTag("Item");
+        for (int i = 0; i < itemObjects.Length; i++)
+        {
+            inventoryItems[i] = itemObjects[i].GetComponent<InventoryItem>();
+        }
+        gotItems = true;
+    }
     private void setTimerText()
     {
         timerText.text = currentTime.ToString("0") + " s";
@@ -76,6 +97,6 @@ public class Timer : MonoBehaviour
 
         running = true;
         geninventory = false;
-        item.itemChosen = false;
+        //inventoryItems.Clear();
     }
 }

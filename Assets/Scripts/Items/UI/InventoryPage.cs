@@ -40,7 +40,7 @@ public class InventoryPage : MonoBehaviour
             randomItemDesc = tempItems[index].desc;
             Debug.Log($"In InventoryPage.cs: index chosen is {index} and item is {randomItemName}");
             tempItems.RemoveAt(index);
-            InventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+            InventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);            
             preGenItems.Add(item);
             item.GetComponent<InventoryItem>().textName = randomItemName;
             item.GetComponent<InventoryItem>().textDesc = randomItemDesc;

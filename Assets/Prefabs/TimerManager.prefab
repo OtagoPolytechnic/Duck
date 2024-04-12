@@ -52,5 +52,8 @@ MonoBehaviour:
   currentTime: 5
   waveNumber: 1
   running: 1
-  item: {fileID: 8210585930333393427, guid: 9ebb4b1608d0e7d448c5c4b0ae4ee02f, type: 3}
-  itemPrefab: {fileID: 2779606144502984436, guid: 9ebb4b1608d0e7d448c5c4b0ae4ee02f, type: 3}
+  inventoryItems:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  itemObjects: []

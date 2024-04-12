@@ -8,7 +8,7 @@ TagManager:
   - Enemy
   - Spawner
   - Bullet
-
+  - Item
   layers:
   - Default
   - TransparentFX

@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.UI;
 
-public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 //This code is currently for a mouse pointer, if we want updates for a controller or joystick, will need to refactor slightly
     private bool mouseOver = false;
@@ -43,11 +43,11 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
     }
 
-    public void OnPointerClick(PointerEventData pointerEventData)
+    public void Click()
     {
         //assign the clicked item to the player ---> either in the player script or its own that it attached to the player prefab
         itemChosen = true; 
-        Debug.Log("Click");
+        Debug.Log($"Click {itemChosen}");
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
