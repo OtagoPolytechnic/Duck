@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<EnemyMovement>().health -= 20;
+            other.gameObject.GetComponent<EnemyHealth>().health -= 20;
             Destroy(gameObject);
         }
     }
