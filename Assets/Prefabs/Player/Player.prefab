@@ -153,9 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6a224020b27b1418e24591170c2fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerManager: {fileID: 0}
-  timer: {fileID: 0}
-  inventoryUI: {fileID: 0}
+  timerManager: {fileID: 709565837640871389, guid: 8748f22728d1eb84da3b210474b5c18b, type: 3}
+  timer: {fileID: 709565837640871388, guid: 8748f22728d1eb84da3b210474b5c18b, type: 3}
+  inventoryUI: {fileID: 8331263402200163150, guid: a4012c6969c6fdb4eb5cd68187d286d5, type: 3}
   inventorySize: 3
 --- !u!114 &6300385405140103751
 MonoBehaviour:

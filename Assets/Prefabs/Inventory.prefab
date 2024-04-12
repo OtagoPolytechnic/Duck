@@ -122,7 +122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &956115365525452335
 RectTransform:
   m_ObjectHideFlags: 0
@@ -222,8 +222,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 5229502777667377274, guid: 9ebb4b1608d0e7d448c5c4b0ae4ee02f, type: 3}
   contentPanel: {fileID: 956115364427803934}
-  randomItemName: 
-  randomItemDesc: 
+  randomItemName: Sharp Bullets
+  randomItemDesc: Makes your bullets sharper; therefore, dealing more damage
   itemList:
   - name: Sharp Bullets
     desc: Makes your bullets sharper; therefore, dealing more damage

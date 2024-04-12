@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709565837640871389}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.4965191, y: 1.0789946, z: 295.1748}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e535d8ac783e02b438cad2412fc9e9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryUI: {fileID: 8331263402200163150, guid: a4012c6969c6fdb4eb5cd68187d286d5, type: 3}
+  inventoryUI: {fileID: 0}
   inventorySize: 3
-  waveNumberText: {fileID: 4294723905314482570, guid: 2fee029fd6a9ac8458d89ad30d050d6c, type: 3}
-  timerText: {fileID: 1325759413123713181, guid: d440eb47d3e6b1d4696e651ee8641be2, type: 3}
-  waveLength: 5
-  currentTime: 5
+  waveNumberText: {fileID: 0}
+  timerText: {fileID: 0}
+  waveLength: 30
+  currentTime: 30
   waveNumber: 1
   running: 1
   inventoryItems:
