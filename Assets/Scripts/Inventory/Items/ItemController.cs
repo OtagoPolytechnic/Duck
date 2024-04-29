@@ -15,4 +15,9 @@ public class ItemController : MonoBehaviour
     {
         
     }
+
+    public void ItemPicked(string textName)
+    {
+        Debug.Log(textName);
+    }
 }

@@ -257,6 +257,7 @@ MonoBehaviour:
   bordercolor: {fileID: 8585940791895604025}
   timerManager: {fileID: 709565837640871389, guid: 8748f22728d1eb84da3b210474b5c18b, type: 3}
   timer: {fileID: 709565837640871388, guid: 8748f22728d1eb84da3b210474b5c18b, type: 3}
+  itemController: {fileID: 8201821395946054257, guid: 556f888338dca14468638a40756d30f9, type: 3}
 --- !u!114 &6069258572837063138
 MonoBehaviour:
   m_ObjectHideFlags: 0

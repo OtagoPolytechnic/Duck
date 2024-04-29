@@ -19,6 +19,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public Image bordercolor;
     public GameObject timerManager;
     public Timer timer;
+    public ItemController itemController;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +46,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void Click()
     {
-        //assign the clicked item to the player ---> either in the player script or its own that it attached to the player prefab
+        itemController.ItemPicked(textName); //assign the clicked item to the player
         itemChosen = true; 
         Debug.Log($"Click {itemChosen}");
     }
