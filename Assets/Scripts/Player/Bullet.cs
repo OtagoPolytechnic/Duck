@@ -5,7 +5,12 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private float timer;
+
+    [SerializeField]
+    private int damage = 20;
+    public int damageModifier;
     // Start is called before the first frame update
+
     void Start()
     {
         
@@ -28,7 +33,7 @@ public class Bullet : MonoBehaviour
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<EnemyHealth>().health -= 20;
+            other.gameObject.GetComponent<EnemyHealth>().health -= damage + damageModifier;
             Destroy(gameObject);
         }
     }
