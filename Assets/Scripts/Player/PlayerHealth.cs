@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float maxHealth;
+    public static float maxHealth = 100;
 
     [HideInInspector]
     public float currentHealth;

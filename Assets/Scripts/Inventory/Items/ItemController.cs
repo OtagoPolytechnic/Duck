@@ -6,7 +6,6 @@ public class ItemController : MonoBehaviour
 {
 
     public Bullet bullet;
-    public PlayerHealth playerHealth;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +28,8 @@ public class ItemController : MonoBehaviour
                 bullet.damageModifier += 10;
             break;
             case "Health Increase":
-                playerHealth.maxHealth += playerHealth.maxHealth * 1.10f;
+                PlayerHealth.maxHealth *= 1.10f;
+                Debug.Log(PlayerHealth.maxHealth);
             break;
         }
     }
