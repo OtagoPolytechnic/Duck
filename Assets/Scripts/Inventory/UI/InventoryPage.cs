@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.SceneManagement;
@@ -7,7 +8,15 @@ public class Item
 {
     public string name;
     public string desc;
-    public string rarity;
+    public rarity rarity;
+    public int stack = 0;
+}
+
+public enum rarity{
+    Common,
+    Uncommon,
+    Rare,
+    Epic
 }
 public class InventoryPage : MonoBehaviour
 {
@@ -20,7 +29,20 @@ public class InventoryPage : MonoBehaviour
     public string randomItemName;
     [HideInInspector]
     public string randomItemDesc;
-    public List<Item> itemList = new List<Item>();
+    public List<Item> itemList = new List<Item>{ //char limit of 99 in description 
+        new() { name = "Damage Increase", desc = "Increases damage you deal", rarity = rarity.Common },
+        new() { name = "Health Increase", desc = "Gives you more max health", rarity = rarity.Common },
+        new() { name = "Speed Increase", desc = "Increases your speed", rarity = rarity.Common },
+        new() { name = "Extra Life", desc = "You gain an extra life", rarity = rarity.Rare },
+        new() { name = "Bleed", desc = "Your hits bleed enemies", rarity = rarity.Uncommon },
+        new() { name = "Lifesteal", desc = "Your hits heal you", rarity = rarity.Uncommon},
+        new() { name = "Regen", desc = "Your health slowly regenerates over time", rarity = rarity.Uncommon },
+        new() { name = "Shotgun", desc = "You shoot a spread of bullets instead of one", rarity = rarity.Rare },
+        new() { name = "Glass Cannon", desc = "Halves your health to double your damage", rarity = rarity.Epic },
+        new() { name = "Firerate Increase", desc = "You shoot faster", rarity = rarity.Common },
+        new() { name = "Explosive bullets", desc = "Your bullets explode on impact", rarity = rarity.Uncommon },
+        new() { name = "Crit Chance", desc = "You have an increased chance to deal critical damage" , rarity = rarity.Uncommon },
+    };
 
     List<InventoryItem> preGenItems = new List<InventoryItem>();
 
@@ -35,7 +57,7 @@ public class InventoryPage : MonoBehaviour
 
         for (int i = 0; i < inventorySize; i++) //generates an item without duplication an assigns it to the prefab.
         {
-            index = Random.Range(0, tempItems.Count); 
+            index = UnityEngine.Random.Range(0, tempItems.Count); 
             randomItemName = tempItems[index].name;
             randomItemDesc = tempItems[index].desc;
             Debug.Log($"In InventoryPage.cs: index chosen is {index} and item is {randomItemName}");
