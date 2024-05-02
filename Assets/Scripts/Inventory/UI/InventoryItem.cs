@@ -9,12 +9,14 @@ using UnityEngine.UI;
 public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private bool mouseOver = false;
-    public string textName;
     public bool itemChosen;   
+    public string textName;
     public string textDesc;
+    public int textStacks;
     public GameObject inventory;
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemDesc;
+    public TextMeshProUGUI itemStacks;
     public Image bordercolor;
     public GameObject timerManager;
     public Timer timer;
@@ -25,6 +27,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         timer = timerManager.GetComponent<Timer>();
         itemName.text = textName;
         itemDesc.text = textDesc;
+        itemStacks.text = textStacks.ToString();
     }
 
     // Update is called once per frame
@@ -42,20 +45,19 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void Click()
     {
-        itemController.ItemPicked(textName); //assign the clicked item to the player
+        textStacks++;
+        itemStacks.text = textStacks.ToString();
+        itemController.ItemPicked(textName, textStacks); //assign the clicked item to the player
         itemChosen = true; 
-        Debug.Log($"Click {itemChosen}");
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
         mouseOver = true;
-        Debug.Log("Enter");
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         mouseOver = false;
-        Debug.Log("Exit");
     }
 }

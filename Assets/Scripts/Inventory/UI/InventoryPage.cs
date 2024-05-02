@@ -9,7 +9,6 @@ public class Item
     public string name;
     public string desc;
     public rarity rarity;
-    public int stack = 0;
 }
 
 public enum rarity{
