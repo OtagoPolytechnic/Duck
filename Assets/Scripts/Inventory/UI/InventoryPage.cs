@@ -29,7 +29,7 @@ public class InventoryPage : MonoBehaviour
     public string randomItemName;
     [HideInInspector]
     public string randomItemDesc;
-    public List<Item> itemList = new List<Item>{ //char limit of 99 in description 
+    public static List<Item> itemList = new List<Item>{ //char limit of 99 in description 
         new() { name = "Damage Increase", desc = "Increases damage you deal", rarity = rarity.Common },
         new() { name = "Health Increase", desc = "Gives you more max health", rarity = rarity.Common },
         new() { name = "Speed Increase", desc = "Increases your speed", rarity = rarity.Common },
