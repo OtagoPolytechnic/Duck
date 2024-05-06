@@ -18,7 +18,11 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public TextMeshProUGUI textName;
     public TextMeshProUGUI textDesc;
     public TextMeshProUGUI textStacks;
-    public Image bordercolor;
+    public Image borderColor;
+    public Color32 commonColor;
+    public Color32 uncommonColor;
+    public Color32 rareColor;
+    public Color32 epicColor;
     public GameObject timerManager;
     public Timer timer;
     public ItemController itemController;
@@ -36,11 +40,43 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (mouseOver)
         {
-            bordercolor.color = new Color32(43,56,77,150);//temp colors
+            if (itemRarity == rarity.Uncommon)
+            {
+                borderColor.color = uncommonColor;
+            }
+            else if (itemRarity == rarity.Rare)
+            {
+                borderColor.color = rareColor;
+            }
+            else if (itemRarity == rarity.Epic)
+            {
+                borderColor.color = epicColor;
+            }
+            else //assume all other items are common
+            {
+                borderColor.color = commonColor;
+            }
+           
         }
         else
         {
-            bordercolor.color = new Color32(43,56,77,200);//temp colors
+            if (itemRarity == rarity.Uncommon)
+            {
+                borderColor.color = uncommonColor;
+            }
+            else if (itemRarity == rarity.Rare)
+            {
+                borderColor.color = rareColor;
+            }
+            else if (itemRarity == rarity.Epic)
+            {
+                borderColor.color = epicColor;
+            }
+            else //assume all other items are common
+            {
+                borderColor.color = commonColor;
+            }
+
         }
     }
 

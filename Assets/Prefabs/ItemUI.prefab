@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.49019608}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -249,14 +249,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemChosen: 0
-  textName: 
-  textDesc: 
-  textStacks: 0
+  itemName: 
+  itemDesc: 
+  itemRarity: 0
+  itemStacks: 0
   inventory: {fileID: 956115365525452334, guid: a4012c6969c6fdb4eb5cd68187d286d5, type: 3}
-  itemName: {fileID: 6838685768968059868}
-  itemDesc: {fileID: 7618078054851828033}
-  itemStacks: {fileID: 1706694306785212540}
-  bordercolor: {fileID: 8585940791895604025}
+  textName: {fileID: 6838685768968059868}
+  textDesc: {fileID: 7618078054851828033}
+  textStacks: {fileID: 1706694306785212540}
+  borderColor: {fileID: 8585940791895604025}
+  commonColor:
+    serializedVersion: 2
+    rgba: 11053224
+  uncommonColor:
+    serializedVersion: 2
+    rgba: 0
+  rareColor:
+    serializedVersion: 2
+    rgba: 0
+  epicColor:
+    serializedVersion: 2
+    rgba: 0
   timerManager: {fileID: 709565837640871389, guid: 8748f22728d1eb84da3b210474b5c18b, type: 3}
   timer: {fileID: 709565837640871388, guid: 8748f22728d1eb84da3b210474b5c18b, type: 3}
   itemController: {fileID: 8201821395946054257, guid: 556f888338dca14468638a40756d30f9, type: 3}
@@ -349,7 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.12941177, g: 0.227451, b: 0.32941177, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
