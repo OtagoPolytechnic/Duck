@@ -18,13 +18,14 @@ public class ItemController : MonoBehaviour
         
     }
 
+    //if you change something in this list you need to change it in InventoryPage.cs's list named itemlist
     public void ItemPicked(string textName, int stacks)
     {
         Debug.Log(textName);
 
         switch(textName) 
         {
-            case "Damage Increase": //goes to Bullet.cs currently bugged as of 30/04
+            case "Damage Increase": 
                 bullet.damageModifier += 10 + stacks;
             break;
             case "Health Increase":

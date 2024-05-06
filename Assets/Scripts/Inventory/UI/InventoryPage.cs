@@ -28,6 +28,7 @@ public class InventoryPage : MonoBehaviour
     public string randomItemName;
     [HideInInspector]
     public string randomItemDesc;
+    //if you change something in this list you need to change it in ItemController.cs's method ItemPicked()
     public static List<Item> itemList = new List<Item>{ //char limit of 99 in description 
         new() { name = "Damage Increase", desc = "Increases damage you deal", rarity = rarity.Common },
         new() { name = "Health Increase", desc = "Gives you more max health", rarity = rarity.Common },
