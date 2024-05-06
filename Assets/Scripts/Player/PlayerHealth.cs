@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class PlayerHealth : MonoBehaviour
 {
     public static float maxHealth = 100;
+    public static int damage = 20;
 
     [HideInInspector]
     public float currentHealth;

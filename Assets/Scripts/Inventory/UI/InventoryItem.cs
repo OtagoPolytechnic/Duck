@@ -47,7 +47,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         textStacks++;
         itemStacks.text = textStacks.ToString();
-        itemController.ItemPicked(textName, textStacks); //assign the clicked item to the player
+        itemController.ItemPicked(textName); //assign the clicked item to the player
         itemChosen = true; 
     }
 
