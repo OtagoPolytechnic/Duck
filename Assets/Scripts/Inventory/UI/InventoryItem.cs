@@ -10,13 +10,14 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 {
     private bool mouseOver = false;
     public bool itemChosen;   
-    public string textName;
-    public string textDesc;
-    public int textStacks;
+    public string itemName;
+    public string itemDesc;
+    public rarity itemRarity;
+    public int itemStacks;
     public GameObject inventory;
-    public TextMeshProUGUI itemName;
-    public TextMeshProUGUI itemDesc;
-    public TextMeshProUGUI itemStacks;
+    public TextMeshProUGUI textName;
+    public TextMeshProUGUI textDesc;
+    public TextMeshProUGUI textStacks;
     public Image bordercolor;
     public GameObject timerManager;
     public Timer timer;
@@ -25,9 +26,9 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     void Start()
     {
         timer = timerManager.GetComponent<Timer>();
-        itemName.text = textName;
-        itemDesc.text = textDesc;
-        itemStacks.text = textStacks.ToString();
+        textName.text = itemName;
+        textDesc.text = itemDesc;
+        textStacks.text = itemStacks.ToString();
     }
 
     // Update is called once per frame
@@ -45,9 +46,8 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void Click()
     {
-        textStacks++;
-        itemStacks.text = textStacks.ToString();
-        itemController.ItemPicked(textName); //assign the clicked item to the player
+        itemStacks++;
+        itemController.ItemPicked(itemName); //assign the clicked item to the player
         itemChosen = true; 
     }
 

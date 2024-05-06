@@ -24,10 +24,9 @@ public class InventoryPage : MonoBehaviour
     [SerializeField]
     private RectTransform contentPanel;
     private int index;
-    [HideInInspector]
-    public string randomItemName;
-    [HideInInspector]
-    public string randomItemDesc;
+    private string randomItemName;
+    private string randomItemDesc;
+    private rarity randomItemRarity;
     //if you change something in this list you need to change it in ItemController.cs's method ItemPicked()
     public static List<Item> itemList = new List<Item>{ //char limit of 99 in description 
         new() { name = "Damage Increase", desc = "Increases damage you deal", rarity = rarity.Common },
@@ -60,12 +59,14 @@ public class InventoryPage : MonoBehaviour
             index = UnityEngine.Random.Range(0, tempItems.Count); 
             randomItemName = tempItems[index].name;
             randomItemDesc = tempItems[index].desc;
+            randomItemRarity = tempItems[index].rarity;
             Debug.Log($"In InventoryPage.cs: index chosen is {index} and item is {randomItemName}");
             tempItems.RemoveAt(index);
             InventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);            
             preGenItems.Add(item);
-            item.GetComponent<InventoryItem>().textName = randomItemName;
-            item.GetComponent<InventoryItem>().textDesc = randomItemDesc;
+            item.GetComponent<InventoryItem>().itemName = randomItemName;
+            item.GetComponent<InventoryItem>().itemDesc = randomItemDesc;
+            item.GetComponent<InventoryItem>().itemRarity = randomItemRarity;
             item.transform.SetParent(contentPanel);
             item.transform.localScale = new Vector3(1, 1, 1); //this is to fix the parent scale issue. See https://github.com/BIT-Studio-4/Duck-Game/issues/65 for context
         }
