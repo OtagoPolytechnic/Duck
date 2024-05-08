@@ -1,38 +1,123 @@
 name: Build project
 
 on:
-    push:
-        branches:
-            - main
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
 jobs:
-  buildForWindows:
-    name: Build for ${{ matrix.targetPlatform }}
+  check_if_merged:
+    name: Check Pull Request Merge
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Merge
+        id: check_merge
+        run: |
+          if [ "${{ github.event.pull_request.merged }}" == "true" ]; then
+            echo "Pull request was merged. Building project and creating release."
+          else
+            echo "Pull request was closed without merging. Exiting."
+            exit 1
+          fi
+
+  build_project: #This job builds the zipped exe of the game
+    name: Build Executable
+    needs: [check_if_merged]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         targetPlatform:
-          - StandaloneWindows # Build a Windows standalone.
+          - StandaloneWindows # Build a Windows standalone executable.
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           lfs: true
-      - uses: actions/cache@v3
+
+      - name: Cache Files
+        uses: actions/cache@v3
         with:
           path: Library
           key: Library-${{ matrix.targetPlatform }}
           restore-keys: Library-
-      - if: matrix.targetPlatform == 'Android'
-        uses: jlumbroso/free-disk-space@v1.3.1
-      - uses: game-ci/unity-builder@v4
+
+      - name: Build Project
+        uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
+          buildName: DuckGame-${{ github.event.pull_request.title }}
+
       - uses: actions/upload-artifact@v3
         with:
-          name: Build-${{ matrix.targetPlatform }}
+          name: build
           path: build/${{ matrix.targetPlatform }}
+
+  echo_data:
+    name: Echo PR Data
+    needs: [build_project]
+    runs-on: ubuntu-latest
+    steps:
+    - name: echo PR title and body
+      env:
+        TITLE: ${{ github.event.pull_request.title }}
+        BODY: ${{ github.event.pull_request.body }}
+      run: echo The PR title is $TITLE and the body is $BODY
+  
+  create_release: #This job will create a new release using the pull request title and body
+    name: Create Release
+    needs: [build_project]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Bump version and push tag #create a new tag from the PR title
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ github.event.pull_request.title }}
+          tag_prefix: NULL
+
+      - name: Create a GitHub release #create new release
+        id: create_release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Duck Game Alpha ${{ github.event.pull_request.title }}
+          body: ${{ github.event.pull_request.body }}
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        id: download
+        with:
+          name: build #the name is required to specify which artifact is needed
+
+      - name: ZIP Build
+        id: zip-release
+        uses: thedoctor0/zip-release@master
+        with: 
+          type: zip
+          filename: DuckGameBuild.zip
+
+      - name: move file
+        run: |
+          mkdir -p release
+          mv /home/runner/work/Duck-Game/Duck-Game/DuckGameBuild.zip release/DuckGameBuild.zip
+
+      - name: Upload Build Artifact
+        uses: fiddlermikey/upload-release-assets@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: /home/runner/work/Duck-Game/Duck-Game/release/DuckGameBuild.zip
+          asset_name: DuckGame-${{ github.event.pull_request.title }}.zip
+          asset_content_type: application/zip
