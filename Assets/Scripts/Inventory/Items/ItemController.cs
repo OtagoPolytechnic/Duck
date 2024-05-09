@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.UIElements;
@@ -20,6 +21,7 @@ public class ItemController : MonoBehaviour
             break;
             case "Health Increase":
                 PlayerHealth.maxHealth *= 1.10f;
+                Math.Round(PlayerHealth.maxHealth, 0, MidpointRounding.AwayFromZero);
                 Debug.Log($"Max health: {PlayerHealth.maxHealth}");
             break;
             case "Speed Increase":
