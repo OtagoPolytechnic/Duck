@@ -15,11 +15,15 @@ public class ItemController : MonoBehaviour
         {
             case "Damage Increase": 
                 PlayerHealth.damage += 10;
-                Debug.Log(PlayerHealth.damage);
+                Debug.Log($"Damage: {PlayerHealth.damage}");
             break;
             case "Health Increase":
                 PlayerHealth.maxHealth *= 1.10f;
-                Debug.Log(PlayerHealth.maxHealth);
+                Debug.Log($"Speed: {PlayerHealth.maxHealth}");
+            break;
+            case "Speed Increase":
+                TopDownMovement.moveSpeed *= 1.05f;
+                Debug.Log($"Speed: {TopDownMovement.moveSpeed}");           
             break;
             default:
                 Debug.LogError("No item was picked, either there is a new item added that hasn't been mirrored here or an item's name is incorrect.");
