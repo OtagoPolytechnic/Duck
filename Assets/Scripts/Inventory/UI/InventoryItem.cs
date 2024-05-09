@@ -43,27 +43,23 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     // Update is called once per frame
    void Update()
     {
-        if (mouseOver)
+        if (mouseOver) //these colors need changing to be highlighted color but are fine for now
         {
             if (itemRarity == rarity.Uncommon)
             {
                 borderColor.color = uncommonColor;
-                
             }
             else if (itemRarity == rarity.Rare)
             {
                 borderColor.color = rareColor;
-                
             }
             else if (itemRarity == rarity.Epic)
             {
                 borderColor.color = epicColor;
-                
             }
             else //assume all other items are common
             {
                 borderColor.color = commonColor;
-                
             }
            
         }
