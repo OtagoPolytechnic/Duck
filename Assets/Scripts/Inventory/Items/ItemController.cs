@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
-    public PlayerHealth currentHealth;
-    
     //if you change something in this list you need to change it in InventoryPage.cs's list named itemlist
     public void ItemPicked(string textName)
     {
@@ -29,8 +27,9 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Speed: {TopDownMovement.moveSpeed}");           
             break;
             case "Regen":
-                currentHealth.currentHealth += 1 + Time.deltaTime; //WIP
-                Debug.Log($"Regen: {currentHealth.currentHealth}"); 
+                PlayerHealth.regenAmount += 5f;
+                PlayerHealth.regenTrue = true;
+                Debug.Log($"Regen amount: {PlayerHealth.regenAmount}"); 
             break;
             case "Firerate Increase":
                 shooting.firerate *= 0.9f;

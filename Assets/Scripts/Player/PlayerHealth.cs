@@ -8,8 +8,11 @@ public class PlayerHealth : MonoBehaviour
     public static float maxHealth = 100;
     public static int damage = 20;
 
-    [HideInInspector]
     public float currentHealth;
+    float regenTick = 3f;
+    float regenInterval = 3f;
+    public static float regenAmount = 0;
+    public static bool regenTrue = false;
     public List<GameObject> lifeEggs;
     public UnityEvent onPlayerRespawn = new UnityEvent();
     
@@ -22,8 +25,10 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Regen();
         if(currentHealth <= 0)
         {
+ 
             if (lifeEggs.Count > 0)
             {
                 Respawn();
@@ -34,7 +39,20 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
-
+    void Regen()
+    {
+        regenTick -= Time.deltaTime;
+        if (regenTick <= 0 && regenTrue && currentHealth < maxHealth)
+        {
+            regenTick = regenInterval;
+            currentHealth += regenAmount;
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+            Debug.Log($"Regen: {currentHealth}"); 
+        }
+    }
     void Respawn()
     {
         //This event currently has no listeners, it is here for futire use 
