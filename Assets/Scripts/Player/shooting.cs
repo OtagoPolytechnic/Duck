@@ -46,7 +46,7 @@ public class shooting : MonoBehaviour
     void HandleShooting()
     {
         shootingInterval -= Time.deltaTime;
-        if (shootingInterval <= 0 && Input.GetKey("space"))
+        if (shootingInterval <= 0 && Input.GetMouseButton(0))
         {
             shootingInterval = firerate; 
             Shooting();
