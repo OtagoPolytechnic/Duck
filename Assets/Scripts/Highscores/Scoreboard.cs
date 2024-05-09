@@ -5,7 +5,7 @@ using System.IO;
 
 public class Scoreboard : MonoBehaviour
 {
-    [SerializeField] private int maxScoreEntries = 5;
+    [SerializeField] private int maxScoreEntries;
 
     [SerializeField] private Transform scoreContainerTransform;
     [SerializeField] private GameObject highscoreEntry;
