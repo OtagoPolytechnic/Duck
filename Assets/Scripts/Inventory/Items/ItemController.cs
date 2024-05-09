@@ -29,7 +29,11 @@ public class ItemController : MonoBehaviour
             case "Regen":
                 currentHealth.currentHealth += 1 + Time.deltaTime; //WIP
                 Debug.Log($"Regen: {currentHealth.currentHealth}"); 
-                break;
+            break;
+            case "Firerate Increase":
+                shooting.firerate *= 0.9f;
+                Debug.Log($"Firerate: {shooting.firerate}"); 
+            break;
             default:
                 Debug.LogError("No item was picked, either there is a new item added that hasn't been mirrored here or an item's name is incorrect.");
             break;
