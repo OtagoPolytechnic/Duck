@@ -6,9 +6,8 @@ using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.UI;
 
-public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class InventoryItem : MonoBehaviour
 {
-    private bool mouseOver = false;
     [HideInInspector]
     public bool itemChosen;   
     [HideInInspector]
@@ -38,67 +37,34 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         textName.text = itemName;
         textDesc.text = itemDesc;
         textStacks.text = itemStacks.ToString();
+
+        if (itemRarity == rarity.Uncommon) //sets background color
+        {
+            borderColor.color = uncommonColor;
+        }
+        else if (itemRarity == rarity.Rare)
+        {
+            borderColor.color = rareColor;
+        }
+        else if (itemRarity == rarity.Epic)
+        {
+            borderColor.color = epicColor;
+        }
+        else //assume all other items are common
+        {
+            borderColor.color = commonColor;
+        }
     }
 
     // Update is called once per frame
    void Update()
     {
-        if (mouseOver) //these colors need changing to be highlighted color but are fine for now
-        {
-            if (itemRarity == rarity.Uncommon)
-            {
-                borderColor.color = uncommonColor;
-            }
-            else if (itemRarity == rarity.Rare)
-            {
-                borderColor.color = rareColor;
-            }
-            else if (itemRarity == rarity.Epic)
-            {
-                borderColor.color = epicColor;
-            }
-            else //assume all other items are common
-            {
-                borderColor.color = commonColor;
-            }
-           
-        }
-        else
-        {
-            if (itemRarity == rarity.Uncommon)
-            {
-                borderColor.color = uncommonColor;
-            }
-            else if (itemRarity == rarity.Rare)
-            {
-                borderColor.color = rareColor;
-            }
-            else if (itemRarity == rarity.Epic)
-            {
-                borderColor.color = epicColor;
-            }
-            else //assume all other items are common
-            {
-                borderColor.color = commonColor;
-            }
 
-        }
     }
 
     public void Click()
     {
-        itemStacks++;
         itemController.ItemPicked(itemName); //assign the clicked item to the player
         itemChosen = true; 
-    }
-
-    public void OnPointerEnter(PointerEventData pointerEventData)
-    {
-        mouseOver = true;
-    }
-
-    public void OnPointerExit(PointerEventData pointerEventData)
-    {
-        mouseOver = false;
     }
 }

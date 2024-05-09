@@ -57,8 +57,6 @@ public class shooting : MonoBehaviour
     private void Shooting()
     {
         GameObject bulletClone = Instantiate(bullet, firePoint.position, Quaternion.Euler(0, 0, lookAngle));
-        //bulletClone.transform.position = firePoint.position;
-        //bulletClone.transform.rotation = Quaternion.Euler(0, 0, lookAngle);
         bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
     }
 }

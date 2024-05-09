@@ -42,11 +42,11 @@ public class PlayerHealth : MonoBehaviour
     void Regen()
     {
         regenTick -= Time.deltaTime;
-        if (regenTick <= 0 && regenTrue && currentHealth < maxHealth)
+        if (regenTick <= 0 && regenTrue && currentHealth < maxHealth) //only works if the player is missing health
         {
             regenTick = regenInterval;
             currentHealth += regenAmount;
-            if (currentHealth > maxHealth)
+            if (currentHealth > maxHealth)//if the player will regen too much health
             {
                 currentHealth = maxHealth;
             }
@@ -55,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
     }
     void Respawn()
     {
-        //This event currently has no listeners, it is here for futire use 
+        //This event currently has no listeners, it is here for future use 
         onPlayerRespawn?.Invoke();
 
         if (lifeEggs.Count > 0) //This should never run if there are no eggs, but this is here just in case
