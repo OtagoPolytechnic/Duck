@@ -13,6 +13,8 @@ public class Scoreboard : MonoBehaviour
     [Header ("Test")]
     [SerializeField] EntryData testEntryData = new EntryData();
 
+    // adds path based on user system
+    // example path for windows: Users\hartlr3\AppData\LocalLow\DefaultCompany\DuckGame
     private string savePath => $"{Application.persistentDataPath}/highscores.json";
 
     private void Start()
@@ -36,6 +38,7 @@ public class Scoreboard : MonoBehaviour
 
         for(int i = 0; i < savedScores.highscores.Count; i++) 
         {
+            //check if score is greater than a saved score
             if(entryData.entryScore > savedScores.highscores[i].entryScore)
             {
                 savedScores.highscores.Insert(i, entryData);
@@ -44,6 +47,7 @@ public class Scoreboard : MonoBehaviour
             }
         }
 
+        //check if space to add entry
         if(!scoreAdded && savedScores.highscores.Count < maxScoreEntries)
         {
             savedScores.highscores.Add(entryData);
