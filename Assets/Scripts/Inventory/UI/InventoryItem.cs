@@ -9,10 +9,15 @@ using UnityEngine.UI;
 public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private bool mouseOver = false;
+    [HideInInspector]
     public bool itemChosen;   
+    [HideInInspector]
     public string itemName;
+    [HideInInspector]
     public string itemDesc;
+    [HideInInspector]
     public rarity itemRarity;
+    [HideInInspector]
     public int itemStacks;
     public GameObject inventory;
     public TextMeshProUGUI textName;
@@ -43,18 +48,22 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             if (itemRarity == rarity.Uncommon)
             {
                 borderColor.color = uncommonColor;
+                
             }
             else if (itemRarity == rarity.Rare)
             {
                 borderColor.color = rareColor;
+                
             }
             else if (itemRarity == rarity.Epic)
             {
                 borderColor.color = epicColor;
+                
             }
             else //assume all other items are common
             {
                 borderColor.color = commonColor;
+                
             }
            
         }
