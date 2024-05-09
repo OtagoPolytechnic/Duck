@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private float timer;
     // Start is called before the first frame update
+
     void Start()
     {
         
@@ -28,7 +29,7 @@ public class Bullet : MonoBehaviour
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<EnemyHealth>().health -= 20;
+            other.gameObject.GetComponent<EnemyHealth>().health -= PlayerHealth.damage;
             Destroy(gameObject);
         }
     }
