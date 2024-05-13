@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditorInternal;
 
 
 public class Timer : MonoBehaviour
@@ -20,7 +19,9 @@ public class Timer : MonoBehaviour
     private bool gotItems = true;
     bool geninventory = false;
     private GameObject[] spawnPoints;
+    [HideInInspector]
     public List<InventoryItem> inventoryItems = new List<InventoryItem>();
+    [HideInInspector]
     public GameObject[] itemObjects;
 
     void Start()
