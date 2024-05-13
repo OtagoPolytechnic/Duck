@@ -405,8 +405,8 @@ MonoBehaviour:
   scoreContainerTransform: {fileID: 1498697714}
   highscoreEntry: {fileID: 4465711649659949541, guid: 29d60539c923444449b97d715c3e7b28, type: 3}
   testEntryData:
-    entryName: wyhed
-    entryScore: 1
+    entryName: rohan
+    entryScore: 123434
 --- !u!1 &1386040439
 GameObject:
   m_ObjectHideFlags: 0
