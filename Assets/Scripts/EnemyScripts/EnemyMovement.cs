@@ -7,6 +7,7 @@ public class EnemyMovement : MonoBehaviour
     public GameObject player;
     public float speed;
     private float distance;
+    [SerializeField] private float attackRange;
     
     private MapManager mapManager;
     private void Awake()
@@ -28,13 +29,16 @@ public class EnemyMovement : MonoBehaviour
 
         distance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;
-        
+
         //turns enemy towards player
         direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (speed * tileSpeedModifier) * Time.deltaTime);
         transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+
+        if (distance >= attackRange)
+        { 
+            transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (speed * tileSpeedModifier) * Time.deltaTime);
+        }
         
     }
 }
