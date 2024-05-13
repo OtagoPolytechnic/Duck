@@ -35,11 +35,11 @@ public class InventoryPage : MonoBehaviour
         new() { name = "Bleed", desc = "Your hits bleed enemies", rarity = rarity.Uncommon },
         new() { name = "Lifesteal", desc = "Your hits heal you", rarity = rarity.Uncommon},
         new() { name = "Regen", desc = "Your health slowly regenerates over time", rarity = rarity.Uncommon },
-        new() { name = "Shotgun", desc = "You shoot a spread of bullets instead of one", rarity = rarity.Rare },
-        new() { name = "Glass Cannon", desc = "Halves your health to double your damage", rarity = rarity.Epic },
+        new() { name = "Shotgun", desc = "You shoot a spread of bullets instead of one", rarity = rarity.Rare }, //wip
+        new() { name = "Glass Cannon", desc = "Halves your health to double your damage", rarity = rarity.Epic }, //wip
         new() { name = "Firerate Increase", desc = "You shoot faster", rarity = rarity.Common },
-        new() { name = "Explosive bullets", desc = "Your bullets explode on impact", rarity = rarity.Uncommon },
-        new() { name = "Crit Chance", desc = "You have an increased chance to deal critical damage" , rarity = rarity.Uncommon },
+        new() { name = "Explosive Bullets", desc = "Your bullets explode on impact", rarity = rarity.Uncommon },
+        new() { name = "Crit Chance", desc = "You have an increased chance to deal critical damage" , rarity = rarity.Uncommon }, //wip
     };
 
     List<InventoryItem> preGenItems = new List<InventoryItem>();

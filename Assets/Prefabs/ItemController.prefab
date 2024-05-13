@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb1aff347d83ee4db9d821401405a83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: {fileID: 6300385405140103751, guid: 729bc25e53437c74b90fcef0935225ac, type: 3}
+  eggPrefab: {fileID: 2234121545672441528, guid: 4de66bf4219d74b47b069105c1d70c2a, type: 3}

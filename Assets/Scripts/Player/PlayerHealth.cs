@@ -7,8 +7,10 @@ public class PlayerHealth : MonoBehaviour
 {
     public static float maxHealth = 100;
     public static int damage = 20;
-
-    public float currentHealth;
+    public static float lifestealAmount = 0;
+    public static int explosionAmount = 0;
+    public static bool explosiveBullets = false;
+    public static float currentHealth;
     float regenTick = 3f;
     float regenInterval = 3f;
     public static float regenAmount = 0;
