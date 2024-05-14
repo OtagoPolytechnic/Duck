@@ -57,7 +57,19 @@ public class ItemController : MonoBehaviour
                 {
                     PlayerHealth.critChance = 1;
                 }
-                break;
+            break;
+            case "Glass Cannon":
+                PlayerHealth.maxHealth /= 0.50f;
+                if (PlayerHealth.maxHealth <= PlayerHealth.currentHealth)
+                {
+                    PlayerHealth.currentHealth = PlayerHealth.maxHealth;
+                }
+                else
+                {
+                    PlayerHealth.currentHealth /= 0.50f;
+                }
+                PlayerHealth.damage *= 2;
+            break;
             default:
                 Debug.LogError("No item was picked, either there is a new item added that hasn't been mirrored here or an item's name is incorrect.");
             break;
