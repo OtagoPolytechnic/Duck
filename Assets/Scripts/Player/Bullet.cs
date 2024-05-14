@@ -27,19 +27,28 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        float critRoll = Random.Range(0f,1f);
+        float critDamage = 0;
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Enemy"))
         {
+            //crit damage calculation
+            if (critRoll < PlayerHealth.critChance)
+            {
+                critDamage += PlayerHealth.damage * 1.50f;
+            }
+            //lifesteal addition and cap
             PlayerHealth.currentHealth += PlayerHealth.lifestealAmount;
             if (PlayerHealth.currentHealth > PlayerHealth.maxHealth)
             {
                 PlayerHealth.currentHealth = PlayerHealth.maxHealth;
             }
+            //explosive bullets size calculation
             if (PlayerHealth.explosiveBullets)
             {
                  transform.localScale = new Vector3(transform.localScale.x * (2 + 0.2f * PlayerHealth.explosionAmount), transform.localScale.y * (2 + 0.2f * PlayerHealth.explosionAmount), 1);
             }
-            other.gameObject.GetComponent<EnemyHealth>().health -= PlayerHealth.damage;
+            other.gameObject.GetComponent<EnemyHealth>().health -= PlayerHealth.damage + critDamage;
             Destroy(gameObject);
         }
     }

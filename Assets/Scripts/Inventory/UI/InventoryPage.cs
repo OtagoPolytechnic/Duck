@@ -39,7 +39,7 @@ public class InventoryPage : MonoBehaviour
         new() { name = "Glass Cannon", desc = "Halves your health to double your damage", rarity = rarity.Epic }, //wip
         new() { name = "Firerate Increase", desc = "You shoot faster", rarity = rarity.Common },
         new() { name = "Explosive Bullets", desc = "Your bullets explode on impact", rarity = rarity.Uncommon },
-        new() { name = "Crit Chance", desc = "You have an increased chance to deal critical damage" , rarity = rarity.Uncommon }, //wip
+        new() { name = "Crit Chance", desc = "You have an increased chance to deal critical damage" , rarity = rarity.Uncommon },
     };
 
     List<InventoryItem> preGenItems = new List<InventoryItem>();

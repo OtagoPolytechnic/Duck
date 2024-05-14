@@ -51,6 +51,13 @@ public class ItemController : MonoBehaviour
             case "Extra Life":
                 Instantiate(eggPrefab,  new Vector3(0,0,0), Quaternion.identity, GameObject.Find("Nest").transform);
             break;
+            case "Crit Chance":
+                PlayerHealth.critChance += 0.15f;
+                if (PlayerHealth.critChance >= 1)
+                {
+                    PlayerHealth.critChance = 1;
+                }
+                break;
             default:
                 Debug.LogError("No item was picked, either there is a new item added that hasn't been mirrored here or an item's name is incorrect.");
             break;
