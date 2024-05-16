@@ -48,7 +48,7 @@ public class Timer : MonoBehaviour
                 if (inventoryItems[i].itemChosen)
                 {
                     Debug.Log("Item Picked!");
-                    nextWave();
+                    NextWave();
                 }
             }
 
@@ -56,15 +56,7 @@ public class Timer : MonoBehaviour
         
         if(currentTime <= 0)
         {
-            running = false;
-            gotItems = false;
-            if (!geninventory)
-            {
-                inventoryUI.InitializeInventoryUI(inventorySize);
-                
-                geninventory = true;
-            }
-            
+            EndWave();
         }
 
         setTimerText();
@@ -84,7 +76,7 @@ public class Timer : MonoBehaviour
         timerText.text = currentTime.ToString("0") + " s";
     }
 
-    private void nextWave()
+    private void NextWave()
     {
         waveNumber += 1;
         currentTime = waveLength;
@@ -99,5 +91,26 @@ public class Timer : MonoBehaviour
         running = true;
         geninventory = false;
         //inventoryItems.Clear();
+    }
+
+    private void EndWave()
+    {
+        running = false;
+
+        //cull enemies
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject enemy in enemies)
+        {
+            Destroy(enemy);
+        }
+
+        gotItems = false;
+        if (!geninventory)
+        {
+            inventoryUI.InitializeInventoryUI(inventorySize);
+            
+            geninventory = true;
+        }
     }
 }

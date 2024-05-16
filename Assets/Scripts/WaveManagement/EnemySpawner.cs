@@ -30,7 +30,8 @@ public class EnemySpawner : MonoBehaviour
                 Spawn(Random.Range(0, enemies.Length));
                 lastSpawn = 0;
             }
-            else{
+            else
+            {
                 lastSpawn += Time.deltaTime;
             }
         }
