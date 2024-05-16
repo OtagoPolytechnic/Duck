@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject[] enemies;
     public float spawnRadius;
-    public static int enemyHealth = 100;
+    public static int enemyHealth = 50;
     public static float spawnTimer = 5; //Time between spawns
     private float lastSpawn; //Time since last spawn
 
