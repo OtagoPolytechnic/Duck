@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
             //call kill all active enemies
             //call game over UI
             gameOverUI.SetActive(true);
-            Debug.Log("Game Over");
+            //Debug.Log("Game Over");
         }
    }
 

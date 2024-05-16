@@ -63,7 +63,7 @@ public class Scoreboard : MonoBehaviour
         UpdateUI(savedScores);
         SaveScores(savedScores);
     }
-    private HighscoreSaveData GetSavedScores()
+    public HighscoreSaveData GetSavedScores()
     {
         if(!File.Exists(savePath))
         {
