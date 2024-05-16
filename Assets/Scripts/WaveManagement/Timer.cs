@@ -10,15 +10,17 @@ public class Timer : MonoBehaviour
     private InventoryPage inventoryUI;
     [HideInInspector]
     public int inventorySize = 3;
+
     public TextMeshProUGUI waveNumberText;
     public TextMeshProUGUI timerText;
+
     public float waveLength;
-    public float currentTime;
+    private float currentTime;
     public int waveNumber;
     public bool running;
+
     private bool gotItems = true;
     bool geninventory = false;
-    private GameObject[] spawnPoints;
     [HideInInspector]
     public List<InventoryItem> inventoryItems = new List<InventoryItem>();
     [HideInInspector]
@@ -28,7 +30,6 @@ public class Timer : MonoBehaviour
     {
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
-        spawnPoints = GameObject.FindGameObjectsWithTag("Spawner");
     }
 
     void Update()
@@ -82,11 +83,8 @@ public class Timer : MonoBehaviour
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
 
-        //Update every spawn point when the next wave starts
-        for (int i=0; i<spawnPoints.Length; i++){
-            spawnPoints[i].GetComponent<EnemySpawner>().enemyHealth += 10;
-            spawnPoints[i].GetComponent<EnemySpawner>().spawnTimer -= 0.1f;
-        }
+        EnemySpawner.enemyHealth += 10;
+        EnemySpawner.spawnTimer -= 0.1f;
 
         running = true;
         geninventory = false;
