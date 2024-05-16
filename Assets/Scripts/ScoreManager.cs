@@ -12,6 +12,7 @@ public class ScoreManager : MonoBehaviour
     public TMP_Text pointsText;
     public TMP_Text finalscoreText;
     public TMP_Text highscoreNotif;
+    public GameObject submitButton;
 
     public int score;
     public int finalscore;
@@ -50,6 +51,9 @@ public class ScoreManager : MonoBehaviour
                 highscoreNotif.text = "<color=#03fcdb>New Highscore!!!</color>";
 
                 //display submit button
+                submitButton.SetActive(true);
+                // add entry on click
+
             }
             else
             {
