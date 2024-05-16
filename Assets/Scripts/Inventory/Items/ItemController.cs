@@ -70,6 +70,10 @@ public class ItemController : MonoBehaviour
                 }
                 PlayerHealth.damage *= 2;
             break;
+            case "Shotgun":
+                PlayerHealth.hasShotgun = true;
+                PlayerHealth.bulletAmount += 2;
+            break;
             default:
                 Debug.LogError("No item was picked, either there is a new item added that hasn't been mirrored here or an item's name is incorrect.");
             break;

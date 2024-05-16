@@ -18,6 +18,8 @@ public class PlayerHealth : MonoBehaviour
     public static int explosionAmount = 0;
     public static bool explosiveBullets = false;
     public static float critChance = 0.01f;
+    public static bool hasShotgun = false;
+    public static int bulletAmount = 2; //this is for the extra bullets spawned by the shotgun item
     //other vars
     public List<GameObject> lifeEggs;
     public UnityEvent onPlayerRespawn = new UnityEvent();
