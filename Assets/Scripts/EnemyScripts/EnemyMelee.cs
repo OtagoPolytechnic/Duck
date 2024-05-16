@@ -5,11 +5,12 @@ using UnityEngine;
 public class EnemyMelee : MonoBehaviour
 {
     public GameObject player;
-    public float speed;
     private float distance;
-    private float attackRange;
     private MapManager mapManager;
     private bool attacking = false;
+    [SerializeField] private int damage;
+    [SerializeField] private float attackRange;
+    [SerializeField] private float speed;
 
     private void Awake()
     {
@@ -35,20 +36,30 @@ public class EnemyMelee : MonoBehaviour
             transform.rotation = Quaternion.Euler(Vector3.forward * angle);
         }
         
-        if (distance <= attackRange)
-        {
-            StartCoroutine(Attack());
-        }
+        //if (distance <= attackRange)
+        //{
+        //    StartCoroutine(Attack());
+        //}
     }
 
     IEnumerator Attack()
     {
         bool attackFinished = false;
+
         //do the attack
+
         if (attackFinished)
         {
             StopCoroutine(Attack());
         }
         yield return null;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<PlayerHealth>().currentHealth -= 20; //can be simplified once player current health is made public
+        }
     }
 }

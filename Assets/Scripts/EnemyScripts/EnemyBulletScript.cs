@@ -35,7 +35,7 @@ public class EnemyBulletScript : MonoBehaviour
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerHealth>().currentHealth -= 20;
+            other.gameObject.GetComponent<PlayerHealth>().currentHealth -= 20; //can be simplified if player current health is made public
             Destroy(gameObject);
         }
     }
