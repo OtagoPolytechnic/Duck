@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5656455698361903579}
   - component: {fileID: 5656455698361903576}
   - component: {fileID: 5656455698361903577}
-  - component: {fileID: 5656455698361903582}
   - component: {fileID: 3801677135667519698}
   m_Layer: 0
   m_Name: Enemy
@@ -129,21 +128,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   speed: 3
-  attackRange: 5
---- !u!114 &5656455698361903582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5656455698361903583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cf8bf9a1dec366458bcc9a62494ede7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyBullet: {fileID: 5418265743146168994, guid: 666dd07e95d1a744fbd4e79265df9d46, type: 3}
+  bullet: {fileID: 5418265743146168994, guid: 666dd07e95d1a744fbd4e79265df9d46, type: 3}
   bulletPosition: {fileID: 5656455699881316956}
+  attackRange: 5
+  attackInterval: 2
 --- !u!114 &3801677135667519698
 MonoBehaviour:
   m_ObjectHideFlags: 0
