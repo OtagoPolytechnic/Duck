@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class shooting : MonoBehaviour
+public class Shooting : MonoBehaviour
 {
     public GameObject bullet;
     public Transform firePoint;
     public float bulletSpeed = 50;
 
-    public static float firerate = 1;
+    public static float firerate = 0.5f;
     public float shootingInterval = 0;
 
 
@@ -49,12 +49,12 @@ public class shooting : MonoBehaviour
         if (shootingInterval <= 0 && Input.GetMouseButton(0))
         {
             shootingInterval = firerate; 
-            Shooting();
+            Shot();
         }
     }
 
 
-    private void Shooting()
+    private void Shot()
     {
         if (PlayerHealth.hasShotgun)
         {

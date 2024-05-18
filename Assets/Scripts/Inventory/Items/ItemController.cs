@@ -32,8 +32,8 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Regen amount: {PlayerHealth.regenAmount}"); 
             break;
             case "Firerate Increase":
-                shooting.firerate *= 0.9f;
-                Debug.Log($"Firerate: {shooting.firerate}"); 
+                Shooting.firerate *= 0.9f;
+                Debug.Log($"Firerate: {Shooting.firerate}"); 
             break;
             case "Bleed":
                 EnemyHealth.bleedAmount = 5f;

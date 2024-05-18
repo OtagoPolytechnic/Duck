@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
         {
             playerDead = true;
             //disables shooting, movement and timer on game over
-            FindObjectOfType<shooting>().enabled = false;
+            FindObjectOfType<Shooting>().enabled = false;
             FindObjectOfType<Timer>().enabled = false;
             FindObjectOfType<TopDownMovement>().enabled = false;
             FindObjectOfType<EnemySpawner>().enabled = false;
