@@ -13,7 +13,7 @@ public class BulletShootTest
         EditorSceneManager.OpenScene("Assets/Scenes/MainScene.unity");
 
         // Find the shooting script attached to an object in the scene
-        shooting shooter = Object.FindObjectOfType<shooting>();
+        Shooting shooter = Object.FindObjectOfType<Shooting>();
         Assert.IsNotNull(shooter, "Shooting script not found in the scene.");
 
         // Get initial count of bullets
