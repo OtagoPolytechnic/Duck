@@ -7,58 +7,58 @@ public class ItemController : MonoBehaviour
 {
     //if you change something in this list you need to change it in InventoryPage.cs's list named itemlist
     public GameObject eggPrefab;
-    public void ItemPicked(string textName)
+    public void ItemPicked(int itemID)
     {
-        Debug.Log(textName);
+        Debug.Log(itemID);
 
-        switch(textName) 
+        switch(itemID) 
         {
-            case "Damage Increase": 
+            case 0:
                 PlayerHealth.damage += 10;
                 Debug.Log($"Damage: {PlayerHealth.damage}");
             break;
-            case "Health Increase":
+            case 01:
                 PlayerHealth.maxHealth *= 1.10f;
                 Math.Round(PlayerHealth.maxHealth, 0, MidpointRounding.AwayFromZero);
                 Debug.Log($"Max health: {PlayerHealth.maxHealth}");
             break;
-            case "Speed Increase":
+            case 02:
                 TopDownMovement.moveSpeed *= 1.05f;
                 Debug.Log($"Speed: {TopDownMovement.moveSpeed}");           
             break;
-            case "Regen":
+            case 03:
                 PlayerHealth.regenAmount += 5f;
                 PlayerHealth.regenTrue = true;
                 Debug.Log($"Regen amount: {PlayerHealth.regenAmount}"); 
             break;
-            case "Firerate Increase":
+            case 04:
                 Shooting.firerate *= 0.9f;
                 Debug.Log($"Firerate: {Shooting.firerate}"); 
             break;
-            case "Bleed":
+            case 05:
                 EnemyHealth.bleedAmount = 5f;
                 EnemyHealth.bleedTrue = true;
                 Debug.Log($"Bleed amount: {EnemyHealth.bleedAmount}"); 
             break;
-            case "Lifesteal":
+            case 06:
                 PlayerHealth.lifestealAmount = 5f;
                 Debug.Log($"Lifesteal amount: {PlayerHealth.lifestealAmount}"); 
             break;
-            case "Explosive Bullets":
+            case 07:
                 PlayerHealth.explosiveBullets = true;
                 PlayerHealth.explosionAmount +=1;
             break;     
-            case "Extra Life":
+            case 08:
                 Instantiate(eggPrefab,  new Vector3(0,0,0), Quaternion.identity, GameObject.Find("Nest").transform);
             break;
-            case "Crit Chance":
+            case 09:
                 PlayerHealth.critChance += 0.15f;
                 if (PlayerHealth.critChance >= 1)
                 {
                     PlayerHealth.critChance = 1;
                 }
             break;
-            case "Glass Cannon":
+            case 10:
                 PlayerHealth.maxHealth /= 0.50f;
                 if (PlayerHealth.maxHealth <= PlayerHealth.currentHealth)
                 {
@@ -70,7 +70,7 @@ public class ItemController : MonoBehaviour
                 }
                 PlayerHealth.damage *= 2;
             break;
-            case "Shotgun":
+            case 11:
                 PlayerHealth.hasShotgun = true;
                 PlayerHealth.bulletAmount += 2;
             break;
