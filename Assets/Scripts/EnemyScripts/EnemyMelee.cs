@@ -8,7 +8,7 @@ public class EnemyMelee : MonoBehaviour
     private float distance;
     private MapManager mapManager;
     private bool attacking = false;
-    [SerializeField] private int damage;
+    [SerializeField] private int damage; //Damage has been halved because of double damage bug
     [SerializeField] private float attackRange;
     [SerializeField] private float speed;
 

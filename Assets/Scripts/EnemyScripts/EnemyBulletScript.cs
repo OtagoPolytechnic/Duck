@@ -6,7 +6,7 @@ public class EnemyBulletScript : MonoBehaviour
 {
     public GameObject player;
     private Rigidbody2D rb;
-    public float fireRate;
+    public float bulletSpeed = 14;
     private float timer;
     // Start is called before the first frame update
     void Start()
@@ -15,7 +15,7 @@ public class EnemyBulletScript : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         Vector3 direction = player.transform.position - transform.position;
-        rb.velocity = new Vector2(direction.x, direction.y).normalized * fireRate;
+        rb.velocity = new Vector2(direction.x, direction.y).normalized * bulletSpeed;
     }
 
     // Update is called once per frame
