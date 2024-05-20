@@ -57,6 +57,7 @@ public class ItemController : MonoBehaviour
                 {
                     PlayerHealth.critChance = 1;
                 }
+                Debug.Log($"Crit Chance: {PlayerHealth.critChance}");
             break;
             case 10:
                 PlayerHealth.maxHealth /= 0.50f;
