@@ -6,7 +6,7 @@ public class EnemyBulletScript : MonoBehaviour
 {
     public GameObject player;
     private Rigidbody2D rb;
-    public float bulletSpeed = 14;
+    public float bulletSpeed = 10;
     private float timer;
     // Start is called before the first frame update
     void Start()

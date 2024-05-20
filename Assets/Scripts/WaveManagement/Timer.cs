@@ -83,7 +83,7 @@ public class Timer : MonoBehaviour
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
 
-        EnemySpawner.enemyHealth += 10;
+        EnemySpawner.healthMultiplier += 0.5f;
         EnemySpawner.spawnTimer -= 0.1f;
 
         running = true;

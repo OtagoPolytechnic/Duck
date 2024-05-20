@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject[] enemies;
     public float spawnRadius;
-    public static int enemyHealth = 50;
+    public static float healthMultiplier = 1f;
     public static float spawnTimer = 5; //Time between spawns
     private float lastSpawn; //Time since last spawn
 
@@ -19,6 +19,7 @@ public class EnemySpawner : MonoBehaviour
     {
         timerManager = GameObject.Find("TimerManager");
         timer = timerManager.GetComponent<Timer>();
+        lastSpawn = spawnTimer;
     }
 
     void Update()
@@ -40,6 +41,6 @@ public class EnemySpawner : MonoBehaviour
     void Spawn(int enemyNum)
     {
         GameObject enemy = Instantiate(enemies[enemyNum], transform.position + new Vector3(Random.Range(-spawnRadius, spawnRadius), Random.Range(-spawnRadius, spawnRadius), 0), transform.rotation);
-        enemy.GetComponent<EnemyHealth>().health = enemyHealth;
+        enemy.GetComponent<EnemyHealth>().health = Mathf.RoundToInt(enemy.GetComponent<EnemyHealth>().baseHealth * healthMultiplier);
     }
 }

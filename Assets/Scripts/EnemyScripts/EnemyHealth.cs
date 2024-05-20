@@ -6,7 +6,8 @@ using UnityEngine.Events;
 public class EnemyHealth : MonoBehaviour
 {
     //public UnityEvent OnEnemyDeath = new UnityEvent();
-    public int health;
+    public int baseHealth;
+    [HideInInspector] public int health;
     
     // Start is called before the first frame update
     void Start()
