@@ -23,6 +23,7 @@ public class EnemyHealth : MonoBehaviour
             //save for if we need event
             //OnEnemyDeath?.Invoke();
             ScoreManager.Instance.IncreasePoints(10);
+            EnemySpawner.currentEnemies.Remove(gameObject);
             Destroy(gameObject);
         }
     }
