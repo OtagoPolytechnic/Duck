@@ -95,12 +95,17 @@ public class Timer : MonoBehaviour
     {
         running = false;
 
-        //cull enemies
+        //cull enemies and bullets
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
 
         foreach (GameObject enemy in enemies)
         {
             Destroy(enemy);
+        }
+        foreach (GameObject bullet in bullets)
+        {
+            Destroy(bullet);
         }
 
         gotItems = false;
