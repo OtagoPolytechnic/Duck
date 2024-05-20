@@ -27,20 +27,20 @@ public class InventoryPage : MonoBehaviour
     private string randomItemName;
     private string randomItemDesc;
     private rarity randomItemRarity;
-    public rarity roll;    
+    private rarity roll;    
     //if you change something in this list you need to change it in ItemController.cs's method ItemPicked()
     public static List<Item> itemList = new List<Item>{ //char limit of 99 in description 
         new() { name = "Damage Increase", desc = "Increases damage you deal", rarity = rarity.Common },
         new() { name = "Health Increase", desc = "Gives you more max health", rarity = rarity.Common },
         new() { name = "Speed Increase", desc = "Increases your speed", rarity = rarity.Common },
-        new() { name = "Extra Life", desc = "You gain an extra life", rarity = rarity.Rare },
+        new() { name = "Extra Life", desc = "You gain an extra life", rarity = rarity.Epic },
         new() { name = "Bleed", desc = "Your hits bleed enemies", rarity = rarity.Uncommon },
-        new() { name = "Lifesteal", desc = "Your hits heal you", rarity = rarity.Uncommon},
-        new() { name = "Regen", desc = "Your health slowly regenerates over time", rarity = rarity.Uncommon },
-        new() { name = "Shotgun", desc = "You shoot a spread of bullets instead of one", rarity = rarity.Rare }, //wip
+        new() { name = "Lifesteal", desc = "Your hits heal you", rarity = rarity.Rare},
+        new() { name = "Regen", desc = "Your health slowly regenerates over time", rarity = rarity.Rare },
+        new() { name = "Shotgun", desc = "You shoot a spread of bullets instead of one", rarity = rarity.Epic },
         new() { name = "Glass Cannon", desc = "Halves your health to double your damage", rarity = rarity.Epic },
         new() { name = "Firerate Increase", desc = "You shoot faster", rarity = rarity.Common },
-        new() { name = "Explosive Bullets", desc = "Your bullets explode on impact", rarity = rarity.Uncommon },
+        new() { name = "Explosive Bullets", desc = "Your bullets explode on impact", rarity = rarity.Rare },
         new() { name = "Crit Chance", desc = "You have an increased chance to deal critical damage" , rarity = rarity.Uncommon },
     };
 
@@ -48,10 +48,11 @@ public class InventoryPage : MonoBehaviour
 
     public rarity GetWeightedRarity() {
         // Define some thresholds for different item rarities. (between 0 and 1)
-        float commonRoll = 0.4f;
-        float uncommonRoll = 0.65f;
-        float rareRoll = 0.8f;
-        float epicRoll = 0.95f;    
+        // not consts currently incase we want these values to change
+        float commonRoll = 0.5f; //50%
+        float uncommonRoll = 0.8f; //30%
+        float rareRoll = 0.95f; //15%
+        float epicRoll = 1f;  //5%  
         // generate a random value (0->1)
         float genRarity = UnityEngine.Random.value;
         // Figure out which threshold this falls under.
