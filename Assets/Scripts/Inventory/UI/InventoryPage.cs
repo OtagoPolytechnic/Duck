@@ -80,6 +80,7 @@ public class InventoryPage : MonoBehaviour
     { 
         List<Item> tempItems = new List<Item>(itemList);
         List<Item> generatedRarityList = new List<Item>();
+        List<Item> selectedItems = new List<Item>();
         
         for (int i = preGenItems.Count - 1; i >= 0; i--) //makes sure the items previously generated are cleared to not bunch up on the inventory window
         {
@@ -100,9 +101,16 @@ public class InventoryPage : MonoBehaviour
                     generatedRarityList.Add(rarity);
                 }
             }
-
+            foreach (Item k in selectedItems)
+            {
+                if (generatedRarityList.Contains(k))
+                {
+                    generatedRarityList.Remove(k);
+                }
+            }
             // then pick a random index from that subset and use that as the item.
             index = UnityEngine.Random.Range(0, generatedRarityList.Count); 
+            selectedItems.Add(generatedRarityList[index]);
 
             randomItemName = generatedRarityList[index].name;
             randomItemDesc = generatedRarityList[index].desc;
