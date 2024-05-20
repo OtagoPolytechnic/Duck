@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.PackageManager;
 using UnityEngine;
-[System.Serializable]
+
+[Serializable]
 public class Item
 {
     public int id;
@@ -18,19 +19,19 @@ public enum rarity{
     Rare,
     Epic
 }
+
 public class InventoryPage : MonoBehaviour
 {
     [SerializeField] 
     private InventoryItem itemPrefab;
     [SerializeField]
     private RectTransform contentPanel;
+
     private int index;
-    private int randomItemID;
-    private string randomItemName;
-    private string randomItemDesc;
-    private rarity randomItemRarity;
     private rarity roll;    
-    //if you change something in this list you need to change it in ItemController.cs's method ItemPicked()
+    private List<InventoryItem> preGeneratedItems = new List<InventoryItem>();
+
+    //make sure not to dupelicate the item ids
     public static List<Item> itemList = new List<Item>{ //char limit of 99 in description 
         new() { id = 0, name = "Damage Increase", desc = "Increases damage you deal", rarity = rarity.Common },
         new() { id = 01, name = "Health Increase", desc = "Gives you more max health", rarity = rarity.Common },
@@ -44,33 +45,36 @@ public class InventoryPage : MonoBehaviour
         new() { id = 09, name = "Crit Chance", desc = "You have an increased chance to deal critical damage" , rarity = rarity.Uncommon },
         new() { id = 10, name = "Glass Cannon", desc = "Halves your health to double your damage", rarity = rarity.Epic },
         new() { id = 11, name = "Shotgun", desc = "You shoot a spread of bullets instead of one", rarity = rarity.Epic },
+        new() { id = 12, name = "TempUncommon", desc = "TempUncommon", rarity = rarity.Uncommon}
     };
-
-    List<InventoryItem> preGenItems = new List<InventoryItem>();
+    //in this list, there cannot be less than 3 of each rarity for the case that 3 of one rarity is picked on the item selection. 
 
     public rarity GetWeightedRarity() {
         // Define some thresholds for different item rarities. (between 0 and 1)
+
         // not consts currently incase we want these values to change
         float commonRoll = 0.5f; //50%
         float uncommonRoll = 0.8f; //30%
         float rareRoll = 0.95f; //15%
         float epicRoll = 1f;  //5%  
+
         // generate a random value (0->1)
-        float genRarity = UnityEngine.Random.value;
+        float randomRarity = UnityEngine.Random.value;
+
         // Figure out which threshold this falls under.
-        if (genRarity < commonRoll)
+        if (randomRarity < commonRoll)
         {
             roll = rarity.Common;
         }
-        else if (genRarity < uncommonRoll)
+        else if (randomRarity < uncommonRoll)
         {
             roll = rarity.Uncommon;
         }
-        else if (genRarity < rareRoll)
+        else if (randomRarity < rareRoll)
         {
             roll = rarity.Rare;
         }
-        else if (genRarity < epicRoll)
+        else if (randomRarity < epicRoll)
         {
             roll = rarity.Epic;
         }
@@ -78,31 +82,30 @@ public class InventoryPage : MonoBehaviour
         return roll;
     }
 
-    public void InitializeInventoryUI(int inventorySize) //this is called every time the item ui pops up
+    public void InitializeInventoryUI(int inventorySize) //this is called every time the inventory ui pops up
     { 
-        List<Item> tempItems = new List<Item>(itemList);
-        List<Item> generatedRarityList = new List<Item>();
-        List<Item> selectedItems = new List<Item>();
-        
-        for (int i = preGenItems.Count - 1; i >= 0; i--) //makes sure the items previously generated are cleared to not bunch up on the inventory window
+        for (int i = preGeneratedItems.Count - 1; i >= 0; i--) //makes sure the items previously generated are cleared to not bunch up on the inventory window
         {
-            Destroy(preGenItems[i].gameObject); //removes item
-            preGenItems.RemoveAt(i); //removes floating null pointer
+            Destroy(preGeneratedItems[i].gameObject); //removes item
+            preGeneratedItems.RemoveAt(i); //removes floating null pointer
         } 
 
-        for (int i = 0; i < inventorySize; i++) //because of the new weight code, this now has dupelicates back
+        List<Item> generatedRarityList = new List<Item>();
+        List<Item> selectedItems = new List<Item>();
+
+        for (int i = 0; i < inventorySize; i++) 
         {
             // Get a random rarity.
-            randomItemRarity = GetWeightedRarity();
+            rarity randomItemRarity = GetWeightedRarity();
             // Create a list of all the available items of that rarity.
-            foreach (Item rarity in tempItems)
+            foreach (Item j in itemList)
             {
-                Debug.Log(rarity.name);
-                if (rarity.rarity == randomItemRarity)
+                if (j.rarity == randomItemRarity)
                 {
-                    generatedRarityList.Add(rarity);
+                    generatedRarityList.Add(j);
                 }
             }
+            //if the item has already been selected, remove it from the possible pool of items
             foreach (Item k in selectedItems)
             {
                 if (generatedRarityList.Contains(k))
@@ -114,26 +117,19 @@ public class InventoryPage : MonoBehaviour
             index = UnityEngine.Random.Range(0, generatedRarityList.Count); 
             selectedItems.Add(generatedRarityList[index]);
 
-            randomItemID = generatedRarityList[index].id;
-            randomItemName = generatedRarityList[index].name;
-            randomItemDesc = generatedRarityList[index].desc;
-            randomItemRarity = generatedRarityList[index].rarity;
-
-            Debug.Log($"In InventoryPage.cs: index chosen is {index} and item is {randomItemName}");
-
-            generatedRarityList.RemoveAt(index);
-            tempItems.RemoveAt(index);
-            
-            InventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);            
-            preGenItems.Add(item);
-
-            item.GetComponent<InventoryItem>().itemID = randomItemID;
-            item.GetComponent<InventoryItem>().itemName = randomItemName;
-            item.GetComponent<InventoryItem>().itemDesc = randomItemDesc;
-            item.GetComponent<InventoryItem>().itemRarity = randomItemRarity;
-
+            InventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);  
+            //assign the item generated to the item prefab and set transfoms
+            item.GetComponent<InventoryItem>().itemID = generatedRarityList[index].id;
+            item.GetComponent<InventoryItem>().itemName = generatedRarityList[index].name;
+            item.GetComponent<InventoryItem>().itemDesc = generatedRarityList[index].desc;
+            item.GetComponent<InventoryItem>().itemRarity = generatedRarityList[index].rarity;
             item.transform.SetParent(contentPanel);
             item.transform.localScale = new Vector3(1, 1, 1); //this is to fix the parent scale issue. See https://github.com/BIT-Studio-4/Duck-Game/issues/65 for context
+            
+            //add the item to cleanup on next method call
+            preGeneratedItems.Add(item);
+            
+            Debug.Log($"In InventoryPage.cs: index chosen is {index} and item is {generatedRarityList[index].name}");
         }
     }
                 
