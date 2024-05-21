@@ -11,11 +11,13 @@ public class EnemyMelee : MonoBehaviour
     [SerializeField] private int damage; //Damage has been halved because of double damage bug
     [SerializeField] private float attackRange;
     [SerializeField] private float speed;
+    private GameObject attack;
 
     private void Awake()
     {
         mapManager = FindObjectOfType<MapManager>();
         player = GameObject.FindGameObjectWithTag("Player");
+        attack = gameObject.transform.GetChild(1).gameObject;
     }
 
     // Update is called once per frame
@@ -34,32 +36,29 @@ public class EnemyMelee : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (speed * tileSpeedModifier) * Time.deltaTime);
             transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+
+            if (distance <= attackRange)
+            {
+                StartCoroutine(Attack());
+            }
         }
-        
-        //if (distance <= attackRange)
-        //{
-        //    StartCoroutine(Attack());
-        //}
     }
 
     IEnumerator Attack()
     {
-        bool attackFinished = false;
-
-        //do the attack
-
-        if (attackFinished)
-        {
-            StopCoroutine(Attack());
-        }
-        yield return null;
+        attacking = true;
+        attack.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        attack.SetActive(false);
+        attacking = false;
+        StopCoroutine(Attack());
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.gameObject.CompareTag("Player"))
-        {
-            other.gameObject.GetComponent<PlayerHealth>().currentHealth -= 20; //can be simplified once player current health is made public
-        }
-    }
+//    void OnTriggerEnter2D(Collider2D other)
+//    {
+//        if(other.gameObject.CompareTag("Player"))
+//        {
+//            other.gameObject.GetComponent<PlayerHealth>().currentHealth -= 20; //can be simplified once player current health is made public
+//        }
+//    }
 }
