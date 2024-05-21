@@ -8,7 +8,6 @@ public class EnemyMelee : MonoBehaviour
     private float distance;
     private MapManager mapManager;
     private bool attacking = false;
-    [SerializeField] private int damage; //Damage has been halved because of double damage bug
     [SerializeField] private float attackRange;
     [SerializeField] private float speed;
     private GameObject attack;
@@ -47,18 +46,13 @@ public class EnemyMelee : MonoBehaviour
     IEnumerator Attack()
     {
         attacking = true;
-        attack.SetActive(true);
-        yield return new WaitForSeconds(3f);
+        attack.SetActive(true); //show the attack
+        attack.GetComponent<BoxCollider2D>().enabled = true; //enable the collider
+
+        yield return new WaitForSeconds(1f); //Attack duration
+
         attack.SetActive(false);
         attacking = false;
         StopCoroutine(Attack());
     }
-
-//    void OnTriggerEnter2D(Collider2D other)
-//    {
-//        if(other.gameObject.CompareTag("Player"))
-//        {
-//            other.gameObject.GetComponent<PlayerHealth>().currentHealth -= 20; //can be simplified once player current health is made public
-//        }
-//    }
 }
