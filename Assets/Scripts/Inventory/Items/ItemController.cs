@@ -46,7 +46,8 @@ public class ItemController : MonoBehaviour
             break;
             case 07:
                 PlayerHealth.explosiveBullets = true;
-                PlayerHealth.explosionAmount +=1;
+                PlayerHealth.explosionSize +=1;
+                Debug.Log($"Explosion size: {PlayerHealth.explosionSize}");
             break;     
             case 08:
                 Instantiate(eggPrefab,  new Vector3(0,0,0), Quaternion.identity, GameObject.Find("Nest").transform);
@@ -70,13 +71,15 @@ public class ItemController : MonoBehaviour
                     PlayerHealth.currentHealth /= 0.50f;
                 }
                 PlayerHealth.damage *= 2;
+                Debug.Log($"Players max health as been cut in half to:{PlayerHealth.maxHealth}. Their current health is: {PlayerHealth.currentHealth}. Their damage has been doubled to: {PlayerHealth.damage}");
             break;
             case 11:
                 PlayerHealth.hasShotgun = true;
                 PlayerHealth.bulletAmount += 2;
+                Debug.Log($"Shotgun bullets: {PlayerHealth.bulletAmount}");
             break;
             default:
-                Debug.LogError("No item was picked, either there is a new item added that hasn't been mirrored here or an item's name is incorrect.");
+                Debug.LogError("No item was given to the player, either, the item added to the list was not given a case, or the id does not match a current case.");
             break;
         }
     }

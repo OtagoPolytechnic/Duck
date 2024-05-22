@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
     public static float lifestealAmount = 0;
     //damage vars
     public static int damage = 20;
-    public static int explosionAmount = 0;
+    public static int explosionSize = 0;
     public static bool explosiveBullets = false;
     public static float critChance = 0.01f;
     public static bool hasShotgun = false;

@@ -46,7 +46,7 @@ public class Bullet : MonoBehaviour
             //explosive bullets size calculation
             if (PlayerHealth.explosiveBullets)
             {
-                 transform.localScale = new Vector3(transform.localScale.x * (2 + 0.2f * PlayerHealth.explosionAmount), transform.localScale.y * (2 + 0.2f * PlayerHealth.explosionAmount), 1);
+                transform.localScale = new Vector3(transform.localScale.x * (2 + 0.2f * PlayerHealth.explosionSize), transform.localScale.y * (2 + 0.2f * PlayerHealth.explosionSize), 1);
             }
             other.gameObject.GetComponent<EnemyHealth>().health -= PlayerHealth.damage + critDamage;
             Destroy(gameObject);
