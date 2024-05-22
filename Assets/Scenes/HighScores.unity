@@ -486,6 +486,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4499773875878545193, guid: 2c0b83d3d7536fb4ea39d28a768a747c, type: 3}
+      propertyPath: inputField
+      value: 
+      objectReference: {fileID: 2932855703652822237, guid: 22aee063013179d41b9a39c565c8807b, type: 3}
+    - target: {fileID: 4499773875878545193, guid: 2c0b83d3d7536fb4ea39d28a768a747c, type: 3}
+      propertyPath: scoreManager
+      value: 
+      objectReference: {fileID: 4898483234167344905, guid: 6c6f9b081328e2144b1340630cc8650e, type: 3}
     - target: {fileID: 4499773875878545195, guid: 2c0b83d3d7536fb4ea39d28a768a747c, type: 3}
       propertyPath: m_Name
       value: Scoreboard

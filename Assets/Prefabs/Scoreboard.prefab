@@ -300,6 +300,8 @@ MonoBehaviour:
   maxScoreEntries: 5
   scoreContainerTransform: {fileID: 4499773875360345472}
   highscoreEntry: {fileID: 4465711649659949541, guid: 29d60539c923444449b97d715c3e7b28, type: 3}
+  scoreManager: {fileID: 4898483234167344905, guid: 6c6f9b081328e2144b1340630cc8650e, type: 3}
+  inputField: {fileID: 2932855703652822237, guid: 22aee063013179d41b9a39c565c8807b, type: 3}
   testEntryData:
     entryName: rohan
     entryScore: 123434

@@ -9,9 +9,12 @@ public class Scoreboard : MonoBehaviour
 
     [SerializeField] private Transform scoreContainerTransform;
     [SerializeField] private GameObject highscoreEntry;
+    public ScoreManager scoreManager;
+    public ScoreInputField inputField;
 
     [Header ("Test")]
     [SerializeField] EntryData testEntryData = new EntryData();
+    
 
     // adds path based on user system
     // example path for windows: Users\hartlr3\AppData\LocalLow\DefaultCompany\DuckGame
@@ -30,6 +33,7 @@ public class Scoreboard : MonoBehaviour
     {
         AddEntry(testEntryData);
     }
+    
     public void AddEntry(EntryData entryData)
     {
         HighscoreSaveData savedScores = GetSavedScores();
@@ -59,8 +63,7 @@ public class Scoreboard : MonoBehaviour
                 maxScoreEntries, 
                 savedScores.highscores.Count - maxScoreEntries);
         }
-
-        UpdateUI(savedScores);
+        
         SaveScores(savedScores);
     }
     public HighscoreSaveData GetSavedScores()

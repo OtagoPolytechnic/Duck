@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Codice.CM.Client.Differences.Graphic;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -12,7 +12,11 @@ public class ScoreManager : MonoBehaviour
     public TMP_Text pointsText;
     public TMP_Text finalscoreText;
     public TMP_Text highscoreNotif;
+     
+    public ScoreInputField inputField;
     public GameObject submitButton;
+
+    public EntryData playerScoreInfo = new EntryData();
 
     public int score;
     public int finalscore;
@@ -52,8 +56,6 @@ public class ScoreManager : MonoBehaviour
 
                 //display submit button
                 submitButton.SetActive(true);
-                // add entry on click
-
             }
             else
             {
@@ -69,4 +71,12 @@ public class ScoreManager : MonoBehaviour
         Instance = this;
     }
 
+    public void SumbitPlayerScore()
+    {
+        playerScoreInfo.entryName = inputField.playerName;
+        playerScoreInfo.entryScore = finalscore;
+        scoreboard.AddEntry(playerScoreInfo);
+
+        SceneManager.LoadScene("Highscores");
+    }
 }
