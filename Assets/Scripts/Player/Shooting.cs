@@ -59,13 +59,13 @@ public class Shooting : MonoBehaviour
         if (PlayerHealth.hasShotgun)
         {
             //shoot 1+stacks(2) bullets in a cone infront of the player
-            float shotAngle = 15f;
+            float shotAngle = 10f;
             for (int i = 0; i < PlayerHealth.bulletAmount + 1; i++)
             {
                 firePoint.rotation = Quaternion.Euler(0, 0, lookAngle + shotAngle);
                 GameObject bulletClone = Instantiate(bullet, firePoint.position, Quaternion.Euler(0, 0, lookAngle));
                 bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
-                shotAngle -= 15f;
+                shotAngle -= 10f;
             }
         }
         else
