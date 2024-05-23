@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
     public static float healthMultiplier = 1f;
     public static float spawnTimer = 5f; //Time between spawns
     private float lastSpawn; //Time since last spawn
-    private int enemyCap = 4;
+    private int enemyCap = 1000; //temp value
     public static List<GameObject> currentEnemies = new List<GameObject>();
 
     public int waveNumber;
