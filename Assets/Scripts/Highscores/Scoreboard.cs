@@ -5,7 +5,7 @@ using System.IO;
 
 public class Scoreboard : MonoBehaviour
 {
-    [SerializeField] private int maxScoreEntries;
+    [SerializeField] public int maxScoreEntries;
 
     [SerializeField] private Transform scoreContainerTransform;
     [SerializeField] private GameObject highscoreEntry;
@@ -63,7 +63,8 @@ public class Scoreboard : MonoBehaviour
                 maxScoreEntries, 
                 savedScores.highscores.Count - maxScoreEntries);
         }
-        
+
+        //UpdateUI(savedScores);
         SaveScores(savedScores);
     }
     public HighscoreSaveData GetSavedScores()

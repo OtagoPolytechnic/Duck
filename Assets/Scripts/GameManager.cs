@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
      public void Restart() 
    {
       // Load current scene
-      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+      SceneManager.LoadScene("MainScene");
    }
 
    public void MainMenu() 
