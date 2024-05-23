@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemController : MonoBehaviour
@@ -78,6 +76,34 @@ public class ItemController : MonoBehaviour
                 PlayerHealth.bulletAmount += 2;
                 Debug.Log($"Shotgun bullets: {PlayerHealth.bulletAmount}");
             break;
+            case 12:
+                for (int i = 0; i < 2; i++)
+                {
+                    int randomRoll = UnityEngine.Random.Range(0, 4);
+                    if (randomRoll == 0)
+                    {
+                        PlayerHealth.damage += 5;
+                        Debug.Log($"Damage: {PlayerHealth.damage}");
+                    }
+                    else if (randomRoll == 1)
+                    {
+                        PlayerHealth.maxHealth *= 1.05f;
+                        Math.Round(PlayerHealth.maxHealth, 0, MidpointRounding.AwayFromZero);
+                        Debug.Log($"Max health: {PlayerHealth.maxHealth}");
+                    }
+                    else if (randomRoll == 2)
+                    {
+                        TopDownMovement.moveSpeed *= 1.025f;
+                        Debug.Log($"Speed: {TopDownMovement.moveSpeed}"); 
+                    }
+                    else if (randomRoll == 3)
+                    {
+                        Shooting.firerate *= 0.95f;
+                    Debug.Log($"Firerate: {Shooting.firerate}"); 
+                }
+                }
+                
+                break;
             default:
                 Debug.LogError("No item was given to the player, either, the item added to the list was not given a case, or the id does not match a current case.");
             break;

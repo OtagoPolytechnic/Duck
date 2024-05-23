@@ -43,7 +43,7 @@ public class InventoryPage : MonoBehaviour
         new() { id = 09, name = "Crit Chance", desc = "You have an increased chance to deal critical damage" , rarity = rarity.Uncommon },
         new() { id = 10, name = "Glass Cannon", desc = "Halves your health to double your damage", rarity = rarity.Epic },
         new() { id = 11, name = "Shotgun", desc = "You shoot a spread of bullets instead of one", rarity = rarity.Epic },
-        new() { id = 12, name = "TempUncommon", desc = "TempUncommon", rarity = rarity.Uncommon}
+        new() { id = 12, name = "Dice Roll", desc = "Gain two random basic stats at half strength", rarity = rarity.Uncommon}
     };
     //in this list, there cannot be less than 3 of each rarity for the case that 3 of one rarity is picked on the item selection. 
 
