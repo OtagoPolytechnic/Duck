@@ -48,7 +48,8 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Explosion size: {PlayerHealth.explosionSize}");
             break;     
             case 08:
-                Instantiate(eggPrefab,  new Vector3(0,0,0), Quaternion.identity, GameObject.Find("Nest").transform);
+                GameObject newEgg = Instantiate(eggPrefab,  new Vector3(0,0,0), Quaternion.identity, GameObject.Find("Nest").transform);
+                newEgg.transform.localScale = new Vector3(0.3333333f,0.3333333f,0.3333333f);
             break;
             case 09:
                 PlayerHealth.critChance += 0.15f;
@@ -108,5 +109,6 @@ public class ItemController : MonoBehaviour
                 Debug.LogError("No item was given to the player, either, the item added to the list was not given a case, or the id does not match a current case.");
             break;
         }
+        InventoryPage.itemList[itemID].stacks += 1;
     }
 }
