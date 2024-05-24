@@ -6,31 +6,36 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject[] enemies;
     public float spawnRadius;
-    public float spawnTimer; //Time between spawns
-    public float lastSpawn; //Time since last spawn
-    public int enemyHealth = 100;
+    public static float healthMultiplier = 1f;
+    public static float spawnTimer = 5f; //Time between spawns
+    private float lastSpawn; //Time since last spawn
+    private int enemyCap = 1000; //temp value
+    public static List<GameObject> currentEnemies = new List<GameObject>();
 
     public int waveNumber;
 
     public GameObject timerManager;
+
     Timer timer;
 
     private void Awake()
     {
         timerManager = GameObject.Find("TimerManager");
         timer = timerManager.GetComponent<Timer>();
+        lastSpawn = spawnTimer;
     }
 
     void Update()
     {
         if(timer.running)
         {
-            if (lastSpawn > spawnTimer)
+            if (lastSpawn > spawnTimer && currentEnemies.Count < enemyCap)
             {
                 Spawn(Random.Range(0, enemies.Length));
                 lastSpawn = 0;
             }
-            else{
+            else
+            {
                 lastSpawn += Time.deltaTime;
             }
         }
@@ -39,6 +44,8 @@ public class EnemySpawner : MonoBehaviour
     void Spawn(int enemyNum)
     {
         GameObject enemy = Instantiate(enemies[enemyNum], transform.position + new Vector3(Random.Range(-spawnRadius, spawnRadius), Random.Range(-spawnRadius, spawnRadius), 0), transform.rotation);
-        enemy.GetComponent<EnemyHealth>().health = enemyHealth;
+        enemy.GetComponent<EnemyHealth>().health = Mathf.RoundToInt(enemy.GetComponent<EnemyHealth>().baseHealth * healthMultiplier);
+        currentEnemies.Add(enemy);
+        Debug.Log(currentEnemies.Count);
     }
 }

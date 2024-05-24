@@ -34,7 +34,7 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Firerate: {Shooting.firerate}"); 
             break;
             case 05:
-                EnemyHealth.bleedAmount = 5f;
+                EnemyHealth.bleedAmount = 5;
                 EnemyHealth.bleedTrue = true;
                 Debug.Log($"Bleed amount: {EnemyHealth.bleedAmount}"); 
             break;

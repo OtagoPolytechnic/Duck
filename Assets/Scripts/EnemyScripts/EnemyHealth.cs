@@ -6,11 +6,12 @@ using UnityEngine.Events;
 public class EnemyHealth : MonoBehaviour
 {
     //public UnityEvent OnEnemyDeath = new UnityEvent();
-    public float health; //this can never be static
+    public int baseHealth;
+    [HideInInspector] public int health;
     public float bleedTick = 1f;
     public float bleedInterval = 1f;
     public static bool bleedTrue;
-    public static float bleedAmount = 0;
+    public static int bleedAmount = 0;
 
     
     // Start is called before the first frame update
@@ -28,6 +29,7 @@ public class EnemyHealth : MonoBehaviour
             //save for if we need event
             //OnEnemyDeath?.Invoke();
             ScoreManager.Instance.IncreasePoints(10);
+            EnemySpawner.currentEnemies.Remove(gameObject);
             Destroy(gameObject);
         }
     }
