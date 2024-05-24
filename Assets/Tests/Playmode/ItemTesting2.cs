@@ -36,7 +36,7 @@ public class ItemTesting2
         }
 
         // Store the initial health
-        float initialHealth = playerHealth.currentHealth;
+        float initialHealth = PlayerHealth.currentHealth;
 
 
 
@@ -75,7 +75,7 @@ public class ItemTesting2
 
 
         // Get a reference to the PlayerHealth component attached to the player GameObject
-        shooting firerate = GameObject.FindGameObjectWithTag("Player").GetComponent<shooting>();
+        Shooting firerate = GameObject.FindGameObjectWithTag("Player").GetComponent<Shooting>();
 
         if (firerate == null)
         {
@@ -85,7 +85,7 @@ public class ItemTesting2
 
 
         // Store the initial health
-        float initialFirerate = shooting.firerate;
+        float initialFirerate = Shooting.firerate;
 
         // Wait for the stats to be updated
         yield return new WaitForSeconds(10f);
@@ -108,9 +108,9 @@ public class ItemTesting2
         Debug.Log(initialRegenAmount);
         Debug.Log(PlayerHealth.regenAmount);
 
-        Assert.Less(shooting.firerate, initialFirerate, "Firerate did not decrease");
+        Assert.Less(Shooting.firerate, initialFirerate, "Firerate did not decrease");
         //Debug.Log(initialFirerate);
-        //Debug.Log(shooting.firerate);
+        //Debug.Log(Shooting.firerate);
     }
 }
 

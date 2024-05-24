@@ -22,7 +22,7 @@ public class StatsCheckerScript : MonoBehaviour
         initialMaxHealth = PlayerHealth.maxHealth;
         initialMoveSpeed = TopDownMovement.moveSpeed;
         initialRegenAmount = PlayerHealth.regenAmount;
-        initialFirerate = shooting.firerate;
+        initialFirerate = Shooting.firerate;
 
         //Debug.Log($"Initial Damage: {initialDamage}");
         //Debug.Log($"Initial Max health: {initialMaxHealth}");
@@ -50,11 +50,11 @@ public class StatsCheckerScript : MonoBehaviour
         yield return new WaitForSeconds(10); // Wait for 10 seconds
 
         // Call ItemPicked methods
-        itemController.ItemPicked("Damage Increase");
-        itemController.ItemPicked("Health Increase");
-        itemController.ItemPicked("Speed Increase");
-        itemController.ItemPicked("Regen");
-        itemController.ItemPicked("Firerate Increase");
+        itemController.ItemPicked(0);
+        itemController.ItemPicked(01);
+        itemController.ItemPicked(02);
+        itemController.ItemPicked(03);
+        itemController.ItemPicked(04);
 
         // Log updated stats
         //Debug.Log($"Updated Damage: {PlayerHealth.damage}");
