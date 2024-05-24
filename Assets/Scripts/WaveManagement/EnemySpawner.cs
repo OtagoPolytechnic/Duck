@@ -46,6 +46,5 @@ public class EnemySpawner : MonoBehaviour
         GameObject enemy = Instantiate(enemies[enemyNum], transform.position + new Vector3(Random.Range(-spawnRadius, spawnRadius), Random.Range(-spawnRadius, spawnRadius), 0), transform.rotation);
         enemy.GetComponent<EnemyHealth>().health = Mathf.RoundToInt(enemy.GetComponent<EnemyHealth>().baseHealth * healthMultiplier);
         currentEnemies.Add(enemy);
-        Debug.Log(currentEnemies.Count);
     }
 }
