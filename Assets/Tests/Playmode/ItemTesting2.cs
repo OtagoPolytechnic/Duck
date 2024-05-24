@@ -11,7 +11,7 @@ public class ItemTesting2
     public IEnumerator IncreaseHealth_ItemEffect_Test()
     {
         // Load the MainScene before running the tests
-        yield return SceneManager.LoadSceneAsync("ItemScene2");
+        yield return SceneManager.LoadSceneAsync("MainScene");
 
         // Wait for a moment to ensure player is spawned
         yield return new WaitForSeconds(1f);
