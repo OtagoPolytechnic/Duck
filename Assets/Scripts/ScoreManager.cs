@@ -32,7 +32,7 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FinalScore();
+        //FinalScore();
     }
 
     public void IncreasePoints(int amount)
