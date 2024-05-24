@@ -10,15 +10,17 @@ public class Timer : MonoBehaviour
     private InventoryPage inventoryUI;
     [HideInInspector]
     public int inventorySize = 3;
+
     public TextMeshProUGUI waveNumberText;
     public TextMeshProUGUI timerText;
+
     public float waveLength;
-    public float currentTime;
+    private float currentTime;
     public int waveNumber;
     public bool running;
+
     private bool gotItems = true;
     bool geninventory = false;
-    private GameObject[] spawnPoints;
     [HideInInspector]
     public List<InventoryItem> inventoryItems = new List<InventoryItem>();
     [HideInInspector]
@@ -28,7 +30,6 @@ public class Timer : MonoBehaviour
     {
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
-        spawnPoints = GameObject.FindGameObjectsWithTag("Spawner");
     }
 
     void Update()
@@ -48,7 +49,7 @@ public class Timer : MonoBehaviour
                 if (inventoryItems[i].itemChosen)
                 {
                     Debug.Log("Item Picked!");
-                    nextWave();
+                    NextWave();
                 }
             }
 
@@ -56,15 +57,7 @@ public class Timer : MonoBehaviour
         
         if(currentTime <= 0)
         {
-            running = false;
-            gotItems = false;
-            if (!geninventory)
-            {
-                inventoryUI.InitializeInventoryUI(inventorySize);
-                
-                geninventory = true;
-            }
-            
+            EndWave();
         }
 
         setTimerText();
@@ -84,20 +77,47 @@ public class Timer : MonoBehaviour
         timerText.text = currentTime.ToString("0") + " s";
     }
 
-    private void nextWave()
+    private void NextWave()
     {
         waveNumber += 1;
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
 
-        //Update every spawn point when the next wave starts
-        for (int i=0; i<spawnPoints.Length; i++){
-            spawnPoints[i].GetComponent<EnemySpawner>().enemyHealth += 10;
-            spawnPoints[i].GetComponent<EnemySpawner>().spawnTimer -= 0.1f;
+        EnemySpawner.healthMultiplier += 0.5f;
+        EnemySpawner.spawnTimer -= 0.25f;
+        if(EnemySpawner.spawnTimer < 0.1f)
+        {
+            EnemySpawner.spawnTimer = 0.1f;
         }
 
         running = true;
         geninventory = false;
         //inventoryItems.Clear();
+    }
+
+    private void EndWave()
+    {
+        running = false;
+
+        //cull enemies and bullets
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
+
+        foreach (GameObject enemy in enemies)
+        {
+            Destroy(enemy);
+        }
+        foreach (GameObject bullet in bullets)
+        {
+            Destroy(bullet);
+        }
+
+        gotItems = false;
+        if (!geninventory)
+        {
+            inventoryUI.InitializeInventoryUI(inventorySize);
+            
+            geninventory = true;
+        }
     }
 }
