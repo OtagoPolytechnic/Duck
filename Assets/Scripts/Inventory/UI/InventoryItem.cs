@@ -9,7 +9,9 @@ using UnityEngine.UI;
 public class InventoryItem : MonoBehaviour
 {
     [HideInInspector]
-    public bool itemChosen;   
+    public bool itemChosen;  
+    [HideInInspector]
+    public int itemID; 
     [HideInInspector]
     public string itemName;
     [HideInInspector]
@@ -55,16 +57,9 @@ public class InventoryItem : MonoBehaviour
             borderColor.color = commonColor;
         }
     }
-
-    // Update is called once per frame
-   void Update()
-    {
-
-    }
-
     public void Click()
     {
-        itemController.ItemPicked(itemName); //assign the clicked item to the player
+        itemController.ItemPicked(itemID); //assign the clicked item to the player
         itemChosen = true; 
     }
 }
