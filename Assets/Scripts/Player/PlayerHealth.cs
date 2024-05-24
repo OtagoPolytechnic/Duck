@@ -5,14 +5,22 @@ using UnityEngine.Events;
 
 public class PlayerHealth : MonoBehaviour
 {
+    //health vars
     public static float maxHealth = 100;
-    public static int damage = 20;
-
-    public float currentHealth;
+    public static float currentHealth;
     float regenTick = 3f;
     float regenInterval = 3f;
     public static float regenAmount = 0;
     public static bool regenTrue = false;
+    public static float lifestealAmount = 0;
+    //damage vars
+    public static int damage = 20;
+    public static int explosionSize = 0;
+    public static bool explosiveBullets = false;
+    public static float critChance = 0.01f;
+    public static bool hasShotgun = false;
+    public static int bulletAmount = 0; //this is for the extra bullets spawned by the shotgun item - it should always be even
+    //other vars
     public List<GameObject> lifeEggs;
     public UnityEvent onPlayerRespawn = new UnityEvent();
     
