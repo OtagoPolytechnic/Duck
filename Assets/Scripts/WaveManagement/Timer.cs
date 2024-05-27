@@ -99,7 +99,17 @@ public class Timer : MonoBehaviour
     {
         running = false;
 
-        //cull enemies and bullets
+        gotItems = false;
+        if (!geninventory)
+        {
+            inventoryUI.InitializeInventoryUI(inventorySize);
+            
+            geninventory = true;
+        }
+    }
+
+    private void CullEnemies()
+    {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
 
@@ -110,14 +120,6 @@ public class Timer : MonoBehaviour
         foreach (GameObject bullet in bullets)
         {
             Destroy(bullet);
-        }
-
-        gotItems = false;
-        if (!geninventory)
-        {
-            inventoryUI.InitializeInventoryUI(inventorySize);
-            
-            geninventory = true;
         }
     }
 }
