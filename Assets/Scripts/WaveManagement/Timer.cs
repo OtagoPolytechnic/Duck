@@ -99,6 +99,8 @@ public class Timer : MonoBehaviour
     {
         running = false;
 
+        CullEnemies();
+
         gotItems = false;
         if (!geninventory)
         {
@@ -115,6 +117,7 @@ public class Timer : MonoBehaviour
 
         foreach (GameObject enemy in enemies)
         {
+            EnemySpawner.currentEnemies.Remove(enemy);
             Destroy(enemy);
         }
         foreach (GameObject bullet in bullets)
