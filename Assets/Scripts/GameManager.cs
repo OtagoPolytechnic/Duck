@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour
 
      public void Restart() 
    {
-      // Load current scene
+        // Load current scene
+        ResetVariables();
       SceneManager.LoadScene("MainScene");
    }
 
@@ -34,4 +35,30 @@ public class GameManager : MonoBehaviour
    {
       SceneManager.LoadScene("Titlescreen");
    }
+
+    public void ResetVariables() //Any static variables that need to be reset on game start should be added to this method
+    {
+        //Player variables
+        PlayerHealth.maxHealth = 100;
+        PlayerHealth.regenAmount = 0;
+        PlayerHealth.regenAmount = 0;
+        PlayerHealth.regenTrue = false;
+        PlayerHealth.lifestealAmount = 0;
+        PlayerHealth.damage = 20;
+        PlayerHealth.explosionSize = 0;
+        PlayerHealth.explosiveBullets = false;
+        PlayerHealth.critChance = 0.01f;
+        PlayerHealth.hasShotgun = false;
+        PlayerHealth.bulletAmount = 0;
+
+        TopDownMovement.moveSpeed = 10f;
+
+        EnemyHealth.bleedTrue = false;
+        EnemyHealth.bleedAmount = 0;
+
+        //Enemy variables
+        EnemySpawner.healthMultiplier = 1f;
+        EnemySpawner.spawnTimer = 5f;
+
+}
 }
