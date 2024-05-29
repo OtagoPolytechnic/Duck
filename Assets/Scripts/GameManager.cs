@@ -59,6 +59,5 @@ public class GameManager : MonoBehaviour
         //Enemy variables
         EnemySpawner.healthMultiplier = 1f;
         EnemySpawner.spawnTimer = 5f;
-
-}
+    }
 }
