@@ -13,6 +13,13 @@ public class StatsCheckerScript : MonoBehaviour
     public float initialMoveSpeed;
     public float initialRegenAmount;
     public float initialFirerate;
+    public float initialBleedAmount;
+    public float initialLifestealAmount;
+    public float initialExplosiveBullets;
+    public float initialEggs;
+    public float initialCritChance;
+    public float initialMaxHelath;
+    public float initialShotgun;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +30,14 @@ public class StatsCheckerScript : MonoBehaviour
         initialMoveSpeed = TopDownMovement.moveSpeed;
         initialRegenAmount = PlayerHealth.regenAmount;
         initialFirerate = Shooting.firerate;
+        initialBleedAmount = EnemyHealth.bleedAmount;
+        initialLifestealAmount = PlayerHealth.lifestealAmount;
+        initialExplosiveBullets = PlayerHealth.explosionSize;
+        initialEggs = 3;
+        initialCritChance = PlayerHealth.critChance;
+        initialMaxHelath = PlayerHealth.maxHealth;
+        initialShotgun = PlayerHealth.bulletAmount;
+  
 
         //Debug.Log($"Initial Damage: {initialDamage}");
         //Debug.Log($"Initial Max health: {initialMaxHealth}");
@@ -55,6 +70,14 @@ public class StatsCheckerScript : MonoBehaviour
         itemController.ItemPicked(02);
         itemController.ItemPicked(03);
         itemController.ItemPicked(04);
+        itemController.ItemPicked(05);
+        itemController.ItemPicked(06);
+        itemController.ItemPicked(07);
+        itemController.ItemPicked(08);
+        itemController.ItemPicked(09);
+        itemController.ItemPicked(10);
+        itemController.ItemPicked(11);
+        itemController.ItemPicked(12);
 
         // Log updated stats
         //Debug.Log($"Updated Damage: {PlayerHealth.damage}");

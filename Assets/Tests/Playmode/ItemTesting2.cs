@@ -11,7 +11,7 @@ public class ItemTesting2
     public IEnumerator IncreaseHealth_ItemEffect_Test()
     {
         // Load the MainScene before running the tests
-        yield return SceneManager.LoadSceneAsync("MainScene");
+        yield return SceneManager.LoadSceneAsync("ItemScene2");
 
         // Wait for a moment to ensure player is spawned
         yield return new WaitForSeconds(1f);
@@ -63,29 +63,78 @@ public class ItemTesting2
         // Store the initial health
         float initialMoveSpeed = TopDownMovement.moveSpeed;
 
-
-
-
-
-
-
-        // Store the initial regen amount
+                // Store the initial regen amount
         float initialRegenAmount = PlayerHealth.regenAmount;
 
 
 
-        // Get a reference to the PlayerHealth component attached to the player GameObject
+    
         Shooting firerate = GameObject.FindGameObjectWithTag("Player").GetComponent<Shooting>();
 
         if (firerate == null)
         {
-            Debug.LogError("PlayerHealth component not found.");
+            Debug.LogError("Firerate component not found.");
             yield break; // Exit the test
         }
 
-
-        // Store the initial health
+        // Store the initial firerate
         float initialFirerate = Shooting.firerate;
+
+
+
+
+
+
+        EnemyHealth bleedAmount = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyHealth>();
+
+        if (bleedAmount == null)
+        {
+            Debug.LogError("BleedAmount component not found.");
+            yield break; // Exit the test
+        }
+
+        // Store the initial Bleed amount
+        float initialBleedAmount = EnemyHealth.bleedAmount;
+
+
+
+
+
+
+        PlayerHealth lifestealAmount = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+
+        if (lifestealAmount == null)
+        {
+            Debug.LogError("LifestealAmount component not found.");
+            yield break; // Exit the test
+        }
+
+        // Store the initial lifesteal amount
+        float initialLifestealAmount = PlayerHealth.lifestealAmount;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // Wait for the stats to be updated
         yield return new WaitForSeconds(10f);
