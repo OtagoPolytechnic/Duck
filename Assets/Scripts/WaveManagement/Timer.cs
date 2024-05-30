@@ -84,7 +84,7 @@ public class Timer : MonoBehaviour
         waveNumberText.text = "Wave: " + waveNumber.ToString();
 
         EnemySpawner.healthMultiplier += 0.5f;
-        EnemySpawner.spawnTimer -= 0.25f;
+        EnemySpawner.spawnTimer -= 0.1f;
         if(EnemySpawner.spawnTimer < 0.1f)
         {
             EnemySpawner.spawnTimer = 0.1f;
