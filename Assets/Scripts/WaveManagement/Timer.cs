@@ -110,7 +110,7 @@ public class Timer : MonoBehaviour
         }
     }
 
-    private void CullEnemies()
+    public static void CullEnemies()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");

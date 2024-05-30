@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
             //call game over UI
             gameOverUI.SetActive(true);
             //Debug.Log("Game Over");
+
+            Timer.CullEnemies();
         }
    }
 
@@ -40,7 +42,6 @@ public class GameManager : MonoBehaviour
     {
         //Player variables
         PlayerHealth.maxHealth = 100;
-        PlayerHealth.regenAmount = 0;
         PlayerHealth.regenAmount = 0;
         PlayerHealth.regenTrue = false;
         PlayerHealth.lifestealAmount = 0;
