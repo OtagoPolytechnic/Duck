@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -21,8 +22,10 @@ public class PlayerHealth : MonoBehaviour
     public static bool hasShotgun = false;
     public static int bulletAmount = 0; //this is for the extra bullets spawned by the shotgun item - it should always be even
     //other vars
+    public GameObject damageText;
     public List<GameObject> lifeEggs;
     public UnityEvent onPlayerRespawn = new UnityEvent();
+ 
     
     // Start is called before the first frame update
     void Start()
@@ -74,5 +77,10 @@ public class PlayerHealth : MonoBehaviour
         }
 
         currentHealth = maxHealth;
+    }
+    public void ReceiveDamage(int damageTaken)
+    {
+            GameObject damageTextInst = Instantiate(damageText, gameObject.transform);
+            damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
     }
 }

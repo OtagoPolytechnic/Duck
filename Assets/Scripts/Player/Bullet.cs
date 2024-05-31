@@ -29,6 +29,7 @@ public class Bullet : MonoBehaviour
     {
         float critRoll = Random.Range(0f,1f);
         int critDamage = 0;
+        bool critTrue = false;
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Enemy"))
         {
@@ -36,6 +37,7 @@ public class Bullet : MonoBehaviour
             if (critRoll < PlayerHealth.critChance)
             {
                 critDamage += Mathf.RoundToInt(PlayerHealth.damage * 1.50f);
+                critTrue = true;
             }
             //lifesteal addition and cap
             PlayerHealth.currentHealth += PlayerHealth.lifestealAmount;
@@ -48,7 +50,14 @@ public class Bullet : MonoBehaviour
             {
                 transform.localScale = new Vector3(transform.localScale.x * (2 + 0.2f * PlayerHealth.explosionSize), transform.localScale.y * (2 + 0.2f * PlayerHealth.explosionSize), 1);
             }
-            other.gameObject.GetComponent<EnemyHealth>().health -= PlayerHealth.damage + critDamage;
+            if (critTrue)
+            {
+                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(PlayerHealth.damage + critDamage);
+            }
+            else
+            {
+                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(PlayerHealth.damage);
+            }
             Destroy(gameObject);
         }
     }

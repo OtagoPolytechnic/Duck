@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 public class EnemyHealth : MonoBehaviour
 {
     //public UnityEvent OnEnemyDeath = new UnityEvent();
+    public GameObject damageText;
     public int baseHealth;
     [HideInInspector] public int health;
     public float bleedTick = 1f;
@@ -41,5 +43,11 @@ public class EnemyHealth : MonoBehaviour
             bleedTick = bleedInterval;
             health -= bleedAmount; 
         }
+    }
+        public void ReceiveDamage(int damageTaken)
+    {
+            GameObject damageTextInst = Instantiate(damageText, gameObject.transform);
+            damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
+            health -= damageTaken;
     }
 }
