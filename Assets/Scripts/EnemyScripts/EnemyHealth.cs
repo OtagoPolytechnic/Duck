@@ -45,9 +45,9 @@ public class EnemyHealth : MonoBehaviour
         }
     }
         public void ReceiveDamage(int damageTaken)
-    {
-            GameObject damageTextInst = Instantiate(damageText, gameObject.transform);
-            damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
-            health -= damageTaken;
+    {//add the ability for text to raise above the hit entity
+        GameObject damageTextInst = Instantiate(damageText, transform.position, Quaternion.identity);
+        damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
+        health -= damageTaken;
     }
 }

@@ -32,7 +32,7 @@ public class EnemyRanged : MonoBehaviour
         //turns enemy towards player
         direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+        transform.GetChild(0).rotation = Quaternion.Euler(Vector3.forward * angle);
 
         if (distance >= attackRange)
         { 

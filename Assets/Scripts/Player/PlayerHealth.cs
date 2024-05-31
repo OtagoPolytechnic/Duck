@@ -80,7 +80,8 @@ public class PlayerHealth : MonoBehaviour
     }
     public void ReceiveDamage(int damageTaken)
     {
-            GameObject damageTextInst = Instantiate(damageText, gameObject.transform);
-            damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
+        //add the ability for text to raise above the hit entity
+        GameObject damageTextInst = Instantiate(damageText, gameObject.transform);
+        damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
     }
 }
