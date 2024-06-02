@@ -176,7 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b76b5f2e6c89db442a7a55299f3066b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
+  damageText: {fileID: 391528759432483411, guid: aa150d6d100764d45af1b8790d3f8c9c, type: 3}
+  critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
   baseHealth: 40
   health: 100
   bleedTick: 1

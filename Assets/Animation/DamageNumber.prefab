@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 391528759432483415}
   - component: {fileID: 391528759432483414}
   - component: {fileID: 391528759432483413}
-  - component: {fileID: 391528759432483412}
   - component: {fileID: 391528759432483416}
+  - component: {fileID: 1843310771502001390}
   m_Layer: 0
   m_Name: DamageNumber
   m_TagString: Untagged
@@ -102,9 +102,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '40
-
-'
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -176,26 +174,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 391528759432483414}
   m_maskType: 0
---- !u!95 &391528759432483412
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 391528759432483411}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 398c895472c1ca94ca41b0739c4ec466, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &391528759432483416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,3 +186,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc8368b53c2a424e8bd4a4311f179ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1843310771502001390
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391528759432483411}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 195dd5dfec1012d4f8e661fede1e26e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0

@@ -8,6 +8,7 @@ public class EnemyHealth : MonoBehaviour
 {
     //public UnityEvent OnEnemyDeath = new UnityEvent();
     public GameObject damageText;
+    public GameObject critText;
     public int baseHealth;
     [HideInInspector] public int health;
     public float bleedTick = 1f;
@@ -44,10 +45,20 @@ public class EnemyHealth : MonoBehaviour
             health -= bleedAmount; 
         }
     }
-        public void ReceiveDamage(int damageTaken)
-    {//add the ability for text to raise above the hit entity
-        GameObject damageTextInst = Instantiate(damageText, transform.position, Quaternion.identity);
-        damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
-        health -= damageTaken;
+    public void ReceiveDamage(int damageTaken, bool critTrue)
+    {
+        if (critTrue)
+        {
+            GameObject critTextInst = Instantiate(critText, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+            critTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString() + "!";
+            health -= damageTaken;
+        }
+        else
+        {
+            GameObject damageTextInst = Instantiate(damageText, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+            damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
+            health -= damageTaken;
+        }
+        
     }
 }

@@ -52,11 +52,11 @@ public class Bullet : MonoBehaviour
             }
             if (critTrue)
             {
-                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(PlayerHealth.damage + critDamage);
+                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(PlayerHealth.damage + critDamage, true);
             }
             else
             {
-                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(PlayerHealth.damage);
+                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(PlayerHealth.damage, false);
             }
             Destroy(gameObject);
         }
