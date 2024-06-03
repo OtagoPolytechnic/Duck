@@ -122,8 +122,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4499773875878545193, guid: 2c0b83d3d7536fb4ea39d28a768a747c, type: 3}
-        m_TargetAssemblyTypeName: Scoreboard, Scripts
+      - m_Target: {fileID: 4898483234167344905, guid: 6c6f9b081328e2144b1340630cc8650e, type: 3}
+        m_TargetAssemblyTypeName: ScoreManager, Scripts
         m_MethodName: SumbitPlayerScore
         m_Mode: 1
         m_Arguments:

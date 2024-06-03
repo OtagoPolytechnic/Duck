@@ -257,7 +257,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2932855703652822237, guid: 22aee063013179d41b9a39c565c8807b, type: 3}
         m_TargetAssemblyTypeName: ScoreInputField, Scripts
         m_MethodName: Show
         m_Mode: 1
