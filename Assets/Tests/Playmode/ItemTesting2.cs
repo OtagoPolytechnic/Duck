@@ -26,9 +26,6 @@ public class ItemTesting2
             yield break; // Exit the test
         }
 
-
-
-
         PlayerHealth damage = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
 
         if (damage == null)
@@ -39,14 +36,6 @@ public class ItemTesting2
 
         // Store the initial health
         float initialDamage = PlayerHealth.damage;
-
-
-
-
-
-
-
-
 
         // Get a reference to the PlayerHealth component attached to the player GameObject
         PlayerHealth maxHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
@@ -59,17 +48,6 @@ public class ItemTesting2
 
         // Store the initial health
         float initialMaxHealth = PlayerHealth.maxHealth;
-
-
-
-
-
-
-
-
-
-
-
 
         // Get a reference to the PlayerHealth component attached to the player GameObject
         TopDownMovement moveSpeed = GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownMovement>();
@@ -86,9 +64,6 @@ public class ItemTesting2
         // Store the initial regen amount
         float initialRegenAmount = PlayerHealth.regenAmount;
 
-
-
-
         Shooting firerate = GameObject.FindGameObjectWithTag("Player").GetComponent<Shooting>();
 
         if (firerate == null)
@@ -100,127 +75,73 @@ public class ItemTesting2
         // Store the initial firerate
         float initialFirerate = Shooting.firerate;
 
+        EnemyHealth bleedAmount = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyHealth>();
 
+        if (bleedAmount == null)
+        {
+            Debug.LogError("BleedAmount component not found.");
+            yield break; // Exit the test
+        }
 
+        // Store the initial Bleed amount
+        float initialBleedAmount = EnemyHealth.bleedAmount;
 
+        PlayerHealth lifestealAmount = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
 
+        if (lifestealAmount == null)
+        {
+            Debug.LogError("LifestealAmount component not found.");
+            yield break; // Exit the test
+        }
 
-        //EnemyHealth bleedAmount = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyHealth>();
+        // Store the initial lifesteal amount
+        float initialLifestealAmount = PlayerHealth.lifestealAmount;
 
-        //if (bleedAmount == null)
-        //{
-        //    Debug.LogError("BleedAmount component not found.");
-        //    yield break; // Exit the test
-        //}
+        PlayerHealth explosionSize = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
 
-        //// Store the initial Bleed amount
-        //float initialBleedAmount = EnemyHealth.bleedAmount;
+        if (explosionSize == null)
+        {
+            Debug.LogError("explosionSize component not found.");
+            yield break; // Exit the test
+        }
 
+        // Store the initial explosionSize amount
+        float initialexplosionSize = PlayerHealth.explosionSize;
 
+        PlayerHealth critChance = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
 
+        if (critChance == null)
+        {
+            Debug.LogError("explosionSize component not found.");
+            yield break; // Exit the test
+        }
 
+        // Store the initial initialCritChance amount
+        float initialCritChance = PlayerHealth.critChance;
 
+        PlayerHealth bulletAmount = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
 
-        //PlayerHealth lifestealAmount = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        if (bulletAmount == null)
+        {
+            Debug.LogError("explosionSize component not found.");
+            yield break; // Exit the test
+        }
 
-        //if (lifestealAmount == null)
-        //{
-        //    Debug.LogError("LifestealAmount component not found.");
-        //    yield break; // Exit the test
-        //}
+        // Store the initial initialShotgun amount
+        float initialShotgun = PlayerHealth.bulletAmount;
 
-        //// Store the initial lifesteal amount
-        //float initialLifestealAmount = PlayerHealth.lifestealAmount;
-
-
-
-
-
-
-        //PlayerHealth explosionSize = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
-
-        //if (explosionSize == null)
-        //{
-        //    Debug.LogError("explosionSize component not found.");
-        //    yield break; // Exit the test
-        //}
-
-        //// Store the initial explosionSize amount
-        //float initialexplosionSize = PlayerHealth.explosionSize;
-
-
-
-
-
-
-        //PlayerHealth critChance = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
-
-        //if (critChance == null)
-        //{
-        //    Debug.LogError("explosionSize component not found.");
-        //    yield break; // Exit the test
-        //}
-
-        //// Store the initial explosionSize amount
-        //float initialCritChance = PlayerHealth.critChance;
-
-
-
-
-
-
-
-
-
-        //PlayerHealth bulletAmount = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
-
-        //if (bulletAmount == null)
-        //{
-        //    Debug.LogError("explosionSize component not found.");
-        //    yield break; // Exit the test
-        //}
-
-        //// Store the initial explosionSize amount
-        //float initialShotgun = PlayerHealth.bulletAmount;
-
-
-
-
-        // Wait for the stats to be updated
+       // Wait for the stats to be updated
         yield return new WaitForSeconds(10f);
-
         Assert.Greater(PlayerHealth.damage, initialDamage, "Damage did not increase");
-        //Debug.Log(initialDamage);
-        //Debug.Log(PlayerHealth.damage);
-
         Assert.Greater(PlayerHealth.maxHealth, initialMaxHealth, "MaxHealth did not increase");
-
         Assert.Greater(TopDownMovement.moveSpeed, initialMoveSpeed, "Speed did not increase");
-        //Debug.Log(initialMoveSpeed);
-        //Debug.Log(TopDownMovement.moveSpeed);
-
-        //Assert.Greater(PlayerHealth.regenAmount, initialRegenAmount, "Regen Amount did not increase");
-        //Debug.Log(initialRegenAmount);
-        //Debug.Log(PlayerHealth.regenAmount);
-
+        Assert.Greater(PlayerHealth.regenAmount, initialRegenAmount, "Regen Amount did not increase");
         Assert.Less(Shooting.firerate, initialFirerate, "Firerate did not decrease");
-        //Debug.Log(initialFirerate);
-        //Debug.Log(Shooting.firerate);
-
-
-        //Assert.Greater(EnemyHealth.bleedAmount, initialBleedAmount, "BleedAmount did not increase");
-
-        //Assert.Greater(PlayerHealth.lifestealAmount, initialLifestealAmount, "LifestealAmount did not increase");
-
-        //Assert.Greater(PlayerHealth.explosionSize, initialexplosionSize, "ExplosionSize did not increase");
-
-        //Assert.Greater(PlayerHealth.critChance, initialCritChance, "CritChance did not increase");
-
-  
-
-        //Assert.Greater(PlayerHealth.bulletAmount, initialShotgun, "initialShotgun did not increase");
-
-
+        Assert.Greater(EnemyHealth.bleedAmount, initialBleedAmount, "BleedAmount did not increase");
+        Assert.Greater(PlayerHealth.lifestealAmount, initialLifestealAmount, "LifestealAmount did not increase");
+        Assert.Greater(PlayerHealth.explosionSize, initialexplosionSize, "ExplosionSize did not increase");
+        Assert.Greater(PlayerHealth.critChance, initialCritChance, "CritChance did not increase");
+        Assert.Greater(PlayerHealth.bulletAmount, initialShotgun, "initialShotgun did not increase");
     }
 }
 
