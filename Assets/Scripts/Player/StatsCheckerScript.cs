@@ -13,6 +13,13 @@ public class StatsCheckerScript : MonoBehaviour
     public float initialMoveSpeed;
     public float initialRegenAmount;
     public float initialFirerate;
+    public float initialBleedAmount;
+    public float initialLifestealAmount;
+    public float initialExplosiveBullets;
+    public int initialEggCount;
+    public float initialCritChance;
+    public float initialMaxHelath;
+    public float initialShotgun;
 
     // Start is called before the first frame update
     void Start()
@@ -23,12 +30,24 @@ public class StatsCheckerScript : MonoBehaviour
         initialMoveSpeed = TopDownMovement.moveSpeed;
         initialRegenAmount = PlayerHealth.regenAmount;
         initialFirerate = Shooting.firerate;
+        initialBleedAmount = EnemyHealth.bleedAmount;
+        initialBleedAmount = PlayerHealth.lifestealAmount;
+        initialExplosiveBullets = PlayerHealth.explosionSize;
+        initialCritChance = PlayerHealth.critChance;
+        initialMaxHelath = PlayerHealth.maxHealth;
+        initialShotgun = PlayerHealth.bulletAmount;
 
-        //Debug.Log($"Initial Damage: {initialDamage}");
-        //Debug.Log($"Initial Max health: {initialMaxHealth}");
-        //Debug.Log($"Initial Speed: {initialMoveSpeed}");
-        //Debug.Log($"Initial Regen amount: {initialRegenAmount}");
-        //Debug.Log($"Initial Firerate: {initialFirerate}");
+        Debug.Log($"Initial Damage: {initialDamage}");
+        Debug.Log($"Initial Max health: {initialMaxHealth}");
+        Debug.Log($"Initial Speed: {initialMoveSpeed}");
+        Debug.Log($"Initial Regen amount: {initialRegenAmount}");
+        Debug.Log($"Initial Firerate: {initialFirerate}");
+        Debug.Log($"Initial BleedAmount: {initialBleedAmount}");
+        Debug.Log($"Initial LifestealAmount: {initialBleedAmount}");
+        Debug.Log($"Initial ExplosiveBullets: {initialExplosiveBullets}");
+        Debug.Log($"Initial CritChance: {initialCritChance}");
+        Debug.Log($"Initial MaxHelath: {initialMaxHelath}");
+        Debug.Log($"Initial Shotgun: {initialShotgun}");
 
         // Find the ItemController component in the scene
         itemController = FindObjectOfType<ItemController>();
@@ -39,11 +58,18 @@ public class StatsCheckerScript : MonoBehaviour
         }
         else
         {
+            initialEggCount = CountEggs();
+            Debug.Log($"Initial Egg count: {initialEggCount}");
+
             // Start the coroutine to wait and then call the method
             StartCoroutine(CallItemPickedAfterDelay());
         }
     }
-
+    private int CountEggs()
+    {
+        GameObject[] eggs = GameObject.FindGameObjectsWithTag("Egg");
+        return eggs.Length;
+    }
     // Coroutine to wait for 10 seconds and then call ItemPicked
     private IEnumerator CallItemPickedAfterDelay()
     {
@@ -55,13 +81,16 @@ public class StatsCheckerScript : MonoBehaviour
         itemController.ItemPicked(02);
         itemController.ItemPicked(03);
         itemController.ItemPicked(04);
-
-        // Log updated stats
-        //Debug.Log($"Updated Damage: {PlayerHealth.damage}");
-        //Debug.Log($"Updated Max health: {PlayerHealth.maxHealth}");
-        //Debug.Log($"Updated Speed: {TopDownMovement.moveSpeed}");
-        //Debug.Log($"Updated Regen amount: {PlayerHealth.regenAmount}");
-        //Debug.Log($"Updated Firerate: {shooting.firerate}");
+        itemController.ItemPicked(05);
+        itemController.ItemPicked(06);
+        itemController.ItemPicked(07);
+        itemController.ItemPicked(08);
+        itemController.ItemPicked(09);
+        itemController.ItemPicked(10);
+        itemController.ItemPicked(11);
+        itemController.ItemPicked(12);
+        int updatedEggCount = CountEggs();
+        Debug.Log($"Updated Egg count: {updatedEggCount}");
     }
 
     // Update is called once per frame
