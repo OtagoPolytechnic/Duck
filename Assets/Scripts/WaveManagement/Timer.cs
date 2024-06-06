@@ -84,7 +84,7 @@ public class Timer : MonoBehaviour
         waveNumberText.text = "Wave: " + waveNumber.ToString();
 
         EnemySpawner.healthMultiplier += 0.5f;
-        EnemySpawner.spawnTimer -= 0.25f;
+        EnemySpawner.spawnTimer -= 0.1f;
         if(EnemySpawner.spawnTimer < 0.1f)
         {
             EnemySpawner.spawnTimer = 0.1f;
@@ -99,18 +99,7 @@ public class Timer : MonoBehaviour
     {
         running = false;
 
-        //cull enemies and bullets
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
-
-        foreach (GameObject enemy in enemies)
-        {
-            Destroy(enemy);
-        }
-        foreach (GameObject bullet in bullets)
-        {
-            Destroy(bullet);
-        }
+        CullEnemies();
 
         gotItems = false;
         if (!geninventory)
@@ -118,6 +107,22 @@ public class Timer : MonoBehaviour
             inventoryUI.InitializeInventoryUI(inventorySize);
             
             geninventory = true;
+        }
+    }
+
+    public static void CullEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
+
+        foreach (GameObject enemy in enemies)
+        {
+            EnemySpawner.currentEnemies.Remove(enemy);
+            Destroy(enemy);
+        }
+        foreach (GameObject bullet in bullets)
+        {
+            Destroy(bullet);
         }
     }
 }
