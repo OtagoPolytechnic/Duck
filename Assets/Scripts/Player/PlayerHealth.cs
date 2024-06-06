@@ -65,6 +65,7 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log($"Regen: {currentHealth}"); 
         }
     }
+  
     void Respawn()
     {
         //This event currently has no listeners, it is here for future use 
