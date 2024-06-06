@@ -16,7 +16,7 @@ public class EnemyMelee : MonoBehaviour
     {
         mapManager = FindObjectOfType<MapManager>();
         player = GameObject.FindGameObjectWithTag("Player");
-        attack = gameObject.transform.GetChild(1).gameObject;
+        attack = gameObject.transform.GetChild(0).GetChild(0).gameObject;
     }
 
     // Update is called once per frame
@@ -34,7 +34,7 @@ public class EnemyMelee : MonoBehaviour
         if (!attacking) //This enemy type stops moving to attack
         {
             transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (speed * tileSpeedModifier) * Time.deltaTime);
-            transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+            transform.GetChild(0).rotation = Quaternion.Euler(Vector3.forward * angle);
 
             if (distance <= attackRange)
             {

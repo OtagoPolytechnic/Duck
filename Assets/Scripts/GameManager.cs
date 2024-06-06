@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public GameObject gameOverUI;
+    public ScoreManager scoreManager;
    private bool playerDead = false;
    public void GameOver()
    {
@@ -20,7 +21,9 @@ public class GameManager : MonoBehaviour
             FindObjectOfType<EnemySpawner>().enabled = false;
             //call kill all active enemies
             //call game over UI
+            scoreManager.FinalScore();
             gameOverUI.SetActive(true);
+            
             //Debug.Log("Game Over");
         }
         Timer.CullEnemies();
@@ -28,8 +31,7 @@ public class GameManager : MonoBehaviour
 
      public void Restart() 
    {
-        // Load current scene
-        ResetVariables();
+      ResetVariables();
       SceneManager.LoadScene("MainScene");
    }
 

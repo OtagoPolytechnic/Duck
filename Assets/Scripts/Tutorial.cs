@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class Tutorial : MonoBehaviour
 {
 
-    public void Continue()
+    public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("Titlescreen");
     }
 }
