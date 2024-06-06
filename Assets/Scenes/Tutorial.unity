@@ -1270,15 +1270,15 @@ MonoBehaviour:
   m_text: 'Fight to protect your nest!
 
 
-    Aim and shoot at oncoming hunters to
-    earn points!
+    Aim and hold shoot at oncoming hunters
+    to earn points!
 
 
-    After 30 seconds you get to choose one of three random items
+    After 30 seconds you get to choose one of three random
+    items
 
 
-    See
-    how long you can survive and how many points you can score!'
+    See how long you can survive and how many points you can score!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
