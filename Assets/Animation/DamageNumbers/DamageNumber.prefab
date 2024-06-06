@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 391528759432483413}
   - component: {fileID: 391528759432483416}
   - component: {fileID: 1843310771502001390}
+  - component: {fileID: -3170093365013257552}
   m_Layer: 0
   m_Name: DamageNumber
   m_TagString: Untagged
@@ -206,3 +207,14 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!210 &-3170093365013257552
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391528759432483411}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
