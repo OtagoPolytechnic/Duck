@@ -18,7 +18,7 @@ public class ScoreManager : MonoBehaviour
 
     public EntryData playerScoreInfo = new EntryData();
 
-    public int score;
+    public int score = 0;
     
     // Start is called before the first frame update
     void Start()
