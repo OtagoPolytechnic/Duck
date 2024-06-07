@@ -18,8 +18,8 @@ public class ScoreManager : MonoBehaviour
 
     public EntryData playerScoreInfo = new EntryData();
 
-    public int score;
-    public int finalscore;
+    public int score = 0;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +32,7 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //FinalScore();
+        
     }
 
     public void IncreasePoints(int amount)
@@ -43,27 +43,27 @@ public class ScoreManager : MonoBehaviour
 
     public void FinalScore()
     {
-        finalscore = score;
+        //Highscore notif code removed because of bug when there was no intial highscores file on local
+        
+        // HighscoreSaveData savedScores = scoreboard.GetSavedScores();
 
-        HighscoreSaveData savedScores = scoreboard.GetSavedScores();
+        // for (int i = 0; i < savedScores.highscores.Count; i++)
+        // {
+        //     //check if score is greater than a saved score
+        //     if (finalscore > savedScores.highscores[i].entryScore || savedScores.highscores.Count < scoreboard.maxScoreEntries)
+        //     {
+        //         highscoreNotif.text = "<color=#03fcdb>New Highscore!!!</color>";
 
-        for (int i = 0; i < savedScores.highscores.Count; i++)
-        {
-            //check if score is greater than a saved score
-            if (finalscore > savedScores.highscores[i].entryScore || savedScores.highscores.Count < scoreboard.maxScoreEntries)
-            {
-                highscoreNotif.text = "<color=#03fcdb>New Highscore!!!</color>";
+        //         //display submit button
+        //         submitButton.SetActive(true);
+        //     }
+        //     else
+        //     {
+        //         highscoreNotif.text = "<color=red>Skill Issue</color>";
+        //     }
+        // }
 
-                //display submit button
-                submitButton.SetActive(true);
-            }
-            else
-            {
-                highscoreNotif.text = "<color=red>Skill Issue</color>";
-            }
-        }
-
-        finalscoreText.text = "Score: " + finalscore.ToString();
+        finalscoreText.text = "Score: " + score.ToString();
     }
 
     private void Awake()
@@ -74,7 +74,7 @@ public class ScoreManager : MonoBehaviour
     public void SumbitPlayerScore()
     {
         playerScoreInfo.entryName = inputField.playerName;
-        playerScoreInfo.entryScore = finalscore;
+        playerScoreInfo.entryScore = score;
         scoreboard.AddEntry(playerScoreInfo);
 
         SceneManager.LoadScene("Highscores");

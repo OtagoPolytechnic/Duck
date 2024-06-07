@@ -60,14 +60,14 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Crit Chance: {PlayerHealth.critChance}");
             break;
             case 10:
-                PlayerHealth.maxHealth /= 0.50f;
+                PlayerHealth.maxHealth /= 2f;
                 if (PlayerHealth.maxHealth <= PlayerHealth.currentHealth)
                 {
                     PlayerHealth.currentHealth = PlayerHealth.maxHealth;
                 }
                 else
                 {
-                    PlayerHealth.currentHealth /= 0.50f;
+                    PlayerHealth.currentHealth /= 2f;
                 }
                 PlayerHealth.damage *= 2;
                 Debug.Log($"Players max health as been cut in half to:{PlayerHealth.maxHealth}. Their current health is: {PlayerHealth.currentHealth}. Their damage has been doubled to: {PlayerHealth.damage}");
