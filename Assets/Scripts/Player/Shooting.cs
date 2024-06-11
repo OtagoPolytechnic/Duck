@@ -15,7 +15,7 @@ public class Shooting : MonoBehaviour
     Vector2 lookDirection;
     float lookAngle;
 
-    public void Shoot()
+    public void ShootingTest()
     {
         // Capture mouse position and calculate shooting direction
         lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -49,12 +49,11 @@ public class Shooting : MonoBehaviour
         if (shootingInterval <= 0 && Input.GetMouseButton(0))
         {
             shootingInterval = firerate; 
-            Shot();
+            Shoot();
         }
     }
 
-
-    private void Shot()
+    private void Shoot()
     {
         if (PlayerHealth.hasShotgun)
         {

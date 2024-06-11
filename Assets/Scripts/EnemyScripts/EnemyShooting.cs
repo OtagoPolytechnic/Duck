@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 //This scripts functionality has been moved to EnemyRanged.cs, this script is now deprecated
+//This script will be deleted
 
 public class EnemyShooting : MonoBehaviour
 {
@@ -32,6 +33,5 @@ public class EnemyShooting : MonoBehaviour
     void Shoot()
     {
         Instantiate(enemyBullet, bulletPosition.position, Quaternion.identity);
-        
     }
 }

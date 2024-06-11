@@ -92,12 +92,6 @@ public class StatsCheckerScript : MonoBehaviour
         int updatedEggCount = CountEggs();
         Debug.Log($"Updated Egg count: {updatedEggCount}");
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // No need to call ItemPicked here since it's handled by the coroutine
-    }
 }
 
 

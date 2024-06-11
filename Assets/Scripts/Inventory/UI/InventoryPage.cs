@@ -49,9 +49,8 @@ public class InventoryPage : MonoBehaviour
     //in this list, there cannot be less than 3 of each rarity for the case that 3 of one rarity is picked on the item selection. 
 
     public rarity GetWeightedRarity() {
-        // Define some thresholds for different item rarities. (between 0 and 1)
 
-        // not consts currently incase we want these values to change
+        // not consts currently incase we want these values to change over time with the waves
         float commonRoll = 0.5f; //50%
         float uncommonRoll = 0.8f; //30%
         float rareRoll = 0.95f; //15%
@@ -77,7 +76,6 @@ public class InventoryPage : MonoBehaviour
         {
             roll = rarity.Epic;
         }
-        // Return the rarity associated with that threshold.
         return roll;
     }
 

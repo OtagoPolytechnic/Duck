@@ -50,7 +50,7 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
-    void Regen()
+    void Regen() //currently will regen players health even when paused
     {
         regenTick -= Time.deltaTime;
         if (regenTick <= 0 && regenTrue && currentHealth < maxHealth) //only works if the player is missing health
@@ -103,7 +103,6 @@ public class PlayerHealth : MonoBehaviour
     }
     public void ReceiveDamage(int damageTaken)
     {
-        //add the ability for text to raise above the hit entity
         GameObject damageTextInst = Instantiate(damageText, gameObject.transform);
         damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
     }

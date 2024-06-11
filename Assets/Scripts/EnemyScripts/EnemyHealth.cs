@@ -6,7 +6,6 @@ using TMPro;
 
 public class EnemyHealth : MonoBehaviour
 {
-    //public UnityEvent OnEnemyDeath = new UnityEvent();
     public GameObject damageText;
     public GameObject critText;
     public int baseHealth;
@@ -29,14 +28,12 @@ public class EnemyHealth : MonoBehaviour
         Bleed();
         if (health <= 0)
         {
-            //save for if we need event
-            //OnEnemyDeath?.Invoke();
             ScoreManager.Instance.IncreasePoints(10);
             EnemySpawner.currentEnemies.Remove(gameObject);
             Destroy(gameObject);
         }
     }
-    void Bleed() //if game lag increases with lots of enemies on screen, convert this to a job
+    void Bleed() //this function needs to be reworked to be able to stack bleed on the target
     {
         bleedTick -= Time.deltaTime;
         if (bleedTick <= 0 && bleedTrue)

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
-    //if you change something in this list you need to change it in InventoryPage.cs's list named itemlist
+    //addition of a new item in the inventory page script, requires its functionailty in here
     public GameObject eggPrefab;
     public void ItemPicked(int itemID)
     {
@@ -100,8 +100,8 @@ public class ItemController : MonoBehaviour
                     else if (randomRoll == 3)
                     {
                         Shooting.firerate *= 0.95f;
-                    Debug.Log($"Firerate: {Shooting.firerate}"); 
-                }
+                        Debug.Log($"Firerate: {Shooting.firerate}"); 
+                    }
                 }
                 
                 break;
