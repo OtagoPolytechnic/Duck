@@ -15,14 +15,11 @@ public class TopDownMovement : MonoBehaviour
         mapManager = FindObjectOfType<MapManager>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        // Initialize your variables here if needed
-        hitBox = GetComponent<Rigidbody2D>(); // Assuming the Rigidbody2D is attached to the same GameObject
+        hitBox = GetComponent<Rigidbody2D>(); 
     }
 
-    // Update is called once per frame
     void Update()
     {
         moveInput.x = Input.GetAxisRaw("Horizontal");

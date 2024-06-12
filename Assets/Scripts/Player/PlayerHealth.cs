@@ -26,14 +26,12 @@ public class PlayerHealth : MonoBehaviour
     public List<GameObject> lifeEggs;
     public UnityEvent onPlayerRespawn = new UnityEvent();
  
-    
-    // Start is called before the first frame update
+
     void Start()
     {
         currentHealth = maxHealth;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Regen();

@@ -11,7 +11,6 @@ public class Shooting : MonoBehaviour
     public static float firerate = 0.5f;
     public float shootingInterval = 0;
 
-
     Vector2 lookDirection;
     float lookAngle;
 

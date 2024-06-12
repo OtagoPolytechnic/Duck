@@ -15,14 +15,6 @@ public class EnemyHealth : MonoBehaviour
     public static bool bleedTrue;
     public static int bleedAmount = 0;
 
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         Bleed();

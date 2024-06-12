@@ -27,16 +27,16 @@ public class GameManager : MonoBehaviour
         Timer.CullEnemies();
    }
 
-     public void Restart() 
-   {
-      ResetVariables();
-      SceneManager.LoadScene("MainScene");
-   }
+    public void Restart() 
+    {
+        ResetVariables();
+        SceneManager.LoadScene("MainScene");
+    }
 
-   public void MainMenu() 
-   {
-      SceneManager.LoadScene("Titlescreen");
-   }
+    public void MainMenu() 
+    {
+        SceneManager.LoadScene("Titlescreen");
+    }
 
     public void ResetVariables() //Any static variables that need to be reset on game start should be added to this method
     {

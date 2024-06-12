@@ -21,7 +21,6 @@ public class StatsCheckerScript : MonoBehaviour
     public float initialMaxHelath;
     public float initialShotgun;
 
-    // Start is called before the first frame update
     void Start()
     {
         // Capture and log initial stats

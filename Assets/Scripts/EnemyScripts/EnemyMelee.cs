@@ -12,14 +12,13 @@ public class EnemyMelee : MonoBehaviour
     [SerializeField] private float speed;
     private GameObject attack;
 
-    private void Awake()
+    void Awake()
     {
         mapManager = FindObjectOfType<MapManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         attack = gameObject.transform.GetChild(0).GetChild(0).gameObject;
     }
 
-    // Update is called once per frame
     void Update()
     {
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
