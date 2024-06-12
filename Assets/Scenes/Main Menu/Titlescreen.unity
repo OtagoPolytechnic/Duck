@@ -644,6 +644,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 721843969}
   m_CullTransparentMesh: 1
+--- !u!1 &843612143
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 843612144}
+  - component: {fileID: 843612145}
+  m_Layer: 0
+  m_Name: SFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &843612144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843612143}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &843612145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843612143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee86e0d0c5b898b46b50c337c27ed2e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Camera: {fileID: 519420032}
+  DuckShooting: {fileID: 8300000, guid: 1e0f73f88111ad845bb75fcdf8c6fecb, type: 3}
+  EnemyShoot: {fileID: 8300000, guid: 9d19fa2ee9ac290468515457b8e9295c, type: 3}
+  Bite: {fileID: 8300000, guid: 853a048c0909da44492ec607ba4730bd, type: 3}
+  DuckHit: {fileID: 8300000, guid: 1302ef80ef0ae924bb6c3da8cbb7a8b4, type: 3}
+  DogHit: {fileID: 8300000, guid: 4b52173123d1eb3438392c5073df0e8b, type: 3}
+  HunterHit: {fileID: 8300000, guid: 794be7c4bd9e64c9bbb9776937807a9e, type: 3}
+  GameOver: {fileID: 8300000, guid: 3b62a663333279b4cae920dba78e22f0, type: 3}
+  TitleScreen: {fileID: 8300000, guid: 06906d718be5b6a4cb2df8732bf39832, type: 3}
+  WaveMusic: {fileID: 8300000, guid: 89f935015cc98724a862a586326fdf21, type: 3}
 --- !u!1 &1032031600
 GameObject:
   m_ObjectHideFlags: 0

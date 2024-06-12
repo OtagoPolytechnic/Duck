@@ -25,8 +25,8 @@ public class PlayerHealth : MonoBehaviour
     public GameObject damageText;
     public List<GameObject> lifeEggs;
     public UnityEvent onPlayerRespawn = new UnityEvent();
- 
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,9 +37,9 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {
         Regen();
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
- 
+
             if (lifeEggs.Count > 0)
             {
                 Respawn();
@@ -62,10 +62,10 @@ public class PlayerHealth : MonoBehaviour
                 currentHealth = maxHealth;
 
             }
-            Debug.Log($"Regen: {currentHealth}"); 
+            Debug.Log($"Regen: {currentHealth}");
         }
     }
-  
+
     void Respawn()
     {
         //This event currently has no listeners, it is here for future use 
@@ -73,9 +73,9 @@ public class PlayerHealth : MonoBehaviour
 
         if (lifeEggs.Count > 0) //This should never run if there are no eggs, but this is here just in case
         {
-            gameObject.transform.position = lifeEggs[lifeEggs.Count -1].transform.position;
-            Destroy(lifeEggs[lifeEggs.Count -1]);
-            lifeEggs.Remove(lifeEggs[lifeEggs.Count -1]);
+            gameObject.transform.position = lifeEggs[lifeEggs.Count - 1].transform.position;
+            Destroy(lifeEggs[lifeEggs.Count - 1]);
+            lifeEggs.Remove(lifeEggs[lifeEggs.Count - 1]);
         }
         //Debug.Log("Player health before collisions turned off: " + currentHealth);
         currentHealth = maxHealth;
