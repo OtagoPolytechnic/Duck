@@ -72,6 +72,22 @@ public class Timer : MonoBehaviour
         }
         gotItems = true;
     }
+
+    private void EndWave()
+    {
+        running = false;
+
+        CullEnemies();
+
+        gotItems = false;
+        if (!geninventory)
+        {
+            inventoryUI.InitializeInventoryUI(inventorySize);
+            
+            geninventory = true;
+        }
+    }
+
     private void setTimerText()
     {
         timerText.text = currentTime.ToString("0") + " s";
@@ -92,22 +108,6 @@ public class Timer : MonoBehaviour
 
         running = true;
         geninventory = false;
-        //inventoryItems.Clear();
-    }
-
-    private void EndWave()
-    {
-        running = false;
-
-        CullEnemies();
-
-        gotItems = false;
-        if (!geninventory)
-        {
-            inventoryUI.InitializeInventoryUI(inventorySize);
-            
-            geninventory = true;
-        }
     }
 
     public static void CullEnemies()

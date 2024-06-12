@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
    private bool playerDead = false;
    public void GameOver()
    {
+    //This should be handled under a game state end or dead
         if (!playerDead)
         {
             playerDead = true;
@@ -18,13 +19,11 @@ public class GameManager : MonoBehaviour
             FindObjectOfType<Timer>().enabled = false;
             FindObjectOfType<TopDownMovement>().enabled = false;
             FindObjectOfType<EnemySpawner>().enabled = false;
-            //call kill all active enemies
             //call game over UI
             scoreManager.FinalScore();
             gameOverUI.SetActive(true);
-            
-            //Debug.Log("Game Over");
         }
+        //call kill all active enemies
         Timer.CullEnemies();
    }
 

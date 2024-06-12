@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
-
     public void Play()
     {
         SceneManager.LoadScene("MainScene");
@@ -27,8 +26,6 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene("Highscores");
     }
-
-
 }
 
 
