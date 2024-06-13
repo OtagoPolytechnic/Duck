@@ -32,6 +32,7 @@ public class EnemyHealth : MonoBehaviour
         {
             bleedTick = bleedInterval;
             health -= bleedAmount; 
+            ReceiveDamage(bleedAmount, false);
         }
     }
     public void ReceiveDamage(int damageTaken, bool critTrue)
