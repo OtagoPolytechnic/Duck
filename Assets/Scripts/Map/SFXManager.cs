@@ -90,7 +90,7 @@ public class SFXManager : MonoBehaviour
 
     public void StopBackgroundMusic()
     {
-        audioSource.Stop();
+        //audioSource.Stop();
     }
 
     private void OnEnable()
@@ -108,7 +108,8 @@ public class SFXManager : MonoBehaviour
         // Stop background music if the main scene is loaded
         if (scene.name == "MainScene" && audioSource.isPlaying)
         {
-            StopBackgroundMusic();
+            PlayBackgroundMusic(WaveMusic);
+
         }
         else if ((scene.name == "TitleScreen" || scene.name == "Tutorial" || scene.name == "Highscores"))
         {
