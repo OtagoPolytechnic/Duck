@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
 
         TopDownMovement.moveSpeed = 10f;
 
-        EnemyHealth.bleedTrue = false;
+        PlayerHealth.bleedTrue = false;
         EnemyHealth.bleedAmount = 0;
 
         //Enemy variables
