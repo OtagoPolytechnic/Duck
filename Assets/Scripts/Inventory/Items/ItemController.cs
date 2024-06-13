@@ -16,8 +16,10 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Damage: {PlayerHealth.damage}");
             break;
             case 01:
+                float current = PlayerHealth.maxHealth;
                 PlayerHealth.maxHealth *= 1.10f;
                 Mathf.RoundToInt(PlayerHealth.maxHealth);
+                PlayerHealth.currentHealth += PlayerHealth.maxHealth - current;
                 Debug.Log($"Max health: {PlayerHealth.maxHealth}");
             break;
             case 02:
