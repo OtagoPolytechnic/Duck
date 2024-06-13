@@ -31,7 +31,6 @@ public class EnemyHealth : MonoBehaviour
         if (bleedTick <= 0 && bleedTrue)
         {
             bleedTick = bleedInterval;
-            health -= bleedAmount; 
             ReceiveDamage(bleedAmount, false);
         }
     }
