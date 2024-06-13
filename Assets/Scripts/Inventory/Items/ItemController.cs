@@ -27,7 +27,7 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Speed: {TopDownMovement.moveSpeed}");           
             break;
             case 03:
-                PlayerHealth.regenAmount += 5f;
+                PlayerHealth.regenAmount += 1f;
                 PlayerHealth.regenTrue = true;
                 Debug.Log($"Regen amount: {PlayerHealth.regenAmount}"); 
             break;
@@ -41,7 +41,7 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Bleed amount: {EnemyHealth.bleedAmount}"); 
             break;
             case 06:
-                PlayerHealth.lifestealAmount = 5f;
+                PlayerHealth.lifestealAmount += 1f;
                 Debug.Log($"Lifesteal amount: {PlayerHealth.lifestealAmount}"); 
             break;
             case 07:
