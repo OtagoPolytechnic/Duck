@@ -17,7 +17,7 @@ public class ItemController : MonoBehaviour
             break;
             case 01:
                 PlayerHealth.maxHealth *= 1.10f;
-                Math.Round(PlayerHealth.maxHealth, 0, MidpointRounding.AwayFromZero);
+                Mathf.RoundToInt(PlayerHealth.maxHealth);
                 Debug.Log($"Max health: {PlayerHealth.maxHealth}");
             break;
             case 02:
