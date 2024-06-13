@@ -21,18 +21,13 @@ public class InventoryItem : MonoBehaviour
     [HideInInspector]
     public int itemStacks;
     public GameObject inventory;
-    public TextMeshProUGUI textName;
-    public TextMeshProUGUI textDesc;
-    public TextMeshProUGUI textStacks;
+    public TextMeshProUGUI textName, textDesc, textStacks;
     public Image borderColor;
-    public Color32 commonColor;
-    public Color32 uncommonColor;
-    public Color32 rareColor;
-    public Color32 epicColor;
+    public Color32 commonColor, uncommonColor, rareColor, epicColor;
     public GameObject timerManager;
     public Timer timer;
     public ItemController itemController;
-    // Start is called before the first frame update
+
     void Start()
     {
         timer = timerManager.GetComponent<Timer>();

@@ -7,7 +7,6 @@ public class EnemyBullet : MonoBehaviour
     public GameObject player;
     private Rigidbody2D rb;
     public float bulletSpeed = 10;
-    private float timer;
     
     void Start()
     {
