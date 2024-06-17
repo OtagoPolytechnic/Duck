@@ -14,6 +14,8 @@ public class Timer : MonoBehaviour
     public TextMeshProUGUI waveNumberText;
     public TextMeshProUGUI timerText;
 
+    public GameObject healthBar;
+
     public float waveLength;
     private float currentTime;
     public int waveNumber;
@@ -79,6 +81,8 @@ public class Timer : MonoBehaviour
 
     private void NextWave()
     {
+        timerText.enabled = true;
+        healthBar.SetActive(true);
         waveNumber += 1;
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
@@ -97,6 +101,8 @@ public class Timer : MonoBehaviour
 
     private void EndWave()
     {
+        timerText.enabled = false;
+        healthBar.SetActive(false);
         running = false;
 
         CullEnemies();

@@ -17,4 +17,5 @@ public class HealthBar : MonoBehaviour
         healthBar.fillAmount = healthFraction;
         healthText.text = PlayerHealth.currentHealth.ToString("F0") + "/" + PlayerHealth.maxHealth.ToString("F0");
     }
+
 }
