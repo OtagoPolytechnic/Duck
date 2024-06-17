@@ -5,12 +5,22 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private float timer;
-    
-    // Start is called before the first frame update
+    private int critDamage = 0;
+    private bool critTrue = false;
 
     void Start()
     {
+        float critRoll = Random.Range(0f,1f);
         
+        //crit damage calculation
+        if (critRoll < PlayerHealth.critChance)
+        {
+            critDamage += Mathf.RoundToInt(PlayerHealth.damage * 1.50f);
+            critTrue = true;
+            //Change to critical sprite
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -27,18 +37,9 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        float critRoll = Random.Range(0f,1f);
-        int critDamage = 0;
-        bool critTrue = false;
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Enemy"))
         {
-            //crit damage calculation
-            if (critRoll < PlayerHealth.critChance)
-            {
-                critDamage += Mathf.RoundToInt(PlayerHealth.damage * 1.50f);
-                critTrue = true;
-            }
             //lifesteal addition and cap
             PlayerHealth.currentHealth += PlayerHealth.lifestealAmount;
             if (PlayerHealth.currentHealth > PlayerHealth.maxHealth)
