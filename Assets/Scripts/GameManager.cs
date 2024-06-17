@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
             FindObjectOfType<EnemySpawner>().enabled = false;
             //call kill all active enemies
             //call game over UI
-            SFXManager.Instance.StopBackgroundMusic();
+            //SFXManager.Instance.StopBackgroundMusic();
             SFXManager.Instance.GameOverSound();
             scoreManager.FinalScore();
             gameOverUI.SetActive(true);

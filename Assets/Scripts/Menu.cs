@@ -22,12 +22,7 @@ public class Menu : MonoBehaviour
 
     public void Play()
     {
-        // Stop music when the main scene is loaded
-        if (SFXManager.Instance != null)
-        {
-            SFXManager.Instance.StopBackgroundMusic();
-        }
-        SceneManager.LoadScene("MainScene");
+         SceneManager.LoadScene("MainScene");
     }
 
     public void Quit()

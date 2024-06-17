@@ -73,16 +73,7 @@ public class Shooting : MonoBehaviour
             GameObject bulletClone = Instantiate(bullet, firePoint.position, Quaternion.Euler(0, 0, lookAngle));
             bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
         }
-
-
         // Play the duck shooting sound
-        if (SFXManager.Instance != null)
-        {
-            SFXManager.Instance.DuckShootSound();
-        }
-        else
-        {
-            Debug.LogError("SFXManager instance is null in Shooting.Shot().");
-        }
+        SFXManager.Instance.DuckShootSound(); 
     }
 }

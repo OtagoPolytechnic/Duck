@@ -40,42 +40,49 @@ public class SFXManager : MonoBehaviour
         }
     }
 
-    public void DuckShootSound()
+    public void DuckShootSound(float volume = 1.0f)
     {
+        audioSource.volume = volume;
         audioSource.PlayOneShot(DuckShooting);
     }
-    public void EnemyShootSound()
+    public void EnemyShootSound(float volume = 5.0f)
     {
+        audioSource.volume = volume;
         audioSource.PlayOneShot(EnemyShoot);
     }
-    public void EnemyBiteSound()
+    public void EnemyBiteSound(float volume = 0.4f)
     {
+        audioSource.volume = volume;
         audioSource.PlayOneShot(Bite);
     }
-    public void DuckHitSound()
+    public void DuckHitSound(float volume = 1.0f)
     {
+        audioSource.volume = volume;
         audioSource.PlayOneShot(DuckHit);
     }
-    public void EnemyDieSound()
+    public void EnemyDieSound(float volume = 3.0f)
     {
+        audioSource.volume = volume;
         audioSource.PlayOneShot(EnemyDie);
     }
- 
-    public void GameOverSound()
+
+    public void GameOverSound(float volume = 1.0f)
     {
+        audioSource.volume = volume;
         audioSource.PlayOneShot(GameOver);
     }
-    public void TitleScreenSound()
+  public void TitleScreenSound(float volume = 1.0f)
+{
+    audioSource.volume = volume;
+    audioSource.PlayOneShot(TitleScreen);
+}
+    public void WaveSound(float volume = 0.1f)
     {
-        audioSource.PlayOneShot(TitleScreen);
+        PlayBackgroundMusic(WaveMusic, volume);
     }
 
-    public void WaveSound()
-    {
-        PlayBackgroundMusic(WaveMusic);
-    }
 
-    public void PlayBackgroundMusic(AudioClip clip)
+    public void PlayBackgroundMusic(AudioClip clip, float volume = 0.1f)
     {
         // Check if the music is already playing and if it's the same clip
         if (audioSource.clip == clip && audioSource.isPlaying)
@@ -83,14 +90,10 @@ public class SFXManager : MonoBehaviour
             return; // Do nothing if the same music is already playing
         }
 
+        audioSource.volume = volume;
         audioSource.clip = clip;
         audioSource.loop = true;
         audioSource.Play();
-    }
-
-    public void StopBackgroundMusic()
-    {
-        //audioSource.Stop();
     }
 
     private void OnEnable()
