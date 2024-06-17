@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//This script appears to be obsolete, will confirm before deletion
 public class EnemyPatrol : MonoBehaviour
 {
     public Transform[] patrolPoints;

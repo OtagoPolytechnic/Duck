@@ -29,13 +29,12 @@ public class TopDownMovement : MonoBehaviour
 
         if(mapManager != null)
         {
-             float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
-             rb2d.velocity = moveInput * (moveSpeed * tileSpeedModifier);
+            float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
+            hitBox.velocity = moveInput * (moveSpeed * tileSpeedModifier);
         }
         else
         {
-            rb2d.velocity = moveInput * moveSpeed;
+            hitBox.velocity = moveInput * moveSpeed;
         }
-        hitBox.velocity = moveInput * (moveSpeed * tileSpeedModifier);
     }
 }

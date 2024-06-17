@@ -14,7 +14,7 @@ public class PlayerTest
         Rigidbody2D rb2d = gameObject.AddComponent<Rigidbody2D>();
         TopDownMovement movementScript = gameObject.AddComponent<TopDownMovement>();
 
-        movementScript.rb2d = rb2d; // Assuming you have a public field for Rigidbody2D in your TopDownMovement script
+        movementScript.hitBox = rb2d; // Assuming you have a public field for Rigidbody2D in your TopDownMovement script
         TopDownMovement.moveSpeed = 5f;
 
         Vector3 initialPosition = gameObject.transform.position;
