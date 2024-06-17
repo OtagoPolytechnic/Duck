@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4043444901413562697}
   m_Layer: 0
   m_Name: SpawnPoint
-  m_TagString: Untagged
+  m_TagString: Spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.9433962, g: 0, b: 0.07227726, a: 1}
   m_FlipX: 0
@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 3723277650304258859, guid: d3709ecd55fc5064cb6afaba0bcc1dde, type: 3}
+  - {fileID: 5656455698361903583, guid: 70e29cb3f36869e49ba6761acacc67cd, type: 3}
+  - {fileID: 5656455698361903583, guid: 8706ab13d9d71794593b43187a8a3537, type: 3}
   spawnRadius: 2
-  spawnTimer: 3
-  lastSpawn: 0
+  waveNumber: 1
+  timerManager: {fileID: 0}

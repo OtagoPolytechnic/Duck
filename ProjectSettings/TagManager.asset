@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Edges
   - Enemy
+  - Spawner
+  - Bullet
+  - Item
+  - Egg
+  - EnemyRanged
+  - EnemyMelee
   layers:
   - Default
   - TransparentFX

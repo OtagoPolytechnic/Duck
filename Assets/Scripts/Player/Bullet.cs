@@ -5,10 +5,22 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private float timer;
-    // Start is called before the first frame update
+    private int critDamage = 0;
+    private bool critTrue = false;
+
     void Start()
     {
+        float critRoll = Random.Range(0f,1f);
         
+        //crit damage calculation
+        if (critRoll < PlayerHealth.critChance)
+        {
+            critDamage += Mathf.RoundToInt(PlayerHealth.damage * 1.50f);
+            critTrue = true;
+            //Change to critical sprite
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -28,7 +40,25 @@ public class Bullet : MonoBehaviour
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<EnemyMovement>().health -= 20;
+            //lifesteal addition and cap
+            PlayerHealth.currentHealth += PlayerHealth.lifestealAmount;
+            if (PlayerHealth.currentHealth > PlayerHealth.maxHealth)
+            {
+                PlayerHealth.currentHealth = PlayerHealth.maxHealth;
+            }
+            //explosive bullets size calculation
+            if (PlayerHealth.explosiveBullets)
+            {
+                transform.localScale = new Vector3(transform.localScale.x * (2 + 0.2f * PlayerHealth.explosionSize), transform.localScale.y * (2 + 0.2f * PlayerHealth.explosionSize), 1);
+            }
+            if (critTrue)
+            {
+                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(PlayerHealth.damage + critDamage, true);
+            }
+            else
+            {
+                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(PlayerHealth.damage, false);
+            }
             Destroy(gameObject);
         }
     }
