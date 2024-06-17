@@ -13,7 +13,7 @@ public class MapManager : MonoBehaviour
 
     private Dictionary<TileBase, TileData> dataFromTiles;
  
-    private void awake()
+    void Awake()
     {
         dataFromTiles = new Dictionary<TileBase, TileData>();
 

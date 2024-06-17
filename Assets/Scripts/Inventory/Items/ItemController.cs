@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
-    //if you change something in this list you need to change it in InventoryPage.cs's list named itemlist
+    //addition of a new item in the inventory page script, requires its functionailty in here
     public GameObject eggPrefab;
     public void ItemPicked(int itemID)
     {
@@ -16,8 +16,10 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Damage: {PlayerHealth.damage}");
             break;
             case 01:
+                float current = PlayerHealth.maxHealth;
                 PlayerHealth.maxHealth *= 1.10f;
-                Math.Round(PlayerHealth.maxHealth, 0, MidpointRounding.AwayFromZero);
+                Mathf.RoundToInt(PlayerHealth.maxHealth);
+                PlayerHealth.currentHealth += PlayerHealth.maxHealth - current;
                 Debug.Log($"Max health: {PlayerHealth.maxHealth}");
             break;
             case 02:
@@ -25,7 +27,7 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Speed: {TopDownMovement.moveSpeed}");           
             break;
             case 03:
-                PlayerHealth.regenAmount += 5f;
+                PlayerHealth.regenAmount += 1f;
                 PlayerHealth.regenTrue = true;
                 Debug.Log($"Regen amount: {PlayerHealth.regenAmount}"); 
             break;
@@ -34,12 +36,12 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Firerate: {Shooting.firerate}"); 
             break;
             case 05:
-                EnemyHealth.bleedAmount = 5;
-                EnemyHealth.bleedTrue = true;
+                EnemyHealth.bleedAmount += 5;
+                PlayerHealth.bleedTrue = true;
                 Debug.Log($"Bleed amount: {EnemyHealth.bleedAmount}"); 
             break;
             case 06:
-                PlayerHealth.lifestealAmount = 5f;
+                PlayerHealth.lifestealAmount += 1f;
                 Debug.Log($"Lifesteal amount: {PlayerHealth.lifestealAmount}"); 
             break;
             case 07:
@@ -52,7 +54,7 @@ public class ItemController : MonoBehaviour
                 newEgg.transform.localScale = new Vector3(0.3333333f,0.3333333f,0.3333333f);
             break;
             case 09:
-                PlayerHealth.critChance += 0.15f;
+                PlayerHealth.critChance += 0.07f;
                 if (PlayerHealth.critChance >= 1)
                 {
                     PlayerHealth.critChance = 1;
@@ -88,8 +90,10 @@ public class ItemController : MonoBehaviour
                     }
                     else if (randomRoll == 1)
                     {
+                        float current2 = PlayerHealth.maxHealth;
                         PlayerHealth.maxHealth *= 1.05f;
-                        Math.Round(PlayerHealth.maxHealth, 0, MidpointRounding.AwayFromZero);
+                        Mathf.RoundToInt(PlayerHealth.maxHealth);
+                        PlayerHealth.currentHealth += PlayerHealth.maxHealth - current2;
                         Debug.Log($"Max health: {PlayerHealth.maxHealth}");
                     }
                     else if (randomRoll == 2)
@@ -100,8 +104,8 @@ public class ItemController : MonoBehaviour
                     else if (randomRoll == 3)
                     {
                         Shooting.firerate *= 0.95f;
-                    Debug.Log($"Firerate: {Shooting.firerate}"); 
-                }
+                        Debug.Log($"Firerate: {Shooting.firerate}"); 
+                    }
                 }
                 
                 break;

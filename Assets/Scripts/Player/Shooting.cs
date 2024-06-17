@@ -5,17 +5,17 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     public GameObject bullet;
+    public Transform sprite;
     public Transform firePoint;
     public float bulletSpeed = 50;
 
     public static float firerate = 0.5f;
     public float shootingInterval = 0;
 
-
     Vector2 lookDirection;
     float lookAngle;
 
-    public void Shoot()
+    public void ShootingTest()
     {
         // Capture mouse position and calculate shooting direction
         lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -40,7 +40,7 @@ public class Shooting : MonoBehaviour
         lookDirection = new Vector2(lookDirection.x - transform.position.x, lookDirection.y - transform.position.y);
         lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
 
-        firePoint.rotation = Quaternion.Euler(0, 0, lookAngle);
+        sprite.rotation = Quaternion.Euler(0, 0, lookAngle);
         HandleShooting();
     }
     void HandleShooting()
@@ -49,12 +49,11 @@ public class Shooting : MonoBehaviour
         if (shootingInterval <= 0 && Input.GetMouseButton(0))
         {
             shootingInterval = firerate; 
-            Shot();
+            Shoot();
         }
     }
 
-
-    private void Shot()
+    private void Shoot()
     {
         if (PlayerHealth.hasShotgun)
         {
@@ -73,6 +72,7 @@ public class Shooting : MonoBehaviour
             GameObject bulletClone = Instantiate(bullet, firePoint.position, Quaternion.Euler(0, 0, lookAngle));
             bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
         }
-        
+        // Play the duck shooting sound
+        SFXManager.Instance.DuckShootSound(); 
     }
 }

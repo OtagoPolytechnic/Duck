@@ -12,14 +12,13 @@ public class EnemyMelee : MonoBehaviour
     [SerializeField] private float speed;
     private GameObject attack;
 
-    private void Awake()
+    void Awake()
     {
         mapManager = FindObjectOfType<MapManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         attack = gameObject.transform.GetChild(0).GetChild(0).gameObject;
     }
 
-    // Update is called once per frame
     void Update()
     {
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
@@ -48,6 +47,15 @@ public class EnemyMelee : MonoBehaviour
         attacking = true;
         attack.SetActive(true); //show the attack
         attack.GetComponent<BoxCollider2D>().enabled = true; //enable the collider
+                                                             // Play the enemy bite sound
+        if (SFXManager.Instance != null)
+        {
+            SFXManager.Instance.EnemyBiteSound();
+        }
+        else
+        {
+            Debug.LogError("SFXManager instance is null in EnemyMelee.Attack().");
+        }
 
         yield return new WaitForSeconds(1f); //Attack duration
 

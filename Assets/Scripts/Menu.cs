@@ -6,10 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
+    private void Start()
+    {
+        SFXManager.Instance.PlayBackgroundMusic(SFXManager.Instance.TitleScreen);
+    }
 
     public void Play()
     {
-        SceneManager.LoadScene("MainScene");
+         SceneManager.LoadScene("MainScene");
     }
 
     public void Quit()
@@ -27,8 +31,6 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene("Highscores");
     }
-
-
 }
 
 

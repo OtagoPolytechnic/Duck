@@ -14,6 +14,8 @@ public class Timer : MonoBehaviour
     public TextMeshProUGUI waveNumberText;
     public TextMeshProUGUI timerText;
 
+    public GameObject healthBar;
+
     public float waveLength;
     private float currentTime;
     public int waveNumber;
@@ -72,28 +74,6 @@ public class Timer : MonoBehaviour
         }
         gotItems = true;
     }
-    private void setTimerText()
-    {
-        timerText.text = currentTime.ToString("0") + " s";
-    }
-
-    private void NextWave()
-    {
-        waveNumber += 1;
-        currentTime = waveLength;
-        waveNumberText.text = "Wave: " + waveNumber.ToString();
-
-        EnemySpawner.healthMultiplier += 0.5f;
-        EnemySpawner.spawnTimer -= 0.1f;
-        if(EnemySpawner.spawnTimer < 0.1f)
-        {
-            EnemySpawner.spawnTimer = 0.1f;
-        }
-
-        running = true;
-        geninventory = false;
-        //inventoryItems.Clear();
-    }
 
     private void EndWave()
     {
@@ -108,6 +88,30 @@ public class Timer : MonoBehaviour
             
             geninventory = true;
         }
+    }
+
+    private void setTimerText()
+    {
+        timerText.text = currentTime.ToString("0") + " s";
+    }
+
+    private void NextWave()
+    {
+        timerText.enabled = true;
+        healthBar.SetActive(true);
+        waveNumber += 1;
+        currentTime = waveLength;
+        waveNumberText.text = "Wave: " + waveNumber.ToString();
+
+        EnemySpawner.healthMultiplier += 0.5f;
+        EnemySpawner.spawnTimer -= 0.1f;
+        if(EnemySpawner.spawnTimer < 0.1f)
+        {
+            EnemySpawner.spawnTimer = 0.1f;
+        }
+
+        running = true;
+        geninventory = false;
     }
 
     public static void CullEnemies()

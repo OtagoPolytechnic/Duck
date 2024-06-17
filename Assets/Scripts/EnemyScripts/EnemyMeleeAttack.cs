@@ -5,9 +5,9 @@ using TMPro;
 
 public class EnemyMeleeAttack : MonoBehaviour
 {
-    [SerializeField] private int damage; //Damage has been halved because of double damage bug
+    [SerializeField] private int damage; 
     public GameObject player;
-    void Start ()
+    void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }

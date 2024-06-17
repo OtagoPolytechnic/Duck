@@ -20,7 +20,7 @@ public class BulletShootTest
         int initialBulletCount = GameObject.FindGameObjectsWithTag("Bullet").Length;
 
         // Simulate mouse click
-        shooter.Shoot(); // Call the Shoot method directly from the shooter script
+        shooter.ShootingTest(); // Call the Shoot method directly from the shooter script
 
         // Wait for a frame to allow bullet instantiation
         yield return null;

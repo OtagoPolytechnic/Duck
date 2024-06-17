@@ -18,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
     public static int damage = 20;
     public static int explosionSize = 0;
     public static bool explosiveBullets = false;
+    public static bool bleedTrue = false;
     public static float critChance = 0.01f;
     public static bool hasShotgun = false;
     public static int bulletAmount = 0; //this is for the extra bullets spawned by the shotgun item - it should always be even
@@ -25,21 +26,18 @@ public class PlayerHealth : MonoBehaviour
     public GameObject damageText;
     public List<GameObject> lifeEggs;
     public UnityEvent onPlayerRespawn = new UnityEvent();
- 
     
-    // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Regen();
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
- 
+
             if (lifeEggs.Count > 0)
             {
                 Respawn();
@@ -50,7 +48,7 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
-    void Regen()
+    void Regen() //currently will regen players health even when paused
     {
         regenTick -= Time.deltaTime;
         if (regenTick <= 0 && regenTrue && currentHealth < maxHealth) //only works if the player is missing health
@@ -62,10 +60,10 @@ public class PlayerHealth : MonoBehaviour
                 currentHealth = maxHealth;
 
             }
-            Debug.Log($"Regen: {currentHealth}"); 
+            Debug.Log($"Regen: {currentHealth}");
         }
     }
-  
+
     void Respawn()
     {
         //This event currently has no listeners, it is here for future use 
@@ -73,9 +71,9 @@ public class PlayerHealth : MonoBehaviour
 
         if (lifeEggs.Count > 0) //This should never run if there are no eggs, but this is here just in case
         {
-            gameObject.transform.position = lifeEggs[lifeEggs.Count -1].transform.position;
-            Destroy(lifeEggs[lifeEggs.Count -1]);
-            lifeEggs.Remove(lifeEggs[lifeEggs.Count -1]);
+            gameObject.transform.position = lifeEggs[lifeEggs.Count - 1].transform.position;
+            Destroy(lifeEggs[lifeEggs.Count - 1]);
+            lifeEggs.Remove(lifeEggs[lifeEggs.Count - 1]);
         }
         //Debug.Log("Player health before collisions turned off: " + currentHealth);
         currentHealth = maxHealth;
@@ -103,7 +101,6 @@ public class PlayerHealth : MonoBehaviour
     }
     public void ReceiveDamage(int damageTaken)
     {
-        //add the ability for text to raise above the hit entity
         GameObject damageTextInst = Instantiate(damageText, gameObject.transform);
         damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
     }

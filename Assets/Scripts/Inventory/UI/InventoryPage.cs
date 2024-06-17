@@ -32,26 +32,25 @@ public class InventoryPage : MonoBehaviour
 
     //make sure not to dupelicate the item ids
     public static List<Item> itemList = new List<Item>{ //char limit of 99 in description 
-        new() { id = 0, name = "Damage Increase", desc = "Increases damage you deal", rarity = rarity.Common, stacks = 0 },
-        new() { id = 01, name = "Health Increase", desc = "Gives you more max health", rarity = rarity.Common, stacks = 0 },
-        new() { id = 02, name = "Speed Increase", desc = "Increases your speed", rarity = rarity.Common, stacks = 0 },
-        new() { id = 03, name = "Regen", desc = "Your health slowly regenerates over time", rarity = rarity.Rare, stacks = 0 },
-        new() { id = 04, name = "Firerate Increase", desc = "You shoot faster", rarity = rarity.Common, stacks = 0 },
-        new() { id = 05, name = "Bleed", desc = "Your hits bleed enemies", rarity = rarity.Uncommon, stacks = 0 },
-        new() { id = 06, name = "Lifesteal", desc = "Your hits heal you", rarity = rarity.Rare, stacks = 0 },
+        new() { id = 0, name = "Sharpened Talons", desc = "Increases damage you deal", rarity = rarity.Common, stacks = 0 },
+        new() { id = 01, name = "Oats", desc = "Gives you more max health", rarity = rarity.Common, stacks = 0 },
+        new() { id = 02, name = "Boots", desc = "Increases your waddle speed", rarity = rarity.Common, stacks = 0 },
+        new() { id = 03, name = "Band-Aid", desc = "Your health slowly regenerates over time", rarity = rarity.Rare, stacks = 0 },
+        new() { id = 04, name = "Illegal Trigger", desc = "You shoot faster", rarity = rarity.Common, stacks = 0 },
+        new() { id = 05, name = "Chompers", desc = "Your hits bleed enemies", rarity = rarity.Uncommon, stacks = 0 },
+        new() { id = 06, name = "Leech", desc = "Your hits on enemies heal you", rarity = rarity.Rare, stacks = 0 },
         new() { id = 07, name = "Explosive Bullets", desc = "Your bullets explode on impact", rarity = rarity.Rare, stacks = 0 },
-        new() { id = 08, name = "Extra Life", desc = "You gain an extra life", rarity = rarity.Epic, stacks = 0 },
-        new() { id = 09, name = "Crit Chance", desc = "You have an increased chance to deal critical damage" , rarity = rarity.Uncommon, stacks = 0 },
+        new() { id = 08, name = "Egg", desc = "You gain an extra life", rarity = rarity.Epic, stacks = 0 },
+        new() { id = 09, name = "Lucky Feather", desc = "You have an increased chance to deal critical damage" , rarity = rarity.Uncommon, stacks = 0 },
         new() { id = 10, name = "Glass Cannon", desc = "Halves your health to double your damage", rarity = rarity.Epic, stacks = 0 },
         new() { id = 11, name = "Shotgun", desc = "You shoot a spread of bullets instead of one", rarity = rarity.Epic, stacks = 0 },
-        new() { id = 12, name = "Dice Roll", desc = "Gain two random basic stats at half strength", rarity = rarity.Uncommon, stacks = 0}
+        new() { id = 12, name = "Lucky Dive", desc = "Gain two random basic stats at half strength", rarity = rarity.Uncommon, stacks = 0}
     };
     //in this list, there cannot be less than 3 of each rarity for the case that 3 of one rarity is picked on the item selection. 
 
     public rarity GetWeightedRarity() {
-        // Define some thresholds for different item rarities. (between 0 and 1)
 
-        // not consts currently incase we want these values to change
+        // not consts currently incase we want these values to change over time with the waves
         float commonRoll = 0.5f; //50%
         float uncommonRoll = 0.8f; //30%
         float rareRoll = 0.95f; //15%
@@ -77,7 +76,6 @@ public class InventoryPage : MonoBehaviour
         {
             roll = rarity.Epic;
         }
-        // Return the rarity associated with that threshold.
         return roll;
     }
 

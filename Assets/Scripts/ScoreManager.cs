@@ -19,22 +19,12 @@ public class ScoreManager : MonoBehaviour
     public EntryData playerScoreInfo = new EntryData();
 
     public int score = 0;
+
+    void Awake()
+    {
+        Instance = this;
+    }
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        //couldn't get this working now, but might save for later
-        //EnemyHealth.OnEnemyDeath.AddListener(IncreasePoints);
-
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void IncreasePoints(int amount)
     {
         score += amount;
@@ -64,11 +54,6 @@ public class ScoreManager : MonoBehaviour
         // }
 
         finalscoreText.text = "Score: " + score.ToString();
-    }
-
-    private void Awake()
-    {
-        Instance = this;
     }
 
     public void SumbitPlayerScore()

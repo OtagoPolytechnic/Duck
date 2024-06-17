@@ -21,7 +21,6 @@ public class EnemyRanged : MonoBehaviour
         attackCooldown = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
@@ -54,6 +53,18 @@ public class EnemyRanged : MonoBehaviour
     void Shoot()
     {
         Instantiate(bullet, bulletPosition.position, Quaternion.identity);
+        attackCooldown = attackInterval;
+
+        // Play the enemy shooting sound
+        if (SFXManager.Instance != null)
+        {
+            SFXManager.Instance.EnemyShootSound();
+        }
+        else
+        {
+            Debug.LogError("SFXManager instance is null in EnemyRanged.Shoot().");
+        }
+
         attackCooldown = attackInterval;
     }
 }
