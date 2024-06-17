@@ -29,6 +29,7 @@ public class EnemyHealth : MonoBehaviour
         Bleed();
         if (health <= 0)
         {
+            SFXManager.Instance.EnemyDieSound();
             //save for if we need event
             //OnEnemyDeath?.Invoke();
             ScoreManager.Instance.IncreasePoints(10);

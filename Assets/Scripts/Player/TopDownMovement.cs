@@ -20,6 +20,7 @@ public class TopDownMovement : MonoBehaviour
     {
         // Initialize your variables here if needed
         rb2d = GetComponent<Rigidbody2D>(); // Assuming the Rigidbody2D is attached to the same GameObject
+        
     }
 
     // Update is called once per frame
@@ -33,5 +34,6 @@ public class TopDownMovement : MonoBehaviour
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
 
         rb2d.velocity = moveInput * (moveSpeed * tileSpeedModifier);
+        
     }
 }
