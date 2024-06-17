@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.YamlDotNet.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,6 +18,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip TitleScreen;
     public AudioClip WaveMusic;
     private AudioSource audioSource;
+ 
 
     private void Awake()
     {
@@ -45,7 +47,7 @@ public class SFXManager : MonoBehaviour
         audioSource.volume = volume;
         audioSource.PlayOneShot(DuckShooting);
     }
-    public void EnemyShootSound(float volume = 5.0f)
+    public void EnemyShootSound(float volume = 10.0f)
     {
         audioSource.volume = volume;
         audioSource.PlayOneShot(EnemyShoot);
@@ -71,18 +73,8 @@ public class SFXManager : MonoBehaviour
         audioSource.volume = volume;
         audioSource.PlayOneShot(GameOver);
     }
-  public void TitleScreenSound(float volume = 1.0f)
-{
-    audioSource.volume = volume;
-    audioSource.PlayOneShot(TitleScreen);
-}
-    public void WaveSound(float volume = 0.1f)
-    {
-        PlayBackgroundMusic(WaveMusic, volume);
-    }
 
-
-    public void PlayBackgroundMusic(AudioClip clip, float volume = 0.1f)
+    public void PlayBackgroundMusic(AudioClip clip, float volume = 0.3f)
     {
         // Check if the music is already playing and if it's the same clip
         if (audioSource.clip == clip && audioSource.isPlaying)
@@ -108,15 +100,14 @@ public class SFXManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Stop background music if the main scene is loaded
-        if (scene.name == "MainScene" && audioSource.isPlaying)
-        {
-            PlayBackgroundMusic(WaveMusic);
-
-        }
-        else if ((scene.name == "TitleScreen" || scene.name == "Tutorial" || scene.name == "Highscores"))
+        if (scene.name == "TitleScreen")
         {
             PlayBackgroundMusic(TitleScreen);
+        }
+        else if (scene.name == "MainScene")
+        {
+            audioSource.loop = false;
+            audioSource.Stop();
         }
     }
 }

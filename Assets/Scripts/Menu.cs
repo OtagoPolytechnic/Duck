@@ -8,15 +8,7 @@ public class Menu : MonoBehaviour
 {
     private void Start()
     {
-        // Play the title screen music if we are on the title screen
-        if (SFXManager.Instance != null)
-        {
-            SFXManager.Instance.PlayBackgroundMusic(SFXManager.Instance.TitleScreen);
-        }
-        else
-        {
-            Debug.LogError("SFXManager instance is null in Menu.Start().");
-        }
+        SFXManager.Instance.PlayBackgroundMusic(SFXManager.Instance.TitleScreen);
     }
 
 
