@@ -21,7 +21,6 @@ public class EnemyRanged : MonoBehaviour
         attackCooldown = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TopDownMovement : MonoBehaviour
 {
-    public static float moveSpeed = 10f; // Moved these variables outside of any method to make them accessible throughout the class
-    public Rigidbody2D rb2d;
+    public static float moveSpeed = 10f;
+    public Rigidbody2D hitBox;
     private Vector2 moveInput;
 
     private MapManager mapManager;
@@ -15,15 +15,11 @@ public class TopDownMovement : MonoBehaviour
         mapManager = FindObjectOfType<MapManager>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        // Initialize your variables here if needed
-        rb2d = GetComponent<Rigidbody2D>(); // Assuming the Rigidbody2D is attached to the same GameObject
-        
+        hitBox = GetComponent<Rigidbody2D>(); 
     }
 
-    // Update is called once per frame
     void Update()
     {
         moveInput.x = Input.GetAxisRaw("Horizontal");
@@ -40,6 +36,6 @@ public class TopDownMovement : MonoBehaviour
         {
             rb2d.velocity = moveInput * moveSpeed;
         }
-
+        hitBox.velocity = moveInput * (moveSpeed * tileSpeedModifier);
     }
 }

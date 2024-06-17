@@ -7,8 +7,7 @@ public class EnemyBullet : MonoBehaviour
     public GameObject player;
     private Rigidbody2D rb;
     public float bulletSpeed = 10;
-    private float timer;
-    // Start is called before the first frame update
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

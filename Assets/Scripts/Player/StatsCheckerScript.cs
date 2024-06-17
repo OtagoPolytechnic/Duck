@@ -21,7 +21,6 @@ public class StatsCheckerScript : MonoBehaviour
     public float initialMaxHelath;
     public float initialShotgun;
 
-    // Start is called before the first frame update
     void Start()
     {
         // Capture and log initial stats
@@ -91,12 +90,6 @@ public class StatsCheckerScript : MonoBehaviour
         itemController.ItemPicked(12);
         int updatedEggCount = CountEggs();
         Debug.Log($"Updated Egg count: {updatedEggCount}");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // No need to call ItemPicked here since it's handled by the coroutine
     }
 }
 

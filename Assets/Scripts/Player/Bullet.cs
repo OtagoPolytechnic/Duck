@@ -22,8 +22,7 @@ public class Bullet : MonoBehaviour
             transform.GetChild(1).gameObject.SetActive(true);
         }
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         //destroys bullet after time elapsed

@@ -11,7 +11,6 @@ public class Menu : MonoBehaviour
         SFXManager.Instance.PlayBackgroundMusic(SFXManager.Instance.TitleScreen);
     }
 
-
     public void Play()
     {
          SceneManager.LoadScene("MainScene");
@@ -32,8 +31,6 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene("Highscores");
     }
-
-
 }
 
 
