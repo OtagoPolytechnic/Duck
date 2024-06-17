@@ -120,7 +120,7 @@ jobs:
           mv /home/runner/work/Duck-Game/Duck-Game/DuckGameBuild.zip release/DuckGameBuild.zip
 
       - name: Upload Build Artifact
-        uses: fiddlermikey/upload-release-assets@main
+        uses: sekwah41/upload-release-assets@v1.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
