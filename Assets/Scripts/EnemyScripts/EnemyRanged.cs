@@ -54,5 +54,17 @@ public class EnemyRanged : MonoBehaviour
     {
         Instantiate(bullet, bulletPosition.position, Quaternion.identity);
         attackCooldown = attackInterval;
+
+        // Play the enemy shooting sound
+        if (SFXManager.Instance != null)
+        {
+            SFXManager.Instance.EnemyShootSound();
+        }
+        else
+        {
+            Debug.LogError("SFXManager instance is null in EnemyRanged.Shoot().");
+        }
+
+        attackCooldown = attackInterval;
     }
 }

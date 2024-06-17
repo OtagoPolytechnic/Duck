@@ -47,6 +47,15 @@ public class EnemyMelee : MonoBehaviour
         attacking = true;
         attack.SetActive(true); //show the attack
         attack.GetComponent<BoxCollider2D>().enabled = true; //enable the collider
+                                                             // Play the enemy bite sound
+        if (SFXManager.Instance != null)
+        {
+            SFXManager.Instance.EnemyBiteSound();
+        }
+        else
+        {
+            Debug.LogError("SFXManager instance is null in EnemyMelee.Attack().");
+        }
 
         yield return new WaitForSeconds(1f); //Attack duration
 

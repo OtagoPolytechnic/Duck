@@ -10,6 +10,8 @@ TagManager:
   - Bullet
   - Item
   - Egg
+  - EnemyRanged
+  - EnemyMelee
   layers:
   - Default
   - TransparentFX

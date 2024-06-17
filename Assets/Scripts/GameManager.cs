@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
             FindObjectOfType<TopDownMovement>().enabled = false;
             FindObjectOfType<EnemySpawner>().enabled = false;
             //call game over UI
+            //SFXManager.Instance.StopBackgroundMusic();
+            SFXManager.Instance.GameOverSound();
             scoreManager.FinalScore();
             gameOverUI.SetActive(true);
         }
@@ -56,7 +58,7 @@ public class GameManager : MonoBehaviour
 
         TopDownMovement.moveSpeed = 10f;
 
-        EnemyHealth.bleedTrue = false;
+        PlayerHealth.bleedTrue = false;
         EnemyHealth.bleedAmount = 0;
 
         //Enemy variables

@@ -18,3 +18,4 @@ public class HealthBar : MonoBehaviour
         healthText.text = PlayerHealth.currentHealth.ToString("F0") + "/" + PlayerHealth.maxHealth.ToString("F0");
     }
 }
+
