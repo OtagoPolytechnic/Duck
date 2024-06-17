@@ -15,14 +15,14 @@ public class PlayerTest
         TopDownMovement movementScript = gameObject.AddComponent<TopDownMovement>();
 
         movementScript.rb2d = rb2d; // Assuming you have a public field for Rigidbody2D in your TopDownMovement script
-        movementScript.moveSpeed = 5f;
+        TopDownMovement.moveSpeed = 5f;
 
         Vector3 initialPosition = gameObject.transform.position;
 
         yield return null; // Wait for one frame to apply velocity
 
         // Simulate pressing the up arrow key (or equivalent)
-        rb2d.AddForce(Vector2.up * movementScript.moveSpeed, ForceMode2D.Impulse);
+        rb2d.AddForce(Vector2.up * TopDownMovement.moveSpeed, ForceMode2D.Impulse);
 
         yield return new WaitForSeconds(1f); // Wait for 1 second
 
