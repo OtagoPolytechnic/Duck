@@ -21,6 +21,7 @@ public class PlayerHealth : MonoBehaviour
             }
 
             maxHealth = value;
+            Mathf.RoundToInt(maxHealth);
 
             if (currentHealth > maxHealth)
             {

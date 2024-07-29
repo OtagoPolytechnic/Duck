@@ -17,7 +17,6 @@ public class ItemController : MonoBehaviour
             break;
             case 01:
                 PlayerHealth.Instance.MaxHealth *= 1.10f;
-                Mathf.RoundToInt(PlayerHealth.Instance.MaxHealth);
                 Debug.Log($"Max health: {PlayerHealth.Instance.MaxHealth}");
             break;
             case 02:
@@ -81,7 +80,6 @@ public class ItemController : MonoBehaviour
                     else if (randomRoll == 1)
                     {
                         PlayerHealth.Instance.MaxHealth *= 1.05f;
-                        Mathf.RoundToInt(PlayerHealth.Instance.MaxHealth);
                         Debug.Log($"Max health: {PlayerHealth.Instance.MaxHealth}");
                     }
                     else if (randomRoll == 2)
