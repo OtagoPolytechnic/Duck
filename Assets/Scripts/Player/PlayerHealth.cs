@@ -42,8 +42,8 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
-    float regenTick = 3f;
-    float regenInterval = 3f;
+    private float regenTick = 3f;
+    private float regenInterval = 3f;
     public static float regenAmount = 0;
     public static bool regenTrue = false;
     public static float lifestealAmount = 0;
@@ -56,7 +56,7 @@ public class PlayerHealth : MonoBehaviour
     public static bool hasShotgun = false;
     public static int bulletAmount = 0; //this is for the extra bullets spawned by the shotgun item - it should always be even
     //other vars
-    public GameObject damageText;
+    [SerializeField] private GameObject damageText;
     public List<GameObject> lifeEggs;
     public UnityEvent onPlayerRespawn = new UnityEvent();
     
