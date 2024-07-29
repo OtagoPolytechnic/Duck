@@ -16,10 +16,8 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Damage: {PlayerHealth.damage}");
             break;
             case 01:
-                float current = PlayerHealth.Instance.MaxHealth;
                 PlayerHealth.Instance.MaxHealth *= 1.10f;
                 Mathf.RoundToInt(PlayerHealth.Instance.MaxHealth);
-                PlayerHealth.currentHealth += PlayerHealth.Instance.MaxHealth - current;
                 Debug.Log($"Max health: {PlayerHealth.Instance.MaxHealth}");
             break;
             case 02:
@@ -63,16 +61,8 @@ public class ItemController : MonoBehaviour
             break;
             case 10:
                 PlayerHealth.Instance.MaxHealth /= 2f;
-                if (PlayerHealth.Instance.MaxHealth <= PlayerHealth.currentHealth)
-                {
-                    PlayerHealth.currentHealth = PlayerHealth.Instance.MaxHealth;
-                }
-                else
-                {
-                    PlayerHealth.currentHealth /= 2f;
-                }
                 PlayerHealth.damage *= 2;
-                Debug.Log($"Players max health as been cut in half to:{PlayerHealth.Instance.MaxHealth}. Their current health is: {PlayerHealth.currentHealth}. Their damage has been doubled to: {PlayerHealth.damage}");
+                Debug.Log($"Players max health as been cut in half to:{PlayerHealth.Instance.MaxHealth}. Their current health is: {PlayerHealth.Instance.CurrentHealth}. Their damage has been doubled to: {PlayerHealth.damage}");
             break;
             case 11:
                 PlayerHealth.hasShotgun = true;
@@ -90,10 +80,8 @@ public class ItemController : MonoBehaviour
                     }
                     else if (randomRoll == 1)
                     {
-                        float current2 = PlayerHealth.Instance.MaxHealth;
                         PlayerHealth.Instance.MaxHealth *= 1.05f;
                         Mathf.RoundToInt(PlayerHealth.Instance.MaxHealth);
-                        PlayerHealth.currentHealth += PlayerHealth.Instance.MaxHealth - current2;
                         Debug.Log($"Max health: {PlayerHealth.Instance.MaxHealth}");
                     }
                     else if (randomRoll == 2)

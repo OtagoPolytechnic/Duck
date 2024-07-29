@@ -14,10 +14,33 @@ public class PlayerHealth : MonoBehaviour
         get {return maxHealth;}
         set
         {
+            //When health is increased
+            if(value > maxHealth)
+            {
+                currentHealth += value - maxHealth;
+            }
+
             maxHealth = value;
+
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
         }
     }
-    public static float currentHealth;
+    private float currentHealth;
+    public float CurrentHealth
+    {
+        get {return currentHealth;}
+        set
+        {
+            currentHealth = value;
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+        }
+    }
     float regenTick = 3f;
     float regenInterval = 3f;
     public static float regenAmount = 0;
@@ -69,12 +92,7 @@ public class PlayerHealth : MonoBehaviour
         if (regenTick <= 0 && regenTrue && currentHealth < maxHealth) //only works if the player is missing health
         {
             regenTick = regenInterval;
-            currentHealth += regenAmount;
-            if (currentHealth > maxHealth)//if the player will regen too much health
-            {
-                currentHealth = maxHealth;
-
-            }
+            CurrentHealth += regenAmount;
             Debug.Log($"Regen: {currentHealth}");
         }
     }
@@ -118,5 +136,6 @@ public class PlayerHealth : MonoBehaviour
     {
         GameObject damageTextInst = Instantiate(damageText, gameObject.transform);
         damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
+        currentHealth -= damageTaken;
     }
 }

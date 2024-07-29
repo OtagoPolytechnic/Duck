@@ -40,11 +40,7 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             //lifesteal addition and cap
-            PlayerHealth.currentHealth += PlayerHealth.lifestealAmount;
-            if (PlayerHealth.currentHealth > PlayerHealth.Instance.MaxHealth)
-            {
-                PlayerHealth.currentHealth = PlayerHealth.Instance.MaxHealth;
-            }
+            PlayerHealth.Instance.CurrentHealth += PlayerHealth.lifestealAmount;
             //explosive bullets size calculation
             if (PlayerHealth.explosiveBullets)
             {

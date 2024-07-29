@@ -23,7 +23,6 @@ public class EnemyBullet : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             player.GetComponent<PlayerHealth>().ReceiveDamage(20);
-            PlayerHealth.currentHealth -= 20;
             Destroy(gameObject);
         }
         else if (other.gameObject.CompareTag("Edges"))
