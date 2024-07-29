@@ -62,7 +62,7 @@ public class ItemTesting2
         float initialMoveSpeed = TopDownMovement.moveSpeed;
 
         // Store the initial regen amount
-        float initialRegenAmount = PlayerHealth.regenAmount;
+        float initialRegenAmount = PlayerHealth.Instance.RegenAmount;
 
         Shooting firerate = GameObject.FindGameObjectWithTag("Player").GetComponent<Shooting>();
 
@@ -135,7 +135,7 @@ public class ItemTesting2
         Assert.Greater(PlayerHealth.damage, initialDamage, "Damage did not increase");
         Assert.Greater(PlayerHealth.Instance.MaxHealth, initialMaxHealth, "MaxHealth did not increase");
         Assert.Greater(TopDownMovement.moveSpeed, initialMoveSpeed, "Speed did not increase");
-        Assert.Greater(PlayerHealth.regenAmount, initialRegenAmount, "Regen Amount did not increase");
+        Assert.Greater(PlayerHealth.Instance.RegenAmount, initialRegenAmount, "Regen Amount did not increase");
         Assert.Less(Shooting.firerate, initialFirerate, "Firerate did not decrease");
         Assert.Greater(EnemyHealth.bleedAmount, initialBleedAmount, "BleedAmount did not increase");
         Assert.Greater(PlayerHealth.lifestealAmount, initialLifestealAmount, "LifestealAmount did not increase");

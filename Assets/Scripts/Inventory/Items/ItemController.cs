@@ -24,9 +24,9 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Speed: {TopDownMovement.moveSpeed}");           
             break;
             case 03:
-                PlayerHealth.regenAmount += 1f;
-                PlayerHealth.regenTrue = true;
-                Debug.Log($"Regen amount: {PlayerHealth.regenAmount}"); 
+                PlayerHealth.Instance.RegenAmount += 1f;
+                PlayerHealth.Instance.RegenTrue = true;
+                Debug.Log($"Regen amount: {PlayerHealth.Instance.RegenAmount}"); 
             break;
             case 04:
                 Shooting.firerate *= 0.9f;

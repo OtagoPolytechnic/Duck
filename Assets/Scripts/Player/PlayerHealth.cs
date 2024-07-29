@@ -44,8 +44,18 @@ public class PlayerHealth : MonoBehaviour
     }
     private float regenTick = 3f;
     private float regenInterval = 3f;
-    public static float regenAmount = 0;
-    public static bool regenTrue = false;
+    private float regenAmount = 0;
+    public float RegenAmount
+    {
+        get {return regenAmount;}
+        set {regenAmount = value;}
+    }
+    private bool regenTrue = false;
+    public bool RegenTrue
+    {
+        get {return regenTrue;}
+        set {regenTrue = value;}
+    }
     public static float lifestealAmount = 0;
     //damage vars
     public static int damage = 20;
