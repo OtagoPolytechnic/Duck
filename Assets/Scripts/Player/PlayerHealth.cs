@@ -6,8 +6,17 @@ using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public static PlayerHealth Instance;
     //health vars
-    public static float maxHealth = 100;
+    private float maxHealth = 100;
+    public float MaxHealth
+    {
+        get {return maxHealth;}
+        set
+        {
+            maxHealth = value;
+        }
+    }
     public static float currentHealth;
     float regenTick = 3f;
     float regenInterval = 3f;
@@ -27,8 +36,14 @@ public class PlayerHealth : MonoBehaviour
     public List<GameObject> lifeEggs;
     public UnityEvent onPlayerRespawn = new UnityEvent();
     
-    void Start()
+    void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
         currentHealth = maxHealth;
     }
 

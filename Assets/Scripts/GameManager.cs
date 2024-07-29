@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     public void ResetVariables() //Any static variables that need to be reset on game start should be added to this method
     {
         //Player variables
-        PlayerHealth.maxHealth = 100;
+        PlayerHealth.Instance.MaxHealth = 100;
         PlayerHealth.regenAmount = 0;
         PlayerHealth.regenTrue = false;
         PlayerHealth.lifestealAmount = 0;

@@ -47,7 +47,7 @@ public class ItemTesting2
         }
 
         // Store the initial health
-        float initialMaxHealth = PlayerHealth.maxHealth;
+        float initialMaxHealth = PlayerHealth.Instance.MaxHealth;
 
         // Get a reference to the PlayerHealth component attached to the player GameObject
         TopDownMovement moveSpeed = GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownMovement>();
@@ -133,7 +133,7 @@ public class ItemTesting2
        // Wait for the stats to be updated
         yield return new WaitForSeconds(10f);
         Assert.Greater(PlayerHealth.damage, initialDamage, "Damage did not increase");
-        Assert.Greater(PlayerHealth.maxHealth, initialMaxHealth, "MaxHealth did not increase");
+        Assert.Greater(PlayerHealth.Instance.MaxHealth, initialMaxHealth, "MaxHealth did not increase");
         Assert.Greater(TopDownMovement.moveSpeed, initialMoveSpeed, "Speed did not increase");
         Assert.Greater(PlayerHealth.regenAmount, initialRegenAmount, "Regen Amount did not increase");
         Assert.Less(Shooting.firerate, initialFirerate, "Firerate did not decrease");

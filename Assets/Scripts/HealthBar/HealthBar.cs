@@ -13,9 +13,9 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
-        float healthFraction = PlayerHealth.currentHealth / PlayerHealth.maxHealth;
+        float healthFraction = PlayerHealth.currentHealth / PlayerHealth.Instance.MaxHealth;
         healthBar.fillAmount = healthFraction;
-        healthText.text = PlayerHealth.currentHealth.ToString("F0") + "/" + PlayerHealth.maxHealth.ToString("F0");
+        healthText.text = PlayerHealth.currentHealth.ToString("F0") + "/" + PlayerHealth.Instance.MaxHealth.ToString("F0");
     }
 }
 

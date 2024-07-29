@@ -25,7 +25,7 @@ public class StatsCheckerScript : MonoBehaviour
     {
         // Capture and log initial stats
         initialDamage = PlayerHealth.damage;
-        initialMaxHealth = PlayerHealth.maxHealth;
+        initialMaxHealth = PlayerHealth.Instance.MaxHealth;
         initialMoveSpeed = TopDownMovement.moveSpeed;
         initialRegenAmount = PlayerHealth.regenAmount;
         initialFirerate = Shooting.firerate;
@@ -33,7 +33,7 @@ public class StatsCheckerScript : MonoBehaviour
         initialBleedAmount = PlayerHealth.lifestealAmount;
         initialExplosiveBullets = PlayerHealth.explosionSize;
         initialCritChance = PlayerHealth.critChance;
-        initialMaxHelath = PlayerHealth.maxHealth;
+        initialMaxHelath = PlayerHealth.Instance.MaxHealth;
         initialShotgun = PlayerHealth.bulletAmount;
 
         Debug.Log($"Initial Damage: {initialDamage}");
