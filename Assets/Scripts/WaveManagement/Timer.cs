@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UIElements;
+using UnityEngine.UI;
+using System;
 
 
 public class Timer : MonoBehaviour
@@ -10,9 +13,10 @@ public class Timer : MonoBehaviour
     private InventoryPage inventoryUI;
     [HideInInspector]
     public int inventorySize = 3;
-
-    public TextMeshProUGUI waveNumberText;
-    public TextMeshProUGUI timerText;
+    [SerializeField]
+    private GameObject HUD;
+    private Label waveNumberText;
+    private Label timerText;
 
     public GameObject healthBar;
 
@@ -27,6 +31,13 @@ public class Timer : MonoBehaviour
     public List<InventoryItem> inventoryItems = new List<InventoryItem>();
     [HideInInspector]
     public GameObject[] itemObjects;
+    void Awake()
+    {
+        VisualElement document = HUD.GetComponent<UIDocument>().rootVisualElement;
+
+        waveNumberText = document.Q("WaveNumber") as Label;
+        timerText = document.Q("Timer") as Label;
+    }
 
     void Start()
     {
@@ -97,7 +108,6 @@ public class Timer : MonoBehaviour
 
     private void NextWave()
     {
-        timerText.enabled = true;
         healthBar.SetActive(true);
         waveNumber += 1;
         currentTime = waveLength;
