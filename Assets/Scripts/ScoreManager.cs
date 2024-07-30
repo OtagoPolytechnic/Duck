@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 using TMPro;
 using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
+    [SerializeField]
+    private GameObject HUD;
     public Scoreboard scoreboard;
-    public TMP_Text pointsText;
+    private Label pointsText;
     public TMP_Text finalscoreText;
     public TMP_Text highscoreNotif;
      
@@ -23,6 +25,10 @@ public class ScoreManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        VisualElement document = HUD.GetComponent<UIDocument>().rootVisualElement;
+
+        pointsText = document.Q("Points") as Label;
+
     }
     
     public void IncreasePoints(int amount)
