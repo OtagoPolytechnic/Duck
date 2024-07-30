@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/HUDStyle.uss?fileID=7433441132597879392&amp;guid=7d8e0bf430b9f5f498d843f5b6443724&amp;type=3#HUDStyle" />
+    <ui:VisualElement name="Container">
+        <ui:Label text="Label" display-tooltip-when-elided="true" class="text" style="white-space: nowrap; -unity-text-align: upper-left; font-size: 40px;" />
+    </ui:VisualElement>
+</ui:UXML>
