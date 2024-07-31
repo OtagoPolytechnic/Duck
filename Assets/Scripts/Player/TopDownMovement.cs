@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class TopDownMovement : MonoBehaviour
 {
@@ -20,14 +19,9 @@ public class TopDownMovement : MonoBehaviour
     {
         hitBox = GetComponent<Rigidbody2D>(); 
     }
-
+    
     void Update()
     {
-        moveInput.x = Input.GetAxisRaw("Horizontal");
-        moveInput.y = Input.GetAxisRaw("Vertical");
-
-        moveInput.Normalize();
-
         if(mapManager != null)
         {
             float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
@@ -41,5 +35,6 @@ public class TopDownMovement : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        moveInput = context.ReadValue<Vector2>();
     }
 }
