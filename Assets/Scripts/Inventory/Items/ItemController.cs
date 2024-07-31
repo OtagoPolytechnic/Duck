@@ -12,21 +12,21 @@ public class ItemController : MonoBehaviour
         switch(itemID) 
         {
             case 0:
-                PlayerHealth.Instance.Damage += 10;
-                Debug.Log($"Damage: {PlayerHealth.Instance.Damage}");
+                PlayerStats.Instance.Damage += 10;
+                Debug.Log($"Damage: {PlayerStats.Instance.Damage}");
             break;
             case 01:
-                PlayerHealth.Instance.MaxHealth *= 1.10f;
-                Debug.Log($"Max health: {PlayerHealth.Instance.MaxHealth}");
+                PlayerStats.Instance.MaxHealth *= 1.10f;
+                Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}");
             break;
             case 02:
                 TopDownMovement.moveSpeed *= 1.05f;
                 Debug.Log($"Speed: {TopDownMovement.moveSpeed}");           
             break;
             case 03:
-                PlayerHealth.Instance.RegenAmount += 1f;
-                PlayerHealth.Instance.RegenTrue = true;
-                Debug.Log($"Regen amount: {PlayerHealth.Instance.RegenAmount}"); 
+                PlayerStats.Instance.RegenAmount += 1f;
+                PlayerStats.Instance.RegenTrue = true;
+                Debug.Log($"Regen amount: {PlayerStats.Instance.RegenAmount}"); 
             break;
             case 04:
                 Shooting.firerate *= 0.9f;
@@ -34,39 +34,39 @@ public class ItemController : MonoBehaviour
             break;
             case 05:
                 EnemyHealth.bleedAmount += 5;
-                PlayerHealth.Instance.BleedTrue = true;
+                PlayerStats.Instance.BleedTrue = true;
                 Debug.Log($"Bleed amount: {EnemyHealth.bleedAmount}"); 
             break;
             case 06:
-                PlayerHealth.Instance.LifestealAmount += 1f;
-                Debug.Log($"Lifesteal amount: {PlayerHealth.Instance.LifestealAmount}"); 
+                PlayerStats.Instance.LifestealAmount += 1f;
+                Debug.Log($"Lifesteal amount: {PlayerStats.Instance.LifestealAmount}"); 
             break;
             case 07:
-                PlayerHealth.Instance.ExplosiveBullets = true;
-                PlayerHealth.Instance.ExplosionSize +=1;
-                Debug.Log($"Explosion size: {PlayerHealth.Instance.ExplosionSize}");
+                PlayerStats.Instance.ExplosiveBullets = true;
+                PlayerStats.Instance.ExplosionSize +=1;
+                Debug.Log($"Explosion size: {PlayerStats.Instance.ExplosionSize}");
             break;     
             case 08:
                 GameObject newEgg = Instantiate(eggPrefab,  new Vector3(0,0,0), Quaternion.identity, GameObject.Find("Nest").transform);
                 newEgg.transform.localScale = new Vector3(0.3333333f,0.3333333f,0.3333333f);
             break;
             case 09:
-                PlayerHealth.Instance.CritChance += 0.07f;
-                if (PlayerHealth.Instance.CritChance >= 1)
+                PlayerStats.Instance.CritChance += 0.07f;
+                if (PlayerStats.Instance.CritChance >= 1)
                 {
-                    PlayerHealth.Instance.CritChance = 1;
+                    PlayerStats.Instance.CritChance = 1;
                 }
-                Debug.Log($"Crit Chance: {PlayerHealth.Instance.CritChance}");
+                Debug.Log($"Crit Chance: {PlayerStats.Instance.CritChance}");
             break;
             case 10:
-                PlayerHealth.Instance.MaxHealth /= 2f;
-                PlayerHealth.Instance.Damage *= 2;
-                Debug.Log($"Players max health as been cut in half to:{PlayerHealth.Instance.MaxHealth}. Their current health is: {PlayerHealth.Instance.CurrentHealth}. Their damage has been doubled to: {PlayerHealth.Instance.Damage}");
+                PlayerStats.Instance.MaxHealth /= 2f;
+                PlayerStats.Instance.Damage *= 2;
+                Debug.Log($"Players max health as been cut in half to:{PlayerStats.Instance.MaxHealth}. Their current health is: {PlayerStats.Instance.CurrentHealth}. Their damage has been doubled to: {PlayerStats.Instance.Damage}");
             break;
             case 11:
-                PlayerHealth.Instance.HasShotgun = true;
-                PlayerHealth.Instance.BulletAmount += 2;
-                Debug.Log($"Shotgun bullets: {PlayerHealth.Instance.BulletAmount}");
+                PlayerStats.Instance.HasShotgun = true;
+                PlayerStats.Instance.BulletAmount += 2;
+                Debug.Log($"Shotgun bullets: {PlayerStats.Instance.BulletAmount}");
             break;
             case 12:
                 for (int i = 0; i < 2; i++)
@@ -74,13 +74,13 @@ public class ItemController : MonoBehaviour
                     int randomRoll = UnityEngine.Random.Range(0, 4);
                     if (randomRoll == 0)
                     {
-                        PlayerHealth.Instance.Damage += 5;
-                        Debug.Log($"Damage: {PlayerHealth.Instance.Damage}");
+                        PlayerStats.Instance.Damage += 5;
+                        Debug.Log($"Damage: {PlayerStats.Instance.Damage}");
                     }
                     else if (randomRoll == 1)
                     {
-                        PlayerHealth.Instance.MaxHealth *= 1.05f;
-                        Debug.Log($"Max health: {PlayerHealth.Instance.MaxHealth}");
+                        PlayerStats.Instance.MaxHealth *= 1.05f;
+                        Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}");
                     }
                     else if (randomRoll == 2)
                     {

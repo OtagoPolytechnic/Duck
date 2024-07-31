@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Egg : MonoBehaviour
 {
-    private PlayerHealth playerHealth;
+    private PlayerStats playerStats;
     void Start()
     {
-        playerHealth = FindObjectOfType<PlayerHealth>();
-        playerHealth.lifeEggs.Add(gameObject);
+        playerStats = FindObjectOfType<PlayerStats>();
+        playerStats.lifeEggs.Add(gameObject);
     }
 
 }

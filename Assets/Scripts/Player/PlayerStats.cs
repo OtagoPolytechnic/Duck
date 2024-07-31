@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerStats : MonoBehaviour
 {
-    public static PlayerHealth Instance;
+    public static PlayerStats Instance;
     //health vars
     private float maxHealth = 100;
     public float MaxHealth
