@@ -48,8 +48,9 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
-    void Regen() //currently will regen players health even when paused
+    void Regen()
     {
+        if (GameSettings.gameState != GameState.InGame){return;}
         regenTick -= Time.deltaTime;
         if (regenTick <= 0 && regenTrue && currentHealth < maxHealth) //only works if the player is missing health
         {

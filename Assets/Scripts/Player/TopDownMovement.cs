@@ -22,6 +22,7 @@ public class TopDownMovement : MonoBehaviour
 
     void Update()
     {
+        if (GameSettings.gameState != GameState.InGame){return;}
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
 

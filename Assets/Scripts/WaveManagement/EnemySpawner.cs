@@ -27,6 +27,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
+        if (GameSettings.gameState != GameState.InGame){return;}
         if(timer.running)
         {
             if (lastSpawn > spawnTimer && currentEnemies.Count < enemyCap)

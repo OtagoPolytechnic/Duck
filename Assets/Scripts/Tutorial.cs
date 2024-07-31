@@ -7,6 +7,7 @@ public class Tutorial : MonoBehaviour
 {
     public void ReturnToMainMenu()
     {
+        GameSettings.gameState = GameState.InGame;
         SceneManager.LoadScene("Titlescreen");
     }
 }
