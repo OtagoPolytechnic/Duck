@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TopDownMovement : MonoBehaviour
 {
@@ -36,5 +37,9 @@ public class TopDownMovement : MonoBehaviour
         {
             hitBox.velocity = moveInput * moveSpeed;
         }
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
     }
 }
