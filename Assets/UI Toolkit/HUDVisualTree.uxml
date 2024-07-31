@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/HUDStyle.uss?fileID=7433441132597879392&amp;guid=7d8e0bf430b9f5f498d843f5b6443724&amp;type=3#HUDStyle" />
     <ui:VisualElement name="Container" style="color: rgb(255, 255, 255); flex-direction: row; justify-content: space-between;">
-        <ui:Label text="Wave 0" display-tooltip-when-elided="true" name="WaveNumber" class="text header" style="white-space: nowrap; -unity-text-align: upper-left; color: rgb(255, 255, 255);" />
+        <ui:Label text="Wave 0" display-tooltip-when-elided="true" name="WaveNumber" class="text header" style="white-space: nowrap; -unity-text-align: upper-left; color: rgb(255, 255, 255); margin-left: 100px;" />
         <ui:Label text="Points: 0" display-tooltip-when-elided="true" name="Points" class="header text" style="margin-right: 110px; white-space: nowrap; max-width: 500px; min-width: 500px;" />
     </ui:VisualElement>
     <ui:Label text="Timer" display-tooltip-when-elided="true" name="Timer" class="text" style="margin-left: 122px; margin-top: 21px;" />
