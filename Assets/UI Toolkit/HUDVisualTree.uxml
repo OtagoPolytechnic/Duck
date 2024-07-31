@@ -1,8 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/HUDStyle.uss?fileID=7433441132597879392&amp;guid=7d8e0bf430b9f5f498d843f5b6443724&amp;type=3#HUDStyle" />
-    <ui:VisualElement name="Container" style="color: rgb(255, 255, 255); flex-direction: row; justify-content: space-between;">
-        <ui:Label text="Wave 0" display-tooltip-when-elided="true" name="WaveNumber" class="text header" style="white-space: nowrap; -unity-text-align: upper-left; color: rgb(255, 255, 255); margin-left: 100px;" />
-        <ui:Label text="Points: 0" display-tooltip-when-elided="true" name="Points" class="header text" style="margin-right: 110px; white-space: nowrap; max-width: 500px; min-width: 500px;" />
+    <ui:VisualElement name="HeaderContainer" style="color: rgb(255, 255, 255); flex-direction: row; justify-content: space-around; margin-top: 60px;">
+        <ui:Label text="Wave 0" display-tooltip-when-elided="true" name="WaveNumber" class="text header" style="white-space: nowrap; -unity-text-align: upper-left; color: rgb(255, 255, 255); margin-top: 0; margin-right: 0;" />
+        <ui:IMGUIContainer name="HealthBar" style="background-image: url(&apos;project://database/Assets/Scripts/HealthBar/HP_MP_Bar%20(1).png?fileID=-2002936986&amp;guid=3245bd78fbd9e8949b410b9f27e116de&amp;type=3#HP_MP_Bar (1)_0&apos;); height: 70px; width: 600px; margin-top: 0; flex-direction: column; align-items: stretch; justify-content: center;">
+            <ui:IMGUIContainer name="Health" style="background-image: url(&apos;project://database/Assets/Scripts/HealthBar/HP_MP_Bar%20(1).png?fileID=-47574867&amp;guid=3245bd78fbd9e8949b410b9f27e116de&amp;type=3#HP_MP_Bar (1)_1&apos;); flex-direction: column; align-items: center; justify-content: center; width: 588px; height: 46px; margin-left: 5.5px;">
+                <ui:Label text="0" display-tooltip-when-elided="true" name="HealthNumber" class="text" style="-unity-text-align: middle-center;" />
+            </ui:IMGUIContainer>
+        </ui:IMGUIContainer>
+        <ui:Label text="Points: 0" display-tooltip-when-elided="true" name="Points" class="header text" style="margin-right: 40px; white-space: nowrap; margin-top: 0; margin-left: 0; flex-basis: auto; flex-wrap: wrap; flex-direction: column;" />
     </ui:VisualElement>
-    <ui:Label text="Timer" display-tooltip-when-elided="true" name="Timer" class="text" style="margin-left: 122px; margin-top: 21px;" />
+    <ui:Label text="Timer" display-tooltip-when-elided="true" name="Timer" class="text" style="margin-left: 120px; margin-top: 0;" />
 </ui:UXML>

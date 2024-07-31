@@ -2,7 +2,7 @@
     -unity-font: url('project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&guid=f08ae915995c0db4f9feee7e49baaec2&type=3#ARCADE_N');
     -unity-font-definition: initial;
     font-size: 50px;
-    color: rgba(255, 255, 255, 255);
+    color: rgb(255, 255, 255);
 }
 
 .header {
@@ -10,6 +10,6 @@
     margin-top: 70px;
     margin-right: 40px;
     width: auto;
-    max-width: 600px;
-    min-width: 600px;
+    max-width: 400px;
+    min-width: 400px;
 }
