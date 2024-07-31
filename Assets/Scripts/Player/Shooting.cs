@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Shooting : MonoBehaviour
 {
@@ -10,10 +11,17 @@ public class Shooting : MonoBehaviour
     public float bulletSpeed = 50;
 
     public static float firerate = 0.5f;
-    public float shootingInterval = 0;
+    private float lastShot = 0;
+    private bool held = false;
 
     Vector2 lookDirection;
     float lookAngle;
+
+    void Start()
+    {
+        //This lets the player shoot immediately when the game starts
+        lastShot = Time.time - firerate;
+    }
 
     public void ShootingTest()
     {
@@ -41,15 +49,22 @@ public class Shooting : MonoBehaviour
         lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
 
         sprite.rotation = Quaternion.Euler(0, 0, lookAngle);
-        HandleShooting();
-    }
-    void HandleShooting()
-    {
-        shootingInterval -= Time.deltaTime;
-        if (shootingInterval <= 0 && Input.GetMouseButton(0))
+        if (held && Time.time - lastShot > firerate)
         {
-            shootingInterval = firerate; 
+            lastShot = Time.time;
             Shoot();
+        }
+    }
+
+    public void OnShoot(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            held = true;
+        }
+        else if (context.canceled)
+        {
+            held = false;
         }
     }
 
