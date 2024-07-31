@@ -19,7 +19,7 @@ public class InventoryController : MonoBehaviour
 
     public void Update() 
     {
-        if (!timer.running)
+        if (GameSettings.gameState == GameState.Paused)
         {
             inventoryUI.Show();
         }

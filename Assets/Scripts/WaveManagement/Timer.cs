@@ -77,6 +77,7 @@ public class Timer : MonoBehaviour
 
     private void EndWave()
     {
+        GameSettings.gameState = GameState.Paused;
         running = false;
 
         CullEnemies();
@@ -97,6 +98,7 @@ public class Timer : MonoBehaviour
 
     private void NextWave()
     {
+        GameSettings.gameState = GameState.InGame;
         timerText.enabled = true;
         healthBar.SetActive(true);
         waveNumber += 1;
