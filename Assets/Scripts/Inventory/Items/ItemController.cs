@@ -12,8 +12,8 @@ public class ItemController : MonoBehaviour
         switch(itemID) 
         {
             case 0:
-                PlayerHealth.damage += 10;
-                Debug.Log($"Damage: {PlayerHealth.damage}");
+                PlayerHealth.Instance.Damage += 10;
+                Debug.Log($"Damage: {PlayerHealth.Instance.Damage}");
             break;
             case 01:
                 PlayerHealth.Instance.MaxHealth *= 1.10f;
@@ -34,39 +34,39 @@ public class ItemController : MonoBehaviour
             break;
             case 05:
                 EnemyHealth.bleedAmount += 5;
-                PlayerHealth.bleedTrue = true;
+                PlayerHealth.Instance.BleedTrue = true;
                 Debug.Log($"Bleed amount: {EnemyHealth.bleedAmount}"); 
             break;
             case 06:
-                PlayerHealth.lifestealAmount += 1f;
-                Debug.Log($"Lifesteal amount: {PlayerHealth.lifestealAmount}"); 
+                PlayerHealth.Instance.LifestealAmount += 1f;
+                Debug.Log($"Lifesteal amount: {PlayerHealth.Instance.LifestealAmount}"); 
             break;
             case 07:
-                PlayerHealth.explosiveBullets = true;
-                PlayerHealth.explosionSize +=1;
-                Debug.Log($"Explosion size: {PlayerHealth.explosionSize}");
+                PlayerHealth.Instance.ExplosiveBullets = true;
+                PlayerHealth.Instance.ExplosionSize +=1;
+                Debug.Log($"Explosion size: {PlayerHealth.Instance.ExplosionSize}");
             break;     
             case 08:
                 GameObject newEgg = Instantiate(eggPrefab,  new Vector3(0,0,0), Quaternion.identity, GameObject.Find("Nest").transform);
                 newEgg.transform.localScale = new Vector3(0.3333333f,0.3333333f,0.3333333f);
             break;
             case 09:
-                PlayerHealth.critChance += 0.07f;
-                if (PlayerHealth.critChance >= 1)
+                PlayerHealth.Instance.CritChance += 0.07f;
+                if (PlayerHealth.Instance.CritChance >= 1)
                 {
-                    PlayerHealth.critChance = 1;
+                    PlayerHealth.Instance.CritChance = 1;
                 }
-                Debug.Log($"Crit Chance: {PlayerHealth.critChance}");
+                Debug.Log($"Crit Chance: {PlayerHealth.Instance.CritChance}");
             break;
             case 10:
                 PlayerHealth.Instance.MaxHealth /= 2f;
-                PlayerHealth.damage *= 2;
-                Debug.Log($"Players max health as been cut in half to:{PlayerHealth.Instance.MaxHealth}. Their current health is: {PlayerHealth.Instance.CurrentHealth}. Their damage has been doubled to: {PlayerHealth.damage}");
+                PlayerHealth.Instance.Damage *= 2;
+                Debug.Log($"Players max health as been cut in half to:{PlayerHealth.Instance.MaxHealth}. Their current health is: {PlayerHealth.Instance.CurrentHealth}. Their damage has been doubled to: {PlayerHealth.Instance.Damage}");
             break;
             case 11:
-                PlayerHealth.hasShotgun = true;
-                PlayerHealth.bulletAmount += 2;
-                Debug.Log($"Shotgun bullets: {PlayerHealth.bulletAmount}");
+                PlayerHealth.Instance.HasShotgun = true;
+                PlayerHealth.Instance.BulletAmount += 2;
+                Debug.Log($"Shotgun bullets: {PlayerHealth.Instance.BulletAmount}");
             break;
             case 12:
                 for (int i = 0; i < 2; i++)
@@ -74,8 +74,8 @@ public class ItemController : MonoBehaviour
                     int randomRoll = UnityEngine.Random.Range(0, 4);
                     if (randomRoll == 0)
                     {
-                        PlayerHealth.damage += 5;
-                        Debug.Log($"Damage: {PlayerHealth.damage}");
+                        PlayerHealth.Instance.Damage += 5;
+                        Debug.Log($"Damage: {PlayerHealth.Instance.Damage}");
                     }
                     else if (randomRoll == 1)
                     {

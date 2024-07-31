@@ -35,7 +35,7 @@ public class ItemTesting2
         }
 
         // Store the initial health
-        float initialDamage = PlayerHealth.damage;
+        float initialDamage = PlayerHealth.Instance.Damage;
 
         // Get a reference to the PlayerHealth component attached to the player GameObject
         PlayerHealth maxHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
@@ -95,7 +95,7 @@ public class ItemTesting2
         }
 
         // Store the initial lifesteal amount
-        float initialLifestealAmount = PlayerHealth.lifestealAmount;
+        float initialLifestealAmount = PlayerHealth.Instance.LifestealAmount;
 
         PlayerHealth explosionSize = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
 
@@ -106,7 +106,7 @@ public class ItemTesting2
         }
 
         // Store the initial explosionSize amount
-        float initialexplosionSize = PlayerHealth.explosionSize;
+        float initialexplosionSize = PlayerHealth.Instance.ExplosionSize;
 
         PlayerHealth critChance = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
 
@@ -117,7 +117,7 @@ public class ItemTesting2
         }
 
         // Store the initial initialCritChance amount
-        float initialCritChance = PlayerHealth.critChance;
+        float initialCritChance = PlayerHealth.Instance.CritChance;
 
         PlayerHealth bulletAmount = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
 
@@ -128,20 +128,20 @@ public class ItemTesting2
         }
 
         // Store the initial initialShotgun amount
-        float initialShotgun = PlayerHealth.bulletAmount;
+        float initialShotgun = PlayerHealth.Instance.BulletAmount;
 
        // Wait for the stats to be updated
         yield return new WaitForSeconds(10f);
-        Assert.Greater(PlayerHealth.damage, initialDamage, "Damage did not increase");
+        Assert.Greater(PlayerHealth.Instance.Damage, initialDamage, "Damage did not increase");
         Assert.Greater(PlayerHealth.Instance.MaxHealth, initialMaxHealth, "MaxHealth did not increase");
         Assert.Greater(TopDownMovement.moveSpeed, initialMoveSpeed, "Speed did not increase");
         Assert.Greater(PlayerHealth.Instance.RegenAmount, initialRegenAmount, "Regen Amount did not increase");
         Assert.Less(Shooting.firerate, initialFirerate, "Firerate did not decrease");
         Assert.Greater(EnemyHealth.bleedAmount, initialBleedAmount, "BleedAmount did not increase");
-        Assert.Greater(PlayerHealth.lifestealAmount, initialLifestealAmount, "LifestealAmount did not increase");
-        Assert.Greater(PlayerHealth.explosionSize, initialexplosionSize, "ExplosionSize did not increase");
-        Assert.Greater(PlayerHealth.critChance, initialCritChance, "CritChance did not increase");
-        Assert.Greater(PlayerHealth.bulletAmount, initialShotgun, "initialShotgun did not increase");
+        Assert.Greater(PlayerHealth.Instance.LifestealAmount, initialLifestealAmount, "LifestealAmount did not increase");
+        Assert.Greater(PlayerHealth.Instance.ExplosionSize, initialexplosionSize, "ExplosionSize did not increase");
+        Assert.Greater(PlayerHealth.Instance.CritChance, initialCritChance, "CritChance did not increase");
+        Assert.Greater(PlayerHealth.Instance.BulletAmount, initialShotgun, "initialShotgun did not increase");
     }
 }
 

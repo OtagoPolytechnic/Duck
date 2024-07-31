@@ -56,15 +56,55 @@ public class PlayerHealth : MonoBehaviour
         get {return regenTrue;}
         set {regenTrue = value;}
     }
-    public static float lifestealAmount = 0;
+    private float lifestealAmount = 0;
+    public float LifestealAmount
+    {
+        get {return lifestealAmount;}
+        set {lifestealAmount = value;}
+    }
     //damage vars
-    public static int damage = 20;
-    public static int explosionSize = 0;
-    public static bool explosiveBullets = false;
-    public static bool bleedTrue = false;
-    public static float critChance = 0.01f;
-    public static bool hasShotgun = false;
-    public static int bulletAmount = 0; //this is for the extra bullets spawned by the shotgun item - it should always be even
+    private int damage = 20;
+    public int Damage
+    {
+        get {return damage;}
+        set {damage = value;}
+    }
+    private int explosionSize = 0;
+     public int ExplosionSize
+    {
+        get {return explosionSize;}
+        set {explosionSize = value;}
+    }
+    private bool explosiveBullets = false;
+    public bool ExplosiveBullets
+    {
+        get {return explosiveBullets;}
+        set {explosiveBullets = value;}
+    }
+    private bool bleedTrue = false;
+    public bool BleedTrue
+    {
+        get {return bleedTrue;}
+        set {bleedTrue = value;}
+    }
+    private float critChance = 0.01f;
+    public float CritChance
+    {
+        get {return critChance;}
+        set {critChance = value;}
+    }
+    private bool hasShotgun = false;
+    public bool HasShotgun
+    {
+        get {return hasShotgun;}
+        set {hasShotgun = value;}
+    }
+    private int bulletAmount = 0; //this is for the extra bullets spawned by the shotgun item - it should always be even
+    public int BulletAmount
+    {
+        get {return bulletAmount;}
+        set {bulletAmount = value;}
+    }
     //other vars
     [SerializeField] private GameObject damageText;
     public List<GameObject> lifeEggs;

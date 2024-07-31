@@ -13,9 +13,9 @@ public class Bullet : MonoBehaviour
         float critRoll = Random.Range(0f,1f);
         
         //crit damage calculation
-        if (critRoll < PlayerHealth.critChance)
+        if (critRoll < PlayerHealth.Instance.CritChance)
         {
-            critDamage += Mathf.RoundToInt(PlayerHealth.damage * 1.50f);
+            critDamage += Mathf.RoundToInt(PlayerHealth.Instance.Damage * 1.50f);
             critTrue = true;
             //Change to critical sprite
             transform.GetChild(0).gameObject.SetActive(false);
@@ -40,19 +40,19 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             //lifesteal addition and cap
-            PlayerHealth.Instance.CurrentHealth += PlayerHealth.lifestealAmount;
+            PlayerHealth.Instance.CurrentHealth += PlayerHealth.Instance.LifestealAmount;
             //explosive bullets size calculation
-            if (PlayerHealth.explosiveBullets)
+            if (PlayerHealth.Instance.ExplosiveBullets)
             {
-                transform.localScale = new Vector3(transform.localScale.x * (2 + 0.2f * PlayerHealth.explosionSize), transform.localScale.y * (2 + 0.2f * PlayerHealth.explosionSize), 1);
+                transform.localScale = new Vector3(transform.localScale.x * (2 + 0.2f * PlayerHealth.Instance.ExplosionSize), transform.localScale.y * (2 + 0.2f * PlayerHealth.Instance.ExplosionSize), 1);
             }
             if (critTrue)
             {
-                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(PlayerHealth.damage + critDamage, true);
+                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(PlayerHealth.Instance.Damage + critDamage, true);
             }
             else
             {
-                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(PlayerHealth.damage, false);
+                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(PlayerHealth.Instance.Damage, false);
             }
             Destroy(gameObject);
         }
