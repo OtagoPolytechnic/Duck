@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.YamlDotNet.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class SFXManager : MonoBehaviour
 {
@@ -17,8 +17,12 @@ public class SFXManager : MonoBehaviour
     public AudioClip GameOver;
     public AudioClip TitleScreen;
     public AudioClip WaveMusic;
+
+    public AudioMixer audioMixer;
+    public AudioMixerGroup playerShootGroup;
+    public AudioMixerGroup enemyBiteGroup;
+
     private AudioSource audioSource;
- 
 
     private void Awake()
     {
@@ -40,44 +44,52 @@ public class SFXManager : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+
+        // Assign a default AudioMixerGroup if needed
+        audioSource.outputAudioMixerGroup = playerShootGroup;
     }
 
     public void DuckShootSound()
     {
+        audioSource.outputAudioMixerGroup = playerShootGroup;
         audioSource.PlayOneShot(DuckShooting);
     }
 
     public void EnemyShootSound()
     {
+        audioSource.outputAudioMixerGroup = playerShootGroup;
         audioSource.PlayOneShot(EnemyShoot);
     }
 
     public void EnemyBiteSound()
     {
+        audioSource.outputAudioMixerGroup = enemyBiteGroup;
         audioSource.PlayOneShot(Bite);
     }
 
     public void DuckHitSound()
     {
+        audioSource.outputAudioMixerGroup = playerShootGroup;
         audioSource.PlayOneShot(DuckHit);
     }
 
     public void EnemyDieSound()
     {
+        audioSource.outputAudioMixerGroup = playerShootGroup;
         audioSource.PlayOneShot(EnemyDie);
     }
-    
+
     public void GameOverSound()
     {
+        audioSource.outputAudioMixerGroup = playerShootGroup;
         audioSource.PlayOneShot(GameOver);
     }
 
     public void PlayBackgroundMusic(AudioClip clip)
     {
-        // Check if the music is already playing and if it's the same clip
         if (audioSource.clip == clip && audioSource.isPlaying)
         {
-            return; // Do nothing if the same music is already playing
+            return;
         }
 
         audioSource.clip = clip;
