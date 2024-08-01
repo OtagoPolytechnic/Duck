@@ -20,8 +20,8 @@ public class PlayerHealth : MonoBehaviour
     public static bool explosiveBullets = false;
     public static bool bleedTrue = false;
     public static float critChance = 0.01f;
-    public static bool hasShotgun = false;
-    public static int bulletAmount = 0; //this is for the extra bullets spawned by the shotgun item - it should always be even
+    public static bool hasShotgun = true;
+    public static int bulletAmount = 40; //this is for the extra bullets spawned by the shotgun item - it should always be even
     //other vars
     public GameObject damageText;
     public List<GameObject> lifeEggs;
@@ -35,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {
         Regen();
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && GameSettings.gameState == GameState.InGame) //if the player dies
         {
 
             if (lifeEggs.Count > 0)

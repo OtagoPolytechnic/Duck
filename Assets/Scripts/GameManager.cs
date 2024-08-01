@@ -10,9 +10,9 @@ public class GameManager : MonoBehaviour
    //private bool playerDead = false;
    public void GameOver()
    {
-        if(GameSettings.gameState != GameState.Paused)
+        if(GameSettings.gameState != GameState.EndGame)
         {
-            GameSettings.gameState = GameState.Paused;
+            GameSettings.gameState = GameState.EndGame;
             scoreManager.FinalScore();
             gameOverUI.SetActive(true);
         }

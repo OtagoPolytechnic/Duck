@@ -13,17 +13,18 @@ public class Menu : MonoBehaviour
 
     public void Play()
     {
-         SceneManager.LoadScene("MainScene");
+        GameSettings.gameState = GameState.InGame;
+        SceneManager.LoadScene("MainScene");
     }
 
     public void Quit()
     {
         Application.Quit();
-        Debug.Log("Player has quit the game");
     }
 
     public void Tutorial()
     {
+        GameSettings.gameState = GameState.InGame;
         SceneManager.LoadScene("Tutorial");
     }
 

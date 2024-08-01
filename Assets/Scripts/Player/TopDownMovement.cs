@@ -22,7 +22,11 @@ public class TopDownMovement : MonoBehaviour
 
     void Update()
     {
-        if (GameSettings.gameState != GameState.InGame){return;}
+        if (GameSettings.gameState != GameState.InGame)
+        {
+            hitBox.velocity = Vector2.zero;
+            return;
+        }
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
 

@@ -11,24 +11,16 @@ public class EnemySpawner : MonoBehaviour
     private float lastSpawn; //Time since last spawn
     private int enemyCap = 1000; //temp value to stop lag
     public static List<GameObject> currentEnemies = new List<GameObject>();
-
     public int waveNumber;
-
-    public GameObject timerManager;
-
-    Timer timer;
 
     void Awake()
     {
-        timerManager = GameObject.Find("TimerManager");
-        timer = timerManager.GetComponent<Timer>();
         lastSpawn = spawnTimer;
     }
 
     void Update()
     {
-        if (GameSettings.gameState != GameState.InGame){return;}
-        if(timer.running)
+        if(GameSettings.gameState == GameState.InGame)
         {
             if (lastSpawn > spawnTimer && currentEnemies.Count < enemyCap)
             {

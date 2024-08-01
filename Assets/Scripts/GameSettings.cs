@@ -6,7 +6,9 @@ using UnityEngine;
 public enum GameState
 {
     InGame,
-    Paused
+    Paused,
+    EndGame,
+    ItemSelect
 }
 
 public static class GameSettings
