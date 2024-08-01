@@ -15,16 +15,16 @@ public class GameManager : MonoBehaviour
             GameSettings.gameState = GameState.EndGame;
             scoreManager.FinalScore();
             gameOverUI.SetActive(true);
+            //call kill all active enemies
+            Timer.CullEnemies();
         }
-        //call kill all active enemies
-        Timer.CullEnemies();
    }
 
     public void Restart() 
     {
         ResetVariables();
-        SceneManager.LoadScene("MainScene");
         GameSettings.gameState = GameState.InGame;
+        SceneManager.LoadScene("MainScene");
     }
 
     public void MainMenu() 
@@ -63,5 +63,6 @@ public class GameManager : MonoBehaviour
         {
             i.stacks = 0;
         }
+        PlayerHealth.currentHealth = PlayerHealth.maxHealth;
     }
 }
