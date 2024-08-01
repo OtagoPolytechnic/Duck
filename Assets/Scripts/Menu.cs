@@ -6,18 +6,32 @@ using UnityEngine.UIElements;
 public class Menu : MonoBehaviour
 {
 
+    private Button playButton;
+    private Button highscoreButton;
+    private Button tutorialButton;
+    private Button quitButton;
     void Awake()
     {
         VisualElement document = GetComponent<UIDocument>().rootVisualElement;
-        Button playButton = document.Q("PlayButton") as Button;
+        playButton = document.Q<Button>("PlayButton");
         playButton.RegisterCallback<ClickEvent>(Play);
-        Button highscoreButton = document.Q("HighscoreButton") as Button;
+
+        highscoreButton = document.Q("HighscoreButton") as Button;
         highscoreButton.RegisterCallback<ClickEvent>(Highscore);
-        Button tutorialButton = document.Q("TutorialButton") as Button;
+
+        tutorialButton = document.Q("TutorialButton") as Button;
         tutorialButton.RegisterCallback<ClickEvent>(Tutorial);
-        Button quitButton = document.Q("QuitButton") as Button;
+
+        quitButton = document.Q("QuitButton") as Button;
         quitButton.RegisterCallback<ClickEvent>(Quit);
 
+    }
+    private void OnDisable()
+    {
+        playButton.UnregisterCallback<ClickEvent>(Play);
+        highscoreButton.UnregisterCallback<ClickEvent>(Highscore);
+        tutorialButton.UnregisterCallback<ClickEvent>(Tutorial);
+        quitButton.UnregisterCallback<ClickEvent>(Quit);
     }
     private void Start()
     {
