@@ -73,7 +73,7 @@ public class ItemTesting2
         }
 
         // Store the initial firerate
-        float initialFirerate = Shooting.firerate;
+        float initialFirerate = Shooting.Instance.Firerate;
 
         EnemyHealth bleedAmount = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyHealth>();
 
@@ -136,7 +136,7 @@ public class ItemTesting2
         Assert.Greater(PlayerStats.Instance.MaxHealth, initialMaxHealth, "MaxHealth did not increase");
         Assert.Greater(TopDownMovement.moveSpeed, initialMoveSpeed, "Speed did not increase");
         Assert.Greater(PlayerStats.Instance.RegenAmount, initialRegenAmount, "Regen Amount did not increase");
-        Assert.Less(Shooting.firerate, initialFirerate, "Firerate did not decrease");
+        Assert.Less(Shooting.Instance.Firerate, initialFirerate, "Firerate did not decrease");
         Assert.Greater(EnemyHealth.bleedAmount, initialBleedAmount, "BleedAmount did not increase");
         Assert.Greater(PlayerStats.Instance.LifestealAmount, initialLifestealAmount, "LifestealAmount did not increase");
         Assert.Greater(PlayerStats.Instance.ExplosionSize, initialexplosionSize, "ExplosionSize did not increase");

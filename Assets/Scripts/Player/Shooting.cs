@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
+    public static Shooting Instance;
+
     public GameObject bullet;
     public Transform sprite;
     public Transform firePoint;
-    public float bulletSpeed = 50;
+    private float bulletSpeed = 50;
 
-    public static float firerate = 0.5f;
-    public float shootingInterval = 0;
+    private float firerate = 0.5f;
+    public float Firerate
+    {
+        get {return firerate;}
+        set {firerate = value;}
+    }
+    private float shootingInterval = 0;
 
     Vector2 lookDirection;
     float lookAngle;
@@ -32,6 +39,16 @@ public class Shooting : MonoBehaviour
 
         // Apply velocity to the bullet clone
         bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
+    }
+
+     void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
     }
 
     void Update()

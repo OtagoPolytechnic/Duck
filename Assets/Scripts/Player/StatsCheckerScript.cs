@@ -28,7 +28,7 @@ public class StatsCheckerScript : MonoBehaviour
         initialMaxHealth = PlayerStats.Instance.MaxHealth;
         initialMoveSpeed = TopDownMovement.moveSpeed;
         initialRegenAmount = PlayerStats.Instance.RegenAmount;
-        initialFirerate = Shooting.firerate;
+        initialFirerate = Shooting.Instance.Firerate;
         initialBleedAmount = EnemyHealth.bleedAmount;
         initialBleedAmount = PlayerStats.Instance.LifestealAmount;
         initialExplosiveBullets = PlayerStats.Instance.ExplosionSize;

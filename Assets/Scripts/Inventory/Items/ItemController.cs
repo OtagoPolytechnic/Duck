@@ -29,8 +29,8 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Regen amount: {PlayerStats.Instance.RegenAmount}"); 
             break;
             case 04:
-                Shooting.firerate *= 0.9f;
-                Debug.Log($"Firerate: {Shooting.firerate}"); 
+                Shooting.Instance.Firerate *= 0.9f;
+                Debug.Log($"Firerate: {Shooting.Instance.Firerate}"); 
             break;
             case 05:
                 EnemyHealth.bleedAmount += 5;
@@ -89,8 +89,8 @@ public class ItemController : MonoBehaviour
                     }
                     else if (randomRoll == 3)
                     {
-                        Shooting.firerate *= 0.95f;
-                        Debug.Log($"Firerate: {Shooting.firerate}"); 
+                        Shooting.Instance.Firerate *= 0.95f;
+                        Debug.Log($"Firerate: {Shooting.Instance.Firerate}"); 
                     }
                 }
                 
