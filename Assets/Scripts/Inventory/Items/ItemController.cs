@@ -20,7 +20,7 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}");
             break;
             case 02:
-                TopDownMovement.Instance.MoveSpeed *= 5f;
+                TopDownMovement.Instance.MoveSpeed *= 1.05f;
                 Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");           
             break;
             case 03:
