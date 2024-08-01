@@ -43,8 +43,6 @@ public class GameManager : MonoBehaviour
     public void ResetVariables() //Any static variables that need to be reset on game start should be added to this method
     {
         //Player variables
-        TopDownMovement.moveSpeed = 10f;
-
         EnemyHealth.bleedAmount = 0;
 
         //Enemy variables

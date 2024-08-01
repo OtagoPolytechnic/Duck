@@ -26,7 +26,7 @@ public class StatsCheckerScript : MonoBehaviour
         // Capture and log initial stats
         initialDamage = PlayerStats.Instance.Damage;
         initialMaxHealth = PlayerStats.Instance.MaxHealth;
-        initialMoveSpeed = TopDownMovement.moveSpeed;
+        initialMoveSpeed = TopDownMovement.Instance.MoveSpeed;
         initialRegenAmount = PlayerStats.Instance.RegenAmount;
         initialFirerate = Shooting.Instance.Firerate;
         initialBleedAmount = EnemyHealth.bleedAmount;

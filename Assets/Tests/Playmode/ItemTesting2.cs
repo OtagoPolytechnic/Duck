@@ -59,7 +59,7 @@ public class ItemTesting2
         }
 
         // Store the initial health
-        float initialMoveSpeed = TopDownMovement.moveSpeed;
+        float initialMoveSpeed = TopDownMovement.Instance.MoveSpeed;
 
         // Store the initial regen amount
         float initialRegenAmount = PlayerStats.Instance.RegenAmount;
@@ -134,7 +134,7 @@ public class ItemTesting2
         yield return new WaitForSeconds(10f);
         Assert.Greater(PlayerStats.Instance.Damage, initialDamage, "Damage did not increase");
         Assert.Greater(PlayerStats.Instance.MaxHealth, initialMaxHealth, "MaxHealth did not increase");
-        Assert.Greater(TopDownMovement.moveSpeed, initialMoveSpeed, "Speed did not increase");
+        Assert.Greater(TopDownMovement.Instance.MoveSpeed, initialMoveSpeed, "Speed did not increase");
         Assert.Greater(PlayerStats.Instance.RegenAmount, initialRegenAmount, "Regen Amount did not increase");
         Assert.Less(Shooting.Instance.Firerate, initialFirerate, "Firerate did not decrease");
         Assert.Greater(EnemyHealth.bleedAmount, initialBleedAmount, "BleedAmount did not increase");

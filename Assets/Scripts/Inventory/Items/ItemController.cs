@@ -20,8 +20,8 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}");
             break;
             case 02:
-                TopDownMovement.moveSpeed *= 1.05f;
-                Debug.Log($"Speed: {TopDownMovement.moveSpeed}");           
+                TopDownMovement.Instance.MoveSpeed *= 5f;
+                Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");           
             break;
             case 03:
                 PlayerStats.Instance.RegenAmount += 1f;
@@ -84,8 +84,8 @@ public class ItemController : MonoBehaviour
                     }
                     else if (randomRoll == 2)
                     {
-                        TopDownMovement.moveSpeed *= 1.025f;
-                        Debug.Log($"Speed: {TopDownMovement.moveSpeed}"); 
+                        TopDownMovement.Instance.MoveSpeed *= 1.025f;
+                        Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}"); 
                     }
                     else if (randomRoll == 3)
                     {
