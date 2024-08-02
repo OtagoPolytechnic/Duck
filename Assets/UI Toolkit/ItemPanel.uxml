@@ -1,0 +1,22 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/ItemPanel.uss?fileID=7433441132597879392&amp;guid=70285073dea84ba46903068b45bf0944&amp;type=3#ItemPanel" />
+    <ui:IMGUIContainer name="ItemPanelContainer" focusable="false" style="top: 12%; height: 80%; margin-left: 122px; margin-right: 122px; background-image: none; background-color: rgb(72, 72, 72); border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; align-items: center; justify-content: center;">
+        <ui:IMGUIContainer name="ItemPanelBackground" style="background-color: rgb(96, 96, 96); width: 95%; height: 90%; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; align-items: stretch; justify-content: space-around; flex-direction: row;">
+            <ui:Button display-tooltip-when-elided="true" name="Item1" class="item" style="white-space: nowrap; align-items: center; justify-content: flex-start;">
+                <ui:Label text="item name" display-tooltip-when-elided="true" name="ItemName" class="name text" style="white-space: normal; flex-wrap: nowrap; font-size: 60px; height: 145px;" />
+                <ui:Label text="item description or something idk this is just to see how many characters fit in this and how they look" display-tooltip-when-elided="true" name="ItemDesc" class="desc text" style="white-space: normal; -unity-text-align: upper-center; margin-bottom: 0; height: 465px;" />
+                <ui:Label text="You have [] " display-tooltip-when-elided="true" name="ItemStacks" class="stack text" />
+            </ui:Button>
+            <ui:Button display-tooltip-when-elided="true" name="Item2" class="item">
+                <ui:Label text="item name" display-tooltip-when-elided="true" name="ItemName" class="name text" style="white-space: normal; flex-wrap: nowrap; font-size: 60px;" />
+                <ui:Label text="item description or something idk this is just to see how many characters fit in this and how they look" display-tooltip-when-elided="true" name="ItemDesc" class="desc text" style="white-space: normal; -unity-text-align: upper-center;" />
+                <ui:Label text="You have [] " display-tooltip-when-elided="true" name="ItemStacks" class="stack text" />
+            </ui:Button>
+            <ui:Button display-tooltip-when-elided="true" name="Item3" class="item">
+                <ui:Label text="item name" display-tooltip-when-elided="true" name="ItemName" class="name text" style="white-space: normal; flex-wrap: nowrap; font-size: 60px;" />
+                <ui:Label text="item description or something idk this is just to see how many characters fit in this and how they look" display-tooltip-when-elided="true" name="ItemDesc" class="desc text" style="white-space: normal; -unity-text-align: upper-center;" />
+                <ui:Label text="You have [] " display-tooltip-when-elided="true" name="ItemStacks" class="stack text" />
+            </ui:Button>
+        </ui:IMGUIContainer>
+    </ui:IMGUIContainer>
+</ui:UXML>
