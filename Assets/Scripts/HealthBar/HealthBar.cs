@@ -7,7 +7,7 @@ public class HealthBar : MonoBehaviour
     private Label healthText;
     private IMGUIContainer healthBar;
     private float maxHealthBarSize;
-    //private UnityEngine.UI.Image healthBar; //temp
+    
     void Awake()
     {
         VisualElement document = GetComponent<UIDocument>().rootVisualElement;
