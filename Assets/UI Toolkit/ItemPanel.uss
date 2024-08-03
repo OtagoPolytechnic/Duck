@@ -10,6 +10,10 @@
     border-bottom-width: 0;
     position: relative;
     max-width: 33%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .name {
@@ -30,7 +34,7 @@
 }
 
 .text {
-    color: rgba(255, 255, 255, 255);
+    color: rgb(255, 255, 255);
     -unity-font-definition: initial;
     -unity-font: url('project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&guid=f08ae915995c0db4f9feee7e49baaec2&type=3#ARCADE_N');
     font-size: 30px;
