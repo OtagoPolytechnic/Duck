@@ -2,15 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject gameOverUI;
-    public ScoreManager scoreManager;
-   private bool playerDead = false;
-   public void GameOver()
-   {
-    //This should be handled under a game state end or dead
+    private VisualElement gameOverUI;
+    private VisualElement container;
+    [SerializeField]
+    private ScoreManager scoreManager;
+    private bool playerDead = false;
+    void Awake()
+    {
+        gameOverUI = GetComponent<UIDocument>().rootVisualElement;
+        container = gameOverUI.Q<VisualElement>("Container");
+        Button submit = gameOverUI.Q<Button>("SubmitScore");
+        submit.RegisterCallback<ClickEvent>(SubmitScore);
+        Button replay = gameOverUI.Q<Button>("Replay");
+        replay.RegisterCallback<ClickEvent>(Restart);
+        Button quit = gameOverUI.Q<Button>("Quit");
+        quit.RegisterCallback<ClickEvent>(MainMenu);
+    }
+    public void GameOver()
+    {
+        //This should be handled under a game state end or dead
         if (!playerDead)
         {
             playerDead = true;
@@ -23,24 +37,28 @@ public class GameManager : MonoBehaviour
             //SFXManager.Instance.StopBackgroundMusic();
             SFXManager.Instance.GameOverSound();
             scoreManager.FinalScore();
-            gameOverUI.SetActive(true);
+            container.visible = true;
         }
         //call kill all active enemies
         Timer.CullEnemies();
-   }
+    }
+    private void SubmitScore(ClickEvent click)
+    {
+        Debug.Log("Inputs score");
+    }
 
-    public void Restart() 
+    private void Restart(ClickEvent click)
     {
         ResetVariables();
         SceneManager.LoadScene("MainScene");
     }
 
-    public void MainMenu() 
+    private void MainMenu(ClickEvent click)
     {
         SceneManager.LoadScene("Titlescreen");
     }
 
-    public void ResetVariables() //Any static variables that need to be reset on game start should be added to this method
+    private void ResetVariables() //Any static variables that need to be reset on game start should be added to this method
     {
         //Player variables
         PlayerHealth.maxHealth = 100;
