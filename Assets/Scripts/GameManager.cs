@@ -8,15 +8,12 @@ public class GameManager : MonoBehaviour
 {
     private VisualElement gameOverUI;
     private VisualElement container;
-    [SerializeField]
-    private ScoreManager scoreManager;
     private bool playerDead = false;
     void Awake()
     {
+
         gameOverUI = GetComponent<UIDocument>().rootVisualElement;
         container = gameOverUI.Q<VisualElement>("Container");
-        Button submit = gameOverUI.Q<Button>("SubmitScore");
-        submit.RegisterCallback<ClickEvent>(SubmitScore);
         Button replay = gameOverUI.Q<Button>("Replay");
         replay.RegisterCallback<ClickEvent>(Restart);
         Button quit = gameOverUI.Q<Button>("Quit");
@@ -36,21 +33,17 @@ public class GameManager : MonoBehaviour
             //call game over UI
             //SFXManager.Instance.StopBackgroundMusic();
             SFXManager.Instance.GameOverSound();
-            scoreManager.FinalScore();
+            ScoreManager.Instance.FinalScore();
             container.visible = true;
         }
         //call kill all active enemies
         Timer.CullEnemies();
     }
-    private void SubmitScore(ClickEvent click)
-    {
-        Debug.Log("Inputs score");
-    }
 
     private void Restart(ClickEvent click)
     {
         ResetVariables();
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("UIRemaster");
     }
 
     private void MainMenu(ClickEvent click)
