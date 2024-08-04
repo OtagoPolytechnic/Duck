@@ -40,7 +40,7 @@ public class Menu : MonoBehaviour
 
     public void Play(ClickEvent click)
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("UIRemaster");
     }
 
     public void Quit(ClickEvent click)
