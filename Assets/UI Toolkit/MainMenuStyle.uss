@@ -1,13 +1,17 @@
-.text {
-    -unity-font-definition: initial;
-    -unity-font: url('project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&guid=f08ae915995c0db4f9feee7e49baaec2&type=3#ARCADE_N');
-    color: rgba(0, 0, 0, 255);
+.header {
+    font-size: 130px;
+    padding-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    align-items: center;
+    margin-bottom: 100px;
+    margin-top: 170px;
 }
 
 .button {
     width: 300px;
     height: 100px;
-    background-color: rgba(253, 255, 121, 255);
+    background-color: rgb(253, 255, 121);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -21,7 +25,7 @@
 .text {
     -unity-font-definition: initial;
     -unity-font: url('project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&guid=f08ae915995c0db4f9feee7e49baaec2&type=3#ARCADE_N');
-    color: rgba(0, 0, 0, 255);
+    color: rgb(0, 0, 0);
 }
 
 .buttonText {
@@ -33,10 +37,10 @@
     border-right-width: 0;
     border-top-width: 0;
     border-bottom-width: 0;
-    border-left-color: rgba(255, 255, 255, 255);
-    border-right-color: rgba(255, 255, 255, 255);
-    border-top-color: rgba(255, 255, 255, 255);
-    border-bottom-color: rgba(255, 255, 255, 255);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     border-top-right-radius: 20px;
