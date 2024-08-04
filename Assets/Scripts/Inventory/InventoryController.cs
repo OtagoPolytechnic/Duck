@@ -10,11 +10,7 @@ public class InventoryController : MonoBehaviour
     private InventoryPage inventoryUI;
     [HideInInspector]
     public int inventorySize = 3;
-
-    public void Start() 
-    {
-    }
-
+    
     public void Update() 
     {
         if (GameSettings.gameState == GameState.ItemSelect)
