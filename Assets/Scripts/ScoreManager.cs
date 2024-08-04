@@ -10,11 +10,12 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance;
     [SerializeField]
     private GameObject HUD;
+    [SerializeField]
+    private GameObject GameOver;
     public Scoreboard scoreboard;
     private Label pointsText;
-    public TMP_Text finalscoreText;
-    public TMP_Text highscoreNotif;
-     
+    public Label finalscoreText;
+    public Label highscoreNotif;
     public ScoreInputField inputField;
     public GameObject submitButton;
 
@@ -26,8 +27,10 @@ public class ScoreManager : MonoBehaviour
     {
         Instance = this;
         VisualElement document = HUD.GetComponent<UIDocument>().rootVisualElement;
-
-        pointsText = document.Q("Points") as Label;
+        VisualElement gameOverDoc = GameOver.GetComponent<UIDocument>().rootVisualElement;
+        
+        pointsText = document.Q<Label>("Points");
+        finalscoreText = gameOverDoc.Q<Label>("FinalScore");
 
     }
     
