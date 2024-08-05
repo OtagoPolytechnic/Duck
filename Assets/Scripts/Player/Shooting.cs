@@ -44,6 +44,7 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
+        if (GameSettings.gameState != GameState.InGame){return;}
         lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         lookDirection = new Vector2(lookDirection.x - transform.position.x, lookDirection.y - transform.position.y);
         lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
@@ -73,13 +74,13 @@ public class Shooting : MonoBehaviour
         if (PlayerHealth.hasShotgun)
         {
             //shoot 1+stacks(2) bullets in a cone infront of the player
-            float shotAngle = 10f;
+            float shotAngle = (PlayerHealth.bulletAmount / 2) * 10;
             for (int i = 0; i < PlayerHealth.bulletAmount + 1; i++)
             {
                 firePoint.rotation = Quaternion.Euler(0, 0, lookAngle + shotAngle);
-                GameObject bulletClone = Instantiate(bullet, firePoint.position, Quaternion.Euler(0, 0, lookAngle));
+                GameObject bulletClone = Instantiate(bullet, firePoint.position, firePoint.rotation);
                 bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
-                shotAngle -= 10f;
+                shotAngle -= 10f; 
             }
         }
         else

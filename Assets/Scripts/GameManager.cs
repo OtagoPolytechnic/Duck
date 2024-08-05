@@ -7,36 +7,29 @@ public class GameManager : MonoBehaviour
 {
     public GameObject gameOverUI;
     public ScoreManager scoreManager;
-   private bool playerDead = false;
+   //private bool playerDead = false;
    public void GameOver()
    {
-    //This should be handled under a game state end or dead
-        if (!playerDead)
+        if(GameSettings.gameState != GameState.EndGame)
         {
-            playerDead = true;
-            //disables shooting, movement and timer on game over
-            FindObjectOfType<Shooting>().enabled = false;
-            FindObjectOfType<Timer>().enabled = false;
-            FindObjectOfType<TopDownMovement>().enabled = false;
-            FindObjectOfType<EnemySpawner>().enabled = false;
-            //call game over UI
-            //SFXManager.Instance.StopBackgroundMusic();
-            SFXManager.Instance.GameOverSound();
+            GameSettings.gameState = GameState.EndGame;
             scoreManager.FinalScore();
             gameOverUI.SetActive(true);
+            //call kill all active enemies
+            Timer.CullEnemies();
         }
-        //call kill all active enemies
-        Timer.CullEnemies();
    }
 
     public void Restart() 
     {
         ResetVariables();
+        GameSettings.gameState = GameState.InGame;
         SceneManager.LoadScene("MainScene");
     }
 
     public void MainMenu() 
     {
+        GameSettings.gameState = GameState.InGame;
         SceneManager.LoadScene("Titlescreen");
     }
 
@@ -70,5 +63,6 @@ public class GameManager : MonoBehaviour
         {
             i.stacks = 0;
         }
+        PlayerHealth.currentHealth = PlayerHealth.maxHealth;
     }
 }

@@ -23,6 +23,12 @@ public class TopDownMovement : MonoBehaviour
     
     void Update()
     {
+        if (GameSettings.gameState != GameState.InGame)
+        {
+            hitBox.velocity = Vector2.zero;
+            return;
+        }
+        
         if(mapManager != null)
         {
             float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);

@@ -40,11 +40,11 @@ public class Timer : MonoBehaviour
         {     
             GetItems();
         }
-        if(running)
+        if(GameSettings.gameState == GameState.InGame)
         {
             currentTime -= Time.deltaTime;
         }
-        else 
+        else if(GameSettings.gameState == GameState.ItemSelect)
         {
             for (int i = 0; i < inventoryItems.Count; i++)
             {
@@ -77,10 +77,8 @@ public class Timer : MonoBehaviour
 
     private void EndWave()
     {
-        running = false;
-
+        GameSettings.gameState = GameState.ItemSelect;
         CullEnemies();
-
         gotItems = false;
         if (!geninventory)
         {
@@ -97,6 +95,7 @@ public class Timer : MonoBehaviour
 
     private void NextWave()
     {
+        GameSettings.gameState = GameState.InGame;
         timerText.enabled = true;
         healthBar.SetActive(true);
         waveNumber += 1;
@@ -109,8 +108,6 @@ public class Timer : MonoBehaviour
         {
             EnemySpawner.spawnTimer = 0.1f;
         }
-
-        running = true;
         geninventory = false;
     }
 
