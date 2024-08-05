@@ -48,7 +48,7 @@ public class ScoreManager : MonoBehaviour
 
         
         HighscoreSaveData savedScores = scoreboard.GetSavedScores();
-        if (savedScores.highscores.Count < 1)
+        if (savedScores == null || savedScores.highscores.Count < 1)
         {
            highscoreNotif.text = "New Highscore!!!";
            highscoreNotif.style.color = new StyleColor(new Color32(255, 221, 0, 255)); //Yellow
