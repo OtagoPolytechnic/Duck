@@ -8,6 +8,7 @@ public class Menu : MonoBehaviour
 {
     private void Start()
     {
+        Application.targetFrameRate = 60;
         SFXManager.Instance.PlayBackgroundMusic(SFXManager.Instance.TitleScreen);
     }
 
