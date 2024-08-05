@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/GameOverStyle.uss?fileID=7433441132597879392&amp;guid=162b006a1adcc944db2634bdf11e048c&amp;type=3#GameOverStyle" />
-    <ui:VisualElement name="Container" style="max-width: none; max-height: none; min-width: 100%; min-height: 100%; justify-content: flex-start; align-items: center; visibility: hidden; background-color: rgba(6, 7, 19, 0.74);">
+    <ui:VisualElement name="Container" style="max-width: none; max-height: none; min-width: 100%; min-height: 100%; justify-content: flex-start; align-items: center; visibility: visible; background-color: rgba(6, 7, 19, 0.74);">
         <ui:VisualElement name="Header">
             <ui:Label text="GAME OVER" display-tooltip-when-elided="true" name="Title" class="header" style="color: rgb(255, 0, 0); -unity-font: url(&apos;project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&amp;guid=f08ae915995c0db4f9feee7e49baaec2&amp;type=3#ARCADE_N&apos;); -unity-font-definition: initial;" />
         </ui:VisualElement>

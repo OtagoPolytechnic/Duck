@@ -10,8 +10,7 @@ public class GameManager : MonoBehaviour
     private VisualElement container;
     private bool playerDead = false;
     void Awake()
-    {
-
+    {   
         gameOverUI = GetComponent<UIDocument>().rootVisualElement;
         container = gameOverUI.Q<VisualElement>("Container");
         Button replay = gameOverUI.Q<Button>("Replay");
