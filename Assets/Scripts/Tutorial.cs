@@ -15,6 +15,7 @@ public class Tutorial : MonoBehaviour
     }
     private void ReturnToMainMenu(ClickEvent click)
     {
+        GameSettings.gameState = GameState.InGame;
         SceneManager.LoadScene("Titlescreen");
     }
 }

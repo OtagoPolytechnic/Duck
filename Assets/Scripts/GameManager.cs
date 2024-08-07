@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 {
     private VisualElement gameOverUI;
     private VisualElement container;
-    private bool playerDead = false;
     void Awake()
     {   
         gameOverUI = GetComponent<UIDocument>().rootVisualElement;
@@ -18,35 +17,29 @@ public class GameManager : MonoBehaviour
         Button quit = gameOverUI.Q<Button>("Quit");
         quit.RegisterCallback<ClickEvent>(MainMenu);
     }
+
     public void GameOver()
     {
-        //This should be handled under a game state end or dead
-        if (!playerDead)
+        if(GameSettings.gameState != GameState.EndGame)
         {
-            playerDead = true;
-            //disables shooting, movement and timer on game over
-            FindObjectOfType<Shooting>().enabled = false;
-            FindObjectOfType<Timer>().enabled = false;
-            FindObjectOfType<TopDownMovement>().enabled = false;
-            FindObjectOfType<EnemySpawner>().enabled = false;
-            //call game over UI
-            //SFXManager.Instance.StopBackgroundMusic();
+            GameSettings.gameState = GameState.EndGame;
+            Timer.CullEnemies();
             SFXManager.Instance.GameOverSound();
             ScoreManager.Instance.FinalScore();
             container.visible = true;
         }
-        //call kill all active enemies
-        Timer.CullEnemies();
     }
 
     private void Restart(ClickEvent click)
     {
         ResetVariables();
-        SceneManager.LoadScene("UIRemaster");
+        GameSettings.gameState = GameState.InGame;
+        SceneManager.LoadScene("MainScene");
     }
 
     private void MainMenu(ClickEvent click)
     {
+        GameSettings.gameState = GameState.InGame;
         SceneManager.LoadScene("Titlescreen");
     }
 

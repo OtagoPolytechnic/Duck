@@ -19,7 +19,6 @@ public class Timer : MonoBehaviour
     public float waveLength;
     private float currentTime;
     public int waveNumber;
-    public bool running;
     bool geninventory = false;
     void Awake()
     {
@@ -37,12 +36,11 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
-
-        if(running)
+        if(GameSettings.gameState == GameState.InGame)
         {
             currentTime -= Time.deltaTime;
         }
-        else 
+        else if(GameSettings.gameState == GameState.ItemSelect)
         {
             if (itemPanel.itemChosen)
             {
@@ -60,11 +58,8 @@ public class Timer : MonoBehaviour
 
     private void EndWave()
     {
-        running = false;
-
+        GameSettings.gameState = GameState.ItemSelect;
         CullEnemies();
-
-
         if (!geninventory)
         {
             itemPanel.InitializeInventoryUI(inventorySize);
@@ -80,6 +75,7 @@ public class Timer : MonoBehaviour
 
     private void NextWave()
     {
+        GameSettings.gameState = GameState.InGame;
         waveNumber += 1;
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
@@ -90,8 +86,6 @@ public class Timer : MonoBehaviour
         {
             EnemySpawner.spawnTimer = 0.1f;
         }
-
-        running = true;
         geninventory = false;
         itemPanel.itemChosen = false;
     }

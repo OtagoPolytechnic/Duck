@@ -124,7 +124,7 @@ public class PlayerStats : MonoBehaviour
     void Update()
     {
         Regen();
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && GameSettings.gameState == GameState.InGame) //if the player dies
         {
 
             if (lifeEggs.Count > 0)
@@ -137,8 +137,9 @@ public class PlayerStats : MonoBehaviour
             }
         }
     }
-    void Regen() //currently will regen players health even when paused
+    void Regen()
     {
+        if (GameSettings.gameState != GameState.InGame){return;}
         regenTick -= Time.deltaTime;
         if (regenTick <= 0 && regenTrue && currentHealth < maxHealth) //only works if the player is missing health
         {

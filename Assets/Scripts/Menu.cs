@@ -35,22 +35,24 @@ public class Menu : MonoBehaviour
     }
     private void Start()
     {
+        Application.targetFrameRate = 60;
         SFXManager.Instance.PlayBackgroundMusic(SFXManager.Instance.TitleScreen);
     }
 
     public void Play(ClickEvent click)
     {
-        SceneManager.LoadScene("UIRemaster");
+        GameSettings.gameState = GameState.InGame;
+        SceneManager.LoadScene("MainScene");
     }
 
     public void Quit(ClickEvent click)
     {
         Application.Quit();
-        Debug.Log("Player has quit the game");
     }
 
     public void Tutorial(ClickEvent click)
     {
+        GameSettings.gameState = GameState.InGame;
         SceneManager.LoadScene("Tutorial");
     }
 
