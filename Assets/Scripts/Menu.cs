@@ -1,33 +1,65 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UIElements;
 
 public class Menu : MonoBehaviour
 {
+
+    private Button playButton;
+    private Button highscoreButton;
+    private Button tutorialButton;
+    private Button quitButton;
+    private Label versionNumber;
+    void Awake()
+    {
+        VisualElement document = GetComponent<UIDocument>().rootVisualElement;
+        playButton = document.Q<Button>("PlayButton");
+        playButton.RegisterCallback<ClickEvent>(Play);
+
+        highscoreButton = document.Q("HighscoreButton") as Button;
+        highscoreButton.RegisterCallback<ClickEvent>(Highscore);
+
+        tutorialButton = document.Q("TutorialButton") as Button;
+        tutorialButton.RegisterCallback<ClickEvent>(Tutorial);
+
+        quitButton = document.Q("QuitButton") as Button;
+        quitButton.RegisterCallback<ClickEvent>(Quit);
+
+        versionNumber = document.Q<Label>("VersionNumber");
+        versionNumber.text = "Alpha V0.9.0";
+
+    }
+    private void OnDisable()
+    {
+        playButton.UnregisterCallback<ClickEvent>(Play);
+        highscoreButton.UnregisterCallback<ClickEvent>(Highscore);
+        tutorialButton.UnregisterCallback<ClickEvent>(Tutorial);
+        quitButton.UnregisterCallback<ClickEvent>(Quit);
+    }
     private void Start()
     {
+        Application.targetFrameRate = 60;
         SFXManager.Instance.PlayBackgroundMusic(SFXManager.Instance.TitleScreen);
     }
 
-    public void Play()
+    public void Play(ClickEvent click)
     {
-         SceneManager.LoadScene("MainScene");
+        GameSettings.gameState = GameState.InGame;
+        SceneManager.LoadScene("MainScene");
     }
 
-    public void Quit()
+    public void Quit(ClickEvent click)
     {
         Application.Quit();
-        Debug.Log("Player has quit the game");
     }
 
-    public void Tutorial()
+    public void Tutorial(ClickEvent click)
     {
         SceneManager.LoadScene("Tutorial");
     }
 
-    public void HighscoreButton()
+    public void Highscore(ClickEvent click)
     {
         SceneManager.LoadScene("Highscores");
     }

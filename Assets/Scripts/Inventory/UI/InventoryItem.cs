@@ -25,12 +25,10 @@ public class InventoryItem : MonoBehaviour
     public Image borderColor;
     public Color32 commonColor, uncommonColor, rareColor, epicColor;
     public GameObject timerManager;
-    public Timer timer;
     public ItemController itemController;
 
     void Start()
     {
-        timer = timerManager.GetComponent<Timer>();
         textName.text = itemName;
         textDesc.text = itemDesc;
         textStacks.text = itemStacks.ToString();
@@ -54,7 +52,7 @@ public class InventoryItem : MonoBehaviour
     }
     public void Click()
     {
-        itemController.ItemPicked(itemID); //activate the item selected's code
+        //itemController.ItemPicked(itemID); //activate the item selected's code
         itemChosen = true; 
     }
 }
