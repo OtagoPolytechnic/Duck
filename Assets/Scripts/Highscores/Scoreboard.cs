@@ -40,6 +40,11 @@ public class Scoreboard : MonoBehaviour
 
         bool scoreAdded = false;
 
+        if (savedScores == null)
+        {
+            savedScores = new HighscoreSaveData();
+        }
+
         for(int i = 0; i < savedScores.highscores.Count; i++) 
         {
             //check if score is greater than a saved score
@@ -100,7 +105,10 @@ public class Scoreboard : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-
+        if (savedScores == null)
+        {
+            savedScores = new HighscoreSaveData();
+        }
         foreach(EntryData highscore in savedScores.highscores)
         {
             Instantiate(highscoreEntry, scoreContainerTransform).

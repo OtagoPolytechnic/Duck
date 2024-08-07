@@ -1,20 +1,25 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class HealthBar : MonoBehaviour
 {
-    public Text healthText;
-    private Image healthBar;
-
-    void Start()
+    private Label healthText;
+    private IMGUIContainer healthBar;
+    private float maxHealthBarSize;
+    
+    void Awake()
     {
-        healthBar = GetComponent<Image>();
+        VisualElement document = GetComponent<UIDocument>().rootVisualElement;
+        healthText = document.Q<Label>("HealthNumber");
+        healthBar = document.Q<IMGUIContainer>("Health");
+        maxHealthBarSize = healthBar.style.width.value.value;  //https://discussions.unity.com/t/parse-int-to-stylelength/880675/3
     }
 
     void Update()
     {
-        float healthFraction = PlayerHealth.currentHealth / PlayerHealth.maxHealth;
-        healthBar.fillAmount = healthFraction;
+        float healthFraction =  PlayerHealth.currentHealth / PlayerHealth.maxHealth;
+        healthBar.style.width = Length.Percent(healthFraction * 100);
         healthText.text = PlayerHealth.currentHealth.ToString("F0") + "/" + PlayerHealth.maxHealth.ToString("F0");
     }
 }

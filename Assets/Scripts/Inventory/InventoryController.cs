@@ -8,7 +8,7 @@ public class InventoryController : MonoBehaviour
     public GameObject timerManager;
     public Timer timer;
     [SerializeField]
-    private InventoryPage inventoryUI;
+    private InventoryPage itemPanel;
     [HideInInspector]
     public int inventorySize = 3;
 
@@ -21,11 +21,11 @@ public class InventoryController : MonoBehaviour
     {
         if (!timer.running)
         {
-            inventoryUI.Show();
+            itemPanel.Show();
         }
         else
         {     
-            inventoryUI.Hide();
+            itemPanel.Hide();
         }
     }
 }
