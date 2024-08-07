@@ -11,7 +11,7 @@ public class playerMovementTest
     {
         GameObject gameObject = new GameObject();
         Rigidbody2D rb2d = gameObject.AddComponent<Rigidbody2D>();
-        TopDownMovement.moveSpeed = 5f; 
+        TopDownMovement.Instance.MoveSpeed = 5f; 
        
         rb2d.velocity = new Vector2(5f, 0f);
        
