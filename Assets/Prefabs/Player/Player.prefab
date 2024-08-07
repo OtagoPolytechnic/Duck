@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee56b0c7b532f6346ac5659ae1413e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitBox: {fileID: 0}
+  hitBox: {fileID: 4316639253410503295}
 --- !u!114 &4893901211425009371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,7 +195,6 @@ MonoBehaviour:
   bullet: {fileID: 1970858085864543839, guid: 699c37d916ee4864c970c209d0813901, type: 3}
   sprite: {fileID: 7125250178445594680}
   firePoint: {fileID: 8125265843478098268}
-  bulletSpeed: 50
 --- !u!114 &1586632224694171079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,8 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerManager: {fileID: 0}
-  timer: {fileID: 0}
-  inventoryUI: {fileID: 0}
+  itemPanel: {fileID: 0}
   inventorySize: 3
 --- !u!114 &6300385405140103751
 MonoBehaviour:
@@ -316,10 +314,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
     m_ActionName: Player/Fire[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1fd18340-7810-467a-a6b5-22a2b1dce5bc
-    m_ActionName: Player/Pause[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: c95b2375-e6d9-4b88-9c4c-c5e76515df4b
