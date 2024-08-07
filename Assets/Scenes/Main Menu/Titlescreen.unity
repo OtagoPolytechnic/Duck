@@ -355,11 +355,7 @@ MonoBehaviour:
   GameOver: {fileID: 8300000, guid: 3b62a663333279b4cae920dba78e22f0, type: 3}
   TitleScreen: {fileID: 8300000, guid: 06906d718be5b6a4cb2df8732bf39832, type: 3}
   WaveMusic: {fileID: 8300000, guid: 89f935015cc98724a862a586326fdf21, type: 3}
-
-  audioMixer: {fileID: 24100000, guid: d0d45de8f936c874c97da1762d1088f4, type: 2}
-  playerShootGroup: {fileID: -8404985286912092512, guid: d0d45de8f936c874c97da1762d1088f4, type: 2}
-  enemyBiteGroup: {fileID: 1408405502542183540, guid: d0d45de8f936c874c97da1762d1088f4, type: 2}
---- !u!1 &1032031600
+--- !u!1 &1709520542
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
