@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.YamlDotNet.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Audio;
 
 public class SFXManager : MonoBehaviour
 {
@@ -17,19 +17,15 @@ public class SFXManager : MonoBehaviour
     public AudioClip GameOver;
     public AudioClip TitleScreen;
     public AudioClip WaveMusic;
-
-    public AudioMixer audioMixer;
-    public AudioMixerGroup playerShootGroup;
-    public AudioMixerGroup enemyBiteGroup;
-
     private AudioSource audioSource;
+ 
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-    
+            DontDestroyOnLoad(gameObject);
             Debug.Log("SFXManager instance set and will not be destroyed on load.");
         }
         else
@@ -44,54 +40,49 @@ public class SFXManager : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
-
-        // Assign a default AudioMixerGroup if needed
-        audioSource.outputAudioMixerGroup = playerShootGroup;
     }
 
-    public void DuckShootSound()
+    public void DuckShootSound(float volume = 1.0f)
     {
-        audioSource.outputAudioMixerGroup = playerShootGroup;
+        audioSource.volume = volume;
         audioSource.PlayOneShot(DuckShooting);
     }
-
-    public void EnemyShootSound()
+    public void EnemyShootSound(float volume = 10.0f)
     {
-        audioSource.outputAudioMixerGroup = playerShootGroup;
+        audioSource.volume = volume;
         audioSource.PlayOneShot(EnemyShoot);
     }
-
-    public void EnemyBiteSound()
+    public void EnemyBiteSound(float volume = 0.4f)
     {
-        audioSource.outputAudioMixerGroup = enemyBiteGroup;
+        audioSource.volume = volume;
         audioSource.PlayOneShot(Bite);
     }
-
-    public void DuckHitSound()
+    public void DuckHitSound(float volume = 1.0f)
     {
-        audioSource.outputAudioMixerGroup = playerShootGroup;
+        audioSource.volume = volume;
         audioSource.PlayOneShot(DuckHit);
     }
-
-    public void EnemyDieSound()
+    public void EnemyDieSound(float volume = 3.0f)
     {
-        audioSource.outputAudioMixerGroup = playerShootGroup;
+        audioSource.volume = volume;
         audioSource.PlayOneShot(EnemyDie);
     }
 
-    public void GameOverSound()
+    public void GameOverSound(float volume = 1.0f)
     {
-        audioSource.outputAudioMixerGroup = playerShootGroup;
+        audioSource.volume = volume;
         audioSource.PlayOneShot(GameOver);
     }
 
-    public void PlayBackgroundMusic(AudioClip clip)
+    public void PlayBackgroundMusic(AudioClip clip, float volume = 0.3f)
     {
+        // Check if the music is already playing and if it's the same clip
         if (audioSource.clip == clip && audioSource.isPlaying)
         {
-            return;
+            return; // Do nothing if the same music is already playing
         }
 
+        audioSource.volume = volume;
         audioSource.clip = clip;
         audioSource.loop = true;
         audioSource.Play();
