@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 using TMPro;
 using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
+    [SerializeField]
+    private GameObject HUD;
+    [SerializeField]
+    private GameObject GameOver;
     public Scoreboard scoreboard;
-    public TMP_Text pointsText;
-    public TMP_Text finalscoreText;
-    public TMP_Text highscoreNotif;
-     
+    private Label pointsText;
+    private Label finalscoreText;
+    private Label highscoreNotif;
     public ScoreInputField inputField;
-    public GameObject submitButton;
+    private Button submitButton;
 
     public EntryData playerScoreInfo = new EntryData();
 
@@ -23,6 +26,15 @@ public class ScoreManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        VisualElement document = HUD.GetComponent<UIDocument>().rootVisualElement;
+        VisualElement gameOverDoc = GameOver.GetComponent<UIDocument>().rootVisualElement;
+        
+        pointsText = document.Q<Label>("Points");
+        finalscoreText = gameOverDoc.Q<Label>("FinalScore");
+        highscoreNotif = gameOverDoc.Q<Label>("HighscoreNotif");
+        submitButton = gameOverDoc.Q<Button>("SubmitScore");
+        submitButton.RegisterCallback<ClickEvent>(SubmitPlayerScore);
+
     }
     
     public void IncreasePoints(int amount)
@@ -33,30 +45,38 @@ public class ScoreManager : MonoBehaviour
 
     public void FinalScore()
     {
-        //Highscore notif code removed because of bug when there was no intial highscores file on local
+
         
-        // HighscoreSaveData savedScores = scoreboard.GetSavedScores();
+        HighscoreSaveData savedScores = scoreboard.GetSavedScores();
+        if (savedScores == null || savedScores.highscores.Count < 1)
+        {
+           highscoreNotif.text = "New Highscore!!!";
+           highscoreNotif.style.color = new StyleColor(new Color32(255, 221, 0, 255)); //Yellow
+        }
+        else
+        {
+            for (int i = 0; i < savedScores.highscores.Count; i++)
+            {
+                //check if score is greater than a saved score
+                if (score > savedScores.highscores[i].entryScore || savedScores.highscores.Count < scoreboard.maxScoreEntries)
+                {
+                    highscoreNotif.text = "New Highscore!!!";
+                    highscoreNotif.style.color = new StyleColor(new Color32(255, 221, 0, 255));
 
-        // for (int i = 0; i < savedScores.highscores.Count; i++)
-        // {
-        //     //check if score is greater than a saved score
-        //     if (finalscore > savedScores.highscores[i].entryScore || savedScores.highscores.Count < scoreboard.maxScoreEntries)
-        //     {
-        //         highscoreNotif.text = "<color=#03fcdb>New Highscore!!!</color>";
+                }
+                else
+                {
+                    highscoreNotif.text = "Skill Issue";
+                    highscoreNotif.style.color = new StyleColor(new Color32(255, 0, 5, 255)); //Red
+                }
+            }
+        }
 
-        //         //display submit button
-        //         submitButton.SetActive(true);
-        //     }
-        //     else
-        //     {
-        //         highscoreNotif.text = "<color=red>Skill Issue</color>";
-        //     }
-        // }
 
         finalscoreText.text = "Score: " + score.ToString();
     }
 
-    public void SumbitPlayerScore()
+    public void SubmitPlayerScore(ClickEvent click)
     {
         playerScoreInfo.entryName = inputField.playerName;
         playerScoreInfo.entryScore = score;

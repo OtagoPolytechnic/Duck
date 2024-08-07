@@ -54,7 +54,7 @@ public class InventoryItem : MonoBehaviour
     }
     public void Click()
     {
-        itemController.ItemPicked(itemID); //activate the item selected's code
+        //itemController.ItemPicked(itemID); //activate the item selected's code
         itemChosen = true; 
     }
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 public class ItemController : MonoBehaviour
 {
     //addition of a new item in the inventory page script, requires its functionailty in here
-    public GameObject eggPrefab;
+    [SerializeField]
+    private GameObject eggPrefab;
     public void ItemPicked(int itemID)
     {
         Debug.Log(itemID);

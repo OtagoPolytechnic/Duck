@@ -1,32 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UIElements;
+
 
 
 public class Timer : MonoBehaviour
 {
     [SerializeField]
-    private InventoryPage inventoryUI;
+    private InventoryPage itemPanel;
     [HideInInspector]
     public int inventorySize = 3;
-
-    public TextMeshProUGUI waveNumberText;
-    public TextMeshProUGUI timerText;
-
-    public GameObject healthBar;
+    [SerializeField]
+    private GameObject HUD;
+    private Label waveNumberText;
+    private Label timerText;
 
     public float waveLength;
     private float currentTime;
     public int waveNumber;
     public bool running;
-
-    private bool gotItems = true;
     bool geninventory = false;
-    [HideInInspector]
-    public List<InventoryItem> inventoryItems = new List<InventoryItem>();
-    [HideInInspector]
-    public GameObject[] itemObjects;
+    void Awake()
+    {
+        VisualElement document = HUD.GetComponent<UIDocument>().rootVisualElement;
+
+        waveNumberText = document.Q("WaveNumber") as Label;
+        timerText = document.Q("Timer") as Label;
+    }
 
     void Start()
     {
@@ -36,25 +37,17 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
-        if (!gotItems) //function is needed because unity cannot parse tags on same frame as instantiation 
-        {     
-            GetItems();
-        }
+
         if(running)
         {
             currentTime -= Time.deltaTime;
         }
         else 
         {
-            for (int i = 0; i < inventoryItems.Count; i++)
+            if (itemPanel.itemChosen)
             {
-                if (inventoryItems[i].itemChosen)
-                {
-                    Debug.Log("Item Picked!");
-                    NextWave();
-                }
+                NextWave();
             }
-
         }
         
         if(currentTime <= 0)
@@ -65,26 +58,16 @@ public class Timer : MonoBehaviour
         setTimerText();
     }
 
-    private void GetItems()
-    {
-        itemObjects = GameObject.FindGameObjectsWithTag("Item");
-        for (int i = 0; i < itemObjects.Length; i++)
-        {
-            inventoryItems[i] = itemObjects[i].GetComponent<InventoryItem>();
-        }
-        gotItems = true;
-    }
-
     private void EndWave()
     {
         running = false;
 
         CullEnemies();
 
-        gotItems = false;
+
         if (!geninventory)
         {
-            inventoryUI.InitializeInventoryUI(inventorySize);
+            itemPanel.InitializeInventoryUI(inventorySize);
             
             geninventory = true;
         }
@@ -97,8 +80,6 @@ public class Timer : MonoBehaviour
 
     private void NextWave()
     {
-        timerText.enabled = true;
-        healthBar.SetActive(true);
         waveNumber += 1;
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
@@ -112,6 +93,7 @@ public class Timer : MonoBehaviour
 
         running = true;
         geninventory = false;
+        itemPanel.itemChosen = false;
     }
 
     public static void CullEnemies()
