@@ -355,7 +355,11 @@ MonoBehaviour:
   GameOver: {fileID: 8300000, guid: 3b62a663333279b4cae920dba78e22f0, type: 3}
   TitleScreen: {fileID: 8300000, guid: 06906d718be5b6a4cb2df8732bf39832, type: 3}
   WaveMusic: {fileID: 8300000, guid: 89f935015cc98724a862a586326fdf21, type: 3}
---- !u!1 &1709520542
+
+  audioMixer: {fileID: 24100000, guid: d0d45de8f936c874c97da1762d1088f4, type: 2}
+  playerShootGroup: {fileID: -8404985286912092512, guid: d0d45de8f936c874c97da1762d1088f4, type: 2}
+  enemyBiteGroup: {fileID: 1408405502542183540, guid: d0d45de8f936c874c97da1762d1088f4, type: 2}
+--- !u!1 &1032031600
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -379,7 +383,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709520542}
+  m_GameObject: {fileID: 1032031600}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
@@ -399,7 +403,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709520542}
+  m_GameObject: {fileID: 1032031600}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
@@ -414,7 +418,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709520542}
+  m_GameObject: {fileID: 1032031600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
