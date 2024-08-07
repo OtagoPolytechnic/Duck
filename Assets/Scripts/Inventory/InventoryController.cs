@@ -7,7 +7,7 @@ public class InventoryController : MonoBehaviour
     //this is the controller for the inventory panel's control.
     public GameObject timerManager;
     [SerializeField]
-    private InventoryPage inventoryUI;
+    private InventoryPage itemPanel;
     [HideInInspector]
     public int inventorySize = 3;
     
@@ -15,11 +15,11 @@ public class InventoryController : MonoBehaviour
     {
         if (GameSettings.gameState == GameState.ItemSelect)
         {
-            inventoryUI.Show();
+            itemPanel.Show();
         }
         else
         {     
-            inventoryUI.Hide();
+            itemPanel.Hide();
         }
     }
 }

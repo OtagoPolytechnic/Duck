@@ -5,14 +5,21 @@ using UnityEngine.InputSystem;
 
 public class Shooting : MonoBehaviour
 {
+    public static Shooting Instance;
+
     public GameObject bullet;
     public Transform sprite;
     public Transform firePoint;
-    public float bulletSpeed = 50;
+    private float bulletSpeed = 50;
 
-    public static float firerate = 0.5f;
     private float lastShot = 0;
     private bool held = false;
+    private float firerate = 0.5f;
+    public float Firerate
+    {
+        get {return firerate;}
+        set {firerate = value;}
+    }
 
     Vector2 lookDirection;
     float lookAngle;
@@ -40,6 +47,16 @@ public class Shooting : MonoBehaviour
 
         // Apply velocity to the bullet clone
         bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
+    }
+
+     void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
     }
 
     void Update()
@@ -71,11 +88,11 @@ public class Shooting : MonoBehaviour
 
     private void Shoot()
     {
-        if (PlayerHealth.hasShotgun)
+        if (PlayerStats.Instance.HasShotgun)
         {
             //shoot 1+stacks(2) bullets in a cone infront of the player
-            float shotAngle = (PlayerHealth.bulletAmount / 2) * 10;
-            for (int i = 0; i < PlayerHealth.bulletAmount + 1; i++)
+            float shotAngle = (PlayerStats.Instance.BulletAmount / 2) * 10;
+            for (int i = 0; i < PlayerStats.Instance.BulletAmount + 1; i++)
             {
                 firePoint.rotation = Quaternion.Euler(0, 0, lookAngle + shotAngle);
                 GameObject bulletClone = Instantiate(bullet, firePoint.position, firePoint.rotation);

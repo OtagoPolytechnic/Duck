@@ -5,7 +5,14 @@ using UnityEngine.InputSystem;
 
 public class TopDownMovement : MonoBehaviour
 {
-    public static float moveSpeed = 10f;
+    public static TopDownMovement Instance;
+
+    private float moveSpeed = 10f;
+    public float MoveSpeed
+    {
+        get {return moveSpeed;}
+        set {moveSpeed = value;}
+    }
     public Rigidbody2D hitBox;
     private Vector2 moveInput;
 
@@ -13,6 +20,12 @@ public class TopDownMovement : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
         mapManager = FindObjectOfType<MapManager>();
     }
 
