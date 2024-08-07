@@ -10,6 +10,7 @@ public class Menu : MonoBehaviour
     private Button highscoreButton;
     private Button tutorialButton;
     private Button quitButton;
+    private Label versionNumber;
     void Awake()
     {
         VisualElement document = GetComponent<UIDocument>().rootVisualElement;
@@ -24,6 +25,9 @@ public class Menu : MonoBehaviour
 
         quitButton = document.Q("QuitButton") as Button;
         quitButton.RegisterCallback<ClickEvent>(Quit);
+
+        versionNumber = document.Q<Label>("VersionNumber");
+        versionNumber.text = "Alpha V0.9.0";
 
     }
     private void OnDisable()
