@@ -52,7 +52,6 @@ public class Menu : MonoBehaviour
 
     public void Tutorial(ClickEvent click)
     {
-        GameSettings.gameState = GameState.InGame;
         SceneManager.LoadScene("Tutorial");
     }
 

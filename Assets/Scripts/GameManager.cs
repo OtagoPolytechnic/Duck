@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour
 
     private void MainMenu(ClickEvent click)
     {
-        GameSettings.gameState = GameState.InGame;
         SceneManager.LoadScene("Titlescreen");
     }
 
@@ -47,6 +46,7 @@ public class GameManager : MonoBehaviour
     {
         //Player variables
         EnemyHealth.bleedAmount = 0;
+        PlayerStats.Instance.CurrentHealth = PlayerStats.Instance.MaxHealth;
 
         //Enemy variables
         EnemySpawner.healthMultiplier = 1f;
