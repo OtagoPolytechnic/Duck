@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-[Serializable]
 public class Item
 {
     public int id;
@@ -18,17 +18,26 @@ public enum rarity{
     Rare,
     Epic
 }
-
+    
 public class InventoryPage : MonoBehaviour
-{
-    [SerializeField] 
-    private InventoryItem itemPrefab;
-    [SerializeField]
-    private RectTransform contentPanel;
-
+{   
+    [HideInInspector]
+    public bool itemChosen;  
     private int index;
     private rarity roll;    
-    private List<InventoryItem> preGeneratedItems = new List<InventoryItem>();
+    public ItemController itemController;
+    [SerializeField]
+    private VisualElement panel;
+    private Button item1;
+    private Button item2;
+    private Button item3;
+    private IMGUIContainer container;
+    [SerializeField]
+    private StyleColor commonColor = new StyleColor(new Color32(135, 150, 146, 255));
+    private StyleColor uncommonColor  = new StyleColor(new Color32(79, 122, 52, 255));
+    private StyleColor rareColor  = new StyleColor(new Color32(50, 173, 196, 255));
+    private StyleColor epicColor  = new StyleColor(new Color32(127, 6, 145, 255));
+    private List<Item> selectedItems = new List<Item>();
 
     //make sure not to dupelicate the item ids
     public static List<Item> itemList = new List<Item>{ //char limit of 99 in description 
@@ -57,7 +66,7 @@ public class InventoryPage : MonoBehaviour
         float epicRoll = 1f;  //5%  
 
         // generate a random value (0->1)
-        float randomRarity = UnityEngine.Random.value;
+        float randomRarity = Random.value;
 
         // Figure out which threshold this falls under.
         if (randomRarity < commonRoll)
@@ -78,20 +87,31 @@ public class InventoryPage : MonoBehaviour
         }
         return roll;
     }
+  
+    void Awake()
+    {
+        panel = GetComponent<UIDocument>().rootVisualElement;
+        
+        container = panel.Q<IMGUIContainer>("ItemPanelContainer");
+
+        item1 = panel.Q<Button>("Item1");
+        item1.RegisterCallback<ClickEvent>(RegisterItem1Click);
+        item2 = panel.Q<Button>("Item2");
+        item2.RegisterCallback<ClickEvent>(RegisterItem2Click);
+        item3 = panel.Q<Button>("Item3");
+        item3.RegisterCallback<ClickEvent>(RegisterItem3Click);
+    }
+
+    
 
     public void InitializeInventoryUI(int inventorySize) //this is called every time the inventory ui pops up
     { 
-        for (int i = preGeneratedItems.Count - 1; i >= 0; i--) //makes sure the items previously generated are cleared to not bunch up on the inventory window
-        {
-            Destroy(preGeneratedItems[i].gameObject); //removes item
-            preGeneratedItems.RemoveAt(i); //removes floating null pointer
-        } 
 
         List<Item> generatedRarityList = new List<Item>();
-        List<Item> selectedItems = new List<Item>();
 
         for (int i = 0; i < inventorySize; i++) 
         {
+            
             // Get a random rarity.
             rarity randomItemRarity = GetWeightedRarity();
             // Create a list of all the available items of that rarity.
@@ -111,32 +131,70 @@ public class InventoryPage : MonoBehaviour
                 }
             }
             // then pick a random index from that subset and use that as the item.
-            index = UnityEngine.Random.Range(0, generatedRarityList.Count); 
+            index = Random.Range(0, generatedRarityList.Count); 
             selectedItems.Add(generatedRarityList[index]);
 
-            InventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);  
-            //assign the item generated to the item prefab and set transfoms
-            item.GetComponent<InventoryItem>().itemID = generatedRarityList[index].id;
-            item.GetComponent<InventoryItem>().itemName = generatedRarityList[index].name;
-            item.GetComponent<InventoryItem>().itemDesc = generatedRarityList[index].desc;
-            item.GetComponent<InventoryItem>().itemRarity = generatedRarityList[index].rarity;
-            item.GetComponent<InventoryItem>().itemStacks = generatedRarityList[index].stacks;
-            item.transform.SetParent(contentPanel);
-            item.transform.localScale = new Vector3(1, 1, 1); //this is to fix the parent scale issue. See https://github.com/BIT-Studio-4/Duck-Game/issues/65 for context
-            Debug.Log($"In InventoryPage.cs: index chosen is {index} and item is {generatedRarityList[index].name}");
-            //add the item to cleanup on next method call
-            preGeneratedItems.Add(item);
+            Label itemName = panel.Q<Label>($"ItemName{i+1}");
+            itemName.text = selectedItems[i].name;
+
+            Label itemDesc = panel.Q<Label>($"ItemDesc{i+1}");
+            itemDesc.text = selectedItems[i].desc;
+
+            Label itemStacks = panel.Q<Label>($"ItemStacks{i+1}");
+            itemStacks.text = $"You have {selectedItems[i].stacks}";
+
+            Button currentButton = panel.Q<Button>($"Item{i+1}");
+            rarity itemRarity = selectedItems[i].rarity;
+            if (itemRarity == rarity.Uncommon) //sets background color
+            {
+                currentButton.style.backgroundColor = uncommonColor;
+            }
+            else if (itemRarity == rarity.Rare)
+            {
+                currentButton.style.backgroundColor = rareColor;
+            }
+            else if (itemRarity == rarity.Epic)
+            {
+                currentButton.style.backgroundColor = epicColor;
+            }
+            else //assume all other items are common
+            {
+                currentButton.style.backgroundColor = commonColor;
+            }
+
             generatedRarityList.Clear();
+            Debug.Log($"In InventoryPage.cs: index chosen is {index} and item is {selectedItems[i].name}");
         }
     }
+
+    private void RegisterItem1Click(ClickEvent click)
+    {
+        itemController.ItemPicked(selectedItems[0].id); //activate the item selected's code
+        itemChosen = true; 
+        selectedItems.Clear();
+    }
+    private void RegisterItem2Click(ClickEvent click)
+    {
+        itemController.ItemPicked(selectedItems[1].id); //activate the item selected's code
+        itemChosen = true; 
+        selectedItems.Clear();
+    }
+    private void RegisterItem3Click(ClickEvent click)
+    {
+        itemController.ItemPicked(selectedItems[2].id); //activate the item selected's code
+        itemChosen = true; 
+        selectedItems.Clear();
+
+    }
+    
                 
     public void Show()
     {
-        gameObject.SetActive(true);
+        container.visible = true;
     }
     public void Hide()
     {
-        gameObject.SetActive(false);
+        container.visible = false;
     }
 
 }

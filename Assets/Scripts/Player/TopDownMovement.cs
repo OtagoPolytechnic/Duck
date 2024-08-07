@@ -1,10 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TopDownMovement : MonoBehaviour
 {
-    public static float moveSpeed = 10f;
+    public static TopDownMovement Instance;
+
+    private float moveSpeed = 10f;
+    public float MoveSpeed
+    {
+        get {return moveSpeed;}
+        set {moveSpeed = value;}
+    }
     public Rigidbody2D hitBox;
     private Vector2 moveInput;
 
@@ -12,6 +20,12 @@ public class TopDownMovement : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
         mapManager = FindObjectOfType<MapManager>();
     }
 
@@ -19,14 +33,15 @@ public class TopDownMovement : MonoBehaviour
     {
         hitBox = GetComponent<Rigidbody2D>(); 
     }
-
+    
     void Update()
     {
-        moveInput.x = Input.GetAxisRaw("Horizontal");
-        moveInput.y = Input.GetAxisRaw("Vertical");
-
-        moveInput.Normalize();
-
+        if (GameSettings.gameState != GameState.InGame)
+        {
+            hitBox.velocity = Vector2.zero;
+            return;
+        }
+        
         if(mapManager != null)
         {
             float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
@@ -36,5 +51,10 @@ public class TopDownMovement : MonoBehaviour
         {
             hitBox.velocity = moveInput * moveSpeed;
         }
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<Vector2>();
     }
 }

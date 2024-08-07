@@ -37,7 +37,7 @@ public class EnemyHealth : MonoBehaviour
     }
     public void ReceiveDamage(int damageTaken, bool critTrue)
     {
-        if (PlayerHealth.bleedTrue && !bleedTrue)
+        if (PlayerStats.Instance.BleedTrue && !bleedTrue)
         {
             bleedTrue = true;
         }
