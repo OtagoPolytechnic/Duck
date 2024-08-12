@@ -8,8 +8,6 @@ public class ItemPanelController : MonoBehaviour
 
     [SerializeField]
     private ItemPanel itemPanel;
-    [HideInInspector]
-    public int inventorySize = 3;
     
     public void Update() 
     {

@@ -9,8 +9,7 @@ public class Timer : MonoBehaviour
 {
     [SerializeField]
     private ItemPanel itemPanel;
-    [HideInInspector]
-    public int inventorySize = 3;
+
     [SerializeField]
     private GameObject HUD;
     private Label waveNumberText;
@@ -62,7 +61,7 @@ public class Timer : MonoBehaviour
         CullEnemies();
         if (!geninventory)
         {
-            itemPanel.InitializeInventoryUI(inventorySize);
+            itemPanel.InitializeItemPanel();
             
             geninventory = true;
         }

@@ -104,12 +104,12 @@ public class ItemPanel : MonoBehaviour
 
     
 
-    public void InitializeInventoryUI(int inventorySize) //this is called every time the inventory ui pops up
+    public void InitializeItemPanel() //this is called every time the inventory ui pops up
     { 
 
         List<Item> generatedRarityList = new List<Item>();
 
-        for (int i = 0; i < inventorySize; i++) 
+        for (int i = 0; i < 3; i++) 
         {
             
             // Get a random rarity.
