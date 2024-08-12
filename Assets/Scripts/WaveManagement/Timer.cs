@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 public class Timer : MonoBehaviour
 {
     [SerializeField]
-    private InventoryPage itemPanel;
+    private ItemPanel itemPanel;
     [HideInInspector]
     public int inventorySize = 3;
     [SerializeField]
