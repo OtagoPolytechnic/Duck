@@ -19,13 +19,13 @@ public enum rarity{
     Epic
 }
     
-public class InventoryPage : MonoBehaviour
+public class ItemPanel : MonoBehaviour
 {   
     [HideInInspector]
     public bool itemChosen;  
     private int index;
     private rarity roll;    
-    public ItemController itemController;
+    public ItemEffectTable itemController;
     [SerializeField]
     private VisualElement panel;
     private Button item1;

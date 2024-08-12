@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class ItemController : MonoBehaviour
+public class ItemEffectTable : MonoBehaviour
 {
     //addition of a new item in the inventory page script, requires its functionailty in here
     [SerializeField]
@@ -100,6 +100,6 @@ public class ItemController : MonoBehaviour
                 Debug.LogError("No item was given to the player, either, the item added to the list was not given a case, or the id does not match a current case.");
             break;
         }
-        InventoryPage.itemList[itemID].stacks += 1;
+        ItemPanel.itemList[itemID].stacks += 1;
     }
 }

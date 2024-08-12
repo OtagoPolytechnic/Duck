@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryController : MonoBehaviour
+public class ItemPanelController : MonoBehaviour
 {
     //this is the controller for the inventory panel's control.
-    public GameObject timerManager;
+
     [SerializeField]
-    private InventoryPage itemPanel;
+    private ItemPanel itemPanel;
     [HideInInspector]
     public int inventorySize = 3;
     
