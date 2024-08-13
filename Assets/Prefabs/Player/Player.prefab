@@ -399,7 +399,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a13943ec64228164fa9a5c8e748d46bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotgunSprite: {fileID: 7151302427411900398}
+  weaponSprites:
+  - {fileID: 7151302427411900398}
 --- !u!1 &6294860032441884971
 GameObject:
   m_ObjectHideFlags: 0
