@@ -133,19 +133,20 @@ public class ItemPanel : MonoBehaviour
     private void GetBoundItems(int repetitions, int waveNumber)
     {
         List<Item> generatedRarityList = new List<Item>();
+
+        rarity boundItemRarity = GetBoundRarity(waveNumber);
+        // Create a list of all the available items of that rarity.
+        foreach (Item j in itemList)
+        {
+            if (j.rarity == boundItemRarity)
+            {
+                generatedRarityList.Add(j);
+            }
+        }
+
         for (int i = 0; i < repetitions; i++) 
         {
-            
-            // Get a random rarity.
-            rarity boundItemRarity = GetBoundRarity(waveNumber);
-            // Create a list of all the available items of that rarity.
-            foreach (Item j in itemList)
-            {
-                if (j.rarity == boundItemRarity)
-                {
-                    generatedRarityList.Add(j);
-                }
-            }
+
             //if the item has already been selected, remove it from the possible pool of items
             foreach (Item k in selectedItems)
             {
@@ -168,20 +169,20 @@ public class ItemPanel : MonoBehaviour
             itemStacks.text = $"You have {selectedItems[i].stacks}";
 
             Button currentButton = panel.Q<Button>($"Item{i+1}");
-            rarity itemRarity = selectedItems[i].rarity;
-            if (itemRarity == rarity.Uncommon) //sets background color
+
+            if (boundItemRarity == rarity.Epic) //sets background color
             {
                 currentButton.style.backgroundColor = uncommonColor;
             }
-            else if (itemRarity == rarity.Rare)
+            else if (boundItemRarity == rarity.Weapon)
             {
                 currentButton.style.backgroundColor = rareColor;
             }
-            // else if (itemRarity == rarity.Epic)
-            // {
-            //     currentButton.style.backgroundColor = epicColor;
-            // }
-            else //assume all other items are common
+            else if (boundItemRarity == rarity.Legendary)
+            {
+                currentButton.style.backgroundColor = epicColor;
+            }
+            else //Cursed
             {
                 currentButton.style.backgroundColor = commonColor;
             }
@@ -238,10 +239,6 @@ public class ItemPanel : MonoBehaviour
             {
                 currentButton.style.backgroundColor = rareColor;
             }
-            // else if (itemRarity == rarity.Epic)
-            // {
-            //     currentButton.style.backgroundColor = epicColor;
-            // }
             else //assume all other items are common
             {
                 currentButton.style.backgroundColor = commonColor;
@@ -272,7 +269,6 @@ public class ItemPanel : MonoBehaviour
 
     }
     
-                
     public void Show()
     {
         container.visible = true;
