@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private float timer;
+    private Vector3 startPos;
     private int critDamage = 0;
     private bool critTrue = false;
 
     void Start()
     {
+        startPos = transform.position;
         float critRoll = Random.Range(0f,1f);
         
         //crit damage calculation
@@ -25,10 +26,10 @@ public class Bullet : MonoBehaviour
     
     void Update()
     {
-        //destroys bullet after time elapsed
-        timer += Time.deltaTime;
+        //destroys bullet after range
+        float distTravelled = Vector3.Distance(startPos, transform.position);
 
-        if (timer >10)
+        if (distTravelled > WeaponStats.Instance.Range)
         {
             Destroy(gameObject);
         }

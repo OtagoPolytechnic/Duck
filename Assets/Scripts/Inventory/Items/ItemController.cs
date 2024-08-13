@@ -30,8 +30,8 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Regen amount: {PlayerStats.Instance.RegenAmount}"); 
             break;
             case 04:
-                Shooting.Instance.Firerate *= 0.9f;
-                Debug.Log($"Firerate: {Shooting.Instance.Firerate}"); 
+                WeaponStats.Instance.Firerate *= 0.9f;
+                Debug.Log($"Firerate: {WeaponStats.Instance.Firerate}"); 
             break;
             case 05:
                 EnemyHealth.bleedAmount += 5;
@@ -65,8 +65,11 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Players max health as been cut in half to:{PlayerStats.Instance.MaxHealth}. Their current health is: {PlayerStats.Instance.CurrentHealth}. Their damage has been doubled to: {WeaponStats.Instance.Damage}");
             break;
             case 11:
-                WeaponStats.Instance.CurrentWeapon = WeaponType.Shotgun;
-                Debug.Log($"Shotgun bullets: {WeaponStats.Instance.ExtraBullets}");
+                if (WeaponStats.Instance.CurrentWeapon != WeaponType.Shotgun) //This if will not be needed once there is a conditional to stop the player getting shotgun again.
+                {
+                    WeaponStats.Instance.CurrentWeapon = WeaponType.Shotgun;
+                }
+                Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
             break;
             case 12:
                 for (int i = 0; i < 2; i++)
@@ -89,8 +92,8 @@ public class ItemController : MonoBehaviour
                     }
                     else if (randomRoll == 3)
                     {
-                        Shooting.Instance.Firerate *= 0.95f;
-                        Debug.Log($"Firerate: {Shooting.Instance.Firerate}"); 
+                        WeaponStats.Instance.Firerate *= 0.95f;
+                        Debug.Log($"Firerate: {WeaponStats.Instance.Firerate}"); 
                     }
                 }
                 

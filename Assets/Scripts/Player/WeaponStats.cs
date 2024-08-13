@@ -22,11 +22,23 @@ public class WeaponStats : MonoBehaviour
         {
             currentWeapon = value;
             //When adding a new weapon, define its stats here when weapon type is set
-            if (currentWeapon == WeaponType.Shotgun)
+            switch(CurrentWeapon)
             {
-                weaponSprites[0].SetActive(true);
-                ExtraBullets += 2;
-                Spread = 45;
+                case WeaponType.Shotgun:
+                    //New Stats
+                    weaponSprites[0].SetActive(true);
+                    ExtraBullets += 2;
+                    Spread = 30;
+
+                    //Changed Stats
+                    Range = 10f;
+                    Damage += 10;
+                    Firerate += 0.3f;
+                break;
+                
+                default:
+                    Debug.Log("Weapon Type does not exist");
+                break;
             }
         }
     }
@@ -72,6 +84,19 @@ public class WeaponStats : MonoBehaviour
     {
         get {return spread;}
         set {spread = value;}
+    }
+    private float range = 20f;
+    public float Range
+    {
+        get {return range;}
+        set {range = value;}
+    }
+    
+    private float firerate = 0.5f;
+    public float Firerate
+    {
+        get {return firerate;}
+        set {firerate = value;}
     }
 
     void Awake()

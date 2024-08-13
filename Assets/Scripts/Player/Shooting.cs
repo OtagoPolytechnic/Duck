@@ -11,15 +11,8 @@ public class Shooting : MonoBehaviour
     public Transform sprite;
     public Transform firePoint;
     private float bulletSpeed = 50;
-
     private float lastShot = 0;
     private bool held = false;
-    private float firerate = 0.5f;
-    public float Firerate
-    {
-        get {return firerate;}
-        set {firerate = value;}
-    }
 
     Vector2 lookDirection;
     float lookAngle;
@@ -36,7 +29,7 @@ public class Shooting : MonoBehaviour
     void Start()
     {
         //This lets the player shoot immediately when the game starts
-        lastShot = Time.time - firerate;
+        lastShot = Time.time - WeaponStats.Instance.Firerate;
     }
 
 
@@ -48,7 +41,7 @@ public class Shooting : MonoBehaviour
         lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
 
         sprite.rotation = Quaternion.Euler(0, 0, lookAngle);
-        if (held && Time.time - lastShot > firerate)
+        if (held && Time.time - lastShot > WeaponStats.Instance.Firerate)
         {
             lastShot = Time.time;
             Shoot();
