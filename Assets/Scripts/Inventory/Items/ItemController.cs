@@ -13,8 +13,8 @@ public class ItemController : MonoBehaviour
         switch(itemID) 
         {
             case 0:
-                PlayerStats.Instance.Damage += 10;
-                Debug.Log($"Damage: {PlayerStats.Instance.Damage}");
+                WeaponStats.Instance.Damage += 10;
+                Debug.Log($"Damage: {WeaponStats.Instance.Damage}");
             break;
             case 01:
                 PlayerStats.Instance.MaxHealth *= 1.10f;
@@ -35,7 +35,7 @@ public class ItemController : MonoBehaviour
             break;
             case 05:
                 EnemyHealth.bleedAmount += 5;
-                PlayerStats.Instance.BleedTrue = true;
+                WeaponStats.Instance.BleedTrue = true;
                 Debug.Log($"Bleed amount: {EnemyHealth.bleedAmount}"); 
             break;
             case 06:
@@ -43,31 +43,30 @@ public class ItemController : MonoBehaviour
                 Debug.Log($"Lifesteal amount: {PlayerStats.Instance.LifestealAmount}"); 
             break;
             case 07:
-                PlayerStats.Instance.ExplosiveBullets = true;
-                PlayerStats.Instance.ExplosionSize +=1;
-                Debug.Log($"Explosion size: {PlayerStats.Instance.ExplosionSize}");
+                WeaponStats.Instance.ExplosiveBullets = true;
+                WeaponStats.Instance.ExplosionSize +=1;
+                Debug.Log($"Explosion size: {WeaponStats.Instance.ExplosionSize}");
             break;     
             case 08:
                 GameObject newEgg = Instantiate(eggPrefab,  new Vector3(0,0,0), Quaternion.identity, GameObject.Find("Nest").transform);
                 newEgg.transform.localScale = new Vector3(0.3333333f,0.3333333f,0.3333333f);
             break;
             case 09:
-                PlayerStats.Instance.CritChance += 0.07f;
-                if (PlayerStats.Instance.CritChance >= 1)
+                WeaponStats.Instance.CritChance += 0.07f;
+                if (WeaponStats.Instance.CritChance >= 1)
                 {
-                    PlayerStats.Instance.CritChance = 1;
+                    WeaponStats.Instance.CritChance = 1;
                 }
-                Debug.Log($"Crit Chance: {PlayerStats.Instance.CritChance}");
+                Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
             break;
             case 10:
                 PlayerStats.Instance.MaxHealth /= 2f;
-                PlayerStats.Instance.Damage *= 2;
-                Debug.Log($"Players max health as been cut in half to:{PlayerStats.Instance.MaxHealth}. Their current health is: {PlayerStats.Instance.CurrentHealth}. Their damage has been doubled to: {PlayerStats.Instance.Damage}");
+                WeaponStats.Instance.Damage *= 2;
+                Debug.Log($"Players max health as been cut in half to:{PlayerStats.Instance.MaxHealth}. Their current health is: {PlayerStats.Instance.CurrentHealth}. Their damage has been doubled to: {WeaponStats.Instance.Damage}");
             break;
             case 11:
-                PlayerStats.Instance.HasShotgun = true;
-                PlayerStats.Instance.BulletAmount += 2;
-                Debug.Log($"Shotgun bullets: {PlayerStats.Instance.BulletAmount}");
+                WeaponStats.Instance.CurrentWeapon = WeaponType.Shotgun;
+                Debug.Log($"Shotgun bullets: {WeaponStats.Instance.ExtraBullets}");
             break;
             case 12:
                 for (int i = 0; i < 2; i++)
@@ -75,8 +74,8 @@ public class ItemController : MonoBehaviour
                     int randomRoll = UnityEngine.Random.Range(0, 4);
                     if (randomRoll == 0)
                     {
-                        PlayerStats.Instance.Damage += 5;
-                        Debug.Log($"Damage: {PlayerStats.Instance.Damage}");
+                        WeaponStats.Instance.Damage += 5;
+                        Debug.Log($"Damage: {WeaponStats.Instance.Damage}");
                     }
                     else if (randomRoll == 1)
                     {

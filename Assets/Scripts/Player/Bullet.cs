@@ -13,9 +13,9 @@ public class Bullet : MonoBehaviour
         float critRoll = Random.Range(0f,1f);
         
         //crit damage calculation
-        if (critRoll < PlayerStats.Instance.CritChance)
+        if (critRoll < WeaponStats.Instance.CritChance)
         {
-            critDamage += Mathf.RoundToInt(PlayerStats.Instance.Damage * 1.50f);
+            critDamage += Mathf.RoundToInt(WeaponStats.Instance.Damage * 1.50f);
             critTrue = true;
             //Change to critical sprite
             transform.GetChild(0).gameObject.SetActive(false);
@@ -42,17 +42,17 @@ public class Bullet : MonoBehaviour
             //lifesteal addition and cap
             PlayerStats.Instance.CurrentHealth += PlayerStats.Instance.LifestealAmount;
             //explosive bullets size calculation
-            if (PlayerStats.Instance.ExplosiveBullets)
+            if (WeaponStats.Instance.ExplosiveBullets)
             {
-                transform.localScale = new Vector3(transform.localScale.x * (2 + 0.2f * PlayerStats.Instance.ExplosionSize), transform.localScale.y * (2 + 0.2f * PlayerStats.Instance.ExplosionSize), 1);
+                transform.localScale = new Vector3(transform.localScale.x * (2 + 0.2f * WeaponStats.Instance.ExplosionSize), transform.localScale.y * (2 + 0.2f * WeaponStats.Instance.ExplosionSize), 1);
             }
             if (critTrue)
             {
-                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(PlayerStats.Instance.Damage + critDamage, true);
+                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(WeaponStats.Instance.Damage + critDamage, true);
             }
             else
             {
-                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(PlayerStats.Instance.Damage, false);
+                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(WeaponStats.Instance.Damage, false);
             }
             Destroy(gameObject);
         }
