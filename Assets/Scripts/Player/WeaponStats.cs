@@ -21,13 +21,16 @@ public class WeaponStats : MonoBehaviour
         set
         {
             currentWeapon = value;
+            //When adding a new weapon, define its stats here when weapon type is set
             if (currentWeapon == WeaponType.Shotgun)
             {
+                shotgunSprite.SetActive(true);
                 ExtraBullets += 2;
                 Spread = 45;
             }
         }
     }
+    [SerializeField] private GameObject shotgunSprite;
     private int damage = 20;
     public int Damage
     {
