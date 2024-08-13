@@ -77,6 +77,7 @@ public class Timer : MonoBehaviour
     {
         GameSettings.gameState = GameState.InGame;
         waveNumber += 1;
+        GameSettings.waveNumber = waveNumber;
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
 
