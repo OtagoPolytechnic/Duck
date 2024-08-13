@@ -61,7 +61,7 @@ public class Timer : MonoBehaviour
         CullEnemies();
         if (!geninventory)
         {
-            itemPanel.InitializeItemPanel();
+            itemPanel.InitializeItemPanel(waveNumber);
             
             geninventory = true;
         }

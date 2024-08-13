@@ -16,7 +16,10 @@ public enum rarity{
     Common,
     Uncommon,
     Rare,
-    Epic
+    Epic,
+    Weapon,
+    Legendary,
+    Cursed
 }
     
 public class ItemPanel : MonoBehaviour
@@ -56,14 +59,26 @@ public class ItemPanel : MonoBehaviour
         new() { id = 12, name = "Lucky Dive", desc = "Gain two random basic stats at half strength", rarity = rarity.Uncommon, stacks = 0}
     };
     //in this list, there cannot be less than 3 of each rarity for the case that 3 of one rarity is picked on the item selection. 
+    void Awake()
+    {
+        panel = GetComponent<UIDocument>().rootVisualElement;
+        
+        container = panel.Q<IMGUIContainer>("ItemPanelContainer");
 
-    public rarity GetWeightedRarity() {
+        item1 = panel.Q<Button>("Item1");
+        item1.RegisterCallback<ClickEvent>(RegisterItem1Click);
+        item2 = panel.Q<Button>("Item2");
+        item2.RegisterCallback<ClickEvent>(RegisterItem2Click);
+        item3 = panel.Q<Button>("Item3");
+        item3.RegisterCallback<ClickEvent>(RegisterItem3Click);
+    }
 
+    public rarity GetWeightedRarity() 
+    {
         // not consts currently incase we want these values to change over time with the waves
         float commonRoll = 0.5f; //50%
         float uncommonRoll = 0.8f; //30%
-        float rareRoll = 0.95f; //15%
-        float epicRoll = 1f;  //5%  
+        float rareRoll = 1f; //20% 
 
         // generate a random value (0->1)
         float randomRarity = Random.value;
@@ -81,35 +96,105 @@ public class ItemPanel : MonoBehaviour
         {
             roll = rarity.Rare;
         }
-        else if (randomRarity < epicRoll)
+        return roll;
+    }
+    public rarity GetBoundRarity(int waveNumber) 
+    {
+        if (waveNumber == 5)
+        {
+            roll = rarity.Weapon;
+        }
+        else if (waveNumber == 10)
         {
             roll = rarity.Epic;
         }
+        else if (waveNumber == 15)
+        {
+            roll = rarity.Legendary;
+        }
+        else if (waveNumber == 20)
+        {
+            roll = rarity.Cursed;
+        }
         return roll;
     }
-  
-    void Awake()
-    {
-        panel = GetComponent<UIDocument>().rootVisualElement;
-        
-        container = panel.Q<IMGUIContainer>("ItemPanelContainer");
 
-        item1 = panel.Q<Button>("Item1");
-        item1.RegisterCallback<ClickEvent>(RegisterItem1Click);
-        item2 = panel.Q<Button>("Item2");
-        item2.RegisterCallback<ClickEvent>(RegisterItem2Click);
-        item3 = panel.Q<Button>("Item3");
-        item3.RegisterCallback<ClickEvent>(RegisterItem3Click);
-    }
-
-    
-
-    public void InitializeItemPanel() //this is called every time the inventory ui pops up
+    public void InitializeItemPanel(int waveNumber) //this is called every time the inventory ui pops up
     { 
+        if (waveNumber % 5 == 0)
+        {
+            GetBoundItems(3, waveNumber);
+        }
+        else
+        {
+            GetUnboundItems(3);
+        }
+    }
+    private void GetBoundItems(int repetitions, int waveNumber)
+    {
+        List<Item> generatedRarityList = new List<Item>();
+        for (int i = 0; i < repetitions; i++) 
+        {
+            
+            // Get a random rarity.
+            rarity boundItemRarity = GetBoundRarity(waveNumber);
+            // Create a list of all the available items of that rarity.
+            foreach (Item j in itemList)
+            {
+                if (j.rarity == boundItemRarity)
+                {
+                    generatedRarityList.Add(j);
+                }
+            }
+            //if the item has already been selected, remove it from the possible pool of items
+            foreach (Item k in selectedItems)
+            {
+                if (generatedRarityList.Contains(k))
+                {
+                    generatedRarityList.Remove(k);
+                }
+            }
+            // then pick a random index from that subset and use that as the item.
+            index = Random.Range(0, generatedRarityList.Count); 
+            selectedItems.Add(generatedRarityList[index]);
 
+            Label itemName = panel.Q<Label>($"ItemName{i+1}");
+            itemName.text = selectedItems[i].name;
+
+            Label itemDesc = panel.Q<Label>($"ItemDesc{i+1}");
+            itemDesc.text = selectedItems[i].desc;
+
+            Label itemStacks = panel.Q<Label>($"ItemStacks{i+1}");
+            itemStacks.text = $"You have {selectedItems[i].stacks}";
+
+            Button currentButton = panel.Q<Button>($"Item{i+1}");
+            rarity itemRarity = selectedItems[i].rarity;
+            if (itemRarity == rarity.Uncommon) //sets background color
+            {
+                currentButton.style.backgroundColor = uncommonColor;
+            }
+            else if (itemRarity == rarity.Rare)
+            {
+                currentButton.style.backgroundColor = rareColor;
+            }
+            // else if (itemRarity == rarity.Epic)
+            // {
+            //     currentButton.style.backgroundColor = epicColor;
+            // }
+            else //assume all other items are common
+            {
+                currentButton.style.backgroundColor = commonColor;
+            }
+
+            generatedRarityList.Clear();
+            Debug.Log($"In InventoryPage.cs: index chosen is {index} and item is {selectedItems[i].name}");
+        }
+    }
+    private void GetUnboundItems(int repetitions)
+    {
         List<Item> generatedRarityList = new List<Item>();
 
-        for (int i = 0; i < 3; i++) 
+        for (int i = 0; i < repetitions; i++) 
         {
             
             // Get a random rarity.
@@ -153,10 +238,10 @@ public class ItemPanel : MonoBehaviour
             {
                 currentButton.style.backgroundColor = rareColor;
             }
-            else if (itemRarity == rarity.Epic)
-            {
-                currentButton.style.backgroundColor = epicColor;
-            }
+            // else if (itemRarity == rarity.Epic)
+            // {
+            //     currentButton.style.backgroundColor = epicColor;
+            // }
             else //assume all other items are common
             {
                 currentButton.style.backgroundColor = commonColor;
