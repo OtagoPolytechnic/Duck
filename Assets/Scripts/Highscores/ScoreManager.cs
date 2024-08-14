@@ -19,13 +19,21 @@ public class ScoreManager : MonoBehaviour
     public ScoreInputField inputField;
     private Button submitButton;
 
-    public EntryData playerScoreInfo = new EntryData();
-
     public int score = 0;
+    public int enemiesKilled = 0;
 
     void Awake()
     {
-        Instance = this;
+        //Singleton pattern
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
         VisualElement document = HUD.GetComponent<UIDocument>().rootVisualElement;
         VisualElement gameOverDoc = GameOver.GetComponent<UIDocument>().rootVisualElement;
         
@@ -39,6 +47,7 @@ public class ScoreManager : MonoBehaviour
     
     public void IncreasePoints(int amount)
     {
+        enemiesKilled++;
         score += amount;
         pointsText.text = "Points: " + score.ToString();
     }
@@ -76,10 +85,29 @@ public class ScoreManager : MonoBehaviour
         finalscoreText.text = "Score: " + score.ToString();
     }
 
-    public void SubmitPlayerScore(ClickEvent click)
+    public void SubmitEndlessScore(ClickEvent click)
     {
-        playerScoreInfo.entryName = inputField.playerName;
-        playerScoreInfo.entryScore = score;
+        EntryData playerScoreInfo = new EntryData(
+            inputField.value, //Need to change the input
+            score,
+            WeaponType.Pistol, //Dynamic weapon type when weapon update is merged
+            GameSettings.waveNumber,
+            InventoryPage.Instance.GetItems(),
+            enemiesKilled);
+        scoreboard.AddEntry(playerScoreInfo);
+
+        SceneManager.LoadScene("Highscores");
+
+    }
+
+    public void SubmitBossScore(ClickEvent click)
+    {
+        EntryData playerScoreInfo = new EntryData(
+            inputField.value, //Need to change the input
+            score,
+            WeaponType.Pistol, //Dynamic weapon type when weapon update is merged
+            InventoryPage.Instance.GetItems(),
+            enemiesKilled);
         scoreboard.AddEntry(playerScoreInfo);
 
         SceneManager.LoadScene("Highscores");
