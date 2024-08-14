@@ -3,91 +3,146 @@ using UnityEngine;
 
 public class BossSpawner : MonoBehaviour
 {
+    public GameObject enemyBoss1Prefab;
+    public GameObject enemyBoss2Prefab;
+    public GameObject enemyBoss3Prefab;
+    public GameObject enemyBoss4Prefab;
+    public GameObject enemyBoss5Prefab;
     public float spawnRadius;
     public static float healthMultiplier = 1f;
-    public static float spawnTimer = 5f; // Time between spawns for regular enemies
-    private float lastSpawn; // Time since last spawn
-    private int enemyCap = 1000; // Temp value to stop lag
+    public static float spawnTimer = 5f;
+    private float lastSpawn;
+    private int enemyCap = 1000;
     public static List<GameObject> currentEnemies = new List<GameObject>();
+    public int currentWaveNumber;
 
-    public GameObject[] bossPrefabs;
-    public int[] bossSpawnWaves;
+    // Array to track if a boss has been spawned for a given wave
+    private bool[] bossesSpawned = new bool[5];
 
-    private bool[] bossSpawnedForWave; // Array to track if a boss has been spawned for each wave
-
-    private void Start()
+    void Awake()
     {
-        // Initialize the bossSpawnedForWave array based on the number of waves
-        bossSpawnedForWave = new bool[bossSpawnWaves.Length];
-    }
-
-    private void Update()
-    {
-        if (GameSettings.gameState == GameState.InGame)
+        lastSpawn = spawnTimer;
+        // Initialize the bossesSpawned array to false
+        for (int i = 0; i < bossesSpawned.Length; i++)
         {
-            HandleRegularEnemySpawning();
-
-            int currentWaveNumber = GameSettings.waveNumber;
-
-            // Check if it's time to spawn a boss based on the current wave number
-            CheckAndSpawnBoss(currentWaveNumber);
+            bossesSpawned[i] = false;
         }
     }
 
-    // Method to handle regular enemy spawning
-    private void HandleRegularEnemySpawning()
+    void Update()
     {
-        if (lastSpawn > spawnTimer && currentEnemies.Count < enemyCap)
+        currentWaveNumber = GameSettings.waveNumber;
+        waveNumberCheck();
+    }
+
+    public void waveNumberCheck()
+    {
+        // Determine which boss should be spawned based on the wave number
+        int bossIndex = (currentWaveNumber / 5) - 1;
+
+        // Check if the bossIndex is within bounds and if that boss has already been spawned
+        if (bossIndex >= 0 && bossIndex < bossesSpawned.Length && !bossesSpawned[bossIndex])
         {
-            SpawnRandomEnemy();
-            lastSpawn = 0;
+            switch (bossIndex)
+            {
+                case 0:
+                    SpawnBossTwo();
+                    break;
+                case 1:
+                    SpawnBossTwo();
+                    break;
+                case 2:
+                    SpawnBossThree();
+                    break;
+                case 3:
+                    SpawnBossFour();
+                    break;
+                case 4:
+                    SpawnBossFive();
+                    break;
+            }
+            // Mark the boss as spawned
+            bossesSpawned[bossIndex] = true;
+        }
+    }
+
+    void SpawnBossOne()
+    {
+        if (enemyBoss1Prefab != null)
+        {
+            Vector3 spawnPosition = transform.position;
+            Quaternion spawnRotation = Quaternion.identity;
+            GameObject bossInstance = Instantiate(enemyBoss1Prefab, spawnPosition, spawnRotation);
+            currentEnemies.Add(bossInstance);
+            Debug.Log("SpawnBoss1 called. Boss spawned at: " + spawnPosition);
         }
         else
         {
-            lastSpawn += Time.deltaTime;
+            Debug.LogError("enemyBoss1Prefab is not assigned!");
         }
     }
 
-    // Method to spawn a random enemy
-    private void SpawnRandomEnemy()
+    void SpawnBossTwo()
     {
-        int enemyNum = Random.Range(0, bossPrefabs.Length);
-        GameObject enemy = Instantiate(bossPrefabs[enemyNum], transform.position + new Vector3(Random.Range(-spawnRadius, spawnRadius), Random.Range(-spawnRadius, spawnRadius), 0), transform.rotation);
-        enemy.GetComponent<EnemyHealth>().health = Mathf.RoundToInt(enemy.GetComponent<EnemyHealth>().baseHealth * healthMultiplier);
-        currentEnemies.Add(enemy);
-    }
-
-    // Method to check and spawn a boss based on the current wave number
-    private void CheckAndSpawnBoss(int waveNumber)
-    {
-        for (int i = 0; i < bossSpawnWaves.Length; i++)
+        if (enemyBoss2Prefab != null)
         {
-            if (waveNumber == bossSpawnWaves[i] && !bossSpawnedForWave[i])
-            {
-                SpawnBoss(bossPrefabs[i]);
-                bossSpawnedForWave[i] = true; // Mark that a boss has been spawned for this wave
-                return; // Exit after spawning the boss
-            }
+            Vector3 spawnPosition = transform.position;
+            Quaternion spawnRotation = Quaternion.identity;
+            GameObject bossInstance = Instantiate(enemyBoss2Prefab, spawnPosition, spawnRotation);
+            currentEnemies.Add(bossInstance);
+            Debug.Log("SpawnBoss2 called. Boss spawned at: " + spawnPosition);
+        }
+        else
+        {
+            Debug.LogError("enemyBoss2Prefab is not assigned!");
         }
     }
 
-    // Method to spawn a boss
-    private void SpawnBoss(GameObject bossPrefab)
+    void SpawnBossThree()
     {
-        Debug.Log($"Spawning boss: {bossPrefab.name}");
-        GameObject boss = Instantiate(bossPrefab, transform.position + new Vector3(Random.Range(-spawnRadius, spawnRadius), Random.Range(-spawnRadius, spawnRadius), 0), transform.rotation);
-        boss.GetComponent<EnemyHealth>().health = Mathf.RoundToInt(boss.GetComponent<EnemyHealth>().baseHealth * healthMultiplier);
-        currentEnemies.Add(boss);
+        if (enemyBoss3Prefab != null)
+        {
+            Vector3 spawnPosition = transform.position;
+            Quaternion spawnRotation = Quaternion.identity;
+            GameObject bossInstance = Instantiate(enemyBoss3Prefab, spawnPosition, spawnRotation);
+            currentEnemies.Add(bossInstance);
+            Debug.Log("SpawnBoss3 called. Boss spawned at: " + spawnPosition);
+        }
+        else
+        {
+            Debug.LogError("enemyBoss3Prefab is not assigned!");
+        }
     }
 
-    // Call this method when the wave changes
-    public void OnWaveChange()
+    void SpawnBossFour()
     {
-        Debug.Log("Wave changed");
-        // Reset the bossSpawnedForWave array to allow bosses to spawn in future waves
-        for (int i = 0; i < bossSpawnedForWave.Length; i++)
+        if (enemyBoss4Prefab != null)
         {
-            bossSpawnedForWave[i] = false;
+            Vector3 spawnPosition = transform.position;
+            Quaternion spawnRotation = Quaternion.identity;
+            GameObject bossInstance = Instantiate(enemyBoss4Prefab, spawnPosition, spawnRotation);
+            currentEnemies.Add(bossInstance);
+            Debug.Log("SpawnBoss4 called. Boss spawned at: " + spawnPosition);
+        }
+        else
+        {
+            Debug.LogError("enemyBoss4Prefab is not assigned!");
+        }
+    }
+
+    void SpawnBossFive()
+    {
+        if (enemyBoss5Prefab != null)
+        {
+            Vector3 spawnPosition = transform.position;
+            Quaternion spawnRotation = Quaternion.identity;
+            GameObject bossInstance = Instantiate(enemyBoss5Prefab, spawnPosition, spawnRotation);
+            currentEnemies.Add(bossInstance);
+            Debug.Log("SpawnBoss5 called. Boss spawned at: " + spawnPosition);
+        }
+        else
+        {
+            Debug.LogError("enemyBoss5Prefab is not assigned!");
         }
     }
 }
