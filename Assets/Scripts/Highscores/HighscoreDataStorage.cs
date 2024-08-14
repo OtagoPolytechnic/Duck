@@ -29,12 +29,12 @@ public class EntryData
     public List<Item> items; //Items collected in the run
     public int enemiesKilled;
 
-    public EntryData(string name, int score, WeaponType weapon, int level, List<Item> items, int enemiesKilled) //Constructor for endless mode
+    public EntryData(string name, int score, WeaponType weapon, int waveNumber, List<Item> items, int enemiesKilled) //Constructor for endless mode
     {
         entryName = name;
         entryScore = score;
         this.weapon = weapon;
-        this.level = level;
+        this.waveNumber = waveNumber;
         this.items = items;
         this.enemiesKilled = enemiesKilled;
     }

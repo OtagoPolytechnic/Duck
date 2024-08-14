@@ -67,15 +67,16 @@ public class Scoreboard : MonoBehaviour
     }
     public HighscoreSaveData GetSavedScores(string savePath)
     {
+        string json;
         if (!File.Exists(savePath))
         {
             //Writing in the base json structure to avoid null reference exceptions
-            string json = JsonUtility.ToJson(new HighscoreSaveData());
+            json = JsonUtility.ToJson(new HighscoreSaveData());
             File.WriteAllText(savePath, json);
             return new HighscoreSaveData();
         }
 
-        string json = File.ReadAllText(savePath);
+        json = File.ReadAllText(savePath);
         return JsonUtility.FromJson<HighscoreSaveData>(json);
     }
 
@@ -85,20 +86,21 @@ public class Scoreboard : MonoBehaviour
         File.WriteAllText(savePath, json);
     }
 
-    private void UpdateUI(HighscoreSaveData savedScores)
-    {
-        foreach (Transform child in scoreContainerTransform)
-        {
-            Destroy(child.gameObject);
-        }
-        if (savedScores == null)
-        {
-            savedScores = new HighscoreSaveData();
-        }
-        foreach(EntryData highscore in savedScores.highscores)
-        {
-            Instantiate(highscoreEntry, scoreContainerTransform).
-                GetComponent<HighscoreUI>().Intialise(highscore);
-        }
-    }
+    //TODO: Fix UI
+    // private void UpdateUI(HighscoreSaveData savedScores)
+    // {
+    //     foreach (Transform child in scoreContainerTransform)
+    //     {
+    //         Destroy(child.gameObject);
+    //     }
+    //     if (savedScores == null)
+    //     {
+    //         savedScores = new HighscoreSaveData();
+    //     }
+    //     foreach(EntryData highscore in savedScores.highscores)
+    //     {
+    //         Instantiate(highscoreEntry, scoreContainerTransform).
+    //             GetComponent<HighscoreUI>().Intialise(highscore);
+    //     }
+    // }
 }

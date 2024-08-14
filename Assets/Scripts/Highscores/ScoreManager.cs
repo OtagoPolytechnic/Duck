@@ -41,7 +41,8 @@ public class ScoreManager : MonoBehaviour
         finalscoreText = gameOverDoc.Q<Label>("FinalScore");
         highscoreNotif = gameOverDoc.Q<Label>("HighscoreNotif");
         submitButton = gameOverDoc.Q<Button>("SubmitScore");
-        submitButton.RegisterCallback<ClickEvent>(SubmitPlayerScore);
+        //TODO: Check if endless or boss fight
+        submitButton.RegisterCallback<ClickEvent>(SubmitEndlessScore);
 
     }
     
@@ -54,32 +55,31 @@ public class ScoreManager : MonoBehaviour
 
     public void FinalScore()
     {
+        //TODO: Fix end game display
+        // HighscoreSaveData savedScores = scoreboard.GetSavedScores();
+        // if (savedScores == null || savedScores.highscores.Count < 1)
+        // {
+        //    highscoreNotif.text = "New Highscore!!!";
+        //    highscoreNotif.style.color = new StyleColor(new Color32(255, 221, 0, 255)); //Yellow
+        // }
+        // else
+        // {
+        //     for (int i = 0; i < savedScores.highscores.Count; i++)
+        //     {
+        //         //check if score is greater than a saved score
+        //         if (score > savedScores.highscores[i].entryScore || savedScores.highscores.Count < scoreboard.maxScoreEntries)
+        //         {
+        //             highscoreNotif.text = "New Highscore!!!";
+        //             highscoreNotif.style.color = new StyleColor(new Color32(255, 221, 0, 255));
 
-        
-        HighscoreSaveData savedScores = scoreboard.GetSavedScores();
-        if (savedScores == null || savedScores.highscores.Count < 1)
-        {
-           highscoreNotif.text = "New Highscore!!!";
-           highscoreNotif.style.color = new StyleColor(new Color32(255, 221, 0, 255)); //Yellow
-        }
-        else
-        {
-            for (int i = 0; i < savedScores.highscores.Count; i++)
-            {
-                //check if score is greater than a saved score
-                if (score > savedScores.highscores[i].entryScore || savedScores.highscores.Count < scoreboard.maxScoreEntries)
-                {
-                    highscoreNotif.text = "New Highscore!!!";
-                    highscoreNotif.style.color = new StyleColor(new Color32(255, 221, 0, 255));
-
-                }
-                else
-                {
-                    highscoreNotif.text = "Skill Issue";
-                    highscoreNotif.style.color = new StyleColor(new Color32(255, 0, 5, 255)); //Red
-                }
-            }
-        }
+        //         }
+        //         else
+        //         {
+        //             highscoreNotif.text = "Skill Issue";
+        //             highscoreNotif.style.color = new StyleColor(new Color32(255, 0, 5, 255)); //Red
+        //         }
+        //     }
+        // }
 
 
         finalscoreText.text = "Score: " + score.ToString();
@@ -88,13 +88,13 @@ public class ScoreManager : MonoBehaviour
     public void SubmitEndlessScore(ClickEvent click)
     {
         EntryData playerScoreInfo = new EntryData(
-            inputField.value, //Need to change the input
+            "Bob", //TODO: Change the input to dynamic
             score,
             WeaponType.Pistol, //Dynamic weapon type when weapon update is merged
             GameSettings.waveNumber,
             InventoryPage.Instance.GetItems(),
             enemiesKilled);
-        scoreboard.AddEntry(playerScoreInfo);
+        scoreboard.AddEntry(playerScoreInfo, true);
 
         SceneManager.LoadScene("Highscores");
 
@@ -103,12 +103,12 @@ public class ScoreManager : MonoBehaviour
     public void SubmitBossScore(ClickEvent click)
     {
         EntryData playerScoreInfo = new EntryData(
-            inputField.value, //Need to change the input
+            "Bob", //TODO: Change the input to dynamic
             score,
             WeaponType.Pistol, //Dynamic weapon type when weapon update is merged
             InventoryPage.Instance.GetItems(),
             enemiesKilled);
-        scoreboard.AddEntry(playerScoreInfo);
+        scoreboard.AddEntry(playerScoreInfo, false);
 
         SceneManager.LoadScene("Highscores");
     }
