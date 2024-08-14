@@ -8,3 +8,10 @@ public class HighscoreSaveData
 {
     public List<EntryData> highscores = new List<EntryData>();
 }
+
+[Serializable]
+public class EntryData 
+{
+    public string entryName;
+    public int entryScore;
+}
