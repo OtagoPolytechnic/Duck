@@ -39,6 +39,8 @@ public class InventoryPage : MonoBehaviour
     private StyleColor epicColor  = new StyleColor(new Color32(127, 6, 145, 255));
     private List<Item> selectedItems = new List<Item>();
 
+    public static Instance;
+
     //make sure not to dupelicate the item ids
     public static List<Item> itemList = new List<Item>{ //char limit of 99 in description 
         new() { id = 0, name = "Sharpened Talons", desc = "Increases damage you deal", rarity = rarity.Common, stacks = 0 },
@@ -90,6 +92,15 @@ public class InventoryPage : MonoBehaviour
   
     void Awake()
     {
+        //Singleton pattern
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         panel = GetComponent<UIDocument>().rootVisualElement;
         
         container = panel.Q<IMGUIContainer>("ItemPanelContainer");
@@ -195,6 +206,20 @@ public class InventoryPage : MonoBehaviour
     public void Hide()
     {
         container.visible = false;
+    }
+
+    //Return the name, rarity, and stacks of the items that the player has currently.
+    public List<Item> GetItems()
+    {
+        List<Item> playerItems = new List<Item>();
+        foreach (Item i in selectedItems)
+        {
+            //Add a new item with the name rarity and stacks of the selected item
+            playerItems.Add(new Item { name = i.name, rarity = i.rarity, stacks = i.stacks });
+        }
+        //Sort by rarity
+        playerItems.Sort((x, y) => x.rarity.CompareTo(y.rarity));
+        return playerItems;
     }
 
 }
