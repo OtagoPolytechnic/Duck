@@ -10,6 +10,7 @@ public class Item
     public string desc;
     public rarity rarity;
     public int stacks;
+    public StyleColor rarityColor;
 }
 
 public enum rarity{
@@ -44,19 +45,28 @@ public class ItemPanel : MonoBehaviour
 
     //make sure not to dupelicate the item ids
     public static List<Item> itemList = new List<Item>{ //char limit of 99 in description 
-        new() { id = 0, name = "Sharpened Talons", desc = "Increases damage you deal", rarity = rarity.Common, stacks = 0 },
-        new() { id = 01, name = "Oats", desc = "Gives you more max health", rarity = rarity.Common, stacks = 0 },
-        new() { id = 02, name = "Boots", desc = "Increases your waddle speed", rarity = rarity.Common, stacks = 0 },
-        new() { id = 03, name = "Band-Aid", desc = "Your health slowly regenerates over time", rarity = rarity.Rare, stacks = 0 },
-        new() { id = 04, name = "Illegal Trigger", desc = "You shoot faster", rarity = rarity.Common, stacks = 0 },
-        new() { id = 05, name = "Chompers", desc = "Your hits bleed enemies", rarity = rarity.Uncommon, stacks = 0 },
-        new() { id = 06, name = "Leech", desc = "Your hits on enemies heal you", rarity = rarity.Rare, stacks = 0 },
-        new() { id = 07, name = "Explosive Bullets", desc = "Your bullets explode on impact", rarity = rarity.Rare, stacks = 0 },
-        new() { id = 08, name = "Egg", desc = "You gain an extra life", rarity = rarity.Epic, stacks = 0 },
-        new() { id = 09, name = "Lucky Feather", desc = "You have an increased chance to deal critical damage" , rarity = rarity.Uncommon, stacks = 0 },
-        new() { id = 10, name = "Glass Cannon", desc = "Halves your health to double your damage", rarity = rarity.Epic, stacks = 0 },
-        new() { id = 11, name = "Shotgun", desc = "You shoot a spread of bullets instead of one", rarity = rarity.Epic, stacks = 0 },
-        new() { id = 12, name = "Lucky Dive", desc = "Gain two random basic stats at half strength", rarity = rarity.Uncommon, stacks = 0}
+        new() { id = 0, name = "Sharpened Talons", desc = "Increases damage you deal", rarity = rarity.Common, stacks = 0, rarityColor = new StyleColor(new Color32(135, 150, 146, 255)) },
+        new() { id = 01, name = "Oats", desc = "Gives you more max health", rarity = rarity.Common, stacks = 0, rarityColor = new StyleColor(new Color32(135, 150, 146, 255)) },
+        new() { id = 02, name = "Boots", desc = "Increases your waddle speed", rarity = rarity.Common, stacks = 0, rarityColor = new StyleColor(new Color32(135, 150, 146, 255)) },
+        new() { id = 03, name = "Band-Aid", desc = "Your health slowly regenerates over time", rarity = rarity.Rare, stacks = 0, rarityColor = new StyleColor(new Color32(50, 173, 196, 255)) },
+        new() { id = 04, name = "Illegal Trigger", desc = "You shoot faster", rarity = rarity.Common, stacks = 0, rarityColor = new StyleColor(new Color32(135, 150, 146, 255)) },
+        new() { id = 05, name = "Chompers", desc = "Your hits bleed enemies", rarity = rarity.Uncommon, stacks = 0, rarityColor = new StyleColor(new Color32(79, 122, 52, 255)) },
+        new() { id = 06, name = "Leech", desc = "Your hits on enemies heal you", rarity = rarity.Rare, stacks = 0, rarityColor = new StyleColor(new Color32(50, 173, 196, 255)) },
+        new() { id = 07, name = "Explosive Bullets", desc = "Your bullets explode on impact", rarity = rarity.Rare, stacks = 0, rarityColor = new StyleColor(new Color32(50, 173, 196, 255)) },
+        new() { id = 08, name = "Egg", desc = "You gain an extra life", rarity = rarity.Epic, stacks = 0, rarityColor = new StyleColor(new Color32(127, 6, 145, 255)) },
+        new() { id = 09, name = "Lucky Feather", desc = "You have an increased chance to deal critical damage" , rarity = rarity.Uncommon, stacks = 0, rarityColor = new StyleColor(new Color32(79, 122, 52, 255)) },
+        new() { id = 10, name = "Glass Cannon", desc = "Halves your health to double your damage", rarity = rarity.Epic, stacks = 0, rarityColor = new StyleColor(new Color32(127, 6, 145, 255)) },
+        new() { id = 11, name = "Shotgun", desc = "You shoot a spread of bullets instead of one", rarity = rarity.Epic, stacks = 0, rarityColor = new StyleColor(new Color32(127, 6, 145, 255)) },
+        new() { id = 12, name = "Lucky Dive", desc = "Gain two random basic stats at half strength", rarity = rarity.Uncommon, stacks = 0, rarityColor = new StyleColor(new Color32(79, 122, 52, 255)) },
+        new() { id = 13, name = "Weapon", desc = "Temp", rarity = rarity.Weapon, stacks = 0, rarityColor = new StyleColor(new Color32(60, 60, 60, 255)) },
+        new() { id = 14, name = "Weapon", desc = "Temp", rarity = rarity.Weapon, stacks = 0, rarityColor = new StyleColor(new Color32(60, 60, 60, 255)) },
+        new() { id = 15, name = "Weapon", desc = "Temp", rarity = rarity.Weapon, stacks = 0, rarityColor = new StyleColor(new Color32(60, 60, 60, 255)) },
+        new() { id = 16, name = "Weapon Upgrade", desc = "Temp", rarity = rarity.Legendary, stacks = 0, rarityColor = new StyleColor(new Color32(179, 109, 28, 255)) },
+        new() { id = 17, name = "Weapon Upgrade", desc = "Temp", rarity = rarity.Legendary, stacks = 0, rarityColor = new StyleColor(new Color32(179, 109, 28, 255)) },
+        new() { id = 18, name = "Weapon Upgrade", desc = "Temp", rarity = rarity.Legendary, stacks = 0, rarityColor = new StyleColor(new Color32(179, 109, 28, 255)) },
+        new() { id = 19, name = "Curse", desc = "Temp", rarity = rarity.Cursed, stacks = 0, rarityColor = new StyleColor(new Color32(108, 21, 13, 255)) },
+        new() { id = 20, name = "Curse", desc = "Temp", rarity = rarity.Cursed, stacks = 0, rarityColor = new StyleColor(new Color32(108, 21, 13, 255)) },
+        new() { id = 21, name = "Curse", desc = "Temp", rarity = rarity.Cursed, stacks = 0, rarityColor = new StyleColor(new Color32(108, 21, 13, 255)) },
     };
     //in this list, there cannot be less than 3 of each rarity for the case that 3 of one rarity is picked on the item selection. 
     void Awake()
@@ -186,10 +196,9 @@ public class ItemPanel : MonoBehaviour
             {
                 currentButton.style.backgroundColor = commonColor;
             }
-
-            generatedRarityList.Clear();
             Debug.Log($"In InventoryPage.cs: index chosen is {index} and item is {selectedItems[i].name}");
         }
+        generatedRarityList.Clear();
     }
     private void GetUnboundItems(int repetitions)
     {
