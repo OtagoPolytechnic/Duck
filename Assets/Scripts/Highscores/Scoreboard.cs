@@ -5,98 +5,84 @@ using System.IO;
 
 public class Scoreboard : MonoBehaviour
 {
-    [SerializeField] public int maxScoreEntries;
-
-    [SerializeField] private Transform scoreContainerTransform;
-    [SerializeField] private GameObject highscoreEntry;
+    private const int MAX_SCORE_ENTRIES = 50;
     public ScoreManager scoreManager;
     public ScoreInputField inputField;
 
-    [Header ("Test")]
-    [SerializeField] EntryData testEntryData = new EntryData();
-    
+    private HighscoreSaveData bossSavedScores;
+    private HighscoreSaveData endlessSavedScores;
 
-    // adds path based on user system
-    // example path for windows: Users\hartlr3\AppData\LocalLow\DefaultCompany\DuckGame
-    private string savePath => $"{Application.persistentDataPath}/highscores.json";
+    // Generates path based on user system
+    // Windows path: AppData\LocalLow\DefaultCompany\DuckGame
+    private string endlessSavePath => $"{Application.persistentDataPath}/endlessHighscores.json";
+    private string bossSavePath => $"{Application.persistentDataPath}/finalBossHighscores.json";
 
     private void Start()
     {
-        HighscoreSaveData savedScores = GetSavedScores();
-
-        UpdateUI(savedScores);
-        SaveScores(savedScores);
+        //UpdateUI(savedScores);
+        LoadScores();
     }
 
-    [ContextMenu("Add Test Entry")]
-    public void AddTestEntry()
+    private void LoadScores()
     {
-        AddEntry(testEntryData);
+        bossSavedScores = GetSavedScores(bossSavePath);
+        endlessSavedScores = GetSavedScores(endlessSavePath);
     }
-    
-    public void AddEntry(EntryData entryData)
+
+    //Public method to add an entry to one of the two highscore lists
+    public void AddEntry(EntryData entryData, bool isEndless)
     {
-        HighscoreSaveData savedScores = GetSavedScores();
-
-        bool scoreAdded = false;
-
-        if (savedScores == null)
+        if(isEndless)
         {
-            savedScores = new HighscoreSaveData();
+            AddEntry(entryData, endlessSavedScores, endlessSavePath);
         }
-
-        for(int i = 0; i < savedScores.highscores.Count; i++) 
+        else
         {
-            //check if score is greater than a saved score
+            AddEntry(entryData, bossSavedScores, bossSavePath);
+        }
+    }
+
+    
+    private void AddEntry(EntryData entryData, HighscoreSaveData savedScores, string savePath)
+    {
+        //Either gets the correct position on the list or the end position
+        int insertIndex = savedScores.highscores.Count;
+        for (int i = 0; i < savedScores.highscores.Count; i++)
+        {
             if(entryData.entryScore > savedScores.highscores[i].entryScore)
             {
-                savedScores.highscores.Insert(i, entryData);
-                scoreAdded = true;
+                insertIndex = i;
                 break;
             }
         }
+        savedScores.highscores.Insert(insertIndex, entryData); //Inserts the entry into the list at the index
 
-        //check if space to add entry
-        if(!scoreAdded && savedScores.highscores.Count < maxScoreEntries)
+        //Remove last entry if list is too long
+        if(savedScores.highscores.Count > MAX_SCORE_ENTRIES)
         {
-            savedScores.highscores.Add(entryData);
+            savedScores.highscores.RemoveAt(MAX_SCORE_ENTRIES);
         }
-
-        if (savedScores.highscores.Count > maxScoreEntries)
-        {
-            savedScores.highscores.RemoveRange(
-                maxScoreEntries, 
-                savedScores.highscores.Count - maxScoreEntries);
-        }
-
-        //UpdateUI(savedScores);
-        SaveScores(savedScores);
+        //TODO: Change UI
+        SaveScores(savedScores, savePath);
     }
-    public HighscoreSaveData GetSavedScores()
+    public HighscoreSaveData GetSavedScores(string savePath)
     {
-        if(!File.Exists(savePath))
+        if (!File.Exists(savePath))
         {
-            File.Create(savePath).Dispose();
+            //Writing in the base json structure to avoid null reference exceptions
+            string json = JsonUtility.ToJson(new HighscoreSaveData());
+            File.WriteAllText(savePath, json);
             return new HighscoreSaveData();
         }
 
-        using (StreamReader stream = new StreamReader(savePath))
-        {
-            string json = stream.ReadToEnd();
-            
-            return JsonUtility.FromJson<HighscoreSaveData>(json);
-        }
+        string json = File.ReadAllText(savePath);
+        return JsonUtility.FromJson<HighscoreSaveData>(json);
     }
 
-    private void SaveScores(HighscoreSaveData highscoreSaveData)
+    private void SaveScores(HighscoreSaveData highscoreSaveData, string savePath)
     {
-        using(StreamWriter stream = new StreamWriter(savePath))
-        {
-            //true displays the json in a nice format
-            string json = JsonUtility.ToJson(highscoreSaveData, true);
-
-            stream.Write(json);
-        }
+        string json = JsonUtility.ToJson(highscoreSaveData, true);
+        File.WriteAllText(savePath, json);
     }
 
     private void UpdateUI(HighscoreSaveData savedScores)
