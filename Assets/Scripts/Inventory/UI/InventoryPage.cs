@@ -39,7 +39,7 @@ public class InventoryPage : MonoBehaviour
     private StyleColor epicColor  = new StyleColor(new Color32(127, 6, 145, 255));
     private List<Item> selectedItems = new List<Item>();
 
-    public static Instance;
+    public static InventoryPage Instance;
 
     //make sure not to dupelicate the item ids
     public static List<Item> itemList = new List<Item>{ //char limit of 99 in description 
