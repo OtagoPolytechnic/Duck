@@ -114,11 +114,15 @@ public class ItemPanel : MonoBehaviour
         {
             roll = rarity.Weapon;
         }
-        else if (waveNumber == 10)
+        else if (waveNumber % 25 == 5)
+        {
+            roll = rarity.Legendary;
+        }
+        else if (waveNumber % 25 == 10)
         {
             roll = rarity.Epic;
         }
-        else if (waveNumber == 15)
+        else if (waveNumber % 25 == 15)
         {
             roll = rarity.Legendary;
         }
