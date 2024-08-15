@@ -27,14 +27,14 @@ public class WeaponStats : MonoBehaviour
                 case WeaponType.Shotgun:
                     //New Stats
                     weaponSprites[0].SetActive(true);
-                    ExtraBullets += 2;
+                    ExtraBullets += 6;
                     Spread = 30;
 
                     //Changed Stats
                     Range = 10f;
-                    Damage += 10;
+                    Damage /= 2;
                     Firerate += 0.3f;
-                    BulletSpeed *= 2;
+                    BulletSpeed *= 1.5f;
                 break;
                 
                 default:
