@@ -34,6 +34,7 @@ public class WeaponStats : MonoBehaviour
                     Range = 10f;
                     Damage += 10;
                     Firerate += 0.3f;
+                    BulletSpeed *= 2;
                 break;
                 
                 default:
@@ -97,6 +98,13 @@ public class WeaponStats : MonoBehaviour
     {
         get {return firerate;}
         set {firerate = value;}
+    }
+    
+    private float bulletSpeed = 50f;
+    public float BulletSpeed
+    {
+        get {return bulletSpeed;}
+        set {bulletSpeed = value;}
     }
 
     void Awake()

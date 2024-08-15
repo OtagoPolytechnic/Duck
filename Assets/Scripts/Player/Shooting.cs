@@ -10,7 +10,6 @@ public class Shooting : MonoBehaviour
     public GameObject bullet;
     public Transform sprite;
     public Transform firePoint;
-    private float bulletSpeed = 50;
     private float lastShot = 0;
     private bool held = false;
 
@@ -70,14 +69,14 @@ public class Shooting : MonoBehaviour
             {
                 firePoint.rotation = Quaternion.Euler(0, 0, lookAngle + shotAngle);
                 GameObject bulletClone = Instantiate(bullet, firePoint.position, firePoint.rotation);
-                bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
+                bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * WeaponStats.Instance.BulletSpeed;
                 shotAngle += WeaponStats.Instance.Spread/WeaponStats.Instance.ExtraBullets; 
             }
         }
         else
         {
             GameObject bulletClone = Instantiate(bullet, firePoint.position, Quaternion.Euler(0, 0, lookAngle));
-            bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
+            bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * WeaponStats.Instance.BulletSpeed;
         }
         // Play the duck shooting sound
         SFXManager.Instance.DuckShootSound(); 
