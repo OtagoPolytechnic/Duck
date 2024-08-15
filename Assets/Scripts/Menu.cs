@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
+using System.Linq;
 
 public class Menu : MonoBehaviour
 {
@@ -12,6 +14,9 @@ public class Menu : MonoBehaviour
     private Button tutorialButton;
     private Button quitButton;
     private Label versionNumber;
+
+    private Dictionary<string, VisualElement> sceneRootElements = new Dictionary<string, VisualElement>();
+
     void Awake()
     {
         VisualElement document = GetComponent<UIDocument>().rootVisualElement;
@@ -54,18 +59,43 @@ public class Menu : MonoBehaviour
             button.RegisterCallback<ClickEvent>(click);
             yield return null;
         }
+
+        //Following code was based off of a request to copilot on how to access the UI doc of the scene loaded
+        //Code was non functional to start and heavily modified but suggestion of using linq queries is the same
+        Scene loadedScene = SceneManager.GetSceneByName(sceneName); //Getting the scene I just loaded
+        if (loadedScene.IsValid())
+        {
+            GameObject[] rootObjects = loadedScene.GetRootGameObjects(); // Gets an array of all the objects in the scene that aren't inside other objects
+            UIDocument uiDocument = rootObjects
+                .Select(obj => obj.GetComponent<UIDocument>())
+                .FirstOrDefault(doc => doc != null); // Checking each object to see if it has a UIDocument component, and if it does, it returns it
+            
+            if (uiDocument != null)
+            {
+                VisualElement rootElement = uiDocument.rootVisualElement; // Getting the root visual element of the UI document
+                rootElement.style.display = DisplayStyle.None;
+                sceneRootElements[sceneName] = rootElement;
+                //Store the root element in the dictionary. I need to do this because I can't pass through references or do returns in coroutines
+                //and there is no other way I can think of to have this method not hard code the variables or scene names
+                //This way it dynamically creates entries in the dictionary based on whatever name it was passed
+                button.RegisterCallback<ClickEvent>(click);
+            }
+        }
+
     }
 
     public void Play(ClickEvent click)
     {
         GameSettings.gameState = GameState.InGame;
+        //REMINDER: Change this back to main scene before merging
         StartCoroutine(LoadScene("Palin-MainScene"));
     }
 
     IEnumerator LoadScene(string sceneName)
     {
-        //TODO: Add loading screen
+        //TODO: Add loading screen if the load times start to get longer
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+        playButton.text = "Loading";
         while (!asyncLoad.isDone)
         {
             yield return null;
@@ -79,13 +109,18 @@ public class Menu : MonoBehaviour
 
     public void Tutorial(ClickEvent click)
     {
-        //TODO: Set UI document of Tutorial scene to visible
-        
+        if (sceneRootElements.TryGetValue("Tutorial", out VisualElement tutorialRoot)) //Gets the scene root element from the dictionary based on the scene name
+        {
+            tutorialRoot.style.display = DisplayStyle.Flex; // Set to visible
+        }
     }
 
     public void Highscore(ClickEvent click)
     {
-        //TODO: Set UI document of Highscore scene to visible
+        if (sceneRootElements.TryGetValue("Highscores", out VisualElement highscoreRoot)) //Gets the scene root element from the dictionary based on the scene name
+        {
+            highscoreRoot.style.display = DisplayStyle.Flex; // Set to visible
+        }
     }
 }
 

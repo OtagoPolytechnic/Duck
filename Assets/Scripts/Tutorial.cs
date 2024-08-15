@@ -4,9 +4,10 @@ using UnityEngine.UIElements;
 
 public class Tutorial : MonoBehaviour
 {
+    public VisualElement document;
     void Awake()
     {
-        VisualElement document = GetComponent<UIDocument>().rootVisualElement;
+        document = GetComponent<UIDocument>().rootVisualElement;
         Button goBack = document.Q<Button>("Return");
         goBack.RegisterCallback<ClickEvent>(ReturnToMainMenu);
 
@@ -15,7 +16,9 @@ public class Tutorial : MonoBehaviour
     }
     private void ReturnToMainMenu(ClickEvent click)
     {
-        GameSettings.gameState = GameState.InGame;
-        SceneManager.LoadScene("Titlescreen");
+        if (document != null)
+        {
+            document.style.display = DisplayStyle.None;
+        }
     }
 }

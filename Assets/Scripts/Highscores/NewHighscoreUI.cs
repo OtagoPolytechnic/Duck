@@ -4,16 +4,21 @@ using UnityEngine.SceneManagement;
 
 public class NewHighscoreUI : MonoBehaviour
 {
+    private VisualElement document;
+
     void Awake()
     {
-        VisualElement highscoreUI = GetComponent<UIDocument>().rootVisualElement;
-        Button menuButton = highscoreUI.Q<Button>("MainMenu");
+        document = GetComponent<UIDocument>().rootVisualElement;
+        Button menuButton = document.Q<Button>("MainMenu");
         menuButton.RegisterCallback<ClickEvent>(Menu);
     }
 
     private void Menu(ClickEvent click)
     {
-        SceneManager.LoadScene("Titlescreen");
+        if (document != null)
+        {
+            document.style.display = DisplayStyle.None;
+        }
     }
  
 }   
