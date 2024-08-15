@@ -19,4 +19,7 @@
             </ui:Button>
         </ui:IMGUIContainer>
     </ui:IMGUIContainer>
+    <ui:VisualElement name="SkipContainer" style="flex-grow: 1; align-items: center; justify-content: flex-end; align-self: stretch;">
+        <ui:Button text="Skip &gt;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Skip" class="text" style="margin-bottom: 20px; background-color: rgb(188, 188, 188);" />
+    </ui:VisualElement>
 </ui:UXML>
