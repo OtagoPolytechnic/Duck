@@ -15,7 +15,7 @@ public class Timer : MonoBehaviour
     private GameObject HUD;
     private Label waveNumberText;
     private Label timerText;
-
+    [SerializeField] private BossSpawner bossSpawner;
     public float waveLength;
     private float currentTime;
     public int waveNumber;
@@ -80,6 +80,12 @@ public class Timer : MonoBehaviour
         GameSettings.waveNumber = waveNumber;
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
+
+        if (waveNumber % 5 == 0 && waveNumber % 25 != 0)
+        {
+            bossSpawner.SpawnBoss();
+           
+        }
 
         EnemySpawner.healthMultiplier += 0.5f;
         EnemySpawner.spawnTimer -= 0.1f;

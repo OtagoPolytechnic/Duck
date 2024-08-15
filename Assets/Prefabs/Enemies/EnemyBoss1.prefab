@@ -98,7 +98,6 @@ GameObject:
   - component: {fileID: -5524374278306860516}
   - component: {fileID: 4223785294766013922}
   - component: {fileID: 6881200956051357344}
-  - component: {fileID: 4398475397807444953}
   m_Layer: 0
   m_Name: EnemyBoss1
   m_TagString: Enemy
@@ -252,25 +251,6 @@ MonoBehaviour:
   damageText: {fileID: 391528759432483411, guid: aa150d6d100764d45af1b8790d3f8c9c, type: 3}
   critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
   baseHealth: 200
-  health: 0
-  bleedTick: 1
-  bleedInterval: 1
-  bleedTrue: 0
---- !u!114 &4398475397807444953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5656455698361903583}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddab80f68fc31bf4f96e5d8a085b340a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageText: {fileID: 391528759432483411, guid: aa150d6d100764d45af1b8790d3f8c9c, type: 3}
-  critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
-  baseHealth: 20
   health: 0
   bleedTick: 1
   bleedInterval: 1

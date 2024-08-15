@@ -3,60 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using UnityEngine.UIElements;
+
 public class BossHealth : MonoBehaviour
 {
-    public GameObject damageText;
-    public GameObject critText;
-    public int baseHealth;
-    [HideInInspector] public int health;
-    public float bleedTick = 1f;
-    public float bleedInterval = 1f;
-    public bool bleedTrue;
-    public static int bleedAmount = 0;
+    public static BossHealth Instance;
+    private Label healthText;
+    private IMGUIContainer healthBar;
+    private float maxHealthBarSize;
+    public EnemyHealth boss;
+    private float bossMaxHealth;
 
-    void Start()
-    {
-        health = baseHealth;
-        Debug.Log($"Boss health initialized: {health}");
+    public float BossMaxHealth
+    { 
+        get { return bossMaxHealth;}
+        set { bossMaxHealth = value; }
     }
+
+    
+    void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
+        VisualElement document = GetComponent<UIDocument>().rootVisualElement;
+        healthText = document.Q<Label>("HealthNumber");
+        healthBar = document.Q<IMGUIContainer>("Health");
+    }
+
     void Update()
     {
-        Bleed();
-        if (health <= 0)
-        {
-            SFXManager.Instance.EnemyDieSound();
-            ScoreManager.Instance.IncreasePoints(10);
-            EnemySpawner.currentEnemies.Remove(gameObject);
-            Destroy(gameObject);
-        }
-    }
-    void Bleed() //this function needs to be reworked to be able to stack bleed on the target
-    {
-        bleedTick -= Time.deltaTime;
-        if (bleedTick <= 0 && bleedTrue)
-        {
-            bleedTick = bleedInterval;
-            ReceiveDamage(bleedAmount, false);
-        }
-    }
-    public void ReceiveDamage(int damageTaken, bool critTrue)
-    {
-        if (PlayerStats.Instance.BleedTrue && !bleedTrue)
-        {
-            bleedTrue = true;
-        }
-        if (critTrue)
-        {
-            GameObject critTextInst = Instantiate(critText, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
-            critTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString() + "!";
-            health -= damageTaken;
-        }
-        else
-        {
-            GameObject damageTextInst = Instantiate(damageText, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
-            damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
-            health -= damageTaken;
-        }
-
+        float healthFraction = boss.health / bossMaxHealth;
+        healthBar.style.width = Length.Percent(healthFraction * 100);
+        healthText.text = boss.health.ToString("F0") + "/" + bossMaxHealth.ToString("F0");
     }
 }

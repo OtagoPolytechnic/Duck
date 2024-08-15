@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/BossStyle.uss?fileID=7433441132597879392&amp;guid=3177ee3f8115fdb439cd9237741fb7d9&amp;type=3#BossStyle" />
+    <ui:VisualElement name="BossHealthContainer" style="flex-grow: 1; flex-direction: row; align-items: auto; justify-content: flex-end; align-self: center; visibility: hidden;">
+        <ui:IMGUIContainer name="HealthBar" style="background-image: url(&quot;project://database/Assets/Scripts/HealthBar/HP_MP_Bar%20(1).png?fileID=-2002936986&amp;guid=3245bd78fbd9e8949b410b9f27e116de&amp;type=3#HP_MP_Bar (1)_0&quot;); height: 70px; width: 1600px; margin-top: 0; flex-direction: column; align-items: stretch; justify-content: center; margin-bottom: 20px;">
+            <ui:IMGUIContainer name="HealthContainer" style="background-image: none; flex-direction: column; align-items: stretch; justify-content: center; width: 1580px; height: 46px; margin-left: 0; min-width: auto; position: absolute; margin-right: 0; left: 6px; top: 12px;">
+                <ui:IMGUIContainer name="Health" style="background-image: url(&quot;project://database/Assets/Scripts/HealthBar/HP_MP_Bar%20(1).png?fileID=-47574867&amp;guid=3245bd78fbd9e8949b410b9f27e116de&amp;type=3#HP_MP_Bar (1)_1&quot;); flex-direction: column; align-items: center; justify-content: center; width: 1580px; height: 46px; margin-left: 0; min-width: auto; position: absolute; margin-right: 0;" />
+                <ui:Label text="0" display-tooltip-when-elided="true" name="HealthNumber" class="text" style="-unity-text-align: middle-center;" />
+            </ui:IMGUIContainer>
+        </ui:IMGUIContainer>
+    </ui:VisualElement>
+</ui:UXML>
