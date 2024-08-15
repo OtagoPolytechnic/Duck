@@ -91,7 +91,7 @@ public class WeaponStats : MonoBehaviour
         get {return spread;}
         set {spread = value;}
     }
-    private float range = 2000f;
+    private float range = 20f;
     public float Range
     {
         get {return range;}
