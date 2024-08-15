@@ -95,9 +95,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5656455698361903578}
   - component: {fileID: 5656455698361903576}
-  - component: {fileID: -8142287314846497574}
   - component: {fileID: -5524374278306860516}
   - component: {fileID: 4223785294766013922}
+  - component: {fileID: 6086206168278126582}
   m_Layer: 0
   m_Name: EnemyBoss3
   m_TagString: Enemy
@@ -164,27 +164,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0743434, y: 1.0920702}
+  m_Size: {x: 1.75, y: 1.75}
   m_EdgeRadius: 0
---- !u!114 &-8142287314846497574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5656455698361903583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddab80f68fc31bf4f96e5d8a085b340a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageText: {fileID: 391528759432483411, guid: aa150d6d100764d45af1b8790d3f8c9c, type: 3}
-  critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
-  baseHealth: 20
-  health: 0
-  bleedTick: 1
-  bleedInterval: 1
-  bleedTrue: 0
 --- !u!114 &-5524374278306860516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,8 +182,8 @@ MonoBehaviour:
   speed: 1
   bullet: {fileID: 5418265743146168994, guid: 666dd07e95d1a744fbd4e79265df9d46, type: 3}
   bulletPosition: {fileID: 5656455699881316956}
-  attackRange: 5
-  attackInterval: 2
+  attackRange: 20
+  attackInterval: 1
 --- !u!212 &4223785294766013922
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -255,6 +236,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6086206168278126582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656455698361903583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b76b5f2e6c89db442a7a55299f3066b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageText: {fileID: 391528759432483411, guid: aa150d6d100764d45af1b8790d3f8c9c, type: 3}
+  critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
+  baseHealth: 200
+  health: 0
+  bleedTick: 1
+  bleedInterval: 1
+  bleedTrue: 0
 --- !u!1 &5656455699881316957
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,7 +46,7 @@ public class BossSpawner : MonoBehaviour
             switch (bossIndex)
             {
                 case 0:
-                    SpawnBossTwo();
+                    SpawnBossOne();
                     break;
                 case 1:
                     SpawnBossTwo();
@@ -75,6 +75,8 @@ public class BossSpawner : MonoBehaviour
             GameObject bossInstance = Instantiate(enemyBoss1Prefab, spawnPosition, spawnRotation);
             currentEnemies.Add(bossInstance);
             Debug.Log("SpawnBoss1 called. Boss spawned at: " + spawnPosition);
+            bossInstance.GetComponent<EnemyHealth>().health =bossInstance.GetComponent<EnemyHealth>().baseHealth;
+         
         }
         else
         {

@@ -15,6 +15,11 @@ public class EnemyHealth : MonoBehaviour
     public bool bleedTrue;
     public static int bleedAmount = 0;
 
+    void Start()
+    {
+        health = baseHealth;
+        Debug.Log($"Boss health initialized: {health}");
+    }
     void Update()
     {
         Bleed();
