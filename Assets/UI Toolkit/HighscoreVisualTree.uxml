@@ -1,8 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/HighscoreStyle.uss?fileID=7433441132597879392&amp;guid=ea3e33529cbeebc40bf06b5e8e1fedf8&amp;type=3#HighscoreStyle" />
-    <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgb(0, 0, 0); visibility: visible; display: flex; overflow: visible;">
-        <ui:VisualElement name="ButtonContainer" style="align-items: center; justify-content: center; left: auto; top: 85%; visibility: visible;">
-            <ui:Button text="Main Menu" display-tooltip-when-elided="true" name="MainMenu" class="text buttonText button" />
-        </ui:VisualElement>
+    <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgb(0, 0, 0); visibility: hidden; display: flex; overflow: visible; align-items: center; justify-content: flex-end;">
+        <ui:Button text="Main Menu" display-tooltip-when-elided="true" name="MainMenu" class="text buttonText button" style="overflow: hidden;" />
     </ui:VisualElement>
 </ui:UXML>
