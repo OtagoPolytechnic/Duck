@@ -6,8 +6,6 @@ using System.IO;
 public class Scoreboard : MonoBehaviour
 {
     private const int MAX_SCORE_ENTRIES = 50;
-    public ScoreManager scoreManager;
-    public ScoreInputField inputField;
 
     private HighscoreSaveData bossSavedScores;
     private HighscoreSaveData endlessSavedScores;
@@ -19,6 +17,7 @@ public class Scoreboard : MonoBehaviour
 
     private void Start()
     {
+        
         LoadScores();
         HighscoreUI.Instance.DisplayHighscores(endlessSavedScores.highscores);
     }
@@ -64,6 +63,7 @@ public class Scoreboard : MonoBehaviour
         }
         //TODO: Change UI
         SaveScores(savedScores, savePath);
+        HighscoreUI.Instance.DisplayHighscores(savedScores.highscores);
     }
     public HighscoreSaveData GetSavedScores(string savePath)
     {
@@ -85,22 +85,4 @@ public class Scoreboard : MonoBehaviour
         string json = JsonUtility.ToJson(highscoreSaveData, true);
         File.WriteAllText(savePath, json);
     }
-
-    //TODO: Fix UI
-    // private void UpdateUI(HighscoreSaveData savedScores)
-    // {
-    //     foreach (Transform child in scoreContainerTransform)
-    //     {
-    //         Destroy(child.gameObject);
-    //     }
-    //     if (savedScores == null)
-    //     {
-    //         savedScores = new HighscoreSaveData();
-    //     }
-    //     foreach(EntryData highscore in savedScores.highscores)
-    //     {
-    //         Instantiate(highscoreEntry, scoreContainerTransform).
-    //             GetComponent<HighscoreUI>().Intialise(highscore);
-    //     }
-    // }
 }
