@@ -38,7 +38,6 @@ public class Menu : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         SFXManager.Instance.PlayBackgroundMusic(SFXManager.Instance.TitleScreen);
-        //Load the highscores and tutorial scenes in the background
         StartCoroutine(LoadBackgroundScene("Highscores", Highscore, highscoreButton));
         StartCoroutine(LoadBackgroundScene("Tutorial", Tutorial, tutorialButton));
     }
@@ -53,12 +52,16 @@ public class Menu : MonoBehaviour
 
     IEnumerator LoadBackgroundScene(string sceneName, EventCallback<ClickEvent> click, Button button)
     {
+        Color originalColour = button.resolvedStyle.backgroundColor; //Record original colour
+        button.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f)); //Turn gray while loading
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while (!asyncLoad.isDone)
         {
-            button.RegisterCallback<ClickEvent>(click);
             yield return null;
         }
+        //When the scene is loaded add the click event
+        button.RegisterCallback<ClickEvent>(click);
+        button.style.backgroundColor = new StyleColor(originalColour); //Return to original colour
 
         //Following code was based off of a request to copilot on how to access the UI doc of the scene loaded
         //Code was non functional to start and heavily modified but suggestion of using linq queries is the same
