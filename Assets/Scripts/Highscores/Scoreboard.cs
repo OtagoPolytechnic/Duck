@@ -19,8 +19,8 @@ public class Scoreboard : MonoBehaviour
 
     private void Start()
     {
-        //UpdateUI(savedScores);
         LoadScores();
+        HighscoreUI.Instance.DisplayHighscores(endlessSavedScores.highscores);
     }
 
     private void LoadScores()
