@@ -10,17 +10,17 @@ public class BossHealth : MonoBehaviour
     public static BossHealth Instance;
     private Label healthText;
     private IMGUIContainer healthBar;
+    private VisualElement healthContainer; // Reference to the container holding the health bar
     private float maxHealthBarSize;
     public EnemyHealth boss;
     private float bossMaxHealth;
 
     public float BossMaxHealth
     { 
-        get { return bossMaxHealth;}
+        get { return bossMaxHealth; }
         set { bossMaxHealth = value; }
     }
 
-    
     void Awake()
     {
         if (Instance != null)
@@ -32,12 +32,22 @@ public class BossHealth : MonoBehaviour
         VisualElement document = GetComponent<UIDocument>().rootVisualElement;
         healthText = document.Q<Label>("HealthNumber");
         healthBar = document.Q<IMGUIContainer>("Health");
+        healthContainer = document.Q<VisualElement>("BossHealthContainer"); // Reference to the container
     }
 
     void Update()
     {
+        if (boss == null)
+            return;
+
         float healthFraction = boss.health / bossMaxHealth;
         healthBar.style.width = Length.Percent(healthFraction * 100);
         healthText.text = boss.health.ToString("F0") + "/" + bossMaxHealth.ToString("F0");
+
+        // Hide the health bar if boss health is 0 or less
+        if (boss.health <= 0)
+        {
+            healthContainer.visible = false; // Hide the container holding the health bar
+        }
     }
 }
