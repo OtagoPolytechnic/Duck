@@ -31,20 +31,20 @@ public class WeaponStats : MonoBehaviour
                     Range /= 2;
                     Damage /= 2;
                     Firerate += (Firerate / 3);
-                    //BulletSpeed *= 1.5f;
+                    BulletSpeed *= 1.5f;
                 break;
                 
                 case WeaponType.Sniper:
                     weaponSprites[1].SetActive(true);
                     Range *= 2f;
-                    //BulletSpeed *= 3f;
+                    BulletSpeed *= 3f;
                     Damage *= 3;
                     Firerate *= 2;
                 break;
 
                 case WeaponType.Machine:
                     weaponSprites[2].SetActive(true);
-                    //BulletSpeed *= 3f;
+                    BulletSpeed *= 3f;
                     Damage /= 3;
                     Firerate /= 5;
                 break;

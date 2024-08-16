@@ -69,9 +69,8 @@ public class Shooting : MonoBehaviour
             float shotAngle = -(WeaponStats.Instance.Spread / 2);
             for (int i = 0; i < WeaponStats.Instance.ExtraBullets + 1; i++)
             {
-                firePoint.rotation = Quaternion.Euler(0, 0, lookAngle + shotAngle);
-                GameObject bulletClone = Instantiate(bullet, firePoint.position, firePoint.rotation);
-                bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * WeaponStats.Instance.BulletSpeed;
+                firePoint.rotation = Quaternion.Euler(0, 0, lookAngle + shotAngle);    
+                FireBullet(firePoint);
                 shotAngle += WeaponStats.Instance.Spread/WeaponStats.Instance.ExtraBullets; 
             }
         }
@@ -79,23 +78,26 @@ public class Shooting : MonoBehaviour
         {
             if (dualShot)
             {
-                GameObject bulletClone = Instantiate(bullet, dualFirePoint.position, Quaternion.Euler(0, 0, lookAngle));
-                bulletClone.GetComponent<Rigidbody2D>().velocity = dualFirePoint.right * WeaponStats.Instance.BulletSpeed;
+                FireBullet(dualFirePoint);
             }
             else
             {
-                GameObject bulletClone = Instantiate(bullet, firePoint.position, Quaternion.Euler(0, 0, lookAngle));
-                bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * WeaponStats.Instance.BulletSpeed;
+                FireBullet(dualFirePoint);
             }
 
             dualShot = !dualShot;
         }
         else
         {
-            GameObject bulletClone = Instantiate(bullet, firePoint.position, Quaternion.Euler(0, 0, lookAngle));
-            bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * WeaponStats.Instance.BulletSpeed;
+            FireBullet(firePoint);
         }
         // Play the duck shooting sound
         SFXManager.Instance.DuckShootSound(); 
+    }
+
+    private void FireBullet(Transform bulletFirePoint)
+    {
+        GameObject bulletClone = Instantiate(bullet, bulletFirePoint.position, Quaternion.Euler(0, 0, lookAngle));
+        bulletClone.GetComponent<Rigidbody2D>().velocity = bulletFirePoint.right * WeaponStats.Instance.BulletSpeed;
     }
 }
