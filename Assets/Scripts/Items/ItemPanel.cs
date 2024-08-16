@@ -187,22 +187,10 @@ public class ItemPanel : MonoBehaviour
 
             Button currentButton = panel.Q<Button>($"Item{i+1}");
 
-            if (boundItemRarity == rarity.Epic) //sets background color
-            {
-                currentButton.style.backgroundColor = uncommonColor;
-            }
-            else if (boundItemRarity == rarity.Weapon)
-            {
-                currentButton.style.backgroundColor = rareColor;
-            }
-            else if (boundItemRarity == rarity.Legendary)
-            {
-                currentButton.style.backgroundColor = epicColor;
-            }
-            else //Cursed
-            {
-                currentButton.style.backgroundColor = commonColor;
-            }
+            Label itemRarity = panel.Q<Label>($"ItemRarity{i+1}");
+            itemRarity.text = boundItemRarity.ToString();
+            currentButton.style.backgroundColor = selectedItems[i].rarityColor;
+            
             Debug.Log($"In InventoryPage.cs: index chosen is {index} and item is {selectedItems[i].name}");
         }
         generatedRarityList.Clear();
@@ -246,19 +234,11 @@ public class ItemPanel : MonoBehaviour
             itemStacks.text = $"You have {selectedItems[i].stacks}";
 
             Button currentButton = panel.Q<Button>($"Item{i+1}");
-            rarity itemRarity = selectedItems[i].rarity;
-            if (itemRarity == rarity.Uncommon) //sets background color
-            {
-                currentButton.style.backgroundColor = uncommonColor;
-            }
-            else if (itemRarity == rarity.Rare)
-            {
-                currentButton.style.backgroundColor = rareColor;
-            }
-            else //assume all other items are common
-            {
-                currentButton.style.backgroundColor = commonColor;
-            }
+
+            Label itemRarity = panel.Q<Label>($"ItemRarity{i+1}");
+            rarity unbounditemRarity = selectedItems[i].rarity;
+            itemRarity.text = unbounditemRarity.ToString();
+            currentButton.style.backgroundColor = selectedItems[i].rarityColor;
 
             generatedRarityList.Clear();
             Debug.Log($"In InventoryPage.cs: index chosen is {index} and item is {selectedItems[i].name}");
