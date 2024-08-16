@@ -20,13 +20,13 @@ public class Menu : MonoBehaviour
     void Awake()
     {
         VisualElement document = GetComponent<UIDocument>().rootVisualElement;
-        playButton = document.Q("PlayButton") as Button;
+        playButton = document.Q<Button>("Play");
         playButton.RegisterCallback<ClickEvent>(Play);
 
-        highscoreButton = document.Q<Button>("HighscoreButton");
-        tutorialButton = document.Q<Button>("TutorialButton");
+        highscoreButton = document.Q<Button>("Highscores");
+        tutorialButton = document.Q<Button>("Tutorial");
 
-        quitButton = document.Q<Button>("QuitButton");
+        quitButton = document.Q<Button>("Quit");
         quitButton.RegisterCallback<ClickEvent>(Quit);
 
         versionNumber = document.Q<Label>("VersionNumber");
@@ -38,19 +38,19 @@ public class Menu : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         SFXManager.Instance.PlayBackgroundMusic(SFXManager.Instance.TitleScreen);
-        StartCoroutine(LoadBackgroundScene("Highscores", Highscore, highscoreButton));
-        StartCoroutine(LoadBackgroundScene("Tutorial", Tutorial, tutorialButton));
+        StartCoroutine(LoadBackgroundScene("Highscores", highscoreButton));
+        StartCoroutine(LoadBackgroundScene("Tutorial", tutorialButton));
     }
 
     private void OnDisable()
     {
         playButton.UnregisterCallback<ClickEvent>(Play);
-        highscoreButton.UnregisterCallback<ClickEvent>(Highscore);
-        tutorialButton.UnregisterCallback<ClickEvent>(Tutorial);
+        highscoreButton.UnregisterCallback<ClickEvent>(SubMenuButton);
+        tutorialButton.UnregisterCallback<ClickEvent>(SubMenuButton);
         quitButton.UnregisterCallback<ClickEvent>(Quit);
     }
 
-    IEnumerator LoadBackgroundScene(string sceneName, EventCallback<ClickEvent> click, Button button)
+    IEnumerator LoadBackgroundScene(string sceneName, Button button)
     {
         Color originalColour = button.resolvedStyle.backgroundColor; //Record original colour
         button.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f)); //Turn gray while loading
@@ -60,7 +60,7 @@ public class Menu : MonoBehaviour
             yield return null;
         }
         //When the scene is loaded add the click event
-        button.RegisterCallback<ClickEvent>(click);
+        button.RegisterCallback<ClickEvent>(SubMenuButton);
         button.style.backgroundColor = new StyleColor(originalColour); //Return to original colour
 
         //Following code was based off of a request to copilot on how to access the UI doc of the scene loaded
@@ -81,7 +81,6 @@ public class Menu : MonoBehaviour
                 //Store the root element in the dictionary. I need to do this because I can't pass through references or do returns in coroutines
                 //and there is no other way I can think of to have this method not hard code the variables or scene names
                 //This way it dynamically creates entries in the dictionary based on whatever name it was passed
-                button.RegisterCallback<ClickEvent>(click);
             }
         }
 
@@ -110,19 +109,14 @@ public class Menu : MonoBehaviour
         Application.Quit();
     }
 
-    public void Tutorial(ClickEvent click)
+    //Two button click methods turned into one. The button that was clicked is turned into a visual element and the name is used to find the correct dictionary entry
+    public void SubMenuButton(ClickEvent click)
     {
-        if (sceneRootElements.TryGetValue("Tutorial", out VisualElement tutorialRoot)) //Gets the scene root element from the dictionary based on the scene name
+        VisualElement targetElement = click.target as VisualElement;
+        if (targetElement != null)
         {
+            sceneRootElements.TryGetValue(targetElement.name, out VisualElement tutorialRoot);
             tutorialRoot.style.display = DisplayStyle.Flex; // Set to visible
-        }
-    }
-
-    public void Highscore(ClickEvent click)
-    {
-        if (sceneRootElements.TryGetValue("Highscores", out VisualElement highscoreRoot)) //Gets the scene root element from the dictionary based on the scene name
-        {
-            highscoreRoot.style.display = DisplayStyle.Flex; // Set to visible
         }
     }
 }

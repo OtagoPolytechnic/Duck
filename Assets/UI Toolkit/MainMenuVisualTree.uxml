@@ -5,10 +5,10 @@
             <ui:Label text="DUCK GAME" display-tooltip-when-elided="true" name="Title" class="text header" style="color: rgb(255, 251, 0); -unity-text-align: middle-center;" />
         </ui:VisualElement>
         <ui:VisualElement name="ButtonContainer" style="flex-direction: column; justify-content: space-between; align-items: center; min-width: auto; height: 585px;">
-            <ui:Button text="Play" display-tooltip-when-elided="true" name="PlayButton" class="text button buttonText" style="-unity-text-align: middle-center; white-space: normal;" />
-            <ui:Button text="Highscores" display-tooltip-when-elided="true" name="HighscoreButton" class="text button buttonText" style="background-color: rgb(80, 231, 167);" />
-            <ui:Button text="Tutorial" display-tooltip-when-elided="true" name="TutorialButton" class="text button buttonText" style="background-color: rgb(172, 135, 201);" />
-            <ui:Button text="Quit" display-tooltip-when-elided="true" name="QuitButton" class="text button buttonText" style="background-color: rgb(208, 50, 42);" />
+            <ui:Button text="Play" display-tooltip-when-elided="true" name="Play" class="text button buttonText" style="-unity-text-align: middle-center; white-space: normal;" />
+            <ui:Button text="Highscores" display-tooltip-when-elided="true" name="HighScores" class="text button buttonText" style="background-color: rgb(80, 231, 167);" />
+            <ui:Button text="Tutorial" display-tooltip-when-elided="true" name="Tutorial" class="text button buttonText" style="background-color: rgb(172, 135, 201);" />
+            <ui:Button text="Quit" display-tooltip-when-elided="true" name="Quit" class="text button buttonText" style="background-color: rgb(208, 50, 42);" />
         </ui:VisualElement>
         <ui:VisualElement name="FooterContainer" style="padding-bottom: 0; padding-top: 0;">
             <ui:Label text="Alpha v0.0.0" display-tooltip-when-elided="true" name="VersionNumber" class="text" style="-unity-text-align: lower-right; color: rgb(255, 255, 255); padding-right: 100px; margin-top: 0; height: 97px;" />
