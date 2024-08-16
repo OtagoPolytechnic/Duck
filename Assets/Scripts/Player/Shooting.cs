@@ -7,9 +7,11 @@ public class Shooting : MonoBehaviour
 {
     public static Shooting Instance;
 
-    public GameObject bullet;
-    public Transform sprite;
-    public Transform firePoint;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform sprite;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private Transform dualFirePoint;
+    private bool dualShot = false;
     private float lastShot = 0;
     private bool held = false;
 
@@ -72,6 +74,21 @@ public class Shooting : MonoBehaviour
                 bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * WeaponStats.Instance.BulletSpeed;
                 shotAngle += WeaponStats.Instance.Spread/WeaponStats.Instance.ExtraBullets; 
             }
+        }
+        else if (WeaponStats.Instance.CurrentWeapon == WeaponType.DualPistol)
+        {
+            if (dualShot)
+            {
+                GameObject bulletClone = Instantiate(bullet, dualFirePoint.position, Quaternion.Euler(0, 0, lookAngle));
+                bulletClone.GetComponent<Rigidbody2D>().velocity = dualFirePoint.right * WeaponStats.Instance.BulletSpeed;
+            }
+            else
+            {
+                GameObject bulletClone = Instantiate(bullet, firePoint.position, Quaternion.Euler(0, 0, lookAngle));
+                bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * WeaponStats.Instance.BulletSpeed;
+            }
+
+            dualShot = !dualShot;
         }
         else
         {
