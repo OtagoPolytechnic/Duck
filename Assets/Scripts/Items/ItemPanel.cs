@@ -38,10 +38,9 @@ public class ItemPanel : MonoBehaviour
     private Button skip;
     private IMGUIContainer container;
     [SerializeField]
-    private StyleColor commonColor = new StyleColor(new Color32(135, 150, 146, 255));
-    private StyleColor uncommonColor  = new StyleColor(new Color32(79, 122, 52, 255));
-    private StyleColor rareColor  = new StyleColor(new Color32(50, 173, 196, 255));
-    private StyleColor epicColor  = new StyleColor(new Color32(127, 6, 145, 255));
+
+    private StyleColor tempFadedColor  = new StyleColor(new Color32(106, 106, 106, 255));
+
     private List<Item> selectedItems = new List<Item>();
 
     //make sure not to dupelicate the item ids
@@ -160,6 +159,7 @@ public class ItemPanel : MonoBehaviour
                 generatedRarityList.Add(j);
             }
         }
+        container.style.backgroundColor = generatedRarityList[0].rarityColor;
 
         for (int i = 0; i < repetitions; i++) 
         {
@@ -184,19 +184,21 @@ public class ItemPanel : MonoBehaviour
 
             Label itemStacks = panel.Q<Label>($"ItemStacks{i+1}");
             itemStacks.text = $"You have {selectedItems[i].stacks}";
-
+            
             Button currentButton = panel.Q<Button>($"Item{i+1}");
 
             Label itemRarity = panel.Q<Label>($"ItemRarity{i+1}");
             itemRarity.text = boundItemRarity.ToString();
-            currentButton.style.backgroundColor = selectedItems[i].rarityColor;
-            
+            itemRarity.style.color = selectedItems[i].rarityColor;
+            currentButton.style.backgroundColor = tempFadedColor;
+
             Debug.Log($"In InventoryPage.cs: index chosen is {index} and item is {selectedItems[i].name}");
         }
         generatedRarityList.Clear();
     }
     private void GetUnboundItems(int repetitions)
     {
+        container.style.backgroundColor = new StyleColor(new Color32(72,72,72,255));
         List<Item> generatedRarityList = new List<Item>();
 
         for (int i = 0; i < repetitions; i++) 
@@ -212,6 +214,11 @@ public class ItemPanel : MonoBehaviour
                     generatedRarityList.Add(j);
                 }
             }
+            Label itemRarity = panel.Q<Label>($"ItemRarity{i+1}");
+            itemRarity.style.color = new StyleColor(new Color32(255,255,255,255));
+
+
+
             //if the item has already been selected, remove it from the possible pool of items
             foreach (Item k in selectedItems)
             {
@@ -235,7 +242,6 @@ public class ItemPanel : MonoBehaviour
 
             Button currentButton = panel.Q<Button>($"Item{i+1}");
 
-            Label itemRarity = panel.Q<Label>($"ItemRarity{i+1}");
             rarity unbounditemRarity = selectedItems[i].rarity;
             itemRarity.text = unbounditemRarity.ToString();
             currentButton.style.backgroundColor = selectedItems[i].rarityColor;
