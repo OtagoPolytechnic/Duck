@@ -125,22 +125,14 @@ public class PlayerStats : MonoBehaviour
 
     IEnumerator DisableCollisionForDuration(float duration)
     {
-        // Get the layer mask of the player
-        int playerLayer = gameObject.layer;
-
-        // Set the collision matrix to ignore collisions between the player layer and itself for the specified duration
-        Physics2D.IgnoreLayerCollision(playerLayer, playerLayer, true);
-        //Debug.Log("Collisions disabled for 2 seconds.");
+        // Set the collision matrix to ignore collisions between the player layer and enemy attacks for the specified duration
+        Physics2D.IgnoreLayerCollision(7, 9, true);
 
         // Wait for the specified duration
         yield return new WaitForSeconds(duration);
 
         // Re-enable collisions between the player layer and itself
-        Physics2D.IgnoreLayerCollision(playerLayer, playerLayer, false);
-        //Debug.Log("Collisions enabled after 2 seconds.");
-
-        // Log player health after collisions are turned back on
-        //Debug.Log("Player health after collisions turned back on: " + currentHealth);
+        Physics2D.IgnoreLayerCollision(7, 9, false);
     }
     public void ReceiveDamage(int damageTaken)
     {
