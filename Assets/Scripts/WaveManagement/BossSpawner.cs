@@ -18,6 +18,8 @@ public class BossSpawner : MonoBehaviour
     public int bossHealth=200;
     public int bossMaxHealth=200;
     public GameObject bossHealthBar;
+    public GameObject bigBoss;
+
     // Array to track if a boss has been spawned for a given wave
     private bool[] bossesSpawned = new bool[5];
 
@@ -37,25 +39,32 @@ public class BossSpawner : MonoBehaviour
 
    public void SpawnBoss()
     {
-        GameObject enemyChoice = bosses[Random.Range(0,bosses.Length)];
+        GameObject enemyChoice;
+        if (GameSettings.waveNumber %25==0)
+        {
+            enemyChoice = bigBoss;
+        }
+        else
+        {
+            enemyChoice = bosses[Random.Range(0, bosses.Length)];
+        }
         if (enemyChoice != null)
         {
             Vector3 spawnPosition = transform.position;
             Quaternion spawnRotation = Quaternion.identity;
             GameObject bossInstance = Instantiate(enemyChoice, spawnPosition, spawnRotation);
             currentEnemies.Add(bossInstance);
-            Debug.Log("SpawnBoss1 called. Boss spawned at: " + spawnPosition);
+            Debug.Log("SpawnBoss called. Boss spawned at: " + spawnPosition);
             bossInstance.GetComponent<EnemyHealth>().health = bossHealth;
             document = bossHealthBar.GetComponent<UIDocument>().rootVisualElement;
             container = document.Q<VisualElement>("BossHealthContainer");
             container.visible = true;
-
             BossHealth.Instance.boss = bossInstance.GetComponent<EnemyHealth>();
             BossHealth.Instance.BossMaxHealth = bossHealth;
         }
         else
         {
-            Debug.LogError("enemyBoss1Prefab is not assigned!");
+            Debug.LogError("enemyBossPrefab is not assigned!");
         }
     }
 }

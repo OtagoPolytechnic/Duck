@@ -83,7 +83,7 @@ public class Timer : MonoBehaviour
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
 
-        if (waveNumber % 5 == 0 && waveNumber % 25 != 0)
+        if (waveNumber % 5 == 0)
         {
             bossSpawner.SpawnBoss();
             timerText.visible = false;
