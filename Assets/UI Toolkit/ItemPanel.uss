@@ -17,7 +17,7 @@
 }
 
 .name {
-    margin-top: 50px;
+    margin-top: 20px;
     flex-wrap: wrap;
     font-size: 60px;
     height: 145px;
@@ -25,7 +25,7 @@
 }
 
 .desc {
-    height: 465px;
+    height: 364px;
     width: auto;
 }
 
@@ -36,6 +36,6 @@
 .text {
     color: rgb(255, 255, 255);
     -unity-font-definition: initial;
-    -unity-font: url('project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&guid=f08ae915995c0db4f9feee7e49baaec2&type=3#ARCADE_N');
+    -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&guid=f08ae915995c0db4f9feee7e49baaec2&type=3#ARCADE_N");
     font-size: 30px;
 }

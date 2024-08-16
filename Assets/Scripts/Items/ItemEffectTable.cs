@@ -12,6 +12,9 @@ public class ItemEffectTable : MonoBehaviour
 
         switch(itemID) 
         {
+            case -1:
+                Debug.Log("Item choice skipped");
+                break;
             case 0:
                 PlayerStats.Instance.Damage += 10;
                 Debug.Log($"Damage: {PlayerStats.Instance.Damage}");
@@ -97,8 +100,15 @@ public class ItemEffectTable : MonoBehaviour
                 
                 break;
             default:
-                Debug.LogError("No item was given to the player, either, the item added to the list was not given a case, or the id does not match a current case.");
+                Debug.LogError($"The item {ItemPanel.itemList[itemID].name} with ID {ItemPanel.itemList[itemID].id} has not been given a case in the item effect table.");
             break;
+        }
+        foreach (Item i in ItemPanel.itemList) //for any value put in here that isn't in the list. e.g. skip button
+        {
+            if (itemID != i.id)
+            {
+                return;
+            }
         }
         ItemPanel.itemList[itemID].stacks += 1;
     }

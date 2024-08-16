@@ -35,6 +35,7 @@ public class ItemPanel : MonoBehaviour
     private Button item1;
     private Button item2;
     private Button item3;
+    private Button skip;
     private IMGUIContainer container;
     [SerializeField]
     private StyleColor commonColor = new StyleColor(new Color32(135, 150, 146, 255));
@@ -81,6 +82,8 @@ public class ItemPanel : MonoBehaviour
         item2.RegisterCallback<ClickEvent>(RegisterItem2Click);
         item3 = panel.Q<Button>("Item3");
         item3.RegisterCallback<ClickEvent>(RegisterItem3Click);
+        skip = panel.Q<Button>("Skip");
+        skip.RegisterCallback<ClickEvent>(RegisterSkipClick);
     }
 
     public rarity GetWeightedRarity() 
@@ -280,6 +283,12 @@ public class ItemPanel : MonoBehaviour
         itemChosen = true; 
         selectedItems.Clear();
 
+    }
+    private void RegisterSkipClick(ClickEvent click)
+    {
+        itemController.ItemPicked(-1);
+        itemChosen = true; 
+        selectedItems.Clear();
     }
     
     public void Show()
