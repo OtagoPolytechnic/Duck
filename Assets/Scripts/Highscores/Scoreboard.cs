@@ -106,4 +106,60 @@ public class Scoreboard : MonoBehaviour
     {
         entries.Sort((x, y) => y.entryScore.CompareTo(x.entryScore));
     }
+
+    //Check if the score is higher than the top score on the list
+    public bool CheckTopScore(int score, bool isEndless)
+    {
+        if (isEndless)
+        {
+            if (endlessSavedScores.highscores.Count == 0)
+            {
+                return true;
+            }
+            else if (score > endlessSavedScores.highscores[0].entryScore)
+            {
+                return true;
+            }
+        }
+        else
+        {
+            if (bossSavedScores.highscores.Count == 0)
+            {
+                return true;
+            }
+            else if (score > bossSavedScores.highscores[0].entryScore)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Check if the score is higher than the lowest score on the list
+    public bool CheckHighScore(int score, bool isEndless)
+    {
+        if (isEndless)
+        {
+            if (endlessSavedScores.highscores.Count < MAX_SCORE_ENTRIES)
+            {
+                return true;
+            }
+            else if (score > endlessSavedScores.highscores[MAX_SCORE_ENTRIES - 1].entryScore)
+            {
+                return true;
+            }
+        }
+        else
+        {
+            if (bossSavedScores.highscores.Count < MAX_SCORE_ENTRIES)
+            {
+                return true;
+            }
+            else if (score > bossSavedScores.highscores[MAX_SCORE_ENTRIES - 1].entryScore)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

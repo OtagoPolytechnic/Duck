@@ -2,14 +2,16 @@
     <Style src="project://database/Assets/UI%20Toolkit/GameOverStyle.uss?fileID=7433441132597879392&amp;guid=162b006a1adcc944db2634bdf11e048c&amp;type=3#GameOverStyle" />
     <ui:VisualElement name="Container" style="max-width: none; max-height: none; min-width: 100%; min-height: 100%; justify-content: flex-start; align-items: center; background-color: rgba(6, 7, 19, 0.74); display: flex; visibility: hidden;">
         <ui:VisualElement name="Header">
-            <ui:Label text="GAME OVER" display-tooltip-when-elided="true" name="Title" class="header" style="color: rgb(255, 0, 0); -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&amp;guid=f08ae915995c0db4f9feee7e49baaec2&amp;type=3#ARCADE_N&quot;); -unity-font-definition: initial;" />
+            <ui:Label text="GAME OVER" display-tooltip-when-elided="true" name="Title" class="header" style="color: rgb(255, 0, 0); -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&amp;guid=f08ae915995c0db4f9feee7e49baaec2&amp;type=3#ARCADE_N&quot;); -unity-font-definition: initial; margin-bottom: 75px; padding-top: 140px;" />
         </ui:VisualElement>
         <ui:VisualElement name="ScoreContainer" style="align-items: center; justify-content: center;">
             <ui:Label text="Score: " display-tooltip-when-elided="true" name="FinalScore" class="text" style="color: rgb(255, 255, 255); -unity-text-align: middle-center; font-size: 48px; margin-top: 60px; white-space: normal;" />
-            <ui:Label display-tooltip-when-elided="true" name="HighscoreNotif" text="New Score" class="text" style="width: auto; height: 40px; margin-top: 25px; color: rgb(255, 255, 255); font-size: 30px;" />
+            <ui:Label display-tooltip-when-elided="true" name="HighscoreNotif" text="New Score" class="text" style="width: auto; height: 40px; margin-top: 25px; color: rgb(255, 255, 255); font-size: 30px; margin-bottom: 8px;" />
+            <ui:Label display-tooltip-when-elided="true" name="EnterName" text="Enter Name&#10;" class="text" style="width: auto; height: 40px; margin-top: 25px; color: rgb(255, 255, 255); font-size: 30px; margin-bottom: 8px;" />
+            <ui:TextField picking-mode="Ignore" max-length="8" name="PlayerName" style="width: 600px; height: 84px; font-size: 28px; -unity-text-align: upper-left; margin-top: 8px; justify-content: space-between; align-items: stretch; flex-direction: column; align-self: stretch;" />
             <ui:Button text="Submit?" display-tooltip-when-elided="true" name="SubmitScore" class="text" style="margin-top: 50px; width: 500px; height: 70px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 15px; border-bottom-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; background-color: rgb(92, 221, 108); font-size: 40px;" />
         </ui:VisualElement>
-        <ui:VisualElement name="ButtonConatiner" style="margin-top: 50px; align-items: stretch; justify-content: flex-start;">
+        <ui:VisualElement name="ButtonConatiner" style="margin-top: 30px; align-items: stretch; justify-content: flex-start;">
             <ui:Button text="Replay" display-tooltip-when-elided="true" name="Replay" class="text button" style="background-color: rgb(92, 221, 108);" />
             <ui:Button text="main Menu" display-tooltip-when-elided="true" name="Quit" class="text button" style="margin-top: 30px; background-color: rgb(180, 0, 5);" />
         </ui:VisualElement>

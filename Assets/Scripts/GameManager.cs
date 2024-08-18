@@ -8,8 +8,17 @@ public class GameManager : MonoBehaviour
 {
     private VisualElement gameOverUI;
     private VisualElement container;
+    public static GameManager Instance;
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         gameOverUI = GetComponent<UIDocument>().rootVisualElement;
         container = gameOverUI.Q<VisualElement>("Container");
         Button replay = gameOverUI.Q<Button>("Replay");
@@ -25,12 +34,23 @@ public class GameManager : MonoBehaviour
             GameSettings.gameState = GameState.EndGame;
             Timer.CullEnemies();
             SFXManager.Instance.GameOverSound();
-            ScoreManager.Instance.FinalScore();
+            StartCoroutine(ScoreManager.Instance.FinalScore());
             container.visible = true;
         }
     }
 
-    private void Restart(ClickEvent click)
+    public void BossVictory()
+    {
+        if (GameSettings.gameState != GameState.BossVictory)
+        {
+            GameSettings.gameState = GameState.BossVictory;
+            Timer.CullEnemies();
+            StartCoroutine(ScoreManager.Instance.FinalScore());
+            container.visible = true;
+        }
+    }
+
+    public void Restart(ClickEvent click)
     {
         ResetVariables();
         GameSettings.gameState = GameState.InGame;

@@ -39,6 +39,8 @@ public class HighscoreUI : MonoBehaviour
         endlessButton.RegisterCallback<ClickEvent>(DisplayEndlessHighscores);
         //Get the highscores list view
         highscores = document.Q<MultiColumnListView>("MultiColumnListView");
+        //Set to be invisible by default
+        document.style.display = DisplayStyle.None;
     }
 
     private void Menu(ClickEvent click)
@@ -85,7 +87,7 @@ public class HighscoreUI : MonoBehaviour
         highscores.Rebuild();
 
         //If the list is empty return
-        if (highscoreData == null || highscoreData.Count == 0)
+        if (highscoreData == null || highscoreData.Count == 0 || highscoreData[0] == null)
         {
             return;
         }
@@ -122,6 +124,7 @@ public class HighscoreUI : MonoBehaviour
         //highscores.onItemsChosen += OnRowClicked;
     }
 
+    //TODO: Get to show a window
     private void OnRowClicked(IEnumerable<object> selectedItems)
     {
         foreach (var item in selectedItems)

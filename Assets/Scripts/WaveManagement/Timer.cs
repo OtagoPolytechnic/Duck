@@ -20,8 +20,17 @@ public class Timer : MonoBehaviour
     private float currentTime;
     public int waveNumber;
     bool geninventory = false;
+    public static Timer Instance;
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         VisualElement document = HUD.GetComponent<UIDocument>().rootVisualElement;
 
         waveNumberText = document.Q("WaveNumber") as Label;
@@ -32,10 +41,15 @@ public class Timer : MonoBehaviour
     {
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
+        GameSettings.waveNumber = waveNumber;
     }
 
     void Update()
     {
+        if (GameSettings.gameState == GameState.EndGame || GameSettings.gameState == GameState.BossVictory)
+        {
+            return;
+        }
         if(GameSettings.gameState == GameState.InGame)
         {
             currentTime -= Time.deltaTime;
@@ -50,13 +64,20 @@ public class Timer : MonoBehaviour
         
         if(currentTime <= 0)
         {
-            EndWave();
+            if (waveNumber == 25 && GameSettings.gameState == GameState.InGame)
+            {
+                GameManager.Instance.BossVictory();
+            }
+            else
+            {
+                EndWave();
+            }
         }
 
         setTimerText();
     }
 
-    private void EndWave()
+    public void EndWave()
     {
         GameSettings.gameState = GameState.ItemSelect;
         CullEnemies();
