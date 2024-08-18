@@ -17,7 +17,7 @@ public class Scoreboard : MonoBehaviour
 
     private void Start()
     {
-        
+
         LoadScores();
         HighscoreUI.Instance.DisplayHighscores(endlessSavedScores.highscores);
     }
@@ -26,12 +26,14 @@ public class Scoreboard : MonoBehaviour
     {
         bossSavedScores = GetSavedScores(bossSavePath);
         endlessSavedScores = GetSavedScores(endlessSavePath);
+        SortScores(bossSavedScores.highscores);
+        SortScores(endlessSavedScores.highscores);
     }
 
     //Public method to add an entry to one of the two highscore lists
     public void AddEntry(EntryData entryData, bool isEndless)
     {
-        if(isEndless)
+        if (isEndless)
         {
             AddEntry(entryData, endlessSavedScores, endlessSavePath);
         }
@@ -41,14 +43,14 @@ public class Scoreboard : MonoBehaviour
         }
     }
 
-    
+
     private void AddEntry(EntryData entryData, HighscoreSaveData savedScores, string savePath)
     {
         //Either gets the correct position on the list or the end position
         int insertIndex = savedScores.highscores.Count;
         for (int i = 0; i < savedScores.highscores.Count; i++)
         {
-            if(entryData.entryScore > savedScores.highscores[i].entryScore)
+            if (entryData.entryScore > savedScores.highscores[i].entryScore)
             {
                 insertIndex = i;
                 break;
@@ -57,7 +59,7 @@ public class Scoreboard : MonoBehaviour
         savedScores.highscores.Insert(insertIndex, entryData); //Inserts the entry into the list at the index
 
         //Remove last entry if list is too long
-        if(savedScores.highscores.Count > MAX_SCORE_ENTRIES)
+        if (savedScores.highscores.Count > MAX_SCORE_ENTRIES)
         {
             savedScores.highscores.RemoveAt(MAX_SCORE_ENTRIES);
         }
@@ -84,5 +86,10 @@ public class Scoreboard : MonoBehaviour
     {
         string json = JsonUtility.ToJson(highscoreSaveData, true);
         File.WriteAllText(savePath, json);
+    }
+
+    private void SortScores(List<EntryData> entries)
+    {
+        entries.Sort((x, y) => y.entryScore.CompareTo(x.entryScore));
     }
 }

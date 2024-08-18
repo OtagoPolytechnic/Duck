@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class HighscoreUI : MonoBehaviour
 {
     private VisualElement document;
-    private ListView highscores;
+    private MultiColumnListView highscores;
     public static HighscoreUI Instance; //Singleton pattern
     void Awake()
     {
@@ -22,7 +22,7 @@ public class HighscoreUI : MonoBehaviour
         Button menuButton = document.Q<Button>("MainMenu");
         menuButton.RegisterCallback<ClickEvent>(Menu);
         //Get the highscores list view
-        highscores = document.Q<ListView>("Highscores");
+        highscores = document.Q<MultiColumnListView>("MultiColumnListView");
     }
 
     private void Menu(ClickEvent click)
@@ -40,13 +40,29 @@ public class HighscoreUI : MonoBehaviour
         }
     }
 
+    //Making MultiColumnListViews are really confusing. Used copilot to help me understand it
     public void DisplayHighscores(List<EntryData> highscoreData)
     {
-        //Bind the data to the list view
+        // Set the itemsSource to populate the data in the list.
         highscores.itemsSource = highscoreData;
-        highscores.makeItem = () => new Label();
-        highscores.bindItem = (e, i) => (e as Label).text = $"{highscoreData[i].GetDate()} - {highscoreData[i].entryName} - {highscoreData[i].entryScore} - {highscoreData[i].weapon}";
-        highscores.fixedItemHeight = 100;
+
+
+
+        // Define the columns and their respective makeCell and bindCell methods.
+        highscores.columns["date"].makeCell = () => new Label();
+        highscores.columns["name"].makeCell = () => new Label();
+        highscores.columns["score"].makeCell = () => new Label();
+        highscores.columns["weapon"].makeCell = () => new Label();
+
+        highscores.columns["date"].bindCell = (VisualElement element, int index) =>
+            (element as Label).text = highscoreData[index].GetDate();
+        highscores.columns["name"].bindCell = (VisualElement element, int index) =>
+            (element as Label).text = highscoreData[index].entryName;
+        highscores.columns["score"].bindCell = (VisualElement element, int index) =>
+            (element as Label).text = highscoreData[index].entryScore.ToString();
+        highscores.columns["weapon"].bindCell = (VisualElement element, int index) =>
+            (element as Label).text = highscoreData[index].weapon.ToString();
+
         highscores.Rebuild();
     }
 }
