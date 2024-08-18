@@ -45,7 +45,7 @@ public class HighscoreUI : MonoBehaviour
         //Bind the data to the list view
         highscores.itemsSource = highscoreData;
         highscores.makeItem = () => new Label();
-        highscores.bindItem = (e, i) => (e as Label).text = $"{highscoreData[i].entryName} - {highscoreData[i].entryScore} - {highscoreData[i].weapon}";
+        highscores.bindItem = (e, i) => (e as Label).text = $"{highscoreData[i].GetDate()} - {highscoreData[i].entryName} - {highscoreData[i].entryScore} - {highscoreData[i].weapon}";
         highscores.fixedItemHeight = 100;
         highscores.Rebuild();
     }
