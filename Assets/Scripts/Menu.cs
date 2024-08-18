@@ -115,8 +115,8 @@ public class Menu : MonoBehaviour
         VisualElement targetElement = click.target as VisualElement;
         if (targetElement != null)
         {
-            sceneRootElements.TryGetValue(targetElement.name, out VisualElement tutorialRoot);
-            tutorialRoot.style.display = DisplayStyle.Flex; // Set to visible
+            sceneRootElements.TryGetValue(targetElement.name, out VisualElement rootElement);
+            rootElement.style.display = DisplayStyle.Flex; // Set to visible
         }
     }
 }
