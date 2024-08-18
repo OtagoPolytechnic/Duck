@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     private VisualElement gameOverUI;
     private VisualElement container;
     void Awake()
-    {   
+    {
         gameOverUI = GetComponent<UIDocument>().rootVisualElement;
         container = gameOverUI.Q<VisualElement>("Container");
         Button replay = gameOverUI.Q<Button>("Replay");
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        if(GameSettings.gameState != GameState.EndGame)
+        if (GameSettings.gameState != GameState.EndGame)
         {
             GameSettings.gameState = GameState.EndGame;
             Timer.CullEnemies();
@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     private void MainMenu(ClickEvent click)
     {
+        ResetVariables();
         SceneManager.LoadScene("Titlescreen");
     }
 
