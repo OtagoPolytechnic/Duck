@@ -7,19 +7,33 @@ public class Scoreboard : MonoBehaviour
 {
     private const int MAX_SCORE_ENTRIES = 50;
 
-    private HighscoreSaveData bossSavedScores;
-    private HighscoreSaveData endlessSavedScores;
+    [HideInInspector] public HighscoreSaveData bossSavedScores;
+    [HideInInspector] public HighscoreSaveData endlessSavedScores;
+    public static Scoreboard Instance;
 
-    // Generates path based on user system
+    // Generates path based on user system0
     // Windows path: AppData\LocalLow\DefaultCompany\DuckGame
     private string endlessSavePath => $"{Application.persistentDataPath}/endlessHighscores.json";
     private string bossSavePath => $"{Application.persistentDataPath}/finalBossHighscores.json";
 
-    private void Start()
+    void Awake()
+    {
+        //Singleton pattern
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void Start()
     {
 
         LoadScores();
-        HighscoreUI.Instance.DisplayHighscores(endlessSavedScores.highscores);
+        HighscoreUI.Instance.DisplayBossHighscores();
     }
 
     private void LoadScores()
@@ -36,10 +50,12 @@ public class Scoreboard : MonoBehaviour
         if (isEndless)
         {
             AddEntry(entryData, endlessSavedScores, endlessSavePath);
+            HighscoreUI.Instance.DisplayEndlessHighscores();
         }
         else
         {
             AddEntry(entryData, bossSavedScores, bossSavePath);
+            HighscoreUI.Instance.DisplayBossHighscores();
         }
     }
 
@@ -63,9 +79,7 @@ public class Scoreboard : MonoBehaviour
         {
             savedScores.highscores.RemoveAt(MAX_SCORE_ENTRIES);
         }
-        //TODO: Change UI
         SaveScores(savedScores, savePath);
-        HighscoreUI.Instance.DisplayHighscores(savedScores.highscores);
     }
     public HighscoreSaveData GetSavedScores(string savePath)
     {

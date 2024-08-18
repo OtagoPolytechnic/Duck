@@ -38,6 +38,8 @@ public class EntryData
         set => dateTimeString = value.ToString("o");
     }
 
+    public string DateFormatted => dateTime.ToString("g");
+
 
     public EntryData(string name, int score, WeaponType weapon, int waveNumber, List<Item> items, int enemiesKilled) //Constructor for endless mode
     {
@@ -58,10 +60,5 @@ public class EntryData
         this.items = items;
         this.enemiesKilled = enemiesKilled;
         dateTime = DateTime.Now;
-    }
-
-    public string GetDate()
-    {
-        return dateTime.ToString("g");
     }
 }
