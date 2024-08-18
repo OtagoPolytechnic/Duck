@@ -133,8 +133,7 @@ public class ScoreManager : MonoBehaviour
         Scene loadedScene = SceneManager.GetSceneByName("HighScores"); //Getting the scene I just loaded
         if (loadedScene.IsValid())
         {
-            GameObject[] rootObjects = loadedSce
-            ne.GetRootGameObjects(); // Gets an array of all the objects in the scene that aren't inside other objects
+            GameObject[] rootObjects = loadedScene.GetRootGameObjects(); // Gets an array of all the objects in the scene that aren't inside other objects
             UIDocument uiDocument = rootObjects
                 .Select(obj => obj.GetComponent<UIDocument>())
                 .FirstOrDefault(doc => doc != null); // Checking each object to see if it has a UIDocument component, and if it does, it returns it

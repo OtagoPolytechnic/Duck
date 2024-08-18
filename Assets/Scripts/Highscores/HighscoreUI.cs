@@ -29,7 +29,14 @@ public class HighscoreUI : MonoBehaviour
     {
         if (document != null)
         {
-            document.style.display = DisplayStyle.None;
+            if (SceneManager.GetSceneByName("Titlescreen").isLoaded) //If coming from the main menu
+            {
+                document.style.display = DisplayStyle.None;
+            }
+            else //If coming from in game
+            {
+                SceneManager.UnloadSceneAsync("Highscores");
+            }
         }
     }
 
@@ -42,5 +49,5 @@ public class HighscoreUI : MonoBehaviour
         highscores.fixedItemHeight = 100;
         highscores.Rebuild();
     }
-}   
+}
 
