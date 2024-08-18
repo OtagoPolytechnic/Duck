@@ -89,7 +89,6 @@ public class ScoreManager : MonoBehaviour
                 enterName.style.display = DisplayStyle.None;
             }
             submitButton.RegisterCallback<ClickEvent>(SubmitBossScore);
-            //TODO: Need to let the player keep playing if they want in Endless mode
             replay.UnregisterCallback<ClickEvent>(GameManager.Instance.Restart);
             replay.text = "Continue";
             GameOverText.text = "BOSS KILLED!";
