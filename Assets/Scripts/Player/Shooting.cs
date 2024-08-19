@@ -7,19 +7,13 @@ public class Shooting : MonoBehaviour
 {
     public static Shooting Instance;
 
-    public GameObject bullet;
-    public Transform sprite;
-    public Transform firePoint;
-    private float bulletSpeed = 50;
-
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform sprite;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private Transform dualFirePoint;
+    private bool dualShot = false;
     private float lastShot = 0;
     private bool held = false;
-    private float firerate = 0.5f;
-    public float Firerate
-    {
-        get {return firerate;}
-        set {firerate = value;}
-    }
 
     Vector2 lookDirection;
     float lookAngle;
@@ -36,7 +30,7 @@ public class Shooting : MonoBehaviour
     void Start()
     {
         //This lets the player shoot immediately when the game starts
-        lastShot = Time.time - firerate;
+        lastShot = Time.time - WeaponStats.Instance.Firerate;
     }
 
 
@@ -48,7 +42,7 @@ public class Shooting : MonoBehaviour
         lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
 
         sprite.rotation = Quaternion.Euler(0, 0, lookAngle);
-        if (held && Time.time - lastShot > firerate)
+        if (held && Time.time - lastShot > WeaponStats.Instance.Firerate)
         {
             lastShot = Time.time;
             Shoot();
@@ -69,24 +63,41 @@ public class Shooting : MonoBehaviour
 
     private void Shoot()
     {
-        if (PlayerStats.Instance.HasShotgun)
+        if (WeaponStats.Instance.Spread > 0)
         {
             //shoot 1+stacks(2) bullets in a cone infront of the player
-            float shotAngle = (PlayerStats.Instance.BulletAmount / 2) * 10;
-            for (int i = 0; i < PlayerStats.Instance.BulletAmount + 1; i++)
+            float shotAngle = -(WeaponStats.Instance.Spread / 2);
+            for (int i = 0; i < WeaponStats.Instance.ExtraBullets + 1; i++)
             {
-                firePoint.rotation = Quaternion.Euler(0, 0, lookAngle + shotAngle);
-                GameObject bulletClone = Instantiate(bullet, firePoint.position, firePoint.rotation);
-                bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
-                shotAngle -= 10f; 
+                firePoint.rotation = Quaternion.Euler(0, 0, lookAngle + shotAngle);    
+                FireBullet(firePoint);
+                shotAngle += WeaponStats.Instance.Spread/WeaponStats.Instance.ExtraBullets; 
             }
+        }
+        else if (WeaponStats.Instance.CurrentWeapon == WeaponType.DualPistol)
+        {
+            if (dualShot)
+            {
+                FireBullet(dualFirePoint);
+            }
+            else
+            {
+                FireBullet(dualFirePoint);
+            }
+
+            dualShot = !dualShot;
         }
         else
         {
-            GameObject bulletClone = Instantiate(bullet, firePoint.position, Quaternion.Euler(0, 0, lookAngle));
-            bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
+            FireBullet(firePoint);
         }
         // Play the duck shooting sound
         SFXManager.Instance.DuckShootSound(); 
+    }
+
+    private void FireBullet(Transform bulletFirePoint)
+    {
+        GameObject bulletClone = Instantiate(bullet, bulletFirePoint.position, Quaternion.Euler(0, 0, lookAngle));
+        bulletClone.GetComponent<Rigidbody2D>().velocity = bulletFirePoint.right * WeaponStats.Instance.BulletSpeed;
     }
 }

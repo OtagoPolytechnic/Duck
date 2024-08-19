@@ -19,11 +19,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Player
+  - PlayerBullet
+  - EnemyBullet
+  - MapBorder
   - 
   - 
   - 

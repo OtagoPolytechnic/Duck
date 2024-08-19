@@ -62,49 +62,7 @@ public class PlayerStats : MonoBehaviour
         get {return lifestealAmount;}
         set {lifestealAmount = value;}
     }
-    //damage vars
-    private int damage = 20;
-    public int Damage
-    {
-        get {return damage;}
-        set {damage = value;}
-    }
-    private int explosionSize = 0;
-     public int ExplosionSize
-    {
-        get {return explosionSize;}
-        set {explosionSize = value;}
-    }
-    private bool explosiveBullets = false;
-    public bool ExplosiveBullets
-    {
-        get {return explosiveBullets;}
-        set {explosiveBullets = value;}
-    }
-    private bool bleedTrue = false;
-    public bool BleedTrue
-    {
-        get {return bleedTrue;}
-        set {bleedTrue = value;}
-    }
-    private float critChance = 0.01f;
-    public float CritChance
-    {
-        get {return critChance;}
-        set {critChance = value;}
-    }
-    private bool hasShotgun = false;
-    public bool HasShotgun
-    {
-        get {return hasShotgun;}
-        set {hasShotgun = value;}
-    }
-    private int bulletAmount = 0; //this is for the extra bullets spawned by the shotgun item - it should always be even
-    public int BulletAmount
-    {
-        get {return bulletAmount;}
-        set {bulletAmount = value;}
-    }
+    
     //other vars
     [SerializeField] private GameObject damageText;
     public List<GameObject> lifeEggs;
@@ -167,22 +125,14 @@ public class PlayerStats : MonoBehaviour
 
     IEnumerator DisableCollisionForDuration(float duration)
     {
-        // Get the layer mask of the player
-        int playerLayer = gameObject.layer;
-
-        // Set the collision matrix to ignore collisions between the player layer and itself for the specified duration
-        Physics2D.IgnoreLayerCollision(playerLayer, playerLayer, true);
-        //Debug.Log("Collisions disabled for 2 seconds.");
+        // Set the collision matrix to ignore collisions between the player layer and enemy attacks for the specified duration
+        Physics2D.IgnoreLayerCollision(7, 9, true);
 
         // Wait for the specified duration
         yield return new WaitForSeconds(duration);
 
         // Re-enable collisions between the player layer and itself
-        Physics2D.IgnoreLayerCollision(playerLayer, playerLayer, false);
-        //Debug.Log("Collisions enabled after 2 seconds.");
-
-        // Log player health after collisions are turned back on
-        //Debug.Log("Player health after collisions turned back on: " + currentHealth);
+        Physics2D.IgnoreLayerCollision(7, 9, false);
     }
     public void ReceiveDamage(int damageTaken)
     {
