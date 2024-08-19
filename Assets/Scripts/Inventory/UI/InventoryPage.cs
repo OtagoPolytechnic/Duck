@@ -212,10 +212,13 @@ public class InventoryPage : MonoBehaviour
     public List<Item> GetItems()
     {
         List<Item> playerItems = new List<Item>();
-        foreach (Item i in selectedItems)
+        foreach (Item i in itemList)
         {
-            //Add a new item with the name rarity and stacks of the selected item
-            playerItems.Add(new Item { name = i.name, rarity = i.rarity, stacks = i.stacks });
+            if (i.stacks > 0)
+            {
+                //Add a new item with the name rarity and stacks of the selected item
+                playerItems.Add(new Item { name = i.name, rarity = i.rarity, stacks = i.stacks });
+            }
         }
         //Sort by rarity
         playerItems.Sort((x, y) => x.rarity.CompareTo(y.rarity));

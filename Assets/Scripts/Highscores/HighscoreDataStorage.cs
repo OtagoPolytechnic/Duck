@@ -10,6 +10,7 @@ public class HighscoreSaveData
 }
 
 //I will remove this when merged with the weapon update code. Will use the enum from that.
+[Serializable]
 public enum WeaponType
 {
     Pistol,
@@ -20,13 +21,21 @@ public enum WeaponType
 };
 
 [Serializable]
+public class ItemStorage
+{
+    public string name;
+    public rarity rarity;
+    public int stacks;
+}
+
+[Serializable]
 public class EntryData
 {
     public string entryName;
     public int entryScore;
     public WeaponType weapon;
     public int waveNumber; //This is only used in the endless mode. Wave number user died on.
-    public List<Item> items; //Items collected in the run
+    public List<ItemStorage> items; //Items collected in the run
     public int enemiesKilled;
 
     //Apparently DateTime can't be saved to the json file so this is the workaround
@@ -42,23 +51,39 @@ public class EntryData
     public string TimeFormatted => dateTime.ToString("t");
 
 
-    public EntryData(string name, int score, WeaponType weapon, int waveNumber, List<Item> items, int enemiesKilled) //Constructor for endless mode
+    public EntryData(string name, int score, WeaponType weapon, int waveNumber, List<Item> itemInput, int enemiesKilled) //Constructor for endless mode
     {
         entryName = name;
         entryScore = score;
         this.weapon = weapon;
         this.waveNumber = waveNumber;
-        this.items = items;
+        items = new List<ItemStorage>();
+        foreach (Item item in itemInput)
+        {
+            ItemStorage itemStorage = new ItemStorage();
+            itemStorage.name = item.name;
+            itemStorage.rarity = item.rarity;
+            itemStorage.stacks = item.stacks;
+            items.Add(itemStorage);
+        }
         this.enemiesKilled = enemiesKilled;
         dateTime = DateTime.Now;
     }
 
-    public EntryData(string name, int score, WeaponType weapon, List<Item> items, int enemiesKilled) //Constructor for boss mode with no level
+    public EntryData(string name, int score, WeaponType weapon, List<Item> itemInput, int enemiesKilled) //Constructor for boss mode with no level
     {
         entryName = name;
         entryScore = score;
         this.weapon = weapon;
-        this.items = items;
+        items = new List<ItemStorage>();
+        foreach (Item item in itemInput)
+        {
+            ItemStorage itemStorage = new ItemStorage();
+            itemStorage.name = item.name;
+            itemStorage.rarity = item.rarity;
+            itemStorage.stacks = item.stacks;
+            items.Add(itemStorage);
+        }
         this.enemiesKilled = enemiesKilled;
         dateTime = DateTime.Now;
     }
@@ -77,13 +102,13 @@ public class EntryData
         info.Add("Items:");
         if (items == null || items.Count == 0)
         {
-            info.Add("\tNone");
+            info.Add(" None");
         }
         else
         {
-            foreach (Item item in items)
+            foreach (ItemStorage item in items)
             {
-                info.Add("\t" + item);
+                info.Add(" "+ item.stacks + "x" + item.name);
             }
         }
         info.Add("Killed: " + enemiesKilled);
