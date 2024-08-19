@@ -6,7 +6,7 @@
             <ui:Button text="Endless" display-tooltip-when-elided="true" name="Endless" class="text buttonText button" style="overflow: hidden; height: 100px; background-color: rgb(172, 135, 201);" />
         </ui:VisualElement>
         <ui:VisualElement name="ScoreDisplay" width="75%" style="flex-grow: 1; flex-direction: row;">
-            <ui:MultiColumnListView fixed-item-height="100" show-border="true" name="MultiColumnListView" show-alternating-row-backgrounds="ContentOnly" class="text" style="color: rgb(0, 0, 0); background-color: rgba(173, 173, 173, 0.56); align-self: stretch; flex-grow: 1; flex-direction: column; flex-wrap: nowrap; align-items: stretch; width: 100%; justify-content: flex-start; font-size: 25px; -unity-text-align: upper-center; border-right-width: 0; margin-right: 20px;">
+            <ui:MultiColumnListView fixed-item-height="100" show-border="true" name="MultiColumnListView" show-alternating-row-backgrounds="ContentOnly" class="text" style="color: rgb(0, 0, 0); background-color: rgba(173, 173, 173, 0.56); align-self: stretch; flex-grow: 1; flex-direction: column; flex-wrap: nowrap; align-items: stretch; width: 100%; justify-content: flex-start; font-size: 25px; -unity-text-align: upper-center; border-right-width: 0; margin-right: 5px; margin-left: 5px;">
                 <ui:Columns>
                     <ui:Column name="date" title="Date" width="25%" />
                     <ui:Column name="name" title="Name" width="25%" />
@@ -14,7 +14,7 @@
                     <ui:Column name="weapon" title="Weapon" width="25%" />
                 </ui:Columns>
             </ui:MultiColumnListView>
-            <ui:VisualElement style="flex-grow: 1; width: 75%; justify-content: flex-start; margin-left: 20px;">
+            <ui:VisualElement style="flex-grow: 1; width: 75%; justify-content: flex-start; margin-left: 5px; margin-top: 0; margin-right: 5px;">
                 <ui:Label tabindex="-1" text="SCORE INFO" parse-escape-sequences="true" display-tooltip-when-elided="true" class="text" style="font-size: 25px; background-color: rgb(188, 188, 188); -unity-text-align: upper-center; margin-top: 2px; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 8px; padding-bottom: 8px; border-left-color: rgba(188, 188, 188, 0); border-right-color: rgba(188, 188, 188, 0); border-top-color: rgba(188, 188, 188, 0); border-bottom-color: rgba(188, 188, 188, 0); border-top-width: 0;" />
                 <ui:ListView show-alternating-row-backgrounds="ContentOnly" name="MoreInfoList" virtualization-method="FixedHeight" fixed-item-height="100" class="text" style="width: 100%; background-color: rgb(97, 97, 97); font-size: 40px; align-items: flex-start; justify-content: space-between; -unity-text-align: middle-left;" />
             </ui:VisualElement>
