@@ -28,9 +28,9 @@ public class WeaponStats : MonoBehaviour
                     weaponSprites[0].SetActive(true);
                     ExtraBullets += 6;
                     Spread = 30;
-                    Range /= 2;
+                    Range /= 3;
                     Damage /= 2;
-                    Firerate += (Firerate / 3);
+                    Firerate += (Firerate / 2);
                     BulletSpeed *= 1.5f;
                 break;
                 
@@ -40,6 +40,7 @@ public class WeaponStats : MonoBehaviour
                     BulletSpeed *= 3f;
                     Damage *= 3;
                     Firerate *= 2;
+                    CritChance *= 1.5f;
                 break;
 
                 case WeaponType.Machine:
