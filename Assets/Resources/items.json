@@ -1,0 +1,169 @@
+{
+    "items": [
+      {
+        "id": 0,
+        "name": "Sharpened Talons",
+        "desc": "Increases damage you deal",
+        "rarity": "Common",
+        "stacks": 0
+
+      },
+      {
+        "id": 1,
+        "name": "Oats",
+        "desc": "Gives you more max health",
+        "rarity": "Common",
+        "stacks": 0
+
+      },
+      {
+        "id": 2,
+        "name": "Boots",
+        "desc": "Increases your waddle speed",
+        "rarity": "Common",
+        "stacks": 0
+
+      },
+      {
+        "id": 3,
+        "name": "Band-Aid",
+        "desc": "Your health slowly regenerates over time",
+        "rarity": "Rare",
+        "stacks": 0
+      },
+      {
+        "id": 4,
+        "name": "Illegal Trigger",
+        "desc": "You shoot faster",
+        "rarity": "Common",
+        "stacks": 0
+
+      },
+      {
+        "id": 5,
+        "name": "Chompers",
+        "desc": "Your hits bleed enemies",
+        "rarity": "Uncommon",
+        "stacks": 0
+      },
+      {
+        "id": 6,
+        "name": "Leech",
+        "desc": "Your hits on enemies heal you",
+        "rarity": "Rare",
+        "stacks": 0
+      },
+      {
+        "id": 7,
+        "name": "Explosive Bullets",
+        "desc": "Your bullets explode on impact",
+        "rarity": "Rare",
+        "stacks": 0
+      },
+      {
+        "id": 8,
+        "name": "Egg",
+        "desc": "You gain an extra life",
+        "rarity": "Epic",
+        "stacks": 0
+      },
+      {
+        "id": 9,
+        "name": "Lucky Feather",
+        "desc": "You have an increased chance to deal critical damage",
+        "rarity": "Uncommon",
+        "stacks": 0
+      },
+      {
+        "id": 10,
+        "name": "Epic",
+        "desc": "Temp",
+        "rarity": "Epic",
+        "stacks": 0
+      },
+      {
+        "id": 11,
+        "name": "Epic",
+        "desc": "Temp",
+        "rarity": "Epic",
+        "stacks": 0
+      },
+      {
+        "id": 12,
+        "name": "Lucky Dive",
+        "desc": "Gain two random basic stats at half strength",
+        "rarity": "Uncommon",
+        "stacks": 0
+      },
+      {
+        "id": 13,
+        "name": "Shotgun",
+        "desc": "Shoots a spread of bullets",
+        "rarity": "Weapon",
+        "stacks": 0
+      },
+      {
+        "id": 14,
+        "name": "Sniper",
+        "desc": "Long range high damage",
+        "rarity": "Weapon",
+        "stacks": 0
+      },
+      {
+        "id": 15,
+        "name": "Machine Gun",
+        "desc": "High fire rate low damage",
+        "rarity": "Weapon",
+        "stacks": 0
+      },
+      {
+        "id": 16,
+        "name": "Overheat",
+        "desc": "Machine Gun Upgrade",
+        "rarity": "Legendary",
+        "stacks": 0
+      },
+      {
+        "id": 17,
+        "name": "Piercing",
+        "desc": "Sniper Upgrade",
+        "rarity": "Legendary",
+        "stacks": 0
+      },
+      {
+        "id": 18,
+        "name": "More Pellets",
+        "desc": "Shotgun Upgrade",
+        "rarity": "Legendary",
+        "stacks": 0
+      },
+      {
+        "id": 19,
+        "name": "Midas Touch",
+        "desc": "Enemies take high damage when they damage you, but you are slowed significantly",
+        "rarity": "Cursed",
+        "stacks": 0
+      },
+      {
+        "id": 20,
+        "name": "Glass Cannon",
+        "desc": "You gain incredible damage but have very little health",
+        "rarity": "Cursed",
+        "stacks": 0
+      },
+      {
+        "id": 21,
+        "name": "Blood letter's Curse",
+        "desc": "You gain incredible lifesteal but your health drains rapidly",
+        "rarity": "Cursed",
+        "stacks": 0
+      },
+      {
+        "id": 22,
+        "name": "Dual Pistols",
+        "desc": "Get another pistol",
+        "rarity": "Weapon",
+        "stacks": 0
+      }
+    ]
+  }

@@ -26,8 +26,9 @@
 }
 
 .desc {
-    height: 364px;
+    height: 55%;
     width: auto;
+    font-size: 30px;
 }
 
 .stack {
