@@ -1,5 +1,5 @@
 .item {
-    width: 33%;
+    width: 32.5%;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -9,11 +9,12 @@
     border-top-width: 0;
     border-bottom-width: 0;
     position: relative;
-    max-width: 33%;
+    max-width: none;
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
+    height: 98%;
 }
 
 .name {
