@@ -20,6 +20,8 @@ public class HighscoreUI : MonoBehaviour
     private Button bossButton;
     private Button endlessButton;
     private HighscoreType displayedHighscores = HighscoreType.None;
+    private ListView moreInfoList;
+
     void Awake()
     {
         if (Instance == null)
@@ -39,6 +41,7 @@ public class HighscoreUI : MonoBehaviour
         endlessButton.RegisterCallback<ClickEvent>(DisplayEndlessHighscores);
         //Get the highscores list view
         highscores = document.Q<MultiColumnListView>("MultiColumnListView");
+        moreInfoList = document.Q<ListView>("MoreInfoList");
         //Set to be invisible by default
         document.style.display = DisplayStyle.None;
     }
@@ -120,20 +123,16 @@ public class HighscoreUI : MonoBehaviour
 
         // Set up click event handler
         highscores.onSelectionChange += OnRowClicked;
-        //This is double click. Work out this later
-        //highscores.onItemsChosen += OnRowClicked;
     }
 
     //TODO: Get to show a window
     private void OnRowClicked(IEnumerable<object> selectedItems)
     {
-        foreach (var item in selectedItems)
+        foreach (EntryData item in selectedItems)
         {
-            if (item is EntryData entryData)
-            {
-                // Display more data for the selected entry
-                Debug.Log($"Name: {entryData.entryName}, Score: {entryData.entryScore}, Weapon: {entryData.weapon}, Wave: {entryData.waveNumber}, Enemies Killed: {entryData.enemiesKilled}");
-            }
+            List<string> info = item.GetEntryInfo();
+            moreInfoList.itemsSource = info;
+            moreInfoList.Rebuild();
         }
     }
 }
