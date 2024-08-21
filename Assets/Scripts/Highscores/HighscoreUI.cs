@@ -69,6 +69,9 @@ public class HighscoreUI : MonoBehaviour
         }
         displayedHighscores = HighscoreType.Endless;
         DisplayHighscores(Scoreboard.Instance.endlessSavedScores.highscores);
+        //Clear selected items
+        highscores.ClearSelection();
+        clearMoreInfoList();
     }
 
     public void DisplayBossHighscores(ClickEvent click = null) //Nullable so I can call it manually as well
@@ -78,7 +81,10 @@ public class HighscoreUI : MonoBehaviour
             return;
         }
         displayedHighscores = HighscoreType.Boss;
+        highscores.ClearSelection();
+        clearMoreInfoList();
         DisplayHighscores(Scoreboard.Instance.bossSavedScores.highscores);
+        //Clear selected items
     }
 
     //Making MultiColumnListViews are really confusing. This is the result of several hours of trial and error.
@@ -122,7 +128,7 @@ public class HighscoreUI : MonoBehaviour
         highscores.Rebuild();
 
         // Set up click event handler
-        highscores.onSelectionChange += OnRowClicked;
+        highscores.selectionChanged += OnRowClicked;
     }
 
     //TODO: Get to show a window
@@ -134,6 +140,13 @@ public class HighscoreUI : MonoBehaviour
             moreInfoList.itemsSource = info;
             moreInfoList.Rebuild();
         }
+    }
+
+    private void clearMoreInfoList()
+    {
+        //Make the list just have an empty string so there is not list empty message
+        moreInfoList.itemsSource = new List<string> { "" };
+        moreInfoList.Rebuild();
     }
 }
 
