@@ -179,10 +179,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  speed: 1
+  speed: 3
   bullet: {fileID: 5418265743146168994, guid: 666dd07e95d1a744fbd4e79265df9d46, type: 3}
   bulletPosition: {fileID: 5656455699881316956}
-  attackRange: 20
+  attackRange: 10
   attackInterval: 1
 --- !u!212 &4223785294766013922
 SpriteRenderer:

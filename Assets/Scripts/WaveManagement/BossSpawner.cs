@@ -20,22 +20,11 @@ public class BossSpawner : MonoBehaviour
     public GameObject bossHealthBar;
     public GameObject bigBoss;
 
-    // Array to track if a boss has been spawned for a given wave
-    private bool[] bossesSpawned = new bool[5];
-
     void Awake()
-    {
-      
+    { 
         lastSpawn = spawnTimer;
-        // Initialize the bossesSpawned array to false
-        for (int i = 0; i < bossesSpawned.Length; i++)
-        {
-            bossesSpawned[i] = false;
-        }
+   
     }
-
-
-
 
    public void SpawnBoss()
     {
