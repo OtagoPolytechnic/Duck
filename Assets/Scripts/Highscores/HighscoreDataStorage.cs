@@ -92,7 +92,7 @@ public class EntryData
     public List<string> GetEntryInfo()
     {
         List<string> info = new List<string>();
-        info.Add("Name: " + entryName);
+        info.Add("Name: " + entryName + "\t"); //Tab ensures that the score takes up the whole space. Hacky way of doing it but I can't figure out how to edit the row templates.
         info.Add("Score: " + entryScore);
         info.Add("Weapon: " + weapon);
         if (waveNumber != 0)
