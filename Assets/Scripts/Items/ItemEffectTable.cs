@@ -118,13 +118,5 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.LogError($"The item: {ItemPanel.itemList[itemID].name} with ID: {ItemPanel.itemList[itemID].id} has not been given a case in the item effect table.");
                 break;
         }
-        foreach (Item i in ItemPanel.itemList) //for any value put in here that isn't in the list. e.g. skip button
-        {
-            if (itemID != i.id)
-            {
-                return;
-            }
-        }
-        ItemPanel.itemList[itemID].stacks += 1;
     }
 }
