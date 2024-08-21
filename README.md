@@ -1,8 +1,8 @@
-<h1 align="center"> Duck Game </h1>
+<h1 align="center"> Duck </h1>
 <!-- ![Title_Background]() -->
 <!-- TODO: Header image -->
 
-Duck Game is a roguelike top-down wave shooter where you, as a determined duck, must defend your nest from relentless hunters. Arm yourself with powerful weapons, unlock upgrades, and prepare to face the final boss!
+Duck (Working title) is a roguelike top-down wave shooter where you, as a determined duck, must defend your nest from relentless hunters. Arm yourself with powerful weapons, unlock upgrades, and prepare to face the final boss!
 
 
 <!-- ## Features 
@@ -10,7 +10,7 @@ Need a features tab. Possibly talking about the game loop and the different weap
 -->
 
 ## Team
-We are the Studio 5+6 Games Team! We are a team in our third year at the Bachelor of Information Technology in Otago Polytechnic. The game started development at the start of 2024 and has been in active development since then. In July, the team experienced a shuffle, with two developers moving to another project and one new developer joining.
+We are the Studio 5+6 Games Team! We are a team in our third year at the Bachelor of Information Technology in Otago Polytechnic. The game started development in late 2023 and has been in active development since then. In July, the team experienced a shuffle, with two developers moving to another project and one new developer joining.
 <!-- Note: Proper name for the team? -->
 
 - Developers
@@ -36,7 +36,7 @@ The game is currently available only for Windows, with an arcade machine version
 
 ## Get Involved
 
-Join the Snowball Slam community and stay up to date with the latest developments, bug fixes, and upcoming features:
+Join the Duck community and stay up to date with the latest developments, bug fixes, and upcoming features:
 
 - **Discussions:** Share your feedback, questions, and ideas on the [discussions board](https://github.com/OtagoPolytechnic/Duck/discussions).
 - **Issue Tracker:** Report bugs on the [issues page](https://github.com/OtagoPolytechnic/Duck/issues).
@@ -56,7 +56,7 @@ Our roadmap with upcoming features can be seen on [our wiki.](https://github.com
 
 ## Acknowledgements
 
-We extend our heartfelt gratitude to our dedicated team members and mentors who have contributed to Duck Games's development. We’d like to extend special thanks to Elise Allen, Martin Junek, and Grayson Orr for their invaluable guidance, support, and creative input.
+We extend our heartfelt gratitude to our dedicated team members and mentors who have contributed to Duck's development. We’d like to extend special thanks to Elise Allen, Martin Junek, and Grayson Orr for their invaluable guidance, support, and creative input.
 
 ## Licence
 
