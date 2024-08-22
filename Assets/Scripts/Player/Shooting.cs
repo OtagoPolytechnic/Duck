@@ -82,7 +82,7 @@ public class Shooting : MonoBehaviour
             }
             else
             {
-                FireBullet(dualFirePoint);
+                FireBullet(firePoint);
             }
 
             dualShot = !dualShot;
