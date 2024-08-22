@@ -9,17 +9,6 @@ public class HighscoreSaveData
     public List<EntryData> highscores = new List<EntryData>();
 }
 
-//I will remove this when merged with the weapon update code. Will use the enum from that.
-[Serializable]
-public enum WeaponType
-{
-    Pistol,
-    DualPistol,
-    Shotgun,
-    Sniper,
-    Machine
-};
-
 [Serializable]
 public class ItemStorage
 {

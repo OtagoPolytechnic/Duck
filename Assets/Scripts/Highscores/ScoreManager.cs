@@ -70,7 +70,7 @@ public class ScoreManager : MonoBehaviour
         playerName.style.display = DisplayStyle.Flex;
         enterName.style.display = DisplayStyle.Flex;
         gameOverDoc.style.display = DisplayStyle.Flex;
-        if (GameSettings.waveNumber == 25 && PlayerStats.Instance.CurrentHealth > 0) //If wave 25 then submit a boss score. Otherwise submit an endless score. Need to check if the player is alive to know if they won the fight
+        if (GameSettings.waveNumber <= 25) //If wave 25 then submit a boss score. Otherwise submit an endless score. Need to check if the player is alive to know if they won the fight
         {
             if (Scoreboard.Instance.CheckTopScore(score, false)) //If the player got the top score
             {
@@ -82,17 +82,27 @@ public class ScoreManager : MonoBehaviour
             }
             else
             {
-                highscoreNotif.text = "Continue?";
+                if (PlayerStats.Instance.CurrentHealth > 0) //If wave 25 then submit a boss score. Otherwise submit an endless score. Need to check if the player is alive to know if they won the fight
+                {
+                    highscoreNotif.text = "Continue?";
+                }
+                else
+                {
+                    highscoreNotif.text = "Game over";
+                }
                 //Hide the submit button and text field
                 submitButton.style.display = DisplayStyle.None;
                 playerName.style.display = DisplayStyle.None;
                 enterName.style.display = DisplayStyle.None;
             }
             submitButton.RegisterCallback<ClickEvent>(SubmitBossScore);
-            replay.UnregisterCallback<ClickEvent>(GameManager.Instance.Restart);
-            replay.text = "Continue";
-            GameOverText.text = "BOSS KILLED!";
-            replay.RegisterCallback<ClickEvent>(Continue);
+            if (PlayerStats.Instance.CurrentHealth > 0)
+            {
+                replay.UnregisterCallback<ClickEvent>(GameManager.Instance.Restart);
+                replay.text = "Continue";
+                GameOverText.text = "BOSS KILLED!";
+                replay.RegisterCallback<ClickEvent>(Continue);
+            }
         }
         else
         {
@@ -126,9 +136,9 @@ public class ScoreManager : MonoBehaviour
         EntryData playerScoreInfo = new EntryData(
             playerName.value,
             score,
-            WeaponType.Pistol, //Dynamic weapon type when weapon update is merged
+            WeaponStats.Instance.CurrentWeapon, //Dynamic weapon type when weapon update is merged
             GameSettings.waveNumber,
-            InventoryPage.Instance.GetItems(),
+            ItemPanel.Instance.heldItems,
             enemiesKilled);
         SubmitHighScore(playerScoreInfo, SubmitEndlessScore, true);
     }
@@ -142,8 +152,9 @@ public class ScoreManager : MonoBehaviour
         EntryData playerScoreInfo = new EntryData(
             playerName.value,
             score,
-            WeaponType.Pistol, //Dynamic weapon type when weapon update is merged
-            InventoryPage.Instance.GetItems(),
+            WeaponStats.Instance.CurrentWeapon, 
+            GameSettings.waveNumber,
+            ItemPanel.Instance.heldItems,
             enemiesKilled);
         SubmitHighScore(playerScoreInfo, SubmitBossScore, false);
 

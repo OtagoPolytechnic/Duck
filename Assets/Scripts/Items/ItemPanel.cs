@@ -37,9 +37,18 @@ public class ItemPanel : MonoBehaviour
     public static List<Item> itemList = new List<Item>();
 
     public List<Item> heldItems = new List<Item>();
+    public static ItemPanel Instance;
 
     void Awake()
     {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         panel = GetComponent<UIDocument>().rootVisualElement;
         
         container = panel.Q<VisualElement>("Background");

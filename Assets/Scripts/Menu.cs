@@ -81,8 +81,7 @@ public class Menu : MonoBehaviour
     public void Play(ClickEvent click)
     {
         GameSettings.gameState = GameState.InGame;
-        //REMINDER: Change this back to main scene before merging
-        StartCoroutine(LoadScene("Palin-MainScene"));
+        StartCoroutine(LoadScene("MainScene"));
     }
 
     IEnumerator LoadScene(string sceneName)
