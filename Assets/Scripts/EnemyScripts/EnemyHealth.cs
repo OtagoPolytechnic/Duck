@@ -18,14 +18,15 @@ public class EnemyHealth : MonoBehaviour
 
     void Update()
     {
-        Bleed();
+       
         if (health <= 0)
         {
             SFXManager.Instance.EnemyDieSound();
             ScoreManager.Instance.IncreasePoints(10);
             EnemySpawner.currentEnemies.Remove(gameObject);
             Destroy(gameObject);
-        }
+        } 
+        Bleed();
     }
     void Bleed() //this function needs to be reworked to be able to stack bleed on the target
     {
