@@ -28,7 +28,7 @@ public class ItemPanel : MonoBehaviour
     private Button item2;
     private Button item3;
     private Button skip;
-    private IMGUIContainer container;
+    private VisualElement container;
     private IMGUIContainer buttonContainer;
 
     [SerializeField]
@@ -42,7 +42,7 @@ public class ItemPanel : MonoBehaviour
     {
         panel = GetComponent<UIDocument>().rootVisualElement;
         
-        container = panel.Q<IMGUIContainer>("ItemPanelContainer");
+        container = panel.Q<VisualElement>("Background");
         buttonContainer = panel.Q<IMGUIContainer>("ButtonContainer");
 
         item1 = panel.Q<Button>("Item1");
