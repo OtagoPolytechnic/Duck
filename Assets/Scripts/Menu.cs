@@ -42,14 +42,6 @@ public class Menu : MonoBehaviour
         StartCoroutine(LoadBackgroundScene("Tutorial", tutorialButton));
     }
 
-    private void OnDisable()
-    {
-        playButton.UnregisterCallback<ClickEvent>(Play);
-        highscoreButton.UnregisterCallback<ClickEvent>(SubMenuButton);
-        tutorialButton.UnregisterCallback<ClickEvent>(SubMenuButton);
-        quitButton.UnregisterCallback<ClickEvent>(Quit);
-    }
-
     IEnumerator LoadBackgroundScene(string sceneName, Button button)
     {
         Color originalColour = button.resolvedStyle.backgroundColor; //Record original colour
