@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5202948333554645465}
   - component: {fileID: 5737555342137545947}
   - component: {fileID: -2504419837164256454}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &5737555342137545947
 BoxCollider2D:
@@ -92,7 +92,9 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+
+  m_IsTrigger: 0
+
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -130,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4305192544748504266}
   - component: {fileID: 1899370409980544743}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 789901634136046632}
   - component: {fileID: 3281350480257346209}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpriteCrit
   m_TagString: Untagged
   m_Icon: {fileID: 0}

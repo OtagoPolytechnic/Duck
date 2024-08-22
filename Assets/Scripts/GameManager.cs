@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         //Player variables
         EnemyHealth.bleedAmount = 0;
         PlayerStats.Instance.CurrentHealth = PlayerStats.Instance.MaxHealth;
+        WeaponStats.Instance.CurrentWeapon = WeaponType.Pistol;
 
         //Enemy variables
         EnemySpawner.healthMultiplier = 1f;
