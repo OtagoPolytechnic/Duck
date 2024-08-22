@@ -8,9 +8,8 @@ using UnityEngine.UIElements;
 public class Timer : MonoBehaviour
 {
     [SerializeField]
-    private InventoryPage itemPanel;
-    [HideInInspector]
-    public int inventorySize = 3;
+    private ItemPanel itemPanel;
+
     [SerializeField]
     private GameObject HUD;
     private Label waveNumberText;
@@ -64,7 +63,7 @@ public class Timer : MonoBehaviour
         CullEnemies();
         if (!geninventory)
         {
-            itemPanel.InitializeInventoryUI(inventorySize);
+            itemPanel.InitializeItemPanel(waveNumber);
             
             geninventory = true;
         }

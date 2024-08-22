@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         EnemySpawner.spawnTimer = 5f;
 
         //Item stacks
-        foreach (Item i in InventoryPage.itemList)
+        foreach (Item i in ItemPanel.itemList)
         {
             i.stacks = 0;
         }

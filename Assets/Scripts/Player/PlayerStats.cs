@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using System;
 
 public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance;
     //health vars
-    private float maxHealth = 100;
+    private int maxHealth = 100;
     public float MaxHealth
     {
         get {return maxHealth;}
@@ -17,25 +18,23 @@ public class PlayerStats : MonoBehaviour
             //When health is increased
             if(value > maxHealth)
             {
-                currentHealth += value - maxHealth;
+                currentHealth += (int)value - maxHealth;
             }
 
-            maxHealth = value;
-            Mathf.RoundToInt(maxHealth);
-
+            maxHealth = (int)value;
             if (currentHealth > maxHealth)
             {
                 currentHealth = maxHealth;
             }
         }
     }
-    private float currentHealth;
+    private int currentHealth;
     public float CurrentHealth
     {
         get {return currentHealth;}
         set
         {
-            currentHealth = value;
+            currentHealth = (int)value;
             if (currentHealth > maxHealth)
             {
                 currentHealth = maxHealth;
