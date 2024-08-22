@@ -8,7 +8,8 @@ public enum GameState
     InGame,
     Paused,
     EndGame,
-    ItemSelect
+    ItemSelect,
+    BossVictory //For when the level 25 boss is killed
 }
 
 public static class GameSettings
