@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour
     private float lastSpawn; //Time since last spawn
     private int enemyCap = 1000; //temp value to stop lag
     public static List<GameObject> currentEnemies = new List<GameObject>();
-    public int waveNumber;
+    //public int waveNumber;
 
     void Awake()
     {
@@ -20,7 +20,8 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if(GameSettings.gameState == GameState.InGame)
+       
+        if(GameSettings.gameState == GameState.InGame && GameSettings.waveNumber%5!=0)
         {
             if (lastSpawn > spawnTimer && currentEnemies.Count < enemyCap)
             {

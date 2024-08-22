@@ -5,114 +5,161 @@ using System.IO;
 
 public class Scoreboard : MonoBehaviour
 {
-    [SerializeField] public int maxScoreEntries;
+    private const int MAX_SCORE_ENTRIES = 50;
 
-    [SerializeField] private Transform scoreContainerTransform;
-    [SerializeField] private GameObject highscoreEntry;
-    public ScoreManager scoreManager;
-    public ScoreInputField inputField;
+    [HideInInspector] public HighscoreSaveData bossSavedScores;
+    [HideInInspector] public HighscoreSaveData endlessSavedScores;
+    public static Scoreboard Instance;
 
-    [Header ("Test")]
-    [SerializeField] EntryData testEntryData = new EntryData();
-    
+    // Generates path based on user system0
+    // Windows path: AppData\LocalLow\DefaultCompany\DuckGame
+    private string endlessSavePath => $"{Application.persistentDataPath}/endlessHighscores.json";
+    private string bossSavePath => $"{Application.persistentDataPath}/finalBossHighscores.json";
 
-    // adds path based on user system
-    // example path for windows: Users\hartlr3\AppData\LocalLow\DefaultCompany\DuckGame
-    private string savePath => $"{Application.persistentDataPath}/highscores.json";
-
-    private void Start()
+    void Awake()
     {
-        HighscoreSaveData savedScores = GetSavedScores();
-
-        UpdateUI(savedScores);
-        SaveScores(savedScores);
-    }
-
-    [ContextMenu("Add Test Entry")]
-    public void AddTestEntry()
-    {
-        AddEntry(testEntryData);
-    }
-    
-    public void AddEntry(EntryData entryData)
-    {
-        HighscoreSaveData savedScores = GetSavedScores();
-
-        bool scoreAdded = false;
-
-        if (savedScores == null)
+        //Singleton pattern
+        if (Instance == null)
         {
-            savedScores = new HighscoreSaveData();
+            Instance = this;
         }
-
-        for(int i = 0; i < savedScores.highscores.Count; i++) 
+        else
         {
-            //check if score is greater than a saved score
-            if(entryData.entryScore > savedScores.highscores[i].entryScore)
+            Destroy(gameObject);
+        }
+    }
+
+    void Start()
+    {
+
+        LoadScores();
+        HighscoreUI.Instance.DisplayBossHighscores();
+    }
+
+    private void LoadScores()
+    {
+        bossSavedScores = GetSavedScores(bossSavePath);
+        endlessSavedScores = GetSavedScores(endlessSavePath);
+        SortScores(bossSavedScores.highscores);
+        SortScores(endlessSavedScores.highscores);
+    }
+
+    //Public method to add an entry to one of the two highscore lists
+    public void AddEntry(EntryData entryData, bool isEndless)
+    {
+        if (isEndless)
+        {
+            AddEntry(entryData, endlessSavedScores, endlessSavePath);
+            HighscoreUI.Instance.DisplayEndlessHighscores();
+        }
+        else
+        {
+            AddEntry(entryData, bossSavedScores, bossSavePath);
+            HighscoreUI.Instance.DisplayBossHighscores();
+        }
+    }
+
+
+    private void AddEntry(EntryData entryData, HighscoreSaveData savedScores, string savePath)
+    {
+        //Either gets the correct position on the list or the end position
+        int insertIndex = savedScores.highscores.Count;
+        for (int i = 0; i < savedScores.highscores.Count; i++)
+        {
+            if (entryData.entryScore > savedScores.highscores[i].entryScore)
             {
-                savedScores.highscores.Insert(i, entryData);
-                scoreAdded = true;
+                insertIndex = i;
                 break;
             }
         }
+        savedScores.highscores.Insert(insertIndex, entryData); //Inserts the entry into the list at the index
 
-        //check if space to add entry
-        if(!scoreAdded && savedScores.highscores.Count < maxScoreEntries)
+        //Remove last entry if list is too long
+        if (savedScores.highscores.Count > MAX_SCORE_ENTRIES)
         {
-            savedScores.highscores.Add(entryData);
+            savedScores.highscores.RemoveAt(MAX_SCORE_ENTRIES);
         }
-
-        if (savedScores.highscores.Count > maxScoreEntries)
-        {
-            savedScores.highscores.RemoveRange(
-                maxScoreEntries, 
-                savedScores.highscores.Count - maxScoreEntries);
-        }
-
-        //UpdateUI(savedScores);
-        SaveScores(savedScores);
+        SaveScores(savedScores, savePath);
     }
-    public HighscoreSaveData GetSavedScores()
+    public HighscoreSaveData GetSavedScores(string savePath)
     {
-        if(!File.Exists(savePath))
+        string json;
+        if (!File.Exists(savePath))
         {
-            File.Create(savePath).Dispose();
+            //Writing in the base json structure to avoid null reference exceptions
+            json = JsonUtility.ToJson(new HighscoreSaveData());
+            File.WriteAllText(savePath, json);
             return new HighscoreSaveData();
         }
 
-        using (StreamReader stream = new StreamReader(savePath))
-        {
-            string json = stream.ReadToEnd();
-            
-            return JsonUtility.FromJson<HighscoreSaveData>(json);
-        }
+        json = File.ReadAllText(savePath);
+        return JsonUtility.FromJson<HighscoreSaveData>(json);
     }
 
-    private void SaveScores(HighscoreSaveData highscoreSaveData)
+    private void SaveScores(HighscoreSaveData highscoreSaveData, string savePath)
     {
-        using(StreamWriter stream = new StreamWriter(savePath))
-        {
-            //true displays the json in a nice format
-            string json = JsonUtility.ToJson(highscoreSaveData, true);
-
-            stream.Write(json);
-        }
+        string json = JsonUtility.ToJson(highscoreSaveData, true);
+        File.WriteAllText(savePath, json);
     }
 
-    private void UpdateUI(HighscoreSaveData savedScores)
+    private void SortScores(List<EntryData> entries)
     {
-        foreach (Transform child in scoreContainerTransform)
+        entries.Sort((x, y) => y.entryScore.CompareTo(x.entryScore));
+    }
+
+    //Check if the score is higher than the top score on the list
+    public bool CheckTopScore(int score, bool isEndless)
+    {
+        if (isEndless)
         {
-            Destroy(child.gameObject);
+            if (endlessSavedScores.highscores.Count == 0)
+            {
+                return true;
+            }
+            else if (score > endlessSavedScores.highscores[0].entryScore)
+            {
+                return true;
+            }
         }
-        if (savedScores == null)
+        else
         {
-            savedScores = new HighscoreSaveData();
+            if (bossSavedScores.highscores.Count == 0)
+            {
+                return true;
+            }
+            else if (score > bossSavedScores.highscores[0].entryScore)
+            {
+                return true;
+            }
         }
-        foreach(EntryData highscore in savedScores.highscores)
+        return false;
+    }
+
+    //Check if the score is higher than the lowest score on the list
+    public bool CheckHighScore(int score, bool isEndless)
+    {
+        if (isEndless)
         {
-            Instantiate(highscoreEntry, scoreContainerTransform).
-                GetComponent<HighscoreUI>().Intialise(highscore);
+            if (endlessSavedScores.highscores.Count < MAX_SCORE_ENTRIES)
+            {
+                return true;
+            }
+            else if (score > endlessSavedScores.highscores[MAX_SCORE_ENTRIES - 1].entryScore)
+            {
+                return true;
+            }
         }
+        else
+        {
+            if (bossSavedScores.highscores.Count < MAX_SCORE_ENTRIES)
+            {
+                return true;
+            }
+            else if (score > bossSavedScores.highscores[MAX_SCORE_ENTRIES - 1].entryScore)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

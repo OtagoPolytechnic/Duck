@@ -8,20 +8,28 @@ using UnityEngine.UIElements;
 public class Timer : MonoBehaviour
 {
     [SerializeField]
-    private InventoryPage itemPanel;
-    [HideInInspector]
-    public int inventorySize = 3;
+    private ItemPanel itemPanel;
+
     [SerializeField]
     private GameObject HUD;
     private Label waveNumberText;
     private Label timerText;
-
+    [SerializeField] private BossSpawner bossSpawner;
     public float waveLength;
     private float currentTime;
     public int waveNumber;
     bool geninventory = false;
+    public static Timer Instance;
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         VisualElement document = HUD.GetComponent<UIDocument>().rootVisualElement;
 
         waveNumberText = document.Q("WaveNumber") as Label;
@@ -30,15 +38,22 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
+        GameSettings.waveNumber = waveNumber;
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
+        GameSettings.waveNumber = waveNumber;
     }
 
     void Update()
     {
-        if(GameSettings.gameState == GameState.InGame)
+        if (GameSettings.gameState == GameState.EndGame || GameSettings.gameState == GameState.BossVictory)
+        {
+            return;
+        }
+        if(GameSettings.gameState == GameState.InGame && GameSettings.waveNumber % 5 != 0)
         {
             currentTime -= Time.deltaTime;
+       
         }
         else if(GameSettings.gameState == GameState.ItemSelect)
         {
@@ -48,21 +63,33 @@ public class Timer : MonoBehaviour
             }
         }
         
-        if(currentTime <= 0)
+        if(currentTime <= 0 || (BossHealth.Instance.boss !=null && BossHealth.Instance.boss.health <=0))
         {
-            EndWave();
+            if (waveNumber == 25 && GameSettings.gameState == GameState.InGame)
+            {
+                GameManager.Instance.BossVictory();
+            }
+            else
+            {
+                EndWave();
+            }
         }
 
         setTimerText();
     }
 
-    private void EndWave()
+    public void EndWave()
     {
         GameSettings.gameState = GameState.ItemSelect;
-        CullEnemies();
+    	
+        CullBullets();
+        if (waveNumber % 5 == 4)
+        {
+            CullEnemies();
+        }
         if (!geninventory)
         {
-            itemPanel.InitializeInventoryUI(inventorySize);
+            itemPanel.InitializeItemPanel(waveNumber);
             
             geninventory = true;
         }
@@ -77,8 +104,20 @@ public class Timer : MonoBehaviour
     {
         GameSettings.gameState = GameState.InGame;
         waveNumber += 1;
+        GameSettings.waveNumber = waveNumber;
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
+
+        if (waveNumber % 5 == 0)
+        {
+            bossSpawner.SpawnBoss();
+            timerText.visible = false;
+        }
+        else
+        { 
+            timerText.visible = true;
+        }
+            
 
         EnemySpawner.healthMultiplier += 0.5f;
         EnemySpawner.spawnTimer -= 0.1f;
@@ -93,13 +132,16 @@ public class Timer : MonoBehaviour
     public static void CullEnemies()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
 
         foreach (GameObject enemy in enemies)
         {
             EnemySpawner.currentEnemies.Remove(enemy);
             Destroy(enemy);
         }
+    }
+    public static void CullBullets()
+    {
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
         foreach (GameObject bullet in bullets)
         {
             Destroy(bullet);

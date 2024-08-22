@@ -7,9 +7,12 @@ public class EnemyBullet : MonoBehaviour
     public GameObject player;
     private Rigidbody2D rb;
     public float bulletSpeed = 10;
+    private float range = 20f;
+    private Vector3 startPos;
     
     void Start()
     {
+        startPos = transform.position;
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
 
@@ -17,7 +20,18 @@ public class EnemyBullet : MonoBehaviour
         rb.velocity = new Vector2(direction.x, direction.y).normalized * bulletSpeed;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void Update()
+    {
+        //destroys bullet after range
+        float distTravelled = Vector3.Distance(startPos, transform.position);
+
+        if (distTravelled > range)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
     {
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Player"))

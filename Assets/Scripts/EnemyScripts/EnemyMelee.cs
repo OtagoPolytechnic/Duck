@@ -21,6 +21,7 @@ public class EnemyMelee : MonoBehaviour
 
     void Update()
     {
+        if (GameSettings.gameState != GameState.InGame) {return;}
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
 
         distance = Vector2.Distance(transform.position, player.transform.position);

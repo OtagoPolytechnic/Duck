@@ -8,10 +8,12 @@ public enum GameState
     InGame,
     Paused,
     EndGame,
-    ItemSelect
+    ItemSelect,
+    BossVictory //For when the level 25 boss is killed
 }
 
 public static class GameSettings
 {
     public static GameState gameState = GameState.InGame;
+    public static int waveNumber;
 }
