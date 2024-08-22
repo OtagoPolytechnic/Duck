@@ -10,7 +10,6 @@ public class BossSpawner : MonoBehaviour
     public static float healthMultiplier = 1f;
     public static float spawnTimer = 5f;
     private float lastSpawn;
-    private int enemyCap = 1000;
     public static List<GameObject> currentEnemies = new List<GameObject>();
     public int currentWaveNumber;
     private VisualElement document;
