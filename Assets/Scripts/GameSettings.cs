@@ -15,5 +15,5 @@ public enum GameState
 public static class GameSettings
 {
     public static GameState gameState = GameState.InGame;
-    public static int waveNumber = 0;
+    public static int waveNumber;
 }

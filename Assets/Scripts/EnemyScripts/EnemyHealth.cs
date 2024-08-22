@@ -15,16 +15,18 @@ public class EnemyHealth : MonoBehaviour
     public bool bleedTrue;
     public static int bleedAmount = 0;
 
+
     void Update()
     {
-        Bleed();
+       
         if (health <= 0)
         {
             SFXManager.Instance.EnemyDieSound();
             ScoreManager.Instance.IncreasePoints(10);
             EnemySpawner.currentEnemies.Remove(gameObject);
             Destroy(gameObject);
-        }
+        } 
+        Bleed();
     }
     void Bleed() //this function needs to be reworked to be able to stack bleed on the target
     {
@@ -37,7 +39,7 @@ public class EnemyHealth : MonoBehaviour
     }
     public void ReceiveDamage(int damageTaken, bool critTrue)
     {
-        if (PlayerStats.Instance.BleedTrue && !bleedTrue)
+        if (WeaponStats.Instance.BleedTrue && !bleedTrue)
         {
             bleedTrue = true;
         }

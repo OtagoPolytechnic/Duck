@@ -8,14 +8,13 @@ using UnityEngine.UIElements;
 public class Timer : MonoBehaviour
 {
     [SerializeField]
-    private InventoryPage itemPanel;
-    [HideInInspector]
-    public int inventorySize = 3;
+    private ItemPanel itemPanel;
+
     [SerializeField]
     private GameObject HUD;
     private Label waveNumberText;
     private Label timerText;
-
+    [SerializeField] private BossSpawner bossSpawner;
     public float waveLength;
     private float currentTime;
     public int waveNumber;
@@ -39,6 +38,7 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
+        GameSettings.waveNumber = waveNumber;
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
         GameSettings.waveNumber = waveNumber;
@@ -50,9 +50,10 @@ public class Timer : MonoBehaviour
         {
             return;
         }
-        if(GameSettings.gameState == GameState.InGame)
+        if(GameSettings.gameState == GameState.InGame && GameSettings.waveNumber % 5 != 0)
         {
             currentTime -= Time.deltaTime;
+       
         }
         else if(GameSettings.gameState == GameState.ItemSelect)
         {
@@ -62,7 +63,7 @@ public class Timer : MonoBehaviour
             }
         }
         
-        if(currentTime <= 0)
+        if(currentTime <= 0 || (BossHealth.Instance.boss !=null && BossHealth.Instance.boss.health <=0))
         {
             if (waveNumber == 25 && GameSettings.gameState == GameState.InGame)
             {
@@ -83,7 +84,7 @@ public class Timer : MonoBehaviour
         CullEnemies();
         if (!geninventory)
         {
-            itemPanel.InitializeInventoryUI(inventorySize);
+            itemPanel.InitializeItemPanel(waveNumber);
             
             geninventory = true;
         }
@@ -101,6 +102,17 @@ public class Timer : MonoBehaviour
         GameSettings.waveNumber = waveNumber;
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
+
+        if (waveNumber % 5 == 0)
+        {
+            bossSpawner.SpawnBoss();
+            timerText.visible = false;
+        }
+        else
+        { 
+            timerText.visible = true;
+        }
+            
 
         EnemySpawner.healthMultiplier += 0.5f;
         EnemySpawner.spawnTimer -= 0.1f;
