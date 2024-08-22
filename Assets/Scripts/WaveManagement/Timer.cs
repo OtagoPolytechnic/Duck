@@ -81,7 +81,12 @@ public class Timer : MonoBehaviour
     public void EndWave()
     {
         GameSettings.gameState = GameState.ItemSelect;
-        CullEnemies();
+    	
+        CullBullets();
+        if (waveNumber % 5 == 4)
+        {
+            CullEnemies();
+        }
         if (!geninventory)
         {
             itemPanel.InitializeItemPanel(waveNumber);
@@ -127,13 +132,16 @@ public class Timer : MonoBehaviour
     public static void CullEnemies()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
 
         foreach (GameObject enemy in enemies)
         {
             EnemySpawner.currentEnemies.Remove(enemy);
             Destroy(enemy);
         }
+    }
+    public static void CullBullets()
+    {
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
         foreach (GameObject bullet in bullets)
         {
             Destroy(bullet);
