@@ -17,7 +17,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: b6c49af7b3c420e428aa70f11871ee72
-  - enabled: 1
-    path: Assets/Scenes/Palin-MainScene.unity
-    guid: c7e18e59ea07f3046a863cada8bdc520
   m_configObjects: {}
