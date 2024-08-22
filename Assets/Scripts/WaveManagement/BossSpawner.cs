@@ -15,8 +15,8 @@ public class BossSpawner : MonoBehaviour
     public int currentWaveNumber;
     private VisualElement document;
     private VisualElement container;
-    public int bossHealth=200;
-    public int bossMaxHealth=200;
+    public int bossHealth=2000;
+    public int bossMaxHealth=2000;
     public GameObject bossHealthBar;
     public GameObject bigBoss;
 
@@ -55,6 +55,7 @@ public class BossSpawner : MonoBehaviour
         {
             Debug.LogError("enemyBossPrefab is not assigned!");
         }
+        bossHealth +=2000;
     }
 }
 
