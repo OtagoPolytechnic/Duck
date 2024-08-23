@@ -26,6 +26,7 @@ public class EnemyHealth : MonoBehaviour
             EnemySpawner.currentEnemies.Remove(gameObject);
             Destroy(gameObject);
         } 
+        if (GameSettings.gameState != GameState.InGame){return;}
         Bleed();
     }
     void Bleed() //this function needs to be reworked to be able to stack bleed on the target
