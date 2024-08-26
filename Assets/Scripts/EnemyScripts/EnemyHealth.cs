@@ -8,8 +8,12 @@ public class EnemyHealth : MonoBehaviour
 {
     public GameObject damageText;
     public GameObject critText;
-    public int baseHealth;
-    [HideInInspector] public int health;
+    [SerializeField] private int health;
+    public int Health
+    {
+        get {return health;}
+        set {health = value;}
+    }
     public float bleedTick = 1f;
     public float bleedInterval = 1f;
     public bool bleedTrue;

@@ -11,6 +11,7 @@ public class EnemyRanged : MonoBehaviour
     [SerializeField] private Transform bulletPosition;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackInterval;
+    [SerializeField] private int damage;
     private float attackCooldown;
     
     private MapManager mapManager;
@@ -54,7 +55,8 @@ public class EnemyRanged : MonoBehaviour
     }
     void Shoot()
     {
-        Instantiate(bullet, bulletPosition.position, Quaternion.identity);
+        GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
+        newBullet.GetComponent<EnemyBullet>().Damage = damage;
         attackCooldown = attackInterval;
 
         // Play the enemy shooting sound

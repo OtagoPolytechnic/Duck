@@ -150,23 +150,21 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.082237005, y: 0}
-
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.4551435, y: 1.5}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &5656455698361903577
 MonoBehaviour:
@@ -186,6 +184,7 @@ MonoBehaviour:
   bulletPosition: {fileID: 5656455699881316956}
   attackRange: 5
   attackInterval: 2
+  damage: 15
 --- !u!114 &3801677135667519698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,13 +199,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageText: {fileID: 391528759432483411, guid: aa150d6d100764d45af1b8790d3f8c9c, type: 3}
   critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
-  baseHealth: 40
-  health: 100
+  health: 40
   bleedTick: 1
   bleedInterval: 1
   bleedTrue: 0
-
-
 --- !u!50 &8608151561316620193
 Rigidbody2D:
   serializedVersion: 4
@@ -234,7 +230,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
-
 --- !u!1 &5656455699881316957
 GameObject:
   m_ObjectHideFlags: 0

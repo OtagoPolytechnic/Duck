@@ -7,8 +7,18 @@ public class EnemySpawner : MonoBehaviour
     public static EnemySpawner Instance;
     [SerializeField] private GameObject[] enemies;
     private float spawnTimer = 1f; //Time between spawns
+    public float SpawnTimer
+    {
+        get {return spawnTimer;}
+        set {spawnTimer = value;}
+    }
     private float lastSpawn; //Time since last spawn
-    private int enemyCap = 100;
+    private int enemyCap = 10;
+    public int EnemyCap
+    {
+        get {return enemyCap;}
+        set {enemyCap = value;}
+    }
     public List<GameObject> currentEnemies = new List<GameObject>();
     //public int waveNumber;
 
@@ -46,20 +56,19 @@ public class EnemySpawner : MonoBehaviour
     {
         Vector3 location = new Vector3();
         int side = Random.Range(1,5); //Which side of the screen the enemy spawns at
-        Debug.Log(side);
         switch (side)
         {
             case 1:  
-                location = Camera.main.ViewportToWorldPoint(new Vector3(1,Random.Range(0f,1f),0));
+                location = Camera.main.ViewportToWorldPoint(new Vector3(1.1f,Random.Range(0f,1f),0));
             break;
             case 2:
-                location = Camera.main.ViewportToWorldPoint(new Vector3(0,Random.Range(0f,1f),0));
+                location = Camera.main.ViewportToWorldPoint(new Vector3(-0.1f,Random.Range(0f,1f),0));
             break;
             case 3:
-                location = Camera.main.ViewportToWorldPoint(new Vector3(Random.Range(0f,1f),1,0));
+                location = Camera.main.ViewportToWorldPoint(new Vector3(Random.Range(0f,1f),1.1f,0));
             break;
             case 4:
-                location = Camera.main.ViewportToWorldPoint(new Vector3(Random.Range(0f,1f),0,0));
+                location = Camera.main.ViewportToWorldPoint(new Vector3(Random.Range(0f,1f),-0.1f,0));
             break;
         }
 

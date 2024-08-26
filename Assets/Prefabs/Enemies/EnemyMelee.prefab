@@ -326,8 +326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageText: {fileID: 391528759432483411, guid: aa150d6d100764d45af1b8790d3f8c9c, type: 3}
   critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
-  baseHealth: 20
-  health: 100
+  health: 20
   bleedTick: 1
   bleedInterval: 1
   bleedTrue: 0
