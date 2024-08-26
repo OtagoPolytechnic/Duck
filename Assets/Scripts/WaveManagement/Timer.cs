@@ -120,6 +120,21 @@ public class Timer : MonoBehaviour
             
         geninventory = false;
         itemPanel.itemChosen = false;
+
+        //Enemy scaling
+
+        //Increase enemy level every 5 waves
+
+        if (EnemySpawner.Instance.SpawnTimer > 0.1f)
+        {
+            EnemySpawner.Instance.SpawnTimer -= 0.1f;
+        }
+        else
+        {
+            EnemySpawner.Instance.EnemyCap += 1;
+        }
+
+        //Scale stats if after wave 25
     }
 
     public static void CullEnemies()
