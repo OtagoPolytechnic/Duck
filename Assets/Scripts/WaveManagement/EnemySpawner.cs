@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject[] enemies;
-    public float spawnRadius;
-    public static float healthMultiplier = 1f;
-    public static float spawnTimer = 5f; //Time between spawns
+    public static EnemySpawner Instance;
+    [SerializeField] private GameObject[] enemies;
+    private float spawnTimer = 1f; //Time between spawns
     private float lastSpawn; //Time since last spawn
-    private int enemyCap = 1000; //temp value to stop lag
-    public static List<GameObject> currentEnemies = new List<GameObject>();
+    private int enemyCap = 100;
+    public List<GameObject> currentEnemies = new List<GameObject>();
     //public int waveNumber;
 
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         lastSpawn = spawnTimer;
     }
 
@@ -37,8 +44,26 @@ public class EnemySpawner : MonoBehaviour
 
     void Spawn(int enemyNum)
     {
-        GameObject enemy = Instantiate(enemies[enemyNum], transform.position + new Vector3(Random.Range(-spawnRadius, spawnRadius), Random.Range(-spawnRadius, spawnRadius), 0), transform.rotation);
-        enemy.GetComponent<EnemyHealth>().health = Mathf.RoundToInt(enemy.GetComponent<EnemyHealth>().baseHealth * healthMultiplier);
+        Vector3 location = new Vector3();
+        int side = Random.Range(1,5); //Which side of the screen the enemy spawns at
+        Debug.Log(side);
+        switch (side)
+        {
+            case 1:  
+                location = Camera.main.ViewportToWorldPoint(new Vector3(1,Random.Range(0f,1f),0));
+            break;
+            case 2:
+                location = Camera.main.ViewportToWorldPoint(new Vector3(0,Random.Range(0f,1f),0));
+            break;
+            case 3:
+                location = Camera.main.ViewportToWorldPoint(new Vector3(Random.Range(0f,1f),1,0));
+            break;
+            case 4:
+                location = Camera.main.ViewportToWorldPoint(new Vector3(Random.Range(0f,1f),0,0));
+            break;
+        }
+
+        GameObject enemy = Instantiate(enemies[enemyNum], location, Quaternion.identity);
         currentEnemies.Add(enemy);
     }
 }

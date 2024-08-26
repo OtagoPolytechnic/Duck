@@ -23,7 +23,7 @@ public class EnemyHealth : MonoBehaviour
         {
             SFXManager.Instance.EnemyDieSound();
             ScoreManager.Instance.IncreasePoints(10);
-            EnemySpawner.currentEnemies.Remove(gameObject);
+            EnemySpawner.Instance.currentEnemies.Remove(gameObject);
             Destroy(gameObject);
         } 
         if (GameSettings.gameState != GameState.InGame){return;}
