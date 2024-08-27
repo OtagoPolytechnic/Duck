@@ -18,6 +18,7 @@ public class EnemyHealth : MonoBehaviour
     public float bleedInterval = 1f;
     public bool bleedTrue;
     public static int bleedAmount = 0;
+    [SerializeField] private int points;
 
 
     void Update()
@@ -26,7 +27,7 @@ public class EnemyHealth : MonoBehaviour
         if (health <= 0)
         {
             SFXManager.Instance.EnemyDieSound();
-            ScoreManager.Instance.IncreasePoints(10);
+            ScoreManager.Instance.IncreasePoints(points);
             EnemySpawner.Instance.currentEnemies.Remove(gameObject);
             Destroy(gameObject);
         } 

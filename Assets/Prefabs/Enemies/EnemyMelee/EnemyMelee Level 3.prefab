@@ -330,6 +330,7 @@ MonoBehaviour:
   bleedTick: 1
   bleedInterval: 1
   bleedTrue: 0
+  points: 30
 --- !u!114 &69292089992521618
 MonoBehaviour:
   m_ObjectHideFlags: 0

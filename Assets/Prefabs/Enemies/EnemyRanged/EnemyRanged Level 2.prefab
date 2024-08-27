@@ -203,6 +203,7 @@ MonoBehaviour:
   bleedTick: 1
   bleedInterval: 1
   bleedTrue: 0
+  points: 40
 --- !u!50 &8608151561316620193
 Rigidbody2D:
   serializedVersion: 4
