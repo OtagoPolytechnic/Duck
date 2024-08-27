@@ -123,7 +123,10 @@ public class Timer : MonoBehaviour
 
         //Enemy scaling
 
-        //Increase enemy level every 5 waves
+        if (waveNumber % 5 == 0)
+        {
+            EnemySpawner.Instance.EnemyLevel++;
+        }
 
         if (EnemySpawner.Instance.SpawnTimer > 0.1f)
         {

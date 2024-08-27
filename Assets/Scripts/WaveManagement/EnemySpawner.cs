@@ -1,11 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable] public class EnemyWithLevel
+{
+    public GameObject enemy;
+    public int level;
+}
 public class EnemySpawner : MonoBehaviour
 {
     public static EnemySpawner Instance;
-    [SerializeField] private GameObject[] enemies;
+    private int enemyLevel;
+    public int EnemyLevel
+    {
+        get {return enemyLevel;}
+        set
+        {
+            enemyLevel = value;
+            foreach(EnemyWithLevel e in allEnemies)
+            {
+                if (e.level == EnemyLevel)
+                {
+                    availableEnemies.Add(e.enemy);
+                }
+            }
+        }
+    }
+
+    [SerializeField] private List<EnemyWithLevel> allEnemies;
+    private List<GameObject> availableEnemies = new List<GameObject>();
     private float spawnTimer = 1f; //Time between spawns
     public float SpawnTimer
     {
@@ -19,8 +41,7 @@ public class EnemySpawner : MonoBehaviour
         get {return enemyCap;}
         set {enemyCap = value;}
     }
-    public List<GameObject> currentEnemies = new List<GameObject>();
-    //public int waveNumber;
+    [HideInInspector] public List<GameObject> currentEnemies = new List<GameObject>();
 
     void Awake()
     {
@@ -32,6 +53,7 @@ public class EnemySpawner : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        EnemyLevel = 1;
         lastSpawn = spawnTimer;
     }
 
@@ -42,7 +64,7 @@ public class EnemySpawner : MonoBehaviour
         {
             if (lastSpawn > spawnTimer && currentEnemies.Count < enemyCap)
             {
-                Spawn(Random.Range(0, enemies.Length));
+                Spawn(Random.Range(0, availableEnemies.Count));
                 lastSpawn = 0;
             }
             else
@@ -72,7 +94,7 @@ public class EnemySpawner : MonoBehaviour
             break;
         }
 
-        GameObject enemy = Instantiate(enemies[enemyNum], location, Quaternion.identity);
+        GameObject enemy = Instantiate(availableEnemies[enemyNum], location, Quaternion.identity);
         currentEnemies.Add(enemy);
     }
 }
