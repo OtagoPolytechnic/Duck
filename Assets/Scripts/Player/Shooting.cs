@@ -30,7 +30,7 @@ public class Shooting : MonoBehaviour
     void Start()
     {
         //This lets the player shoot immediately when the game starts
-        lastShot = Time.time - WeaponStats.Instance.Firerate;
+        lastShot = Time.time - WeaponStats.Instance.FireDelay;
     }
 
 
@@ -42,7 +42,7 @@ public class Shooting : MonoBehaviour
         lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
 
         sprite.rotation = Quaternion.Euler(0, 0, lookAngle);
-        if (held && Time.time - lastShot > WeaponStats.Instance.Firerate)
+        if (held && Time.time - lastShot > WeaponStats.Instance.FireDelay)
         {
             lastShot = Time.time;
             Shoot();
