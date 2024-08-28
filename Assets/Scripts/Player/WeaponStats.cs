@@ -40,7 +40,8 @@ public class WeaponStats : MonoBehaviour
                     WeaponFireDelay= 150; //150% fire delay
 
                     //Other stats set to base values
-                    WeaponCritChance = 100;
+                    weaponCritChancePercentage = 100;
+                    WeaponCritChanceFlat = 0;
                     WeaponCritDamage = 100;
                     WeaponExplosiveBullets = false;
                     WeaponBleed = false;
@@ -54,7 +55,8 @@ public class WeaponStats : MonoBehaviour
 
                     //Sniper values
                     WeaponDamage = 300; //300% damage
-                    WeaponCritChance = 200; //200% crit chance
+                    weaponCritChancePercentage = 200; //200% crit chance
+                    WeaponCritChanceFlat = 5; //5% extra starting crit chance. This is added to the base crit chance of 1% and doubled by the sniper scaling. The sniper starts with 12% crit chance total
                     WeaponCritDamage = 200; //200% crit damage
                     WeaponRange = 200; //200% range
                     WeaponFireDelay = 200; //200% fire delay
@@ -79,7 +81,8 @@ public class WeaponStats : MonoBehaviour
                     WeaponBulletSpeed = 300; //300% bullet speed
 
                     //Other stats set to base values
-                    WeaponCritChance = 100;
+                    weaponCritChancePercentage = 100;
+                    WeaponCritChanceFlat = 0;
                     WeaponCritDamage = 100;
                     WeaponRange = 100;
                     WeaponExplosiveBullets = false;
@@ -99,7 +102,8 @@ public class WeaponStats : MonoBehaviour
 
                     //Other stats set to base values
                     WeaponDamage = 100;
-                    WeaponCritChance = 100;
+                    weaponCritChancePercentage = 100;
+                    WeaponCritChanceFlat = 0;
                     WeaponCritDamage = 100;
                     WeaponRange = 100;
                     WeaponBulletSpeed = 100;
@@ -116,7 +120,8 @@ public class WeaponStats : MonoBehaviour
                     weaponSprites[4].SetActive(true);
                     //All stats set to base values (mostly 100%)
                     WeaponDamage = 100;
-                    WeaponCritChance = 100;
+                    weaponCritChancePercentage = 100;
+                    WeaponCritChanceFlat = 0;
                     WeaponCritDamage = 100;
                     WeaponRange = 100;
                     WeaponFireDelay = 100;
@@ -135,7 +140,8 @@ public class WeaponStats : MonoBehaviour
 
                     //Setting all stats to base values until we figure out how to implement the sword
                     WeaponDamage = 100;
-                    WeaponCritChance = 100;
+                    weaponCritChancePercentage = 100;
+                    WeaponCritChanceFlat = 0;
                     WeaponCritDamage = 100;
                     WeaponRange = 100;
                     WeaponFireDelay = 100;
@@ -160,7 +166,8 @@ public class WeaponStats : MonoBehaviour
 
                     //Other stats set to base values
                     WeaponDamage = 100;
-                    WeaponCritChance = 100;
+                    weaponCritChancePercentage = 100;
+                    WeaponCritChanceFlat = 0;
                     WeaponCritDamage = 100;
                     WeaponBulletSpeed = 100;
                     WeaponBleed = false;
@@ -221,7 +228,13 @@ public class WeaponStats : MonoBehaviour
         get {return percentageCritChance;}
         set {percentageCritChance = value;}
     }
-    private int weaponCritChance = 100;
+    private int weaponCritChanceFlat = 0;
+    public int WeaponCritChanceFlat
+    {
+        get {return weaponCritChanceFlat;}
+        set {weaponCritChanceFlat = value;}
+    }
+    private int weaponCritChancePercentage = 100;
     public int WeaponCritChance
     {
         get {return weaponCritChance;}
@@ -229,7 +242,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int CritChance
     {
-        get {return (BASE_CRIT_CHANCE + FlatCritChance) * (PercentageCritChance / 100) * (WeaponPercentage / 100);}
+        get {return (BASE_CRIT_CHANCE + FlatCritChance + weaponCritChanceFlat) * (PercentageCritChance / 100) * (weaponCritChancePercentage / 100);}
     }
 
     //Crit Damage. Not currently changing but will likely be added to an item at some point
@@ -441,7 +454,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int ExtraBullets
     {
-        get {return (ItemExtraBullets + wWeaponExtraBullets) + ((ItemExtraBullets + WeaponExtraBullets) % 2);} //Sum of the item and weapon extra bullets plus 1 if its an odd number
+        get {return (ItemExtraBullets + WeaponExtraBullets) + ((ItemExtraBullets + WeaponExtraBullets) % 2);} //Sum of the item and weapon extra bullets plus 1 if its an odd number
     }
 
     //Spread - This is only used for the shotgun. Can be changed by items
