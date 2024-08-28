@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Bullet : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Bullet : MonoBehaviour
         startPos = transform.position;
 
         //Calculates critical roll
-        if (Random.Range(0, 100) < WeaponStats.Instance.CritChance)
+        if (UnityEngine.Random.Range(0, 100) < WeaponStats.Instance.CritChance)
         {
             crit = true;
             //Change to critical sprite
@@ -38,7 +39,7 @@ public class Bullet : MonoBehaviour
             //Lifesteal by percentage of damage dealt
             if (PlayerStats.Instance.LifestealPercentage > 0)
             {
-                PlayerStats.Instance.CurrentHealth += WeaponStats.Instance.Damage * PlayerStats.Instance.LifestealPercentage;
+                PlayerStats.Instance.CurrentHealth += Math.Max((WeaponStats.Instance.Damage * PlayerStats.Instance.LifestealPercentage) / 100, 1); //Heals at least 1 health
             }
             //TODO: Explosive bullet fix
             // if (WeaponStats.Instance.ExplosiveBullets)

@@ -3,7 +3,7 @@
       {
         "id": 0,
         "name": "Sharpened Talons",
-        "desc": "Increase damage by 10",
+        "desc": "Increase damage by 10 \n (before weapon scaling)",
         "rarity": 0,
         "stacks": 0
 
@@ -27,7 +27,7 @@
       {
         "id": 3,
         "name": "Band-Aid",
-        "desc": "Gain 1% health regeneration per 3 seconds",
+        "desc": "Gain 1% max health regeneration per 3 seconds \n Rounds up",
         "rarity": 2,
         "stacks": 0
       },
@@ -42,35 +42,35 @@
       {
         "id": 5,
         "name": "Chompers",
-        "desc": "Your hits apply a bleed effect for 2% max health every second. Picking up another chomper increases the bleed effect",
+        "desc": "Your hits bleed enemies for 2% max health every second.\nPicking up another chomper increases the bleed effect",
         "rarity": 1,
         "stacks": 0
       },
       {
         "id": 6,
         "name": "Leech",
-        "desc": "Your hits on enemies heal you for 1% max health",
+        "desc": "Gain lifesteal equal to 1% of your damage dealt\nRounds up",
         "rarity": 2,
         "stacks": 0
       },
       {
         "id": 7,
         "name": "Explosive Bullets",
-        "desc": "Your bullets explode on impact dealing an additional 50% damage to nearby enemies\nExtra Explosive Bullets increase the radius and damage of the explosion",
-        "rarity": 4,
+        "desc": "Your bullets explode on impact\n\nDeal 50% damage to nearby enemies per item stack",
+        "rarity": 5,
         "stacks": 0
       },
       {
         "id": 8,
         "name": "Egg",
-        "desc": "You gain an extra life",
+        "desc": "Gain an extra life",
         "rarity": 3,
         "stacks": 0
       },
       {
         "id": 9,
         "name": "Lucky Feather",
-        "desc": "You gain 7% critical strike chance\nIf you have 100% crit chance, you gain 5% critical damage instead",
+        "desc": "Gain 7% crit strike chance\n\nIf you have 100% crit chance, you gain 5% crit damage instead",
         "rarity": 1,
         "stacks": 0
       },
@@ -91,14 +91,14 @@
       {
         "id": 12,
         "name": "Lucky Dive",
-        "desc": "Gain two random stats at reduced strength\nThe possible stats are: Damage, Health, Speed, Fire rate, Crit Chance, Crit Damage",
+        "desc": "Gain two stats at reduced strength from this list:\nDamage, Health, Speed, Fire rate, Crit Chance, Crit Damage",
         "rarity": 1,
         "stacks": 0
       },
       {
         "id": 13,
         "name": "Shotgun",
-        "desc": "Shoots a spread of bullets\nShotgun deals less damage per bullet and shoots faster",
+        "desc": "Shoots a spread of bullets\n\nShotgun bullets deal less damage and shoot faster",
         "rarity": 4,
         "stacks": 0
       },

@@ -153,7 +153,7 @@ public class PlayerStats : MonoBehaviour
         if (nextRegenerationTick <= 0) //Health property will deal with the max health cap
         {
             nextRegenerationTick = RegenerationDelay;
-            CurrentHealth += ((MaxHealth * RegenerationPercentage) / 100); //Regenerate the % of max health per tick
+            CurrentHealth += Math.Max(((MaxHealth * RegenerationPercentage) / 100), 1); //Regenerate the % of max health per tick. Minimum 1
         }
         nextRegenerationTick -= Time.fixedDeltaTime;
     }
