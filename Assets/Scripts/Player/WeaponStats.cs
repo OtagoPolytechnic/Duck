@@ -145,12 +145,12 @@ public class WeaponStats : MonoBehaviour
 
                 case WeaponType.Sword: //Placeholder for the sword
                     //Trying to hack together a basic sword with bullets. VERY WIP
-                    WeaponRange = 10; //10% range
-                    WeaponDamage = 200; //200% damage
+                    WeaponRange = 5; //5% range
+                    WeaponDamage = 150; //150% damage
                     WeaponPiercing = true; //Can pierce by default
                     WeaponPierceAmount = -1; //Pierces all enemies
-                    WeaponBulletSpeed = 600; //Trying to make it instant
-                    WeaponFireDelay = 25; //25% fire delay
+                    WeaponBulletSpeed = 200; //Trying to make it instant so the bullets don't appear
+                    WeaponFireDelay = 50; //50% fire delay
                     WeaponExtraBullets = 20; //20 extra bullets to make a full arc
                     WeaponSpread = 100; //Large spread to make a full arc 
 
@@ -219,7 +219,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int Damage //Damage is only a getter, as only the components should be set
     {
-        get {return ((BASE_DAMAGE + FlatDamage) * PercentageDamage * WeaponDamage) / 1000;} //Final damage calculation
+        get {return ((BASE_DAMAGE + FlatDamage) * PercentageDamage * WeaponDamage) / 10000;} //Final damage calculation
     }
 
     //Crit Chance
@@ -250,7 +250,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int CritChance
     {
-        get {return Math.Min(((BASE_CRIT_CHANCE + FlatCritChance + weaponCritChanceFlat) * PercentageCritChance * weaponCritChancePercentage) / 1000, 100);} //Can't go over 100% crit chance
+        get {return Math.Min(((BASE_CRIT_CHANCE + FlatCritChance + weaponCritChanceFlat) * PercentageCritChance * weaponCritChancePercentage) / 10000, 100);} //Can't go over 100% crit chance
     }
 
     //Crit Damage. Not currently changing but will likely be added to an item at some point
@@ -275,7 +275,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int CritDamage //Returns a percentage of the weapon's damage. 150 at base
     {
-        get {return ((BASE_CRIT_DAMAGE + flatCritDamage) * PercentageCritDamage * WeaponCritDamage) / 1000;}
+        get {return ((BASE_CRIT_DAMAGE + flatCritDamage) * PercentageCritDamage * WeaponCritDamage) / 10000;}
     }
 
     //Range
@@ -300,7 +300,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int Range
     {
-        get {return ((BASE_RANGE + FlatRange) * PercentageRange * WeaponRange) / 1000;}
+        get {return ((BASE_RANGE + FlatRange) * PercentageRange * WeaponRange) / 10000;}
     }
 
     //Fire delay. Note: .5f is a half second delay between shots. Increasing the fire delay will make the weapon shoot slower
@@ -325,7 +325,7 @@ public class WeaponStats : MonoBehaviour
     }
     public float FireDelay
     {
-        get {return Math.Max(((BASE_FIRE_DELAY + FlatFireDelay) * PercentageFireDelay * WeaponFireDelay) / 1000, 0.1f);}
+        get {return Math.Max(((BASE_FIRE_DELAY + FlatFireDelay) * PercentageFireDelay * WeaponFireDelay) / 10000, 0.1f);}
         //This isn't allowed to be any quicker than 0.1 seconds per shot. Can change value?
     }
     
@@ -351,7 +351,7 @@ public class WeaponStats : MonoBehaviour
     }
     public float BulletSpeed
     {
-        get {return ((BASE_BULLET_SPEED + FlatBulletSpeed) * PercentageBulletSpeed * WeaponBulletSpeed) / 1000;}
+        get {return ((BASE_BULLET_SPEED + FlatBulletSpeed) * PercentageBulletSpeed * WeaponBulletSpeed) / 10000;}
     }
 
     //The explosive bullets item and the rocket launcher are going to have the same effect with different values so I will combine them
@@ -426,7 +426,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int BleedDamage
     {
-        get {return (ItemBleedDamage + WeaponBleedDamage) / 100;} //This gives bleed damage as a percentage of the enemy health equal to the item % and the weapon % added together
+        get {return ItemBleedDamage + WeaponBleedDamage;} //This gives bleed damage as a percentage of the enemy health equal to the item % and the weapon % added together
     }
     
     //Extra bullets - At the moment this is just changed for the shotgun and not any items but having it here for future proofing in case it changes in an upgrade
@@ -523,7 +523,49 @@ public class WeaponStats : MonoBehaviour
             return;
         }
         Instance = this;
-        currentWeapon = WeaponType.Pistol;
+    }
+
+    void Start()
+    {
+        CurrentWeapon = WeaponType.Pistol; //Sets the weapon to the pistol by default
+    }
+
+    void Update()
+    {
+        //On key press 0 cycle through the weapons
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            switch(CurrentWeapon)
+            {
+                case WeaponType.Pistol:
+                    CurrentWeapon = WeaponType.Shotgun;
+                break;
+
+                case WeaponType.Shotgun:
+                    CurrentWeapon = WeaponType.Sniper;
+                break;
+
+                case WeaponType.Sniper:
+                    CurrentWeapon = WeaponType.MachineGun;
+                break;
+
+                case WeaponType.MachineGun:
+                    CurrentWeapon = WeaponType.DualPistol;
+                break;
+
+                case WeaponType.DualPistol:
+                    CurrentWeapon = WeaponType.Sword;
+                break;
+
+                case WeaponType.Sword:
+                    CurrentWeapon = WeaponType.RocketLauncher;
+                break;
+
+                case WeaponType.RocketLauncher:
+                    CurrentWeapon = WeaponType.Pistol;
+                break;
+            }
+        }
     }
 
     private void swapWeapon(WeaponType newWeapon)
@@ -539,6 +581,5 @@ public class WeaponStats : MonoBehaviour
                 weapon.Weapon.SetActive(false);
             }
         }
-        
     }
 }
