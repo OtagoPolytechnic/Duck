@@ -14,7 +14,6 @@ public class Bullet : MonoBehaviour
         //Calculates critical roll
         if (Random.Range(0, 100) < WeaponStats.Instance.CritChance)
         {
-            critDamage += Mathf.RoundToInt(WeaponStats.Instance.Damage * 1.50f);
             crit = true;
             //Change to critical sprite
             transform.GetChild(0).gameObject.SetActive(false);
@@ -48,7 +47,7 @@ public class Bullet : MonoBehaviour
             // }
             if (crit)
             {
-                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage((WeaponStats.Instance.Damage * CritDamage) / 100, true);
+                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage((WeaponStats.Instance.Damage * WeaponStats.Instance.CritDamage) / 100, true);
             }
             else
             {

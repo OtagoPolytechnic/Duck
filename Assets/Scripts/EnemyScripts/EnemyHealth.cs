@@ -31,10 +31,10 @@ public class EnemyHealth : MonoBehaviour
     void Bleed()
     {
         if (!bleeding || WeaponStats.Instance.BleedDamage == 0){return;} //If the enemy is not bleeding, return. This means there is a 1 second interval before the first bleed tick
-        bleedTick -= Time.deltaTime;
+        bleedTick -= Time.fixedDeltaTime;
         if (bleedTick <= 0)
         {
-            bleedTick = bleedInterval;
+            bleedTick = BLEED_INTERVAL;
             ReceiveDamage((baseHealth * WeaponStats.Instance.BleedDamage) / 100, false);
         }
     }

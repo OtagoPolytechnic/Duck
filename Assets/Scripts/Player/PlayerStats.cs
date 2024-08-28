@@ -26,7 +26,7 @@ public class PlayerStats : MonoBehaviour
         get {return percentBonusHealth;}
         set 
         {
-            int oldHeath = MaxHealth;
+            int oldHealth = MaxHealth;
             percentBonusHealth = value;
             int newHealth = MaxHealth;
             CurrentHealth += Math.Max(0, newHealth - oldHealth);
@@ -124,13 +124,13 @@ public class PlayerStats : MonoBehaviour
             return;
         }
         Instance = this;
-        currentHealth = maxHealth;
+        CurrentHealth = MaxHealth;
     }
 
     void Update()
     {
         if (GameSettings.gameState != GameState.InGame){return;}
-        if (RegenerationAmount != 0)
+        if (RegenerationPercentage != 0)
         {
             CheckRegeneration();
         }
@@ -170,7 +170,7 @@ public class PlayerStats : MonoBehaviour
             lifeEggs.Remove(lifeEggs[lifeEggs.Count - 1]);
         }
         //Debug.Log("Player health before collisions turned off: " + currentHealth);
-        currentHealth = maxHealth;
+        CurrentHealth = MaxHealth;
         StartCoroutine(DisableCollisionForDuration(2f));
     }
 

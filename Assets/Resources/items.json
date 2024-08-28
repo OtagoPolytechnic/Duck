@@ -178,6 +178,13 @@
         "desc": "You gain incredible lifesteal but your health drains rapidly (NOT IMPLEMENTED)",
         "rarity": 6,
         "stacks": 0
+      },
+      {
+        "id": 25,
+        "name": "Weak Spots",
+        "desc": "Gain 5% critical damage",
+        "rarity": 0,
+        "stacks": 0
       }
     ]
   }

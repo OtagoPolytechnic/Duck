@@ -47,8 +47,8 @@ public class ItemEffectTable : MonoBehaviour
                 break;
             case 07:
                 WeaponStats.Instance.ItemExplosiveBullets = true;
-                WeaponStats.Instance.ExplosionSize += 2;
-                WeaponStats.Instance.ExplosionDamage += 50; //50% of the weapon damage as an explosion. Unsure about the balance 
+                WeaponStats.Instance.ItemExplosionSize += 2;
+                WeaponStats.Instance.ItemExplosionDamage += 50; //50% of the weapon damage as an explosion. Unsure about the balance 
                 Debug.Log($"Explosion size: {WeaponStats.Instance.ExplosionSize}");
                 Debug.Log($"Explosion damage: {WeaponStats.Instance.ExplosionDamage}");
                 break;     
@@ -61,21 +61,24 @@ public class ItemEffectTable : MonoBehaviour
                 if (WeaponStats.Instance.CritChance == 100)
                 {
                     WeaponStats.Instance.FlatCritDamage += 5; //5% crit damage if the crit chance is 100%
+                    Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
                 }
                 else
                 {
-                    WeaponStats.Instance.CritChance += 7; //7% crit chance
+                    WeaponStats.Instance.FlatCritChance += 7; //7% crit chance
+                    Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                 }
-                Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                 break;
             case 10:
+                Debug.Log($"WIP Epic item");
+                break;
             case 11:
                 Debug.Log($"WIP Epic item");
                 break;
             case 12:
                 List<int> randomStats = new List<int> {0, 1, 2, 3, 4, 5};
                 // Shuffle the list using LINQ
-                randomStats = randomStats.OrderBy(x => Random.value).ToList();
+                randomStats = randomStats.OrderBy(x => UnityEngine.Random.value).ToList();
                 for (int i = 0; i < 2; i++)
                 {
                     //Takes the first two stats from the shuffled list
@@ -98,12 +101,12 @@ public class ItemEffectTable : MonoBehaviour
                             Debug.Log($"Fire Delay: {WeaponStats.Instance.FireDelay}"); 
                             break;
                         case 4:
-                            WeaponStats.Instance.CritChance += 4;
+                            WeaponStats.Instance.FlatCritChance += 4;
                             Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                             break;
                         case 5:
                             WeaponStats.Instance.FlatCritDamage += 3;
-                            Debug.Log($"Bleed Damage: {WeaponStats.Instance.FlatCritDamage}");
+                            Debug.Log($"Crit Damage: {WeaponStats.Instance.FlatCritDamage}");
                             break;
                     }
                 }
@@ -133,19 +136,29 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
             case 19:
+                Debug.Log($"Overheat (WIP)");
+                break;
             case 20:
+                Debug.Log($"Piercing (WIP)");
+                break;
             case 21:
-                Debug.Log($"WIP Weapon Upgrade");
+                Debug.Log($"More Pellets (WIP)");
                 break;
             case 22:
-                Debug.Log($"WIP Cursed Upgrade");
+                Debug.Log($"Midas Touch (WIP)");
+                break;
             case 23:
                 PlayerStats.Instance.PercentBonusHealth /= 2; //Half the current max health. If this is picked multiple times it will keep halving the max health
                 WeaponStats.Instance.PercentageDamage *= 2; //Double the damage. If this is picked multiple times it will keep doubling the damage 
                 Debug.Log($"Players max health as been cut in half to:{PlayerStats.Instance.MaxHealth}. Their current health is: {PlayerStats.Instance.CurrentHealth}. Their damage has been doubled to: {WeaponStats.Instance.Damage}");
                 break;
             case 24:
-                Debug.Log($"WIP Cursed Upgrade");
+                Debug.Log($"Blood letter's Curse(WIP)");
+                break;
+            case 25:
+                WeaponStats.Instance.FlatCritDamage += 5;
+                Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
+                break;
             default:
                 Debug.LogError($"The item: {ItemPanel.itemList[itemID].name} with ID: {ItemPanel.itemList[itemID].id} has not been given a case in the item effect table.");
                 break;
