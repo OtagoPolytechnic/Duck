@@ -410,7 +410,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int ExplosionDamage
     {
-        get {return (Damage * ((ItemExplosionDamage + WeaponExplosionDamage) / 100));} //This gives explosion damage as a percentage of the weapon's damage equal to the item % and the weapon % added together
+        get {return (Damage * (ItemExplosionDamage + WeaponExplosionDamage)) / 100;} //This gives explosion damage as a percentage of the weapon's damage equal to the item % and the weapon % added together
     }
 
     //Bleed damage
