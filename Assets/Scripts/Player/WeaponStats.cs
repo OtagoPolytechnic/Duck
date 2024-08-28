@@ -14,10 +14,20 @@ public enum WeaponType
     Sword,
     RocketLauncher
 }
+
+public class Weapons
+{
+    public WeaponType weaponType;
+    public GameObject Weapon;
+}
+
 public class WeaponStats : MonoBehaviour
 {
     public static WeaponStats Instance;
     private WeaponType currentWeapon;
+
+    [SerializeField] private Weapons[] weapons;
+
     public WeaponType CurrentWeapon
     {
         get {return currentWeapon;}
@@ -26,11 +36,10 @@ public class WeaponStats : MonoBehaviour
             currentWeapon = value;
             //When adding a new weapon, define its stats here when weapon type is set
             //If making adjustments to an unused stat please shift it up to the changed section instead of the base section
+            swapWeapon(value);
             switch(value)
             {
                 case WeaponType.Shotgun:
-                    weaponSprites[0].SetActive(true);
-
                     //Shotgun values
                     WeaponDamage = 50; //50% damage
                     WeaponRange = 33; //33% range
@@ -48,14 +57,14 @@ public class WeaponStats : MonoBehaviour
                     WeaponExplosionSize = 0;
                     WeaponExplosionDamage = 0;
                     WeaponBleedDamage = 0;
+                    Piercing = false;
+                    PierceAmount = 0;
                 break;
                 
                 case WeaponType.Sniper:
-                    weaponSprites[1].SetActive(true);
-
                     //Sniper values
                     WeaponDamage = 300; //300% damage
-                    weaponCritChancePercentage = 200; //200% crit chance
+                    weaponCritChancePercentage = 200; //200% crit chance scaling
                     WeaponCritChanceFlat = 5; //5% extra starting crit chance. This is added to the base crit chance of 1% and doubled by the sniper scaling. The sniper starts with 12% crit chance total
                     WeaponCritDamage = 200; //200% crit damage
                     WeaponRange = 200; //200% range
@@ -70,11 +79,11 @@ public class WeaponStats : MonoBehaviour
                     WeaponBleedDamage = 0;
                     WeaponExtraBullets = 0;
                     WeaponSpread = 0;
+                    Piercing = false;
+                    PierceAmount = 0;
                 break;
 
                 case WeaponType.MachineGun:
-                    weaponSprites[2].SetActive(true);
-
                     //Machine gun values
                     WeaponDamage = 33; //33% damage
                     WeaponFireDelay = 20; //20% fire delay
@@ -92,11 +101,11 @@ public class WeaponStats : MonoBehaviour
                     WeaponBleedDamage = 0;
                     WeaponExtraBullets = 0;
                     WeaponSpread = 0; //Note: We may want to add spread to the machine gun?
+                    Piercing = false;
+                    PierceAmount = 0;
                 break;
 
                 case WeaponType.DualPistol:
-                    weaponSprites[3].SetActive(true);
-
                     //Dual pistol values
                     WeaponFireDelay = 50; //50% fire delay
 
@@ -114,10 +123,11 @@ public class WeaponStats : MonoBehaviour
                     WeaponBleedDamage = 0;
                     WeaponExtraBullets = 0;
                     WeaponSpread = 0;
+                    Piercing = false;
+                    PierceAmount = 0;
                 break;
 
                 case WeaponType.Pistol: //Defining the stats for the pistol so it can be swapped to and away from when testing
-                    weaponSprites[4].SetActive(true);
                     //All stats set to base values (mostly 100%)
                     WeaponDamage = 100;
                     weaponCritChancePercentage = 100;
@@ -133,36 +143,39 @@ public class WeaponStats : MonoBehaviour
                     WeaponBleedDamage = 0;
                     WeaponExtraBullets = 0;
                     WeaponSpread = 0;
+                    Piercing = false;
+                    PierceAmount = 0;
                 break;
 
                 case WeaponType.Sword: //Placeholder for the sword
-                    weaponSprites[5].SetActive(true);
+                    //Trying to hack together a basic sword with bullets. VERY WIP
+                    WeaponRange = 10; //10% range
+                    WeaponDamage = 200; //200% damage
+                    Piercing = true; //Can pierce by default
+                    PierceAmount = -1; //Pierces all enemies
+                    WeaponBulletSpeed = 600; //Trying to make it instant
+                    WeaponFireDelay = 25; //25% fire delay
+                    WeaponExtraBullets = 20; //20 extra bullets to make a full arc
+                    WeaponSpread = 100; //Large spread to make a full arc 
 
-                    //Setting all stats to base values until we figure out how to implement the sword
-                    WeaponDamage = 100;
-                    weaponCritChancePercentage = 100;
+                    //Other stats set to base values
+                    weaponCritChancePercentage = 100; //Possible extra crit chance or damage? Could be too powerful
                     WeaponCritChanceFlat = 0;
-                    WeaponCritDamage = 100;
-                    WeaponRange = 100;
-                    WeaponFireDelay = 100;
-                    WeaponBulletSpeed = 100;
+                    WeaponCritDamage = 100; 
                     WeaponExplosiveBullets = false;
                     WeaponBleed = false;
                     WeaponExplosionSize = 0;
                     WeaponExplosionDamage = 0;
                     WeaponBleedDamage = 0;
-                    WeaponExtraBullets = 0;
-                    WeaponSpread = 0;
                 break;
 
                 case WeaponType.RocketLauncher: //Placeholder for the rocket launcher
-                    weaponSprites[6].SetActive(true);
                     //Testing values for the Rocket Launcher. Focussing on getting it implemented. Can balance it later
                     WeaponExplosiveBullets = true; //Rocket launcher has explosive bullets
                     WeaponExplosionSize = 100; //Explosion size is 100
                     WeaponExplosionDamage = 50; //50% of the weapon's damage is dealt as explosion damage
                     WeaponFireDelay = 300; //300% fire delay
-                    WeaponRange = 200; //200% range
+                    WeaponRange = 150; //150% range
 
                     //Other stats set to base values
                     WeaponDamage = 100;
@@ -174,6 +187,8 @@ public class WeaponStats : MonoBehaviour
                     WeaponBleedDamage = 0;
                     WeaponExtraBullets = 0;
                     WeaponSpread = 0;
+                    Piercing = false;
+                    PierceAmount = 0;
                 break;
 
                 default:
@@ -182,7 +197,6 @@ public class WeaponStats : MonoBehaviour
             }
         }
     }
-    [SerializeField] private GameObject[] weaponSprites;
 
     //All stats have a const base that doesn't change, a flat value that is changed by flat increases or decreases,
     //a percentage value that is changed by percentage increases or decreases, and a weapon percentage that is changed by the weapon's stats
@@ -475,16 +489,54 @@ public class WeaponStats : MonoBehaviour
     {
         get 
         {
-            //If the weapon is not a shotgun it shouldn't have spread
-            //Can be changed if we let other weapons have spread at some point
-            //Maybe the machine gun? We would likely need to change how the spread works if we did
-            if (CurrentWeapon != WeaponType.Shotgun)
-            {
-                return 0;
-            }
             return ItemSpread + WeaponSpread;
         }
     }
+
+    //Piercing
+    private bool itemPiercing = false;
+    public bool ItemPiercing
+    {
+        get {return itemPiercing;}
+        set {itemPiercing = value;}
+    }
+    private bool weaponPiercing = false;
+    public bool WeaponPiercing
+    {
+        get {return weaponPiercing;}
+        set {weaponPiercing = value;}
+    }
+    public bool Piercing
+    {
+        get {return ItemPiercing || WeaponPiercing;}
+    }
+
+    //Pierce amount. Each point of pierce amount allows the bullet to pierce one enemy. If it is -1 then it pierces all enemies
+    //Not implemented yet but it will be so I am adding it to the stats
+    private int itemPierceAmount = 0;
+    public int ItemPierceAmount
+    {
+        get {return itemPierceAmount;}
+        set {itemPierceAmount = value;}
+    }
+    private int weaponPierceAmount = 0;
+    public int WeaponPierceAmount
+    {
+        get {return weaponPierceAmount;}
+        set {weaponPierceAmount = value;}
+    }
+    public int PierceAmount
+    {
+        get 
+        {
+            if (WeaponPierceAmount == -1 || ItemPierceAmount == -1)
+            {
+                return -1;
+            }
+            return ItemPierceAmount + WeaponPierceAmount;
+        }
+    }
+
 
     void Awake()
     {
@@ -495,5 +547,21 @@ public class WeaponStats : MonoBehaviour
         }
         Instance = this;
         currentWeapon = WeaponType.Pistol;
+    }
+
+    private void swapWeapon(WeaponType weapon)
+    {
+        foreach (Weapons weapon in weapons)
+        {
+            if (weapon.weaponType == weapon)
+            {
+                weapon.Weapon.SetActive(true);
+            }
+            else
+            {
+                weapon.Weapon.SetActive(false);
+            }
+        }
+        
     }
 }
