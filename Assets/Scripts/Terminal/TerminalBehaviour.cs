@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class TerminalBehaviour : MonoBehaviour
 {
@@ -10,9 +12,25 @@ public class TerminalBehaviour : MonoBehaviour
     public TextField input;
     private VisualElement document;
     private VisualElement terminalWindow;
+
     
     void Awake()
     {
         document = GetComponent<UIDocument>().rootVisualElement;
+        terminalWindow = document.Q<VisualElement>("TerminalWindow");
+
+    }
+
+    void Update()
+    {
+
+    }
+
+       public void ActivateWindow(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            terminalWindow.visible = !terminalWindow.visible; //terminal should be hidden on game start
+        }
     }
 }
