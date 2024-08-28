@@ -530,44 +530,6 @@ public class WeaponStats : MonoBehaviour
         CurrentWeapon = WeaponType.Pistol; //Sets the weapon to the pistol by default
     }
 
-    void Update()
-    {
-        //On key press 0 cycle through the weapons
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            switch(CurrentWeapon)
-            {
-                case WeaponType.Pistol:
-                    CurrentWeapon = WeaponType.Shotgun;
-                break;
-
-                case WeaponType.Shotgun:
-                    CurrentWeapon = WeaponType.Sniper;
-                break;
-
-                case WeaponType.Sniper:
-                    CurrentWeapon = WeaponType.MachineGun;
-                break;
-
-                case WeaponType.MachineGun:
-                    CurrentWeapon = WeaponType.DualPistol;
-                break;
-
-                case WeaponType.DualPistol:
-                    CurrentWeapon = WeaponType.Sword;
-                break;
-
-                case WeaponType.Sword:
-                    CurrentWeapon = WeaponType.RocketLauncher;
-                break;
-
-                case WeaponType.RocketLauncher:
-                    CurrentWeapon = WeaponType.Pistol;
-                break;
-            }
-        }
-    }
-
     private void swapWeapon(WeaponType newWeapon)
     {
         foreach (Weapons weapon in weapons)
