@@ -277,7 +277,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int CritDamage //Returns a percentage of the weapon's damage. 150 at base
     {
-        get {return ((BASE_CRIT_DAMAGE + flatCritDamage + (excessCritChance / 2)) * PercentageCritDamage * WeaponCritDamage) / 10000;} //Adds half of the excess crit chance to the crit damage
+        get {return ((BASE_CRIT_DAMAGE + flatCritDamage + (excessCritChance() / 2)) * PercentageCritDamage * WeaponCritDamage) / 10000;} //Adds half of the excess crit chance to the crit damage
     }
 
     //Range
