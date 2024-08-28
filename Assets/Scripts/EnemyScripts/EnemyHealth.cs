@@ -6,14 +6,13 @@ using TMPro;
 
 public class EnemyHealth : MonoBehaviour
 {
+    public const float BLEED_INTERVAL = 1f;
     public GameObject damageText;
     public GameObject critText;
     public int baseHealth;
     [HideInInspector] public int health;
     public float bleedTick = 1f;
-    public float bleedInterval = 1f;
-    public bool bleedTrue;
-    public static int bleedAmount = 0;
+    public bool bleeding = false;
 
 
     void Update()
@@ -29,20 +28,21 @@ public class EnemyHealth : MonoBehaviour
         if (GameSettings.gameState != GameState.InGame){return;}
         Bleed();
     }
-    void Bleed() //this function needs to be reworked to be able to stack bleed on the target
+    void Bleed()
     {
+        if (!bleeding || WeaponStats.Instance.BleedDamage == 0){return;} //If the enemy is not bleeding, return. This means there is a 1 second interval before the first bleed tick
         bleedTick -= Time.deltaTime;
-        if (bleedTick <= 0 && bleedTrue)
+        if (bleedTick <= 0)
         {
             bleedTick = bleedInterval;
-            ReceiveDamage(bleedAmount, false);
+            ReceiveDamage((baseHealth * WeaponStats.Instance.BleedDamage) / 100, false);
         }
     }
     public void ReceiveDamage(int damageTaken, bool critTrue)
     {
-        if (WeaponStats.Instance.BleedTrue && !bleedTrue)
+        if (!bleeding) //Always applies bleeding. It just does no damage if the weapon doesn't have bleed damage
         {
-            bleedTrue = true;
+            bleeding = true;
         }
         if (critTrue)
         {

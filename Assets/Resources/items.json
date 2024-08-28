@@ -3,7 +3,7 @@
       {
         "id": 0,
         "name": "Sharpened Talons",
-        "desc": "Increases damage you deal",
+        "desc": "Increase damage by 10",
         "rarity": 0,
         "stacks": 0
 
@@ -11,7 +11,7 @@
       {
         "id": 1,
         "name": "Oats",
-        "desc": "Gives you more max health",
+        "desc": "Increase max health by 10%",
         "rarity": 0,
         "stacks": 0
 
@@ -19,7 +19,7 @@
       {
         "id": 2,
         "name": "Boots",
-        "desc": "Increases your waddle speed",
+        "desc": "Increase speed by 5%",
         "rarity": 0,
         "stacks": 0
 
@@ -27,14 +27,14 @@
       {
         "id": 3,
         "name": "Band-Aid",
-        "desc": "Your health slowly regenerates over time",
+        "desc": "Gain 1% health regeneration per 3 seconds",
         "rarity": 2,
         "stacks": 0
       },
       {
         "id": 4,
         "name": "Illegal Trigger",
-        "desc": "You shoot faster",
+        "desc": "Shoot 10% faster",
         "rarity": 0,
         "stacks": 0
 
@@ -42,22 +42,22 @@
       {
         "id": 5,
         "name": "Chompers",
-        "desc": "Your hits bleed enemies",
+        "desc": "Your hits apply a bleed effect for 2% max health every second. Picking up another chomper increases the bleed effect",
         "rarity": 1,
         "stacks": 0
       },
       {
         "id": 6,
         "name": "Leech",
-        "desc": "Your hits on enemies heal you",
+        "desc": "Your hits on enemies heal you for 1% max health",
         "rarity": 2,
         "stacks": 0
       },
       {
         "id": 7,
         "name": "Explosive Bullets",
-        "desc": "Your bullets explode on impact",
-        "rarity": 2,
+        "desc": "Your bullets explode on impact dealing an additional 50% damage to nearby enemies\nExtra Explosive Bullets increase the radius and damage of the explosion",
+        "rarity": 4,
         "stacks": 0
       },
       {
@@ -70,42 +70,42 @@
       {
         "id": 9,
         "name": "Lucky Feather",
-        "desc": "You have an increased chance to deal critical damage",
+        "desc": "You gain 7% critical strike chance\nIf you have 100% crit chance, you gain 5% critical damage instead",
         "rarity": 1,
         "stacks": 0
       },
       {
         "id": 10,
         "name": "Epic",
-        "desc": "Temp (WIP)",
+        "desc": "Temp (NOT IMPLEMENTED)",
         "rarity": 3,
         "stacks": 0
       },
       {
         "id": 11,
         "name": "Epic",
-        "desc": "Temp(WIP)",
+        "desc": "Temp(NOT IMPLEMENTED)",
         "rarity": 3,
         "stacks": 0
       },
       {
         "id": 12,
         "name": "Lucky Dive",
-        "desc": "Gain two random basic stats at half strength",
+        "desc": "Gain two random stats at reduced strength\nThe possible stats are: Damage, Health, Speed, Fire rate, Crit Chance, Crit Damage",
         "rarity": 1,
         "stacks": 0
       },
       {
         "id": 13,
         "name": "Shotgun",
-        "desc": "Shoots a spread of bullets",
+        "desc": "Shoots a spread of bullets\nShotgun deals less damage per bullet and shoots faster",
         "rarity": 4,
         "stacks": 0
       },
       {
         "id": 14,
-        "name": "Sniper",
-        "desc": "Long range high damage",
+        "name": "Sniper Rifle",
+        "desc": "Long range high damage\nThe sniper rifle doubles your crit chance and damage",
         "rarity": 4,
         "stacks": 0
       },
@@ -118,51 +118,65 @@
       },
       {
         "id": 16,
-        "name": "Overheat",
-        "desc": "Machine Gun Upgrade (WIP)",
-        "rarity": 5,
+        "name": "Dual Pistols",
+        "desc": "Get another pistol",
+        "rarity": 4,
         "stacks": 0
       },
       {
         "id": 17,
-        "name": "Piercing",
-        "desc": "Sniper Upgrade (WIP)",
-        "rarity": 5,
+        "name": "Rocket Launcher",
+        "desc": "Shoot explosive rockets (WIP)",
+        "rarity": 4,
         "stacks": 0
       },
       {
         "id": 18,
-        "name": "More Pellets",
-        "desc": "Shotgun Upgrade (WIP)",
-        "rarity": 5,
+        "name": "Sword",
+        "desc": "Melee range with high damage (WIP)",
+        "rarity": 4,
         "stacks": 0
       },
       {
         "id": 19,
-        "name": "Midas Touch",
-        "desc": "Enemies take high damage when they damage you, but you are slowed significantly (WIP)",
-        "rarity": 6,
+        "name": "Overheat",
+        "desc": "Machine Gun Upgrade (NOT IMPLEMENTED)",
+        "rarity": 5,
         "stacks": 0
       },
       {
         "id": 20,
-        "name": "Glass Cannon",
-        "desc": "You gain incredible damage but have very little health",
-        "rarity": 6,
+        "name": "Piercing",
+        "desc": "Sniper Upgrade (NOT IMPLEMENTED)",
+        "rarity": 5,
         "stacks": 0
       },
       {
         "id": 21,
-        "name": "Blood letter's Curse",
-        "desc": "You gain incredible lifesteal but your health drains rapidly (WIP)",
-        "rarity": 6,
+        "name": "More Pellets",
+        "desc": "Shotgun Upgrade (NOT IMPLEMENTED)",
+        "rarity": 5,
         "stacks": 0
       },
       {
         "id": 22,
-        "name": "Dual Pistols",
-        "desc": "Get another pistol",
-        "rarity": 4,
+        "name": "Midas Touch",
+        "desc": "Enemies take high damage when they damage you, but you are slowed significantly (NOT IMPLEMENTED)",
+        "rarity": 6,
+        "stacks": 0
+      },
+      {
+        "id": 23,
+        "name": "Glass Cannon",
+        "desc": "Double your damage but halve your health",
+        "rarity": 6,
+        "stacks": 0
+      },
+      {
+        "id": 24,
+        "name": "Blood letter's Curse",
+        "desc": "You gain incredible lifesteal but your health drains rapidly (NOT IMPLEMENTED)",
+        "rarity": 6,
         "stacks": 0
       }
     ]

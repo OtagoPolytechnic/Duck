@@ -53,7 +53,6 @@ public class WeaponStats : MonoBehaviour
                     WeaponCritChanceFlat = 0;
                     WeaponCritDamage = 100;
                     WeaponExplosiveBullets = false;
-                    WeaponBleed = false;
                     WeaponExplosionSize = 0;
                     WeaponExplosionDamage = 0;
                     WeaponBleedDamage = 0;
@@ -75,7 +74,6 @@ public class WeaponStats : MonoBehaviour
                     WeaponExplosiveBullets = false;
                     WeaponExplosionSize = 0;
                     WeaponExplosionDamage = 0;
-                    WeaponBleed = false;
                     WeaponBleedDamage = 0;
                     WeaponExtraBullets = 0;
                     WeaponSpread = 0;
@@ -95,7 +93,6 @@ public class WeaponStats : MonoBehaviour
                     WeaponCritDamage = 100;
                     WeaponRange = 100;
                     WeaponExplosiveBullets = false;
-                    WeaponBleed = false;
                     WeaponExplosionSize = 0;
                     WeaponExplosionDamage = 0;
                     WeaponBleedDamage = 0;
@@ -117,7 +114,6 @@ public class WeaponStats : MonoBehaviour
                     WeaponRange = 100;
                     WeaponBulletSpeed = 100;
                     WeaponExplosiveBullets = false;
-                    WeaponBleed = false;
                     WeaponExplosionSize = 0;
                     WeaponExplosionDamage = 0;
                     WeaponBleedDamage = 0;
@@ -163,7 +159,6 @@ public class WeaponStats : MonoBehaviour
                     WeaponCritChanceFlat = 0;
                     WeaponCritDamage = 100; 
                     WeaponExplosiveBullets = false;
-                    WeaponBleed = false;
                     WeaponExplosionSize = 0;
                     WeaponExplosionDamage = 0;
                     WeaponBleedDamage = 0;
@@ -172,7 +167,7 @@ public class WeaponStats : MonoBehaviour
                 case WeaponType.RocketLauncher: //Placeholder for the rocket launcher
                     //Testing values for the Rocket Launcher. Focussing on getting it implemented. Can balance it later
                     WeaponExplosiveBullets = true; //Rocket launcher has explosive bullets
-                    WeaponExplosionSize = 100; //Explosion size is 100
+                    WeaponExplosionSize = 10; //Explosion size is 10
                     WeaponExplosionDamage = 50; //50% of the weapon's damage is dealt as explosion damage
                     WeaponFireDelay = 300; //300% fire delay
                     WeaponRange = 150; //150% range
@@ -183,7 +178,6 @@ public class WeaponStats : MonoBehaviour
                     WeaponCritChanceFlat = 0;
                     WeaponCritDamage = 100;
                     WeaponBulletSpeed = 100;
-                    WeaponBleed = false;
                     WeaponBleedDamage = 0;
                     WeaponExtraBullets = 0;
                     WeaponSpread = 0;
@@ -225,7 +219,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int Damage //Damage is only a getter, as only the components should be set
     {
-        get {return (BASE_DAMAGE + FlatDamage) * (PercentageDamage / 100) * (WeaponDamage / 100);} //Final damage calculation
+        get {return ((BASE_DAMAGE + FlatDamage) * PercentageDamage * WeaponDamage) / 1000;} //Final damage calculation
     }
 
     //Crit Chance
@@ -256,7 +250,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int CritChance
     {
-        get {return (BASE_CRIT_CHANCE + FlatCritChance + weaponCritChanceFlat) * (PercentageCritChance / 100) * (weaponCritChancePercentage / 100);}
+        get {return Math.Min(((BASE_CRIT_CHANCE + FlatCritChance + weaponCritChanceFlat) * PercentageCritChance * weaponCritChancePercentage) / 1000, 100f);} //Can't go over 100% crit chance
     }
 
     //Crit Damage. Not currently changing but will likely be added to an item at some point
@@ -281,7 +275,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int CritDamage //Returns a percentage of the weapon's damage. 150 at base
     {
-        get {return (BASE_CRIT_DAMAGE + flatCritDamage) * (PercentageCritDamage / 100) * (WeaponCritDamage / 100);}
+        get {return ((BASE_CRIT_DAMAGE + flatCritDamage) * PercentageCritDamage * WeaponCritDamage) / 1000;}
     }
 
     //Range
@@ -306,7 +300,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int Range
     {
-        get {return (BASE_RANGE + FlatRange) * (PercentageRange / 100) * (WeaponRange / 100);}
+        get {return ((BASE_RANGE + FlatRange) * PercentageRange * WeaponRange) / 1000;}
     }
 
     //Fire delay. Note: .5f is a half second delay between shots. Increasing the fire delay will make the weapon shoot slower
@@ -317,13 +311,13 @@ public class WeaponStats : MonoBehaviour
         get {return flatFireDelay;}
         set {flatFireDelay = value;}
     }
-    private float percentageFireDelay = 100;
+    private float percentageFireDelay = 100f;
     public float PercentageFireDelay
     {
         get {return percentageFireDelay;}
         set {percentageFireDelay = value;}
     }
-    private float weaponFireDelay = 100;
+    private float weaponFireDelay = 100f;
     public float WeaponFireDelay
     {
         get {return weaponFireDelay;}
@@ -331,7 +325,8 @@ public class WeaponStats : MonoBehaviour
     }
     public float FireDelay
     {
-        get {return (BASE_FIRE_DELAY + FlatFireDelay) * (PercentageFireDelay / 100) * (WeaponFireDelay / 100);}
+        get {return Math.Max(((BASE_FIRE_DELAY + FlatFireDelay) * PercentageFireDelay * WeaponFireDelay) / 1000, 0.1f);}
+        //This isn't allowed to be any quicker than 0.1 seconds per shot. Can change value?
     }
     
     //Bullet speed
@@ -356,7 +351,7 @@ public class WeaponStats : MonoBehaviour
     }
     public float BulletSpeed
     {
-        get {return (BASE_BULLET_SPEED + FlatBulletSpeed) * (PercentageBulletSpeed / 100) * (WeaponBulletSpeed / 100);}
+        get {return ((BASE_BULLET_SPEED + FlatBulletSpeed) * PercentageBulletSpeed * WeaponBulletSpeed) / 1000;}
     }
 
     //The explosive bullets item and the rocket launcher are going to have the same effect with different values so I will combine them
@@ -416,24 +411,6 @@ public class WeaponStats : MonoBehaviour
         get {return (Damage * ((ItemExplosionDamage + WeaponExplosionDamage) / 100));} //This gives explosion damage as a percentage of the weapon's damage equal to the item % and the weapon % added together
     }
 
-    //Bleed
-    private bool itemBleed = false;
-    public bool ItemBleed
-    {
-        get {return itemBleed;}
-        set {itemBleed = value;}
-    }
-    private bool weaponBleed = false; //Adding this in case we want a weapon to have bleed at some point
-    public bool WeaponBleed
-    {
-        get {return weaponBleed;}
-        set {weaponBleed = value;}
-    }
-    public bool Bleed
-    {
-        get {return ItemBleed || WeaponBleed;} //This will return true if either the weapon or an item has bleed
-    }
-
     //Bleed damage
     private int itemBleedDamage = 0; //Percentage of the weapon damage to be dealt as bleed damage
     private int ItemBleedDamage
@@ -449,7 +426,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int BleedDamage
     {
-        get {return (Damage * ((ItemBleedDamage + WeaponBleedDamage) / 100));} //This gives bleed damage as a percentage of the weapon's damage equal to the item % and the weapon % added together
+        get {return (ItemBleedDamage + WeaponBleedDamage) / 100;} //This gives bleed damage as a percentage of the enemy health equal to the item % and the weapon % added together
     }
     
     //Extra bullets - At the moment this is just changed for the shotgun and not any items but having it here for future proofing in case it changes in an upgrade

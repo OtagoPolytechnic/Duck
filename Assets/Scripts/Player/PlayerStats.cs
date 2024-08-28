@@ -36,7 +36,7 @@ public class PlayerStats : MonoBehaviour
     }
     public int MaxHealth
     {
-        get {return (BASE_MAX_HEALTH + FlatBonusHealth) * (PercentBonusHealth / 100);}
+        get {return ((BASE_MAX_HEALTH + FlatBonusHealth) * PercentBonusHealth) / 100;}
     }
 
     private int currentHealth;
@@ -68,14 +68,14 @@ public class PlayerStats : MonoBehaviour
     {
         get
         {
-            float delay = (BASE_REGENERATION_DELAY - FlatRegenerationDelay) * (PercentRegenerationDelay / 100);
+            float delay = ((BASE_REGENERATION_DELAY - FlatRegenerationDelay) * PercentRegenerationDelay) / 100;
             return Mathf.Max(0, delay); //Prevents negative regeneration delays
         }
     }
 
     private float nextRegenerationTick = 0; //Time of the next regeneration tick
 
-    //The regeneration amount can 
+    //The regeneration amount can be negative to deal damage over time instead of healing
     private int flatRegenerationPercentage = 0; //Percents of max health to regenerate per tick
     public int FlatRegenerationPercentage
     {
@@ -90,7 +90,7 @@ public class PlayerStats : MonoBehaviour
     }
     public int RegenerationPercentage //This returns the % of max health to regenerate per tick
     {
-        get {return FlatRegenerationPercentage * (PercentRegenerationPercentage / 100);}
+        get {return (FlatRegenerationPercentage * PercentRegenerationPercentage) / 100;}
     }
 
     //Lifesteal. The names for these are a little strange but I am keeping them the same as the other stats
@@ -108,7 +108,7 @@ public class PlayerStats : MonoBehaviour
     }
     public int LifestealPercentage
     {
-        get {return (FlatLifestealPercentage * (PercentLifestealPercentage / 100));}
+        get {return (FlatLifestealPercentage * PercentLifestealPercentage) / 100;}
     }
     
     //other vars
