@@ -250,8 +250,10 @@ public class WeaponStats : MonoBehaviour
     }
     public int CritChance
     {
-        get {return Math.Min(((BASE_CRIT_CHANCE + FlatCritChance + weaponCritChanceFlat) * PercentageCritChance * weaponCritChancePercentage) / 10000, 100);} //Can't go over 100% crit chance
+        get {return ((BASE_CRIT_CHANCE + FlatCritChance + weaponCritChanceFlat) * PercentageCritChance * weaponCritChancePercentage) / 10000;}
     }
+
+    private int excessCritChance() => Math.Max(CritChance - 100, 0); //Returns the amount of crit chance over 100
 
     //Crit Damage. Not currently changing but will likely be added to an item at some point
     private const int BASE_CRIT_DAMAGE = 150; //Base 150% crit damage (1.5x)
@@ -275,7 +277,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int CritDamage //Returns a percentage of the weapon's damage. 150 at base
     {
-        get {return ((BASE_CRIT_DAMAGE + flatCritDamage) * PercentageCritDamage * WeaponCritDamage) / 10000;}
+        get {return ((BASE_CRIT_DAMAGE + flatCritDamage + (excessCritChance / 2)) * PercentageCritDamage * WeaponCritDamage) / 10000;} //Adds half of the excess crit chance to the crit damage
     }
 
     //Range

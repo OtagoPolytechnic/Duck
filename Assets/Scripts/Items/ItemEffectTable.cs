@@ -58,16 +58,8 @@ public class ItemEffectTable : MonoBehaviour
                 newEgg.transform.localScale = new Vector3(1f/3f, 1f/3f, 1f/3f); //Properly setting the scale to one third
                 break;
             case 09:
-                if (WeaponStats.Instance.CritChance == 100)
-                {
-                    WeaponStats.Instance.FlatCritDamage += 5; //5% crit damage if the crit chance is 100%
-                    Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
-                }
-                else
-                {
-                    WeaponStats.Instance.FlatCritChance += 7; //7% crit chance
-                    Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
-                }
+                WeaponStats.Instance.FlatCritChance += 8; //8% crit chance
+                Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                 break;
             case 10:
                 Debug.Log($"WIP Epic item");
@@ -101,7 +93,7 @@ public class ItemEffectTable : MonoBehaviour
                             Debug.Log($"Fire Delay: {WeaponStats.Instance.FireDelay}"); 
                             break;
                         case 4:
-                            WeaponStats.Instance.FlatCritChance += 4;
+                            WeaponStats.Instance.FlatCritChance += 5;
                             Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                             break;
                         case 5:
@@ -156,7 +148,7 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Blood letter's Curse(WIP)");
                 break;
             case 25:
-                WeaponStats.Instance.FlatCritDamage += 5;
+                WeaponStats.Instance.FlatCritDamage += 4; //4% crit damage
                 Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
                 break;
             default:

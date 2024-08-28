@@ -70,7 +70,7 @@
       {
         "id": 9,
         "name": "Lucky Feather",
-        "desc": "Gain 7% crit strike chance\n\nIf you have 100% crit chance, you gain 5% crit damage instead",
+        "desc": "Gain 87% crit strike chance\n\nExcess crit chance is converted to crit damage at a 2:1 ratio",
         "rarity": 1,
         "stacks": 0
       },
@@ -182,7 +182,7 @@
       {
         "id": 25,
         "name": "Weak Spots",
-        "desc": "Gain 5% critical damage",
+        "desc": "Gain 4% critical damage",
         "rarity": 0,
         "stacks": 0
       }
