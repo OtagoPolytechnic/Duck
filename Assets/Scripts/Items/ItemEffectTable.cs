@@ -62,10 +62,10 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                 break;
             case 10:
-                Debug.Log($"WIP Epic item");
+                Debug.Log($"WIP Legendary item");
                 break;
             case 11:
-                Debug.Log($"WIP Epic item");
+                Debug.Log($"WIP Legendary item");
                 break;
             case 12:
                 List<int> randomStats = new List<int> {0, 1, 2, 3, 4, 5};
@@ -166,6 +166,12 @@ public class ItemEffectTable : MonoBehaviour
                 PlayerStats.Instance.PercentBonusHealth *= 2; //Double the current max health
                 WeaponStats.Instance.PercentageDamage /= 2; //Half the damage
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}. Damage: {WeaponStats.Instance.Damage}");
+                break;
+            case 27:
+                Debug.Log($"WIP Epic item");
+                break;
+            case 28:
+                Debug.Log($"WIP Epic item");
                 break;
             default:
                 Debug.LogError($"The item: {ItemPanel.itemList[itemID].name} with ID: {ItemPanel.itemList[itemID].id} has not been given a case in the item effect table.");

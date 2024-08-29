@@ -56,7 +56,7 @@
       {
         "id": 7,
         "name": "Explosive Bullets",
-        "desc": "Your bullets explode on impact\n\nDeal 50% damage to nearby enemies per item stack",
+        "desc": "(NOT IMPLEMENTED)\nYour bullets explode on impact\n\nDeal 50% damage to nearby enemies per item stack",
         "rarity": 3,
         "stacks": 0
       },
@@ -76,14 +76,14 @@
       },
       {
         "id": 10,
-        "name": "Epic",
+        "name": "Legendary",
         "desc": "Temp (NOT IMPLEMENTED)",
         "rarity": 5,
         "stacks": 0
       },
       {
         "id": 11,
-        "name": "Epic",
+        "name": "Legendary",
         "desc": "Temp(NOT IMPLEMENTED)",
         "rarity": 5,
         "stacks": 0
@@ -140,7 +140,7 @@
       {
         "id": 19,
         "name": "Overheat",
-        "desc": "Machine Gun Upgrade (NOT IMPLEMENTED)",
+        "desc": "Temp (NOT IMPLEMENTED)",
         "rarity": 3,
         "weapons": ["MachineGun"],
         "stacks": 0
@@ -148,7 +148,7 @@
       {
         "id": 20,
         "name": "Piercing",
-        "desc": "Sniper Upgrade (NOT IMPLEMENTED)",
+        "desc": "Temp (NOT IMPLEMENTED)",
         "rarity": 3,
         "weapons": ["Sniper", "DualPistol", "Pistol", "Shotgun", "MachineGun"],
         "stacks": 0
@@ -194,6 +194,22 @@
         "name": "Stone Wall",
         "desc": "You gain double health but lose half your damage",
         "rarity": 6,
+        "stacks": 0
+      },
+      {
+        "id": 27,
+        "name": "Epic",
+        "desc": "Temp to fill space (NOT IMPLEMENTED)",
+        "rarity": 3,
+        "weapons": ["Sniper", "DualPistol", "Pistol", "RocketLauncher", "Sword"],
+        "stacks": 0
+      },
+      {
+        "id": 28,
+        "name": "Epic",
+        "desc": "Temp to fill space (NOT IMPLEMENTED)",
+        "rarity": 3,
+        "weapons": ["RocketLauncher", "Sword"],
         "stacks": 0
       }
     ]
