@@ -26,11 +26,19 @@ public class TerminalBehaviour : MonoBehaviour
 
     }
 
-       public void ActivateWindow(InputAction.CallbackContext context)
+    public void ActivateWindow(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            terminalWindow.visible = !terminalWindow.visible; //terminal should be hidden on game start
+            if (GameSettings.gameState == GameState.Paused)
+            {
+                GameSettings.gameState = GameState.InGame;
+            }
+            else 
+            {
+                GameSettings.gameState = GameState.Paused;
+                terminalWindow.visible = !terminalWindow.visible; //terminal should be hidden on game start`
+            }
         }
     }
 }
