@@ -10,6 +10,18 @@ public class PlayerStats : MonoBehaviour
     public static PlayerStats Instance;
     //Health
     private const int BASE_MAX_HEALTH = 100;
+    private bool midasTouch = false;
+    public bool MidasTouch
+    {
+        get {return midasTouch;}
+        set {midasTouch = value;}
+    }
+    private int midasPercent = 0; //Percentage of damage taken to deal to the enemy
+    public int MidasPercent
+    {
+        get {return midasPercent;}
+        set {midasPercent = value;}
+    }
     private int flatBonusHealth = 0;
     public int FlatBonusHealth
     {
@@ -201,8 +213,14 @@ public class PlayerStats : MonoBehaviour
         Physics2D.IgnoreLayerCollision(7, 9, false);
     }
 
-    public void ReceiveDamage(int damageTaken)
+    public void ReceiveDamage(int damageTaken, EnemyHealth enemyHealth = null)
     {
+        if (midasTouch)
+        {
+            //TODO: Make sure the enemyHealth is added when merged
+            //If the player has the Midas Touch, deal damage to the enemy as well
+            enemyHealth?.ReceiveDamage(damageTaken * midasPercent / 100, false);
+        }
         //TODO: Multiple instances of damage shouldn't totally overlap. Maybe randomly offset them a bit?
         GameObject damageTextInst = Instantiate(damageText, gameObject.transform);
         damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();

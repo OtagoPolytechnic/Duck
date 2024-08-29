@@ -134,10 +134,14 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Piercing (WIP)");
                 break;
             case 21:
-                Debug.Log($"More Pellets (WIP)");
+                WeaponStats.Instance.ItemExtraBullets += 6;
+                Debug.Log($"Extra bullets: {WeaponStats.Instance.ExtraBullets}");
                 break;
             case 22:
-                Debug.Log($"Midas Touch (WIP)");
+                TopDownMovement.Instance.PercentBonusSpeed /= 2; //Half the speed
+                PlayerStats.Instance.MidasTouch = true;
+                PlayerStats.Instance.MidasPercent += 50; //50% of damage taken is dealt to the enemy per stack
+                Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                 break;
             case 23:
                 PlayerStats.Instance.PercentBonusHealth /= 2; //Half the current max health. If this is picked multiple times it will keep halving the max health

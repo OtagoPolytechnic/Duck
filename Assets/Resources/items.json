@@ -154,14 +154,14 @@
       {
         "id": 21,
         "name": "More Pellets",
-        "desc": "Shotgun Upgrade (NOT IMPLEMENTED)",
+        "desc": "Add another 6 pellets to your shots",
         "rarity": 3,
         "stacks": 0
       },
       {
         "id": 22,
         "name": "Midas Touch",
-        "desc": "Enemies take high damage when they damage you, but you are slowed significantly (NOT IMPLEMENTED)",
+        "desc": "Enemies take high damage when they damage you, but you are slowed by 50%",
         "rarity": 6,
         "stacks": 0
       },
