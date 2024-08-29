@@ -97,8 +97,8 @@ GameObject:
   - component: {fileID: 5656455698361903576}
   - component: {fileID: -5524374278306860516}
   - component: {fileID: 4223785294766013922}
-  - component: {fileID: 6881200956051357344}
-  - component: {fileID: 7876166504143535575}
+  - component: {fileID: 536421990431355149}
+  - component: {fileID: 5279123959450887226}
   m_Layer: 6
   m_Name: EnemyBoss1
   m_TagString: Enemy
@@ -181,14 +181,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   speed: 3
-
   bullet: {fileID: 306907954499577549, guid: faa5f054840d20a4a8a823d96680b1c2, type: 3}
-=======
-  bullet: {fileID: 5418265743146168994, guid: 80580cccf9c60b14e9c7630a88835b6e, type: 3}
-
   bulletPosition: {fileID: 5656455699881316956}
   attackRange: 10
-  attackInterval: 1
+  attackInterval: 0.5
 --- !u!212 &4223785294766013922
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -241,7 +237,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6881200956051357344
+--- !u!114 &536421990431355149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,7 +256,7 @@ MonoBehaviour:
   bleedTick: 1
   bleedInterval: 1
   bleedTrue: 0
---- !u!50 &7876166504143535575
+--- !u!50 &5279123959450887226
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
