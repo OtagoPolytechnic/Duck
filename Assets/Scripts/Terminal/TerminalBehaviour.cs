@@ -118,7 +118,7 @@ public class TerminalBehaviour : MonoBehaviour
         }
         if (!int.TryParse(itemAmount, out int amount))
         {
-            output.text += "Amount given is no a number";
+            output.text += "Amount given is not a number";
             return;
         }
         for (int i = 0; i < amount; i++)
