@@ -25,8 +25,7 @@ public class EnemySpawner : MonoBehaviour
             }
         }
     }
-
-    [SerializeField] private List<EnemyWithLevel> allEnemies;
+    public List<EnemyWithLevel> allEnemies;
     private List<GameObject> availableEnemies = new List<GameObject>();
     private float spawnTimer = 1f; //Time between spawns
     public float SpawnTimer
