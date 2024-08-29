@@ -21,7 +21,7 @@ public class BossBullet : MonoBehaviour
 
         // Set bullet damage based on current wave
         bulletDamage = 30 + (GameSettings.waveNumber / 5) * 5; // Increase damage by 5 for every 5 levels
-        bulletSpeed = 5+(GameSettings.waveNumber / 5) * 5; // Increase speed by 5 for every 5 levels
+        bulletSpeed = 5+(GameSettings.waveNumber / 5) * 10; // Increase speed by 5 for every 5 levels
         range = 20f + (GameSettings.waveNumber / 5) * 20; // Increase range of enemy bullets by 20 for every 5 levels
         Vector3 direction = player.transform.position - transform.position;
         rb.velocity = new Vector2(direction.x, direction.y).normalized * bulletSpeed;
