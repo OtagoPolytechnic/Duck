@@ -60,8 +60,11 @@ public class TerminalBehaviour : MonoBehaviour
                 case "setwave":
                     SetWave(commands[1]);
                 break;
+                case "godmode":
+                    GodMode(commands[1]);
+                break;
                 default:
-                    output.text += "Not a valid command\n";
+                    output.text += "Not a valid command\n\n";
                 break;
             }   
             input.value = "";
@@ -76,8 +79,10 @@ public class TerminalBehaviour : MonoBehaviour
         "setwave {waveNo.} | sets the next wave to the specified number\n\n" +
         "setstat {stat} {value} | sets the stat specified to the value given. Accepted stats: damage, crit, maxhealth, firedelay, movespeed, critdamage\n\n" +
         "spawn {enemyId} {count} | spawns an enemy with the id given and the amount given\n\n" +
-        "god | sets and unsets the player from god mode\n\n";
+        "godmode {bool} | gives the player god mode. true/false\n\n" +
+        "cull\n\n";
     }
+
     private void SetWeapon(string weapon)
     {
         switch (weapon)
@@ -104,21 +109,22 @@ public class TerminalBehaviour : MonoBehaviour
                 WeaponStats.Instance.CurrentWeapon = WeaponType.Pistol;
             break;
             default:
-                output.text += "Invalid weapon name";
+                output.text += "Invalid weapon name\n\n";
             break;
         }
         output.text += $"Weapon set to {WeaponStats.Instance.CurrentWeapon}\n\n";
     }
+
     private void GiveItem(string itemId, string itemAmount)
     {
         if (!int.TryParse(itemId, out int id))
         {
-            output.text += "ItemId given is incorrect";
+            output.text += "ItemId given is incorrect\n\n";
             return;
         }
         if (!int.TryParse(itemAmount, out int amount))
         {
-            output.text += "Amount given is not a number";
+            output.text += "Amount given is not a number\n\n";
             return;
         }
         for (int i = 0; i < amount; i++)
@@ -127,15 +133,36 @@ public class TerminalBehaviour : MonoBehaviour
         }
         output.text += $"Added {amount} {ItemPanel.itemList[id].name} to player\n\n";
     }
+
     private void SetWave(string wave)
     {
         if (!int.TryParse(wave, out int waveNumber))
         {
-            output.text = "Wave number given is not a number";
+            output.text = "Wave number given is not a number\n\n";
             return;
         }
         GameSettings.waveNumber = waveNumber - 1;
         Timer.Instance.waveNumber = waveNumber - 1;
         output.text += $"Next wave set to {GameSettings.waveNumber + 1}";
+    }
+
+    private void GodMode(string boolean)
+    {
+        if (!bool.TryParse(boolean, out bool isGod))
+        {
+            output.text += "Bool given is not a boolean\n\n";
+            return;
+        }
+        if (isGod)
+        {
+            StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(99999999f));
+            output.text += "Godmode is active\n\n";
+        }
+        else
+        {
+            StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(0f));
+            output.text += "Godmode is off\n\n";
+        }
+
     }
 }

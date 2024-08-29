@@ -122,7 +122,7 @@ public class PlayerStats : MonoBehaviour
         StartCoroutine(DisableCollisionForDuration(2f));
     }
 
-    IEnumerator DisableCollisionForDuration(float duration)
+    public IEnumerator DisableCollisionForDuration(float duration)
     {
         // Set the collision matrix to ignore collisions between the player layer and enemy attacks for the specified duration
         Physics2D.IgnoreLayerCollision(7, 9, true);
