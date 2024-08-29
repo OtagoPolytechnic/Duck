@@ -57,14 +57,14 @@
         "id": 7,
         "name": "Explosive Bullets",
         "desc": "Your bullets explode on impact\n\nDeal 50% damage to nearby enemies per item stack",
-        "rarity": 5,
+        "rarity": 3,
         "stacks": 0
       },
       {
         "id": 8,
         "name": "Egg",
         "desc": "Gain an extra life",
-        "rarity": 3,
+        "rarity": 5,
         "stacks": 0
       },
       {
@@ -78,14 +78,14 @@
         "id": 10,
         "name": "Epic",
         "desc": "Temp (NOT IMPLEMENTED)",
-        "rarity": 3,
+        "rarity": 5,
         "stacks": 0
       },
       {
         "id": 11,
         "name": "Epic",
         "desc": "Temp(NOT IMPLEMENTED)",
-        "rarity": 3,
+        "rarity": 5,
         "stacks": 0
       },
       {
@@ -141,21 +141,21 @@
         "id": 19,
         "name": "Overheat",
         "desc": "Machine Gun Upgrade (NOT IMPLEMENTED)",
-        "rarity": 5,
+        "rarity": 3,
         "stacks": 0
       },
       {
         "id": 20,
         "name": "Piercing",
         "desc": "Sniper Upgrade (NOT IMPLEMENTED)",
-        "rarity": 5,
+        "rarity": 3,
         "stacks": 0
       },
       {
         "id": 21,
         "name": "More Pellets",
         "desc": "Shotgun Upgrade (NOT IMPLEMENTED)",
-        "rarity": 5,
+        "rarity": 3,
         "stacks": 0
       },
       {
