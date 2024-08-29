@@ -96,7 +96,6 @@ GameObject:
   - component: {fileID: 5656455698361903578}
   - component: {fileID: 5656455698361903576}
   - component: {fileID: 5656455698361903577}
-  - component: {fileID: 3801677135667519698}
   - component: {fileID: 8608151561316620193}
   m_Layer: 6
   m_Name: EnemyRanged Level 5
@@ -178,32 +177,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08f7ef46493ec040a6fad13bf51f1aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  damageText: {fileID: 391528759432483411, guid: aa150d6d100764d45af1b8790d3f8c9c, type: 3}
+  critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
+  baseHealth: 250
+  damage: 30
   speed: 3
+  mapManager: {fileID: 0}
+  bleedTick: 1
+  bleedInterval: 1
+  bleedTrue: 0
+  player: {fileID: 0}
   bullet: {fileID: 5418265743146168994, guid: 666dd07e95d1a744fbd4e79265df9d46, type: 3}
   bulletPosition: {fileID: 5656455699881316956}
   attackRange: 8
   attackInterval: 2
-  damage: 30
---- !u!114 &3801677135667519698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5656455698361903583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b76b5f2e6c89db442a7a55299f3066b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageText: {fileID: 391528759432483411, guid: aa150d6d100764d45af1b8790d3f8c9c, type: 3}
-  critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
-  health: 300
-  bleedTick: 1
-  bleedInterval: 1
-  bleedTrue: 0
-  points: 100
 --- !u!50 &8608151561316620193
 Rigidbody2D:
   serializedVersion: 4

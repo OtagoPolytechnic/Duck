@@ -240,7 +240,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5656455698361903578}
   - component: {fileID: 5656455698361903576}
-  - component: {fileID: 3801677135667519698}
   - component: {fileID: 69292089992521618}
   - component: {fileID: 1898390291498354045}
   m_Layer: 6
@@ -312,25 +311,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.3690667, y: 0.717908}
   m_EdgeRadius: 0
---- !u!114 &3801677135667519698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5656455698361903583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b76b5f2e6c89db442a7a55299f3066b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageText: {fileID: 391528759432483411, guid: aa150d6d100764d45af1b8790d3f8c9c, type: 3}
-  critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
-  health: 60
-  bleedTick: 1
-  bleedInterval: 1
-  bleedTrue: 0
-  points: 20
 --- !u!114 &69292089992521618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,9 +323,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58428cf993913ca49ba6ec12648f423c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageText: {fileID: 391528759432483411, guid: aa150d6d100764d45af1b8790d3f8c9c, type: 3}
+  critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
+  baseHealth: 30
+  damage: 25
+  speed: 5
+  mapManager: {fileID: 0}
+  bleedTick: 1
+  bleedInterval: 1
+  bleedTrue: 0
   player: {fileID: 0}
   attackRange: 1
-  speed: 5
 --- !u!50 &1898390291498354045
 Rigidbody2D:
   serializedVersion: 4
