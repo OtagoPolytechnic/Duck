@@ -142,7 +142,7 @@ public class ItemEffectTable : MonoBehaviour
             case 23:
                 PlayerStats.Instance.PercentBonusHealth /= 2; //Half the current max health. If this is picked multiple times it will keep halving the max health
                 WeaponStats.Instance.PercentageDamage *= 2; //Double the damage. If this is picked multiple times it will keep doubling the damage 
-                Debug.Log($"Players max health as been cut in half to:{PlayerStats.Instance.MaxHealth}. Their current health is: {PlayerStats.Instance.CurrentHealth}. Their damage has been doubled to: {WeaponStats.Instance.Damage}");
+                Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}. Damage: {WeaponStats.Instance.Damage}");
                 break;
             case 24:
                 //This gives 30% of your damage as lifesteal and then doubles all your lifesteal
@@ -159,7 +159,9 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
                 break;
             case 26:
-                //stone wall
+                PlayerStats.Instance.PercentBonusHealth *= 2; //Double the current max health
+                WeaponStats.Instance.PercentageDamage /= 2; //Half the damage
+                Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}. Damage: {WeaponStats.Instance.Damage}");
                 break;
             default:
                 Debug.LogError($"The item: {ItemPanel.itemList[itemID].name} with ID: {ItemPanel.itemList[itemID].id} has not been given a case in the item effect table.");
