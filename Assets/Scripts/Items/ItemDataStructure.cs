@@ -11,6 +11,7 @@ public class Item
     public string desc;
     public rarity rarity;
     public int stacks;
+    public List<string> weapons; //Possible weapons. Only used for epic upgrades
     public StyleColor rarityColor 
     {
         get

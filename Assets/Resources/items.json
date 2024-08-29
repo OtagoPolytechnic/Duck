@@ -142,6 +142,7 @@
         "name": "Overheat",
         "desc": "Machine Gun Upgrade (NOT IMPLEMENTED)",
         "rarity": 3,
+        "weapons": ["MachineGun"],
         "stacks": 0
       },
       {
@@ -149,6 +150,7 @@
         "name": "Piercing",
         "desc": "Sniper Upgrade (NOT IMPLEMENTED)",
         "rarity": 3,
+        "weapons": ["Sniper", "DualPistol", "Pistol", "Shotgun", "MachineGun"],
         "stacks": 0
       },
       {
@@ -156,6 +158,7 @@
         "name": "More Pellets",
         "desc": "Add another 6 pellets to your shots",
         "rarity": 3,
+        "weapons": ["Shotgun"],
         "stacks": 0
       },
       {
