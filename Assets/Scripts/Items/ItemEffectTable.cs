@@ -38,6 +38,7 @@ public class ItemEffectTable : MonoBehaviour
                 break;
             case 05:
                 EnemyHealth.bleedAmount += 5;
+                EnemyBase.bleedAmount += 5;
                 WeaponStats.Instance.BleedTrue = true;
                 Debug.Log($"Bleed amount: {EnemyHealth.bleedAmount}"); 
                 break;

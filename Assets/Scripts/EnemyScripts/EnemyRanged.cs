@@ -83,7 +83,7 @@ public class EnemyRanged : EnemyBase
     public override void Die()
     {
         SFXManager.Instance.EnemyDieSound();
-        ScoreManager.Instance.IncreasePoints(10);
+        ScoreManager.Instance.IncreasePoints(Points);
         EnemySpawner.Instance.currentEnemies.Remove(gameObject);
         Destroy(gameObject);
     }

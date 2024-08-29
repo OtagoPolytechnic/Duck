@@ -182,6 +182,7 @@ MonoBehaviour:
   baseHealth: 250
   damage: 30
   speed: 3
+  points: 75
   mapManager: {fileID: 0}
   bleedTick: 1
   bleedInterval: 1

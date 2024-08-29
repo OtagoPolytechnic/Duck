@@ -29,6 +29,11 @@ public abstract class EnemyBase : MonoBehaviour
     {
         get {return speed;}
     }
+    [SerializeField] private int points;
+    public int Points
+    {
+        get {return points;}
+    }
     public MapManager mapManager;
     public float bleedTick = 1f;
     public float bleedInterval = 1f;
