@@ -145,11 +145,21 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Players max health as been cut in half to:{PlayerStats.Instance.MaxHealth}. Their current health is: {PlayerStats.Instance.CurrentHealth}. Their damage has been doubled to: {WeaponStats.Instance.Damage}");
                 break;
             case 24:
-                Debug.Log($"Blood letter's Curse(WIP)");
+                //This gives 30% of your damage as lifesteal and then doubles all your lifesteal
+                //This means it gives 60% total and doubles the effectiveness of all other lifesteal
+                PlayerStats.Instance.FlatLifestealPercentage += 30;
+                PlayerStats.Instance.PercentLifestealPercentage *= 2;
+                PlayerStats.Instance.DotTick = 0.1f; //Tick rate for the dot
+                PlayerStats.Instance.DotDamage += 1; //Damage per tick
+                Debug.Log($"Lifesteal percentage: {PlayerStats.Instance.LifestealPercentage}");
+                Debug.Log($"Dot tick: {PlayerStats.Instance.DotDamage}");
                 break;
             case 25:
                 WeaponStats.Instance.FlatCritDamage += 4; //4% crit damage
                 Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
+                break;
+            case 26:
+                //stone wall
                 break;
             default:
                 Debug.LogError($"The item: {ItemPanel.itemList[itemID].name} with ID: {ItemPanel.itemList[itemID].id} has not been given a case in the item effect table.");

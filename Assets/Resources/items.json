@@ -168,14 +168,14 @@
       {
         "id": 23,
         "name": "Glass Cannon",
-        "desc": "Double your damage but halve your health",
+        "desc": "You gain double damage but lose half your health",
         "rarity": 6,
         "stacks": 0
       },
       {
         "id": 24,
-        "name": "Blood letter's Curse",
-        "desc": "You gain incredible lifesteal but your health drains rapidly (NOT IMPLEMENTED)",
+        "name": "Bloodletter's Curse",
+        "desc": "Gain 60% lifesteal and double the effectiveness of all future lifesteal items\n\nYour health rapidly drains",
         "rarity": 6,
         "stacks": 0
       },
@@ -184,6 +184,13 @@
         "name": "Weak Spots",
         "desc": "Gain 4% critical damage",
         "rarity": 0,
+        "stacks": 0
+      },
+      {
+        "id": 26,
+        "name": "Stone Wall",
+        "desc": "You gain double health but lose half your damage",
+        "rarity": 6,
         "stacks": 0
       }
     ]

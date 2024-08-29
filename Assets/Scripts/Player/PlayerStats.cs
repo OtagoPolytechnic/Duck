@@ -50,27 +50,28 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    private float dotTick = 1f; //Time between damage over time ticks
+    public float DotTick
+    {
+        get {return dotTick;}
+        set {dotTick = value;}
+    }
+
+    private int dotDamage = 0; //Percentage of max health to deal per tick
+    public int DotDamage
+    {
+        get {return dotDamage;}
+        set {dotDamage = value;}
+    }
+
+    private float nextDotTick = 0; //Time of the next damage over time tick
+
     //Regeneration
-    private const float BASE_REGENERATION_DELAY = 3f; //Base regeneration delay in seconds. Each point is one second of delay between regeneration ticks
-    private float flatRegenerationDelay = 0; //Flat reduction in regeneration delay. 0 = no reduction, 1 = 1 second reduction
-    public float FlatRegenerationDelay
+    private float healTick = 3; //Time between healing ticks
+    public float HealTick
     {
-        get {return flatRegenerationDelay;}
-        set {flatRegenerationDelay = value;}
-    }
-    private float percentRegenerationDelay = 100; //100% of base regeneration delay, 50 = half delay, 100 = 3 second delay
-    public float PercentRegenerationDelay
-    {
-        get {return percentRegenerationDelay;}
-        set {percentRegenerationDelay = value;}
-    }
-    public float RegenerationDelay
-    {
-        get
-        {
-            float delay = ((BASE_REGENERATION_DELAY - FlatRegenerationDelay) * PercentRegenerationDelay) / 100;
-            return Mathf.Max(0, delay); //Prevents negative regeneration delays
-        }
+        get {return healTick;}
+        set {healTick = value;}
     }
 
     private float nextRegenerationTick = 0; //Time of the next regeneration tick
@@ -134,6 +135,10 @@ public class PlayerStats : MonoBehaviour
         {
             CheckRegeneration();
         }
+        if (DotDamage != 0)
+        {
+            CheckDot();
+        }
 
         if (currentHealth <= 0) //if the player dies
         {
@@ -152,10 +157,20 @@ public class PlayerStats : MonoBehaviour
     {
         if (nextRegenerationTick <= 0) //Health property will deal with the max health cap
         {
-            nextRegenerationTick = RegenerationDelay;
+            nextRegenerationTick = HealTick;
             CurrentHealth += Math.Max(((MaxHealth * RegenerationPercentage) / 100), 1); //Regenerate the % of max health per tick. Minimum 1
         }
         nextRegenerationTick -= Time.fixedDeltaTime;
+    }
+
+    void CheckDot()
+    {
+        if (nextDotTick <= 0)
+        {
+            nextDotTick = DotTick;
+            CurrentHealth -= Math.Max(((MaxHealth * DotDamage) / 100), 1); //Deal the % of max health per tick. Minimum 1
+        }
+        nextDotTick -= Time.fixedDeltaTime;
     }
 
     void Respawn()
