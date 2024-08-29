@@ -20,6 +20,12 @@ public class BossBehaviour : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         attackCooldown = 0;
     }
+    void Start()
+    {
+        //attackRange = 10 + (GameSettings.waveNumber / 5) * 15; // Increase attackRange by 15 for every 5 levels
+        speed = 10 + (GameSettings.waveNumber / 5) * 5; // Increase speed by 5 for every 5 levels
+    }
+
 
     void Update()
     {
