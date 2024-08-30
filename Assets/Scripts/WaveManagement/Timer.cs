@@ -16,7 +16,7 @@ public class Timer : MonoBehaviour
     private Label timerText;
     [SerializeField] private BossSpawner bossSpawner;
     public float waveLength;
-    private float currentTime;
+    public float currentTime;
     public int waveNumber;
     bool geninventory = false;
     public static Timer Instance;
@@ -50,7 +50,7 @@ public class Timer : MonoBehaviour
         {
             return;
         }
-        if(GameSettings.gameState == GameState.InGame && GameSettings.waveNumber % 5 != 0)
+        if(GameSettings.gameState == GameState.InGame && GameSettings.waveNumber % 5 != 0 || TerminalBehaviour.Instance.stopBoss)
         {
             currentTime -= Time.deltaTime;
        
@@ -108,7 +108,7 @@ public class Timer : MonoBehaviour
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
 
-        if (waveNumber % 5 == 0)
+        if (waveNumber % 5 == 0 && !TerminalBehaviour.Instance.stopBoss)
         {
             bossSpawner.SpawnBoss();
             timerText.visible = false;

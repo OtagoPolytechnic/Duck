@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
        
-        if(GameSettings.gameState == GameState.InGame && GameSettings.waveNumber%5!=0)
+        if(GameSettings.gameState == GameState.InGame && GameSettings.waveNumber%5!=0 && !TerminalBehaviour.Instance.stopEnemy)
         {
             if (lastSpawn > spawnTimer && currentEnemies.Count < enemyCap)
             {

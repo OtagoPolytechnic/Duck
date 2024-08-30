@@ -14,9 +14,22 @@ public class TerminalBehaviour : MonoBehaviour
     [SerializeField]
     private ItemEffectTable effectTable;
 
-    
+    public static TerminalBehaviour Instance;
+    public bool stopBoss;
+    public bool stopEnemy;
+
     void Awake()
     {
+
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         document = GetComponent<UIDocument>().rootVisualElement;
         terminalWindow = document.Q<VisualElement>("TerminalWindow");
         input = document.Q<TextField>("Input");
@@ -63,6 +76,15 @@ public class TerminalBehaviour : MonoBehaviour
                 case "godmode":
                     GodMode(commands[1]);
                 break;
+                case "cull":
+                    Cull();
+                break;
+                case "stopspawn":
+                    StopSpawn(commands[1]);
+                break;
+                case "skipwave":
+                    SkipWave();
+                break;
                 default:
                     output.text += "Not a valid command\n\n";
                 break;
@@ -74,13 +96,17 @@ public class TerminalBehaviour : MonoBehaviour
 
     public void Help()
     {
-        output.text += "\nAvailable Commands: \n\nsetweapon {weaponName} | will set player weapon to weapon given. Accepted values: pistol, dualpistol, shotgun, sniper, machinegun, rocket, sword\n\n" +
-        "giveitem {itemID} {amount} | will give an item or multiple from the item list to the player (will not add to list of items the player has)\n\n" +
-        "setwave {waveNo.} | sets the next wave to the specified number\n\n" +
-        "setstat {stat} {value} | sets the stat specified to the value given. Accepted stats: damage, crit, maxhealth, firedelay, movespeed, critdamage\n\n" +
-        "spawn {enemyId} {count} | spawns an enemy with the id given and the amount given\n\n" +
-        "godmode {bool} | gives the player god mode. true/false\n\n" +
-        "cull\n\n";
+        output.text += "\nAvailable Commands: \n\n"+
+        "setweapon {weaponName}    \t| will set player weapon to weapon given. Accepted values: pistol, dualpistol, shotgun, sniper, machinegun, rocket, sword\n\n" +
+        "giveitem {itemID} {amount}\t| will give an item or multiple from the item list to the player (will not add to list of items the player has)\n\n" +
+        "setstat {stat} {value}    \t| sets the stat specified to the value given. Accepted stats: damage, crit, maxhealth, firedelay, movespeed, critdamage\n\n" +
+        "setwave {waveNo.}         \t| sets the next wave to the specified number\n\n" +
+        "skipwave                  \t| will set the timer to 0, skipping the wave you are on\n\n" +
+        "godmode {bool}            \t| gives the player god mode. true/false\n\n" +
+        "spawn {enemyId} {count}   \t| spawns an enemy with the id given and the amount given\n\n" +
+        "cull                      \t| will cull all current eneimes and bullets on screen\n\n" +
+        "stopspawn {value}         \t| will toggle eneimes or bosses from spawning. Accepted values: enemy, boss\n\n";
+        ;
     }
 
     private void SetWeapon(string weapon)
@@ -156,7 +182,7 @@ public class TerminalBehaviour : MonoBehaviour
         if (isGod)
         {
             StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(99999999f));
-            output.text += "Godmode is active\n\n";
+            output.text += "Godmode is on\n\n";
         }
         else
         {
@@ -164,5 +190,36 @@ public class TerminalBehaviour : MonoBehaviour
             output.text += "Godmode is off\n\n";
         }
 
+    }
+
+    private void Cull()
+    {
+        Timer.CullBullets();
+        Timer.CullEnemies();
+        output.text += "All eneimes on screen culled\n\n";
+    }
+
+    private void StopSpawn(string choice)
+    {
+        switch (choice)
+        {
+            case "enemy":
+                stopEnemy = !stopEnemy;
+                output.text += "Enemies will stop spawning\n\n";
+            break;
+            case "boss":
+                stopBoss = !stopBoss;
+                output.text += "Bosses will stop spawning\n\n";
+            break;
+            default:
+                output.text += "Choice not a valid value\n\n";
+            break;
+        }
+    }
+    
+    private void SkipWave()
+    {
+        Timer.Instance.currentTime = 0.1f;
+        output.text += "Wave Skipped!\n\n";
     }
 }
