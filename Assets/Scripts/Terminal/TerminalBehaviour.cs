@@ -70,6 +70,9 @@ public class TerminalBehaviour : MonoBehaviour
                 case "giveitem":
                     GiveItem(commands[1], commands[2]);
                 break;
+                case "setstat":
+                    SetStat(commands[1], commands[2]);
+                break;
                 case "setwave":
                     SetWave(commands[1]);
                 break;
@@ -104,7 +107,7 @@ public class TerminalBehaviour : MonoBehaviour
         "skipwave                  \t| will set the timer to 0, skipping the wave you are on\n\n" +
         "godmode {bool}            \t| gives the player god mode. true/false\n\n" +
         "spawn {enemyId} {count}   \t| spawns an enemy with the id given and the amount given\n\n" +
-        "cull                      \t| will cull all current eneimes and bullets on screen\n\n" +
+        "cull                      \t| will cull all current enemies and bullets on screen\n\n" +
         "stopspawn {value}         \t| will toggle enemies or bosses from spawning. Accepted values: enemy, boss\n\n";
     }
 
@@ -125,13 +128,13 @@ public class TerminalBehaviour : MonoBehaviour
                 WeaponStats.Instance.CurrentWeapon = WeaponType.Sniper;
             break;
             case "machinegun":
-                WeaponStats.Instance.CurrentWeapon = WeaponType.Machine;
+                WeaponStats.Instance.CurrentWeapon = WeaponType.MachineGun;
             break;
             case "rocket":
-                WeaponStats.Instance.CurrentWeapon = WeaponType.Pistol;
+                WeaponStats.Instance.CurrentWeapon = WeaponType.RocketLauncher;
             break;
             case "sword":
-                WeaponStats.Instance.CurrentWeapon = WeaponType.Pistol;
+                WeaponStats.Instance.CurrentWeapon = WeaponType.Sword;
             break;
             default:
                 output.text += "WeaponName is incorrect\n\n";
@@ -157,6 +160,46 @@ public class TerminalBehaviour : MonoBehaviour
             effectTable.ItemPicked(id); //activate the item selected's code
         }
         output.text += $"Added {amount} {ItemPanel.itemList[id].name} to player\n\n";
+    }
+
+    private void SetStat(string stat, string valueString)
+    {
+        if (!int.TryParse(valueString, out int value))
+        {
+            output.text += "Value given is not a number\n\n";
+            return;
+        }
+        switch (stat)
+        {
+            case "damage":
+                WeaponStats.Instance.FlatDamage = value;
+                output.text += $"Added {value} amount of damage to the player\n\n";                
+            break;
+            case "maxhealth":
+                PlayerStats.Instance.FlatBonusHealth = value;
+                output.text += $"Added {value} amount of max health to the player\n\n";
+            break;
+            case "crit":
+                WeaponStats.Instance.FlatCritChance = value;
+                output.text += $"Added {value} amount of crit chance to the player\n\n";
+            break;
+            case "firedelay":
+                WeaponStats.Instance.FlatFireDelay = value; 
+                output.text += $"Added {value} amount of fire speed to the player\n\n";               
+            break;
+            case "movespeed":
+                TopDownMovement.Instance.FlatBonusSpeed = value; 
+                output.text += $"Added {value} amount of move speed to the player\n\n";               
+            break;
+            case "critdamage":
+                WeaponStats.Instance.FlatCritDamage = value; 
+                output.text += $"Added {value} amount of fire speed to the player\n\n";               
+            break;
+            default:
+                output.text += "Stat given is not a valid enterable stat\n\n";
+            break;
+        }
+
     }
 
     private void SetWave(string wave)
