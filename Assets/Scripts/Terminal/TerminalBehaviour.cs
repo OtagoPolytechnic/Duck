@@ -58,10 +58,10 @@ public class TerminalBehaviour : MonoBehaviour
     {
         if (context.performed)
         {
-            string[] commands = input.value.Split(" ");
+            string[] commands = input.value.ToLower().Split(" ");
             switch (commands[0])
             {
-                case "help" :
+                case "help":
                     Help();
                 break;
                 case "setweapon":
@@ -86,7 +86,7 @@ public class TerminalBehaviour : MonoBehaviour
                     SkipWave();
                 break;
                 default:
-                    output.text += "Not a valid command\n\n";
+                    output.text += "Not a valid command, type \"help\" to see all available commands\n\n";
                 break;
             }   
             input.value = "";
@@ -105,8 +105,7 @@ public class TerminalBehaviour : MonoBehaviour
         "godmode {bool}            \t| gives the player god mode. true/false\n\n" +
         "spawn {enemyId} {count}   \t| spawns an enemy with the id given and the amount given\n\n" +
         "cull                      \t| will cull all current eneimes and bullets on screen\n\n" +
-        "stopspawn {value}         \t| will toggle eneimes or bosses from spawning. Accepted values: enemy, boss\n\n";
-        ;
+        "stopspawn {value}         \t| will toggle enemies or bosses from spawning. Accepted values: enemy, boss\n\n";
     }
 
     private void SetWeapon(string weapon)
@@ -135,7 +134,7 @@ public class TerminalBehaviour : MonoBehaviour
                 WeaponStats.Instance.CurrentWeapon = WeaponType.Pistol;
             break;
             default:
-                output.text += "Invalid weapon name\n\n";
+                output.text += "WeaponName is incorrect\n\n";
             break;
         }
         output.text += $"Weapon set to {WeaponStats.Instance.CurrentWeapon}\n\n";
@@ -196,7 +195,7 @@ public class TerminalBehaviour : MonoBehaviour
     {
         Timer.CullBullets();
         Timer.CullEnemies();
-        output.text += "All eneimes on screen culled\n\n";
+        output.text += "All enemies on screen culled\n\n";
     }
 
     private void StopSpawn(string choice)
