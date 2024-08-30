@@ -1,23 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Bullet : MonoBehaviour
 {
     private Vector3 startPos;
-    private int critDamage = 0;
-    private bool critTrue = false;
+    private bool crit = false;
 
     void Start()
     {
         startPos = transform.position;
-        float critRoll = Random.Range(0f,1f);
-        
-        //crit damage calculation
-        if (critRoll < WeaponStats.Instance.CritChance)
+
+        //Calculates critical roll
+        if (UnityEngine.Random.Range(0, 100) < WeaponStats.Instance.CritChance)
         {
-            critDamage += Mathf.RoundToInt(WeaponStats.Instance.Damage * 1.50f);
-            critTrue = true;
+            crit = true;
             //Change to critical sprite
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(true);
@@ -26,10 +24,8 @@ public class Bullet : MonoBehaviour
     
     void Update()
     {
-        //destroys bullet after range
-        float distTravelled = Vector3.Distance(startPos, transform.position);
-
-        if (distTravelled > WeaponStats.Instance.Range)
+        //Destroys bullet after it reaches max range
+        if (Vector3.Distance(startPos, transform.position) > (float)WeaponStats.Instance.Range)
         {
             Destroy(gameObject);
         }
@@ -40,21 +36,28 @@ public class Bullet : MonoBehaviour
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Enemy"))
         {
-            //lifesteal addition and cap
-            PlayerStats.Instance.CurrentHealth += PlayerStats.Instance.LifestealAmount;
-            //explosive bullets size calculation
-            if (WeaponStats.Instance.ExplosiveBullets)
+            //Lifesteal by percentage of damage dealt
+            if (PlayerStats.Instance.LifestealPercentage > 0)
             {
-                transform.localScale = new Vector3(transform.localScale.x * (2 + 0.2f * WeaponStats.Instance.ExplosionSize), transform.localScale.y * (2 + 0.2f * WeaponStats.Instance.ExplosionSize), 1);
+                PlayerStats.Instance.CurrentHealth += Math.Max((WeaponStats.Instance.Damage * PlayerStats.Instance.LifestealPercentage) / 100, 1); //Heals at least 1 health
             }
-            if (critTrue)
+            //TODO: Explosive bullet fix
+            // if (WeaponStats.Instance.ExplosiveBullets)
+            // {
+            //     transform.localScale = new Vector3(transform.localScale.x * (2 + 0.2f * WeaponStats.Instance.ExplosionSize), transform.localScale.y * (2 + 0.2f * WeaponStats.Instance.ExplosionSize), 1);
+            // }
+            if (crit)
             {
-                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(WeaponStats.Instance.Damage + critDamage, true);
+                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage((WeaponStats.Instance.Damage * WeaponStats.Instance.CritDamage) / 100, true);
             }
             else
             {
                 other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(WeaponStats.Instance.Damage, false);
             }
+            Destroy(gameObject);
+        }
+        else if (other.gameObject.CompareTag("Edges"))
+        {
             Destroy(gameObject);
         }
     }
