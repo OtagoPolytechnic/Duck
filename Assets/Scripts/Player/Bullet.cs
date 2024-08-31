@@ -48,11 +48,25 @@ public class Bullet : MonoBehaviour
             // }
             if (crit)
             {
-                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage((WeaponStats.Instance.Damage * WeaponStats.Instance.CritDamage) / 100, true);
+                if (other.gameObject.GetComponent<EnemyBase>()) //Workaround for bosses not inheriting from this yet
+                {
+                    other.gameObject.GetComponent<EnemyBase>().ReceiveDamage((WeaponStats.Instance.Damage * WeaponStats.Instance.CritDamage) / 100, true);
+                }
+                else
+                {
+                    other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage((WeaponStats.Instance.Damage * WeaponStats.Instance.CritDamage) / 100, true);
+                }
             }
             else
             {
-                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(WeaponStats.Instance.Damage, false);
+                if (other.gameObject.GetComponent<EnemyBase>()) //Workaround for bosses not inheriting from this yet
+                {
+                    other.gameObject.GetComponent<EnemyBase>().ReceiveDamage(WeaponStats.Instance.Damage, false);
+                }
+                else
+                {
+                    other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(WeaponStats.Instance.Damage, false);
+                }
             }
             Destroy(gameObject);
         }

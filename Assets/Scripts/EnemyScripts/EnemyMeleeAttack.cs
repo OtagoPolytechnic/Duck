@@ -5,11 +5,12 @@ using TMPro;
 
 public class EnemyMeleeAttack : MonoBehaviour
 {
-    [SerializeField] private int damage; 
+    private int damage; 
     public GameObject player;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        damage = gameObject.GetComponentInParent<EnemyBase>().Damage;
     }
     void OnTriggerEnter2D(Collider2D other)
     {

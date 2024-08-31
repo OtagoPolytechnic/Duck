@@ -9,10 +9,17 @@ public class EnemyHealth : MonoBehaviour
     public const float BLEED_INTERVAL = 1f;
     public GameObject damageText;
     public GameObject critText;
-    public int baseHealth;
-    [HideInInspector] public int health;
+    [SerializeField] private int health;
+    public int Health
+    {
+        get {return health;}
+        set {health = value;}
+    }
     public float bleedTick = 1f;
-    public bool bleeding = false;
+    public float bleedInterval = 1f;
+    public bool bleedTrue;
+    public static int bleedAmount = 0;
+    [SerializeField] private int points;
 
 
     void Update()
@@ -21,8 +28,8 @@ public class EnemyHealth : MonoBehaviour
         if (health <= 0)
         {
             SFXManager.Instance.EnemyDieSound();
-            ScoreManager.Instance.IncreasePoints(10);
-            EnemySpawner.currentEnemies.Remove(gameObject);
+            ScoreManager.Instance.IncreasePoints(points);
+            EnemySpawner.Instance.currentEnemies.Remove(gameObject);
             Destroy(gameObject);
         } 
         if (GameSettings.gameState != GameState.InGame){return;}
