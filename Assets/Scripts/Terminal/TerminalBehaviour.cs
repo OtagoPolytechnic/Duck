@@ -88,6 +88,9 @@ public class TerminalBehaviour : MonoBehaviour
                 case "skipwave":
                     SkipWave();
                 break;
+                case "spawn":
+                    Spawn(commands[1], commands[2]);
+                break;
                 default:
                     output.text += "Not a valid command, type \"help\" to see all available commands\n\n";
                 break;
@@ -201,7 +204,20 @@ public class TerminalBehaviour : MonoBehaviour
         }
 
     }
-
+    private void Spawn(string enemy, string count)
+    {
+        if (!int.TryParse(enemy, out int enemyId))
+        {
+            output.text += "EnemyId given is incorrect\n\n";
+            return;
+        }
+        if (!int.TryParse(count, out int amount))
+        {
+            output.text += "Count given is not a number\n\n";
+            return;
+        }
+        
+    }
     private void SetWave(string wave)
     {
         if (!int.TryParse(wave, out int waveNumber))
