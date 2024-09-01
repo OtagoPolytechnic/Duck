@@ -140,9 +140,10 @@
       },
       {
         "id": 19,
-        "name": "Overheat",
-        "desc": "Temp (NOT IMPLEMENTED)",
+        "name": "Ricochet",
+        "desc": "Bullets can ricochet off an additional enemy",
         "rarity": 3,
+        "weapons": ["Sniper", "DualPistol", "Pistol", "MachineGun"],
         "stacks": 0
       },
       {
@@ -198,14 +199,6 @@
       },
       {
         "id": 27,
-        "name": "Ricochet",
-        "desc": "Bullets can ricochet off an additional enemy",
-        "rarity": 3,
-        "weapons": ["Sniper", "DualPistol", "Pistol", "MachineGun"],
-        "stacks": 0
-      },
-      {
-        "id": 28,
         "name": "Epic",
         "desc": "Rocket Launcher/Sword epic to fill space (NOT IMPLEMENTED)",
         "rarity": 3,

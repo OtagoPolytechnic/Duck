@@ -128,7 +128,8 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
             case 19:
-                Debug.Log($"Overheat (WIP)");
+                WeaponStats.Instance.RicochetCount += 1;
+                Debug.Log($"Ricochet count: {WeaponStats.Instance.RicochetCount}");
                 break;
             case 20:
                 WeaponStats.Instance.ItemPiercing = true;
@@ -170,8 +171,7 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}. Damage: {WeaponStats.Instance.Damage}");
                 break;
             case 27:
-                WeaponStats.Instance.RicochetCount += 1;
-                Debug.Log($"Ricochet count: {WeaponStats.Instance.RicochetCount}");
+                Debug.Log($"WIP Epic item");
                 break;
             case 28:
                 Debug.Log($"WIP Epic item");
