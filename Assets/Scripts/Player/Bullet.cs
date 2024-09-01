@@ -14,6 +14,7 @@ public class Bullet : MonoBehaviour
     private float bulletSpeed;
     public GameObject ExplosionPrefab;
     private GameObject Explosion;
+    private int ricochetCount;
 
     void Start()
     {
@@ -35,7 +36,7 @@ public class Bullet : MonoBehaviour
         bulletRigidbody = GetComponent<Rigidbody2D>();
         bulletDirection = bulletRigidbody.velocity;
         bulletSpeed = bulletRigidbody.velocity.magnitude;
-
+        ricochetCount = WeaponStats.Instance.RicochetCount;
     }
 
     void Update()
@@ -83,19 +84,33 @@ public class Bullet : MonoBehaviour
                 {
                     other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(WeaponStats.Instance.Damage, false);
                 }
+                //If the piercing isn't infinite, check if it should pierce
                 if (pierceCount != -1)
                 {
-                    if (pierceCount == 0)
+                    if (pierceCount == 0) //If count isn't zero then reduce the pierce count
                     {
-                        Destroy(gameObject);
+                        if (ricochetCount > 0) //If the bullet should ricochet and hasn't already ricocheted
+                        {
+                            //Ricochet in a random direction
+                            bulletDirection = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
+                            ricochetCount--;
+                        }
+                        else //Otherwise destroy the bullet
+                        {
+                            Destroy(gameObject);
+                        }
                     }
-                    pierceCount--;
+                    else
+                    {
+                        pierceCount--;
+                    }
                 }
                 //Disables collisions with the collided
                 Physics2D.IgnoreCollision(bulletCollider, other.collider);
-                //Set bullet to old speed and direction
+                //Set bullet to old (or new for ricochet) speed and direction
                 bulletRigidbody.velocity = bulletDirection;
                 bulletRigidbody.velocity = bulletRigidbody.velocity.normalized * bulletSpeed;
+                transform.right = bulletRigidbody.velocity;
             }
             else
             {

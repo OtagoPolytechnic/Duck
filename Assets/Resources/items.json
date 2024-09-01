@@ -43,7 +43,7 @@
         "id": 5,
         "name": "Chompers",
         "desc": "Your hits bleed enemies for 2% max health every second.\nPicking up another chomper increases the bleed damage",
-        "rarity": 1,
+        "rarity": 2,
         "stacks": 0
       },
       {
@@ -143,7 +143,6 @@
         "name": "Overheat",
         "desc": "Temp (NOT IMPLEMENTED)",
         "rarity": 3,
-        "weapons": ["MachineGun"],
         "stacks": 0
       },
       {
@@ -187,7 +186,7 @@
         "id": 25,
         "name": "Weak Spots",
         "desc": "Gain 4% critical damage",
-        "rarity": 0,
+        "rarity": 1,
         "stacks": 0
       },
       {
@@ -199,10 +198,18 @@
       },
       {
         "id": 27,
-        "name": "Epic",
-        "desc": "Rocket Launcher/Sword/Sniper/Dual Pistol/ Pistol epic to fill space (NOT IMPLEMENTED)",
+        "name": "Richochet",
+        "desc": "Bullets can riochet off an additional enemy",
         "rarity": 3,
-        "weapons": ["RocketLauncher", "Sword", "Sniper", "DualPistol", "Pistol"],
+        "weapons": ["Sniper", "DualPistol", "Pistol", "MachineGun"],
+        "stacks": 0
+      },
+      {
+        "id": 28,
+        "name": "Epic",
+        "desc": "Rocket Launcher/Sword epic to fill space (NOT IMPLEMENTED)",
+        "rarity": 3,
+        "weapons": ["RocketLauncher", "Sword"],
         "stacks": 0
       },
       {

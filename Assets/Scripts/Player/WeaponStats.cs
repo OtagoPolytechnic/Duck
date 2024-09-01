@@ -515,6 +515,13 @@ public class WeaponStats : MonoBehaviour
         }
     }
 
+    private int ricochetCount = 0;
+    public int RicochetCount
+    {
+        get { return ricochetCount; }
+        set { ricochetCount = value; }
+    }
+
 
     void Awake()
     {

@@ -170,7 +170,8 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}. Damage: {WeaponStats.Instance.Damage}");
                 break;
             case 27:
-                Debug.Log($"WIP Epic item");
+                PlayerStats.Instance.RicochetCount += 1;
+                Debug.Log($"Ricochet count: {PlayerStats.Instance.RicochetCount}");
                 break;
             case 28:
                 Debug.Log($"WIP Epic item");
