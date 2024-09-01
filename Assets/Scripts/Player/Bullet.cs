@@ -12,6 +12,8 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D bulletRigidbody;
     private Vector2 bulletDirection;
     private float bulletSpeed;
+    public GameObject ExplosionPrefab;
+    private GameObject Explosion;
 
     void Start()
     {
@@ -50,37 +52,55 @@ public class Bullet : MonoBehaviour
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Enemy"))
         {
-            //Lifesteal by percentage of damage dealt
-            if (PlayerStats.Instance.LifestealPercentage > 0)
+            if (WeaponStats.Instance.ExplosiveBullets)
             {
-                PlayerStats.Instance.CurrentHealth += Math.Max((WeaponStats.Instance.Damage * PlayerStats.Instance.LifestealPercentage) / 100, 1); //Heals at least 1 health
+                Explosion = Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
+                PlayerExplosion explosionScript = Explosion.GetComponent<PlayerExplosion>();
+                explosionScript.ExplosionSize = WeaponStats.Instance.ExplosionSize;
+                explosionScript.Crit = crit;
+                if (crit)
+                {
+                    explosionScript.ExplosionDamage = (WeaponStats.Instance.ExplosionDamage * WeaponStats.Instance.CritDamage) / 100;
+                }
+                else
+                {
+                    explosionScript.ExplosionDamage = WeaponStats.Instance.ExplosionDamage;
+                }
             }
-            //TODO: Explosive bullet fix
-            // if (WeaponStats.Instance.ExplosiveBullets)
-            // {
-            //     transform.localScale = new Vector3(transform.localScale.x * (2 + 0.2f * WeaponStats.Instance.ExplosionSize), transform.localScale.y * (2 + 0.2f * WeaponStats.Instance.ExplosionSize), 1);
-            // }
-            if (crit)
+            //Making the rocket launcher not deal base bullet damage, only explosion damage
+            if (WeaponStats.Instance.CurrentWeapon != WeaponType.RocketLauncher)
             {
-                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage((WeaponStats.Instance.Damage * WeaponStats.Instance.CritDamage) / 100, true);
+                //Lifesteal by percentage of damage dealt
+                if (PlayerStats.Instance.LifestealPercentage > 0)
+                {
+                    PlayerStats.Instance.CurrentHealth += Math.Max((WeaponStats.Instance.Damage * PlayerStats.Instance.LifestealPercentage) / 100, 1); //Heals at least 1 health
+                }
+                if (crit)
+                {
+                    other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage((WeaponStats.Instance.Damage * WeaponStats.Instance.CritDamage) / 100, true);
+                }
+                else
+                {
+                    other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(WeaponStats.Instance.Damage, false);
+                }
+                if (pierceCount != -1)
+                {
+                    if (pierceCount == 0)
+                    {
+                        Destroy(gameObject);
+                    }
+                    pierceCount--;
+                }
+                //Disables collisions with the collided
+                Physics2D.IgnoreCollision(bulletCollider, other.collider);
+                //Set bullet to old speed and direction
+                bulletRigidbody.velocity = bulletDirection;
+                bulletRigidbody.velocity = bulletRigidbody.velocity.normalized * bulletSpeed;
             }
             else
             {
-                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(WeaponStats.Instance.Damage, false);
+                Destroy(gameObject);
             }
-            if (pierceCount != -1)
-            {
-                if (pierceCount == 0)
-                {
-                    Destroy(gameObject);
-                }
-                pierceCount--;
-            }
-            //Disables collisions with the collided
-            Physics2D.IgnoreCollision(bulletCollider, other.collider);
-            //Set bullet to old speed and direction
-            bulletRigidbody.velocity = bulletDirection;
-            bulletRigidbody.velocity = bulletRigidbody.velocity.normalized * bulletSpeed;
         }
         else if (other.gameObject.CompareTag("Edges"))
         {
