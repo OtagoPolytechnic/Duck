@@ -198,8 +198,8 @@
       },
       {
         "id": 27,
-        "name": "Richochet",
-        "desc": "Bullets can riochet off an additional enemy",
+        "name": "Ricochet",
+        "desc": "Bullets can ricochet off an additional enemy",
         "rarity": 3,
         "weapons": ["Sniper", "DualPistol", "Pistol", "MachineGun"],
         "stacks": 0
