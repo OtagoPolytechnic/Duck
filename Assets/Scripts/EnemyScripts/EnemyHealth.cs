@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using System;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -17,30 +18,30 @@ public class EnemyHealth : MonoBehaviour
 
     void Update()
     {
-       
+
         if (health <= 0)
         {
             SFXManager.Instance.EnemyDieSound();
             ScoreManager.Instance.IncreasePoints(10);
             EnemySpawner.currentEnemies.Remove(gameObject);
             Destroy(gameObject);
-        } 
-        if (GameSettings.gameState != GameState.InGame){return;}
+        }
+        if (GameSettings.gameState != GameState.InGame) { return; }
         Bleed();
     }
     void Bleed()
     {
-        if (!bleeding || WeaponStats.Instance.BleedDamage == 0){return;} //If the enemy is not bleeding, return. This means there is a 1 second interval before the first bleed tick
+        if (!bleeding || WeaponStats.Instance.BleedDamage == 0) { return; } //If the enemy is not bleeding, return. This means there is a 1 second interval before the first bleed tick
         bleedTick -= Time.fixedDeltaTime;
         if (bleedTick <= 0)
         {
             bleedTick = BLEED_INTERVAL;
-            ReceiveDamage((baseHealth * WeaponStats.Instance.BleedDamage) / 100, false);
+            ReceiveDamage(Math.Max((baseHealth * WeaponStats.Instance.BleedDamage) / 100, 1), false);
         }
     }
     public void ReceiveDamage(int damageTaken, bool critTrue)
     {
-        if (!bleeding) //Always applies bleeding. It just does no damage if the weapon doesn't have bleed damage
+        if (!bleeding && WeaponStats.Instance.BleedDamage > 0)
         {
             bleeding = true;
         }
@@ -56,6 +57,6 @@ public class EnemyHealth : MonoBehaviour
             damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
             health -= damageTaken;
         }
-        
+
     }
 }
