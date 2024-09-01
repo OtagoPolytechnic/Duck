@@ -168,8 +168,8 @@ public class WeaponStats : MonoBehaviour
                     //Testing values for the Rocket Launcher. Focussing on getting it implemented. Can balance it later
                     WeaponExplosiveBullets = true; //Rocket launcher has explosive bullets
                     WeaponExplosionSize = 10; //Explosion size is 10
-                    WeaponExplosionDamage = 50; //50% of the weapon's damage is dealt as explosion damage
-                    WeaponFireDelay = 300; //300% fire delay
+                    WeaponExplosionDamage = 80; //80% of the weapon's damage is dealt as explosion damage
+                    WeaponFireDelay = 200; //200% fire delay
                     WeaponRange = 150; //150% range
 
                     //Other stats set to base values
