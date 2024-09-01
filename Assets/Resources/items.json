@@ -155,7 +155,7 @@
       },
       {
         "id": 21,
-        "name": "More Pellets",
+        "name": "Bigger Barrel",
         "desc": "Add another 6 pellets to your shots",
         "rarity": 3,
         "weapons": ["Shotgun"],
