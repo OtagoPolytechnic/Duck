@@ -27,23 +27,23 @@ public class ItemEffectTable : MonoBehaviour
                 break;
             case 02:
                 TopDownMovement.Instance.PercentBonusSpeed += 5;
-                Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");           
+                Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                 break;
             case 03:
                 PlayerStats.Instance.FlatRegenerationPercentage += 1;
-                Debug.Log($"Regeneration Percentage: {PlayerStats.Instance.RegenerationPercentage}"); 
+                Debug.Log($"Regeneration Percentage: {PlayerStats.Instance.RegenerationPercentage}");
                 break;
             case 04:
                 WeaponStats.Instance.PercentageFireDelay -= 10; //This makes it shoot 10% faster
-                Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}"); 
+                Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}");
                 break;
             case 05:
                 WeaponStats.Instance.ItemBleedDamage += 2; //2% max health bleed per second
-                Debug.Log($"Bleed amount: {WeaponStats.Instance.BleedDamage}"); 
+                Debug.Log($"Bleed amount: {WeaponStats.Instance.BleedDamage}");
                 break;
             case 06:
                 PlayerStats.Instance.FlatLifestealPercentage += 1;
-                Debug.Log($"Lifesteal percentage: {PlayerStats.Instance.LifestealPercentage}"); 
+                Debug.Log($"Lifesteal percentage: {PlayerStats.Instance.LifestealPercentage}");
                 break;
             case 07:
                 WeaponStats.Instance.ItemExplosiveBullets = true;
@@ -51,7 +51,7 @@ public class ItemEffectTable : MonoBehaviour
                 WeaponStats.Instance.ItemExplosionDamage += 50; //50% of the weapon damage as an explosion. Unsure about the balance 
                 Debug.Log($"Explosion size: {WeaponStats.Instance.ExplosionSize}");
                 Debug.Log($"Explosion damage: {WeaponStats.Instance.ExplosionDamage}");
-                break;     
+                break;
             case 08:
                 //This is going to be changed to not being actual items on the ground
                 GameObject newEgg = Instantiate(eggPrefab,  new Vector3(0,0,0), Quaternion.identity, GameObject.Find("Nest").transform);
@@ -86,11 +86,11 @@ public class ItemEffectTable : MonoBehaviour
                             break;
                         case 2:
                             TopDownMovement.Instance.PercentBonusSpeed += 3;
-                            Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}"); 
+                            Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                             break;
                         case 3:
                             WeaponStats.Instance.PercentageFireDelay -= 6;
-                            Debug.Log($"Fire Delay: {WeaponStats.Instance.FireDelay}"); 
+                            Debug.Log($"Fire Delay: {WeaponStats.Instance.FireDelay}");
                             break;
                         case 4:
                             WeaponStats.Instance.FlatCritChance += 5;
@@ -113,7 +113,7 @@ public class ItemEffectTable : MonoBehaviour
                 break;
             case 15:
                 WeaponStats.Instance.CurrentWeapon = WeaponType.MachineGun;
-                Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");  
+                Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
             case 16:
                 WeaponStats.Instance.CurrentWeapon = WeaponType.DualPistol;
@@ -170,8 +170,8 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}. Damage: {WeaponStats.Instance.Damage}");
                 break;
             case 27:
-                PlayerStats.Instance.RicochetCount += 1;
-                Debug.Log($"Ricochet count: {PlayerStats.Instance.RicochetCount}");
+                WeaponStats.Instance.RicochetCount += 1;
+                Debug.Log($"Ricochet count: {WeaponStats.Instance.RicochetCount}");
                 break;
             case 28:
                 Debug.Log($"WIP Epic item");
