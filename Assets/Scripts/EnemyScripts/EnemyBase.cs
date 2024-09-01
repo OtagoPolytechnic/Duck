@@ -6,6 +6,7 @@ using TMPro;
 
 public abstract class EnemyBase : MonoBehaviour
 {
+    public const float BLEED_INTERVAL = 1f;
     public GameObject damageText;
     public GameObject critText;
     [SerializeField] private int baseHealth;
@@ -42,16 +43,17 @@ public abstract class EnemyBase : MonoBehaviour
 
     public void Bleed() //this function needs to be reworked to be able to stack bleed on the target
     {
-        bleedTick -= Time.deltaTime;
-        if (bleedTick <= 0 && bleedTrue)
+        if (!bleedTrue || WeaponStats.Instance.BleedDamage == 0){return;} //If the enemy is not bleeding, return. This means there is a 1 second interval before the first bleed tick
+        bleedTick -= Time.fixedDeltaTime;
+        if (bleedTick <= 0)
         {
-            bleedTick = bleedInterval;
-            ReceiveDamage(bleedAmount, false);
+            bleedTick = BLEED_INTERVAL;
+            ReceiveDamage((Health * WeaponStats.Instance.BleedDamage) / 100, false);
         }
     }
     public void ReceiveDamage(int damageTaken, bool critTrue)
     {
-        if (WeaponStats.Instance.BleedTrue && !bleedTrue)
+        if (!bleedTrue)
         {
             bleedTrue = true;
         }
