@@ -238,7 +238,10 @@ public class ItemPanel : MonoBehaviour
     }
     private void addItemToList(Item item)
     {
-        heldItems.Add(item);
+        if (heldItems.Contains(item) == false)
+        {
+            heldItems.Add(item);
+        }
         item.stacks++;
     }
 
