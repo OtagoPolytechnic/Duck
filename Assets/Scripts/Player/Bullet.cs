@@ -7,6 +7,11 @@ public class Bullet : MonoBehaviour
 {
     private Vector3 startPos;
     private bool crit = false;
+    private int pierceCount = 0;
+    private Collider2D bulletCollider;
+    private Rigidbody2D bulletRigidbody;
+    private Vector2 bulletDirection;
+    private float bulletSpeed;
 
     void Start()
     {
@@ -20,8 +25,17 @@ public class Bullet : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(true);
         }
+        if (WeaponStats.Instance.Piercing)
+        {
+            pierceCount = WeaponStats.Instance.PierceAmount; //NOTE: If this is -1, it will pierce infinitely. Otherwise, it will pierce the number of times specified
+        }
+        bulletCollider = GetComponent<Collider2D>();
+        bulletRigidbody = GetComponent<Rigidbody2D>();
+        bulletDirection = bulletRigidbody.velocity;
+        bulletSpeed = bulletRigidbody.velocity.magnitude;
+
     }
-    
+
     void Update()
     {
         //Destroys bullet after it reaches max range
@@ -54,7 +68,19 @@ public class Bullet : MonoBehaviour
             {
                 other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(WeaponStats.Instance.Damage, false);
             }
-            Destroy(gameObject);
+            if (pierceCount != -1)
+            {
+                if (pierceCount == 0)
+                {
+                    Destroy(gameObject);
+                }
+                pierceCount--;
+            }
+            //Disables collisions with the collided
+            Physics2D.IgnoreCollision(bulletCollider, other.collider);
+            //Set bullet to old speed and direction
+            bulletRigidbody.velocity = bulletDirection;
+            bulletRigidbody.velocity = bulletRigidbody.velocity.normalized * bulletSpeed;
         }
         else if (other.gameObject.CompareTag("Edges"))
         {

@@ -131,7 +131,9 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Overheat (WIP)");
                 break;
             case 20:
-                Debug.Log($"Piercing (WIP)");
+                WeaponStats.Instance.ItemPiercing = true;
+                WeaponStats.Instance.ItemPierceAmount += 1;
+                Debug.Log($"Piercing: {WeaponStats.Instance.PierceAmount}");
                 break;
             case 21:
                 WeaponStats.Instance.ItemExtraBullets += 6;

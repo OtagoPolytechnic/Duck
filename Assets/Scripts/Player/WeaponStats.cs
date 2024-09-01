@@ -491,7 +491,6 @@ public class WeaponStats : MonoBehaviour
     }
 
     //Pierce amount. Each point of pierce amount allows the bullet to pierce one enemy. If it is -1 then it pierces all enemies
-    //Not implemented yet but it will be so I am adding it to the stats
     private int itemPierceAmount = 0;
     public int ItemPierceAmount
     {

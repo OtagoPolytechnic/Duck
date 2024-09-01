@@ -147,8 +147,8 @@
       },
       {
         "id": 20,
-        "name": "Piercing",
-        "desc": "Temp (NOT IMPLEMENTED)",
+        "name": "Piercing Bullets",
+        "desc": "Your bullets can pierce an additional enemy",
         "rarity": 3,
         "weapons": ["Sniper", "DualPistol", "Pistol", "Shotgun", "MachineGun"],
         "stacks": 0
