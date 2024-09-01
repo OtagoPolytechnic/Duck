@@ -31,14 +31,14 @@ public class WeaponStats : MonoBehaviour
 
     public WeaponType CurrentWeapon
     {
-        get {return currentWeapon;}
+        get { return currentWeapon; }
         set
         {
             currentWeapon = value;
             //When adding a new weapon, define its stats here when weapon type is set
             //If making adjustments to an unused stat please shift it up to the changed section instead of the base section
             swapWeapon(value);
-            switch(value)
+            switch (value)
             {
                 case WeaponType.Shotgun:
                     //Shotgun values
@@ -47,7 +47,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponSpread = 30; //30 flat spread
                     WeaponExtraBullets = 6; //6 extra bullets
                     WeaponBulletSpeed = 150; //150% bullet speed
-                    WeaponFireDelay= 150; //150% fire delay
+                    WeaponFireDelay = 150; //150% fire delay
 
                     //Other stats set to base values
                     weaponCritChancePercentage = 100;
@@ -59,8 +59,8 @@ public class WeaponStats : MonoBehaviour
                     WeaponBleedDamage = 0;
                     WeaponPiercing = false;
                     WeaponPierceAmount = 0;
-                break;
-                
+                    break;
+
                 case WeaponType.Sniper:
                     //Sniper values
                     WeaponDamage = 300; //300% damage
@@ -80,7 +80,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponSpread = 0;
                     WeaponPiercing = false;
                     WeaponPierceAmount = 0;
-                break;
+                    break;
 
                 case WeaponType.MachineGun:
                     //Machine gun values
@@ -101,7 +101,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponSpread = 0; //Note: We may want to add spread to the machine gun?
                     WeaponPiercing = false;
                     WeaponPierceAmount = 0;
-                break;
+                    break;
 
                 case WeaponType.DualPistol:
                     //Dual pistol values
@@ -141,7 +141,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponSpread = 0;
                     WeaponPiercing = false;
                     WeaponPierceAmount = 0;
-                break;
+                    break;
 
                 case WeaponType.Sword: //Placeholder for the sword
                     //Trying to hack together a basic sword with bullets. VERY WIP
@@ -157,19 +157,19 @@ public class WeaponStats : MonoBehaviour
                     //Other stats set to base values
                     weaponCritChancePercentage = 100; //Possible extra crit chance or damage? Could be too powerful
                     WeaponCritChanceFlat = 0;
-                    WeaponCritDamage = 100; 
+                    WeaponCritDamage = 100;
                     WeaponExplosiveBullets = false;
                     WeaponExplosionSize = 0;
                     WeaponExplosionDamage = 0;
                     WeaponBleedDamage = 0;
-                break;
+                    break;
 
                 case WeaponType.RocketLauncher: //Placeholder for the rocket launcher
                     //Testing values for the Rocket Launcher. Focussing on getting it implemented. Can balance it later
                     WeaponExplosiveBullets = true; //Rocket launcher has explosive bullets
-                    WeaponExplosionSize = 10; //Explosion size is 10
-                    WeaponExplosionDamage = 80; //80% of the weapon's damage is dealt as explosion damage
-                    WeaponFireDelay = 200; //200% fire delay
+                    WeaponExplosionSize = 5; //Explosion size is 10
+                    WeaponExplosionDamage = 100; //100% of the weapon's damage is dealt as explosion damage
+                    WeaponFireDelay = 300; //300% fire delay
                     WeaponRange = 150; //150% range
 
                     //Other stats set to base values
@@ -183,11 +183,11 @@ public class WeaponStats : MonoBehaviour
                     WeaponSpread = 0;
                     WeaponPiercing = false;
                     WeaponPierceAmount = 0;
-                break;
+                    break;
 
                 default:
                     Debug.Log("Weapon Type does not exist");
-                break;
+                    break;
             }
         }
     }
@@ -202,24 +202,24 @@ public class WeaponStats : MonoBehaviour
     private int flatDamage = 0; //Flat damage increase
     public int FlatDamage
     {
-        get {return flatDamage;}
-        set {flatDamage = value;}
+        get { return flatDamage; }
+        set { flatDamage = value; }
     }
     private int percentageDamage = 100; //Percentage starts at 100 (100%)
     public int PercentageDamage
     {
-        get {return percentageDamage;}
-        set {percentageDamage = value;}
+        get { return percentageDamage; }
+        set { percentageDamage = value; }
     }
     private int weaponDamage = 100; //Weapon percentage starts at 100 (100%)
     public int WeaponDamage
     {
-        get {return weaponDamage;}
-        set {weaponDamage = value;}
+        get { return weaponDamage; }
+        set { weaponDamage = value; }
     }
     public int Damage //Damage is only a getter, as only the components should be set
     {
-        get {return ((BASE_DAMAGE + FlatDamage) * PercentageDamage * WeaponDamage) / 10000;} //Final damage calculation
+        get { return ((BASE_DAMAGE + FlatDamage) * PercentageDamage * WeaponDamage) / 10000; } //Final damage calculation
     }
 
     //Crit Chance
@@ -227,30 +227,30 @@ public class WeaponStats : MonoBehaviour
     private int flatCritChance = 0;
     public int FlatCritChance
     {
-        get {return flatCritChance;}
-        set {flatCritChance = value;}
+        get { return flatCritChance; }
+        set { flatCritChance = value; }
     }
     private int percentageCritChance = 100;
     public int PercentageCritChance
     {
-        get {return percentageCritChance;}
-        set {percentageCritChance = value;}
+        get { return percentageCritChance; }
+        set { percentageCritChance = value; }
     }
     private int weaponCritChanceFlat = 0;
     public int WeaponCritChanceFlat
     {
-        get {return weaponCritChanceFlat;}
-        set {weaponCritChanceFlat = value;}
+        get { return weaponCritChanceFlat; }
+        set { weaponCritChanceFlat = value; }
     }
     private int weaponCritChancePercentage = 100;
     public int WeaponCritChance
     {
-        get {return weaponCritChancePercentage;}
-        set {weaponCritChancePercentage = value;}
+        get { return weaponCritChancePercentage; }
+        set { weaponCritChancePercentage = value; }
     }
     public int CritChance
     {
-        get {return ((BASE_CRIT_CHANCE + FlatCritChance + weaponCritChanceFlat) * PercentageCritChance * weaponCritChancePercentage) / 10000;}
+        get { return ((BASE_CRIT_CHANCE + FlatCritChance + weaponCritChanceFlat) * PercentageCritChance * weaponCritChancePercentage) / 10000; }
     }
 
     private int excessCritChance() => Math.Max(CritChance - 100, 0); //Returns the amount of crit chance over 100
@@ -260,24 +260,24 @@ public class WeaponStats : MonoBehaviour
     private int flatCritDamage = 0;
     public int FlatCritDamage
     {
-        get {return flatCritDamage;}
-        set {flatCritDamage = value;}
+        get { return flatCritDamage; }
+        set { flatCritDamage = value; }
     }
     private int percentageCritDamage = 100;
     public int PercentageCritDamage
     {
-        get {return percentageCritDamage;}
-        set {percentageCritDamage = value;}
+        get { return percentageCritDamage; }
+        set { percentageCritDamage = value; }
     }
     private int weaponCritDamage = 100;
     public int WeaponCritDamage
     {
-        get {return weaponCritDamage;}
-        set {weaponCritDamage = value;}
+        get { return weaponCritDamage; }
+        set { weaponCritDamage = value; }
     }
     public int CritDamage //Returns a percentage of the weapon's damage. 150 at base
     {
-        get {return ((BASE_CRIT_DAMAGE + flatCritDamage + (excessCritChance() / 2)) * PercentageCritDamage * WeaponCritDamage) / 10000;} //Adds half of the excess crit chance to the crit damage
+        get { return ((BASE_CRIT_DAMAGE + flatCritDamage + (excessCritChance() / 2)) * PercentageCritDamage * WeaponCritDamage) / 10000; } //Adds half of the excess crit chance to the crit damage
     }
 
     //Range
@@ -285,24 +285,24 @@ public class WeaponStats : MonoBehaviour
     private int flatRange = 0;
     public int FlatRange
     {
-        get {return flatRange;}
-        set {flatRange = value;}
+        get { return flatRange; }
+        set { flatRange = value; }
     }
     private int percentageRange = 100;
     public int PercentageRange
     {
-        get {return percentageRange;}
-        set {percentageRange = value;}
+        get { return percentageRange; }
+        set { percentageRange = value; }
     }
     private int weaponRange = 100;
     public int WeaponRange
     {
-        get {return weaponRange;}
-        set {weaponRange = value;}
+        get { return weaponRange; }
+        set { weaponRange = value; }
     }
     public int Range
     {
-        get {return ((BASE_RANGE + FlatRange) * PercentageRange * WeaponRange) / 10000;}
+        get { return ((BASE_RANGE + FlatRange) * PercentageRange * WeaponRange) / 10000; }
     }
 
     //Fire delay. Note: .5f is a half second delay between shots. Increasing the fire delay will make the weapon shoot slower
@@ -310,163 +310,163 @@ public class WeaponStats : MonoBehaviour
     private float flatFireDelay = 0;
     public float FlatFireDelay
     {
-        get {return flatFireDelay;}
-        set {flatFireDelay = value;}
+        get { return flatFireDelay; }
+        set { flatFireDelay = value; }
     }
     private float percentageFireDelay = 100f;
     public float PercentageFireDelay
     {
-        get {return percentageFireDelay;}
-        set {percentageFireDelay = value;}
+        get { return percentageFireDelay; }
+        set { percentageFireDelay = value; }
     }
     private float weaponFireDelay = 100f;
     public float WeaponFireDelay
     {
-        get {return weaponFireDelay;}
-        set {weaponFireDelay = value;}
+        get { return weaponFireDelay; }
+        set { weaponFireDelay = value; }
     }
     public float FireDelay
     {
-        get {return Math.Max(((BASE_FIRE_DELAY + FlatFireDelay) * PercentageFireDelay * WeaponFireDelay) / 10000, 0.1f);}
+        get { return Math.Max(((BASE_FIRE_DELAY + FlatFireDelay) * PercentageFireDelay * WeaponFireDelay) / 10000, 0.1f); }
         //This isn't allowed to be any quicker than 0.1 seconds per shot. Can change value?
     }
-    
+
     //Bullet speed
     private const float BASE_BULLET_SPEED = 50f;
     private float flatBulletSpeed = 0;
     public float FlatBulletSpeed
     {
-        get {return flatBulletSpeed;}
-        set {flatBulletSpeed = value;}
+        get { return flatBulletSpeed; }
+        set { flatBulletSpeed = value; }
     }
     private float percentageBulletSpeed = 100;
     public float PercentageBulletSpeed
     {
-        get {return percentageBulletSpeed;}
-        set {percentageBulletSpeed = value;}
+        get { return percentageBulletSpeed; }
+        set { percentageBulletSpeed = value; }
     }
     private float weaponBulletSpeed = 100;
     public float WeaponBulletSpeed
     {
-        get {return weaponBulletSpeed;}
-        set {weaponBulletSpeed = value;}
+        get { return weaponBulletSpeed; }
+        set { weaponBulletSpeed = value; }
     }
     public float BulletSpeed
     {
-        get {return ((BASE_BULLET_SPEED + FlatBulletSpeed) * PercentageBulletSpeed * WeaponBulletSpeed) / 10000;}
+        get { return ((BASE_BULLET_SPEED + FlatBulletSpeed) * PercentageBulletSpeed * WeaponBulletSpeed) / 10000; }
     }
 
     //The explosive bullets item and the rocket launcher are going to have the same effect with different values so I will combine them
     //The explosion will have a bool true, a size, and a damage value. The damage value will be a percentage of the bullet's damage
-    
+
     //Explosive bullets
     private bool itemExplosiveBullets = false;
     public bool ItemExplosiveBullets
     {
-        get {return itemExplosiveBullets;}
-        set {itemExplosiveBullets = value;}
+        get { return itemExplosiveBullets; }
+        set { itemExplosiveBullets = value; }
     }
     private bool weaponExplosiveBullets = false;
     public bool WeaponExplosiveBullets
     {
-        get {return weaponExplosiveBullets;}
-        set {weaponExplosiveBullets = value;}
+        get { return weaponExplosiveBullets; }
+        set { weaponExplosiveBullets = value; }
     }
     public bool ExplosiveBullets
     {
-        get {return ItemExplosiveBullets || WeaponExplosiveBullets;} //This will return true if either the weapon or an item has explosive bullets
+        get { return ItemExplosiveBullets || WeaponExplosiveBullets; } //This will return true if either the weapon or an item has explosive bullets
     }
 
     //Explosion size
     private int itemExplosionSize = 0;
     public int ItemExplosionSize
     {
-        get {return itemExplosionSize;}
-        set {itemExplosionSize = value;}
+        get { return itemExplosionSize; }
+        set { itemExplosionSize = value; }
     }
     private int weaponExplosionSize = 0;
     public int WeaponExplosionSize
     {
-        get {return weaponExplosionSize;}
-        set {weaponExplosionSize = value;}
+        get { return weaponExplosionSize; }
+        set { weaponExplosionSize = value; }
     }
     public int ExplosionSize
     {
-        get {return ItemExplosionSize + WeaponExplosionSize;} //This will return the sum of the item and weapon explosion sizes
+        get { return ItemExplosionSize + WeaponExplosionSize; } //This will return the sum of the item and weapon explosion sizes
     }
 
     //Explosion damage
     private int itemExplosionDamage = 0; //Percentage of the weapon damage to be dealt as explosion damage
     public int ItemExplosionDamage
     {
-        get {return itemExplosionDamage;}
-        set {itemExplosionDamage = value;}
+        get { return itemExplosionDamage; }
+        set { itemExplosionDamage = value; }
     }
     private int weaponExplosionDamage = 0; //Percentage of the weapon damage to be dealt as explosion damage
     public int WeaponExplosionDamage
     {
-        get {return weaponExplosionDamage;}
-        set {weaponExplosionDamage = value;}
+        get { return weaponExplosionDamage; }
+        set { weaponExplosionDamage = value; }
     }
     public int ExplosionDamage
     {
-        get {return (Damage * (ItemExplosionDamage + WeaponExplosionDamage)) / 100;} //This gives explosion damage as a percentage of the weapon's damage equal to the item % and the weapon % added together
+        get { return (Damage * (ItemExplosionDamage + WeaponExplosionDamage)) / 100; } //This gives explosion damage as a percentage of the weapon's damage equal to the item % and the weapon % added together
     }
 
     //Bleed damage
     private int itemBleedDamage = 0; //Percentage of the weapon damage to be dealt as bleed damage
     public int ItemBleedDamage
     {
-        get {return itemBleedDamage;}
-        set {itemBleedDamage = value;}
+        get { return itemBleedDamage; }
+        set { itemBleedDamage = value; }
     }
     private int weaponBleedDamage = 0;
     public int WeaponBleedDamage
     {
-        get {return weaponBleedDamage;} //Adding this in case we want a weapon to have bleed damage up at some point
-        set {weaponBleedDamage = value;}
+        get { return weaponBleedDamage; } //Adding this in case we want a weapon to have bleed damage up at some point
+        set { weaponBleedDamage = value; }
     }
     public int BleedDamage
     {
-        get {return ItemBleedDamage + WeaponBleedDamage;} //This gives bleed damage as a percentage of the enemy health equal to the item % and the weapon % added together
+        get { return ItemBleedDamage + WeaponBleedDamage; } //This gives bleed damage as a percentage of the enemy health equal to the item % and the weapon % added together
     }
-    
+
     //Extra bullets - At the moment this is just changed for the shotgun and not any items but having it here for future proofing in case it changes in an upgrade
     //Bullets need to always return an even number so it rounds up
     private int itemExtraBullets = 0;
     public int ItemExtraBullets
     {
-        get {return itemExtraBullets;}
-        set {itemExtraBullets = value;}
+        get { return itemExtraBullets; }
+        set { itemExtraBullets = value; }
     }
     private int weaponExtraBullets = 0;
     public int WeaponExtraBullets
     {
-        get {return weaponExtraBullets;}
-        set {weaponExtraBullets = value;}
+        get { return weaponExtraBullets; }
+        set { weaponExtraBullets = value; }
     }
     public int ExtraBullets
     {
-        get {return (ItemExtraBullets + WeaponExtraBullets) + ((ItemExtraBullets + WeaponExtraBullets) % 2);} //Sum of the item and weapon extra bullets plus 1 if its an odd number
+        get { return (ItemExtraBullets + WeaponExtraBullets) + ((ItemExtraBullets + WeaponExtraBullets) % 2); } //Sum of the item and weapon extra bullets plus 1 if its an odd number
     }
 
     //Spread - This is only used for the shotgun. Can be changed by items
     private float itemSpread = 0;
     public float ItemSpread
     {
-        get {return itemSpread;}
-        set {itemSpread = value;}
+        get { return itemSpread; }
+        set { itemSpread = value; }
     }
     private float weaponSpread = 0;
     public float WeaponSpread
     {
-        get {return weaponSpread;}
-        set 
+        get { return weaponSpread; }
+        set
         { weaponSpread = value; }
     }
     public float Spread
     {
-        get 
+        get
         {
             return ItemSpread + WeaponSpread;
         }
@@ -476,36 +476,36 @@ public class WeaponStats : MonoBehaviour
     private bool itemPiercing = false;
     public bool ItemPiercing
     {
-        get {return itemPiercing;}
-        set {itemPiercing = value;}
+        get { return itemPiercing; }
+        set { itemPiercing = value; }
     }
     private bool weaponPiercing = false;
     public bool WeaponPiercing
     {
-        get {return weaponPiercing;}
-        set {weaponPiercing = value;}
+        get { return weaponPiercing; }
+        set { weaponPiercing = value; }
     }
     public bool Piercing
     {
-        get {return ItemPiercing || WeaponPiercing;}
+        get { return ItemPiercing || WeaponPiercing; }
     }
 
     //Pierce amount. Each point of pierce amount allows the bullet to pierce one enemy. If it is -1 then it pierces all enemies
     private int itemPierceAmount = 0;
     public int ItemPierceAmount
     {
-        get {return itemPierceAmount;}
-        set {itemPierceAmount = value;}
+        get { return itemPierceAmount; }
+        set { itemPierceAmount = value; }
     }
     private int weaponPierceAmount = 0;
     public int WeaponPierceAmount
     {
-        get {return weaponPierceAmount;}
-        set {weaponPierceAmount = value;}
+        get { return weaponPierceAmount; }
+        set { weaponPierceAmount = value; }
     }
     public int PierceAmount
     {
-        get 
+        get
         {
             if (WeaponPierceAmount == -1 || ItemPierceAmount == -1)
             {
