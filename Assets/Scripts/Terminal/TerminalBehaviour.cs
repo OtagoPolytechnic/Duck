@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
-using System;
 
 public class TerminalBehaviour : MonoBehaviour
 {
@@ -267,6 +266,11 @@ public class TerminalBehaviour : MonoBehaviour
             output.text += "\nCount given is not a number\n\n";
             return;
         }
+        for (int i = 0; i < amount; i++)
+        {
+            EnemySpawner.Instance.Spawn(enemyId);
+        }
+
         
     }
     private void SetWave(string wave)

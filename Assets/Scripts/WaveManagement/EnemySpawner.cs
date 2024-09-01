@@ -73,7 +73,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    void Spawn(int enemyNum)
+    public void Spawn(int enemyNum)
     {
         Vector3 location = new Vector3();
         int side = Random.Range(1,5); //Which side of the screen the enemy spawns at
