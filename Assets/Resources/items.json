@@ -57,6 +57,7 @@
         "id": 7,
         "name": "Explosive Bullets",
         "desc": "(NOT IMPLEMENTED)\nYour bullets explode on impact\n\nDeal 50% damage to nearby enemies per item stack",
+        "weapons": ["MachineGun", "Sniper", "DualPistol", "Pistol", "Shotgun"],
         "rarity": 3,
         "stacks": 0
       },
@@ -199,15 +200,23 @@
       {
         "id": 27,
         "name": "Epic",
-        "desc": "Temp to fill space (NOT IMPLEMENTED)",
+        "desc": "Rocket Launcher/Sword/Sniper/Dual Pistol/ Pistol epic to fill space (NOT IMPLEMENTED)",
         "rarity": 3,
-        "weapons": ["Sniper", "DualPistol", "Pistol", "RocketLauncher", "Sword"],
+        "weapons": ["RocketLauncher", "Sword", "Sniper", "DualPistol", "Pistol"],
         "stacks": 0
       },
       {
         "id": 28,
         "name": "Epic",
-        "desc": "Temp to fill space (NOT IMPLEMENTED)",
+        "desc": "Rocket Launcher/Sword epic to fill space (NOT IMPLEMENTED)",
+        "rarity": 3,
+        "weapons": ["RocketLauncher", "Sword"],
+        "stacks": 0
+      },
+      {
+        "id": 29,
+        "name": "Epic",
+        "desc": "Rocket Launcher/Sword epic to fill space (NOT IMPLEMENTED)",
         "rarity": 3,
         "weapons": ["RocketLauncher", "Sword"],
         "stacks": 0

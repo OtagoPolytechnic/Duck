@@ -175,6 +175,9 @@ public class ItemEffectTable : MonoBehaviour
             case 28:
                 Debug.Log($"WIP Epic item");
                 break;
+            case 29:
+                Debug.Log($"WIP Epic item");
+                break;
             default:
                 Debug.LogError($"The item: {ItemPanel.itemList[itemID].name} with ID: {ItemPanel.itemList[itemID].id} has not been given a case in the item effect table.");
                 break;
