@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using System;
 
 public abstract class EnemyBase : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] private int baseHealth;
     public int BaseHealth
     {
-        get {return baseHealth;}
+        get { return (int)Math.Round(baseHealth * endlessScalar);}
     }
     private int health;
     public int Health
@@ -22,7 +23,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] private int damage;
     public int Damage
     {
-        get {return damage;}
+        get {return (int)Math.Round(damage * endlessScalar);}
     }
     [SerializeField] private float speed;
     public float Speed
@@ -32,13 +33,14 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] private int points;
     public int Points
     {
-        get {return points;}
+        get {return (int)Math.Round(points * endlessScalar);}
     }
     public MapManager mapManager;
     public float bleedTick = 1f;
     public float bleedInterval = 1f;
     public bool bleedTrue;
     public static int bleedAmount = 0;
+    public static float endlessScalar = 1f;
 
     public void Bleed() //this function needs to be reworked to be able to stack bleed on the target
     {
