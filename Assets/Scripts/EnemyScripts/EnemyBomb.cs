@@ -18,6 +18,12 @@ public class EnemyBomb : MonoBehaviour
     // Original size of the collider
     private float originalColliderRadius;
 
+    // Reference to the child GameObject (Explosion)
+    public GameObject explosionPrefab;
+
+    // Original scale of the explosion child
+    private Vector3 originalScale;
+
     void Start()
     {
         startPos = transform.position;
@@ -51,7 +57,7 @@ public class EnemyBomb : MonoBehaviour
 
     private IEnumerator RandomExplodeCoroutine()
     {
-        // Wait for a random time between 1 and 3 seconds
+        // Wait for a random time between 0,5 and 2 seconds
         float waitTime = Random.Range(1f, 3f);
         yield return new WaitForSeconds(waitTime);
 
@@ -79,11 +85,13 @@ public class EnemyBomb : MonoBehaviour
             // Check if it's time to enlarge the collider (during the last 2 flashes)
             if (i >= flashCount - 2)
             {
-                // Increase the collider radius
-                circleCollider.radius = originalColliderRadius * 5;
+             
+
+
             }
         }
-
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        Debug.LogError("Instantiated explosion");
         // Destroy the object after flashing
         Destroy(gameObject);
     }

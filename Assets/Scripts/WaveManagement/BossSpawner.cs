@@ -19,6 +19,7 @@ public class BossSpawner : MonoBehaviour
     public GameObject bossHealthBar;
     public GameObject bigBoss;
 
+
     void Awake()
     { 
         lastSpawn = spawnTimer;
@@ -49,6 +50,7 @@ public class BossSpawner : MonoBehaviour
             container.visible = true;
             BossHealth.Instance.boss = bossInstance.GetComponent<EnemyHealth>();
             BossHealth.Instance.BossMaxHealth = bossHealth;
+       
         }
         else
         {
