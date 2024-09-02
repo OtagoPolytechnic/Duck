@@ -83,19 +83,19 @@ public class ItemPanel : MonoBehaviour
         {
             rarities.Add(rarity.Weapon);
         }
-        else if (waveNumber % 25 == 5)
+        else if (waveNumber == 5)
         {
             rarities.Add(rarity.Epic);
         }
-        else if (waveNumber % 25 == 10)
+        else if (waveNumber == 10)
         {
             rarities.Add(rarity.Legendary);
         }
-        else if (waveNumber % 25 == 15)
+        else if (waveNumber == 15)
         {
             rarities.Add(rarity.Cursed);
         }
-        else if (waveNumber % 25 == 20 || waveNumber % 25 == 0)
+        else if (waveNumber % 5 == 0)
         {
             rarities.Add(rarity.Cursed);
             rarities.Add(rarity.Legendary);
