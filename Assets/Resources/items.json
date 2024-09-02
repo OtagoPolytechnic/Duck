@@ -77,15 +77,15 @@
       },
       {
         "id": 10,
-        "name": "Legendary",
-        "desc": "Temp (NOT IMPLEMENTED)",
+        "name": "Supercharger",
+        "desc": "Shoot 30% faster",
         "rarity": 5,
         "stacks": 0
       },
       {
         "id": 11,
-        "name": "Legendary",
-        "desc": "Temp(NOT IMPLEMENTED)",
+        "name": "Eye of the Eagle",
+        "desc": "Gain 24% crit strike chance\n\nExcess crit chance is converted to crit damage at a 2:1 ratio",
         "rarity": 5,
         "stacks": 0
       },
@@ -219,6 +219,42 @@
         "desc": "Sword epic to fill space (NOT IMPLEMENTED)",
         "rarity": 3,
         "weapons": ["Sword"],
+        "stacks": 0
+      },
+      {
+        "id": 30,
+        "name": "Overheat",
+        "desc": "Machine gun overheats to increase damage (NOT IMPLEMENTED)",
+        "rarity": 7,
+        "weapons": ["MachineGun"],
+        "stacks": 0
+      },
+      {
+        "id": 31,
+        "name": "Rocket Boots",
+        "desc": "Increase speed by 15%",
+        "rarity": 5,
+        "stacks": 0
+      },
+      {
+        "id": 32,
+        "name": "Full Breakfast",
+        "desc": "Increase max health by 30%",
+        "rarity": 5,
+        "stacks": 0
+      },
+      {
+        "id": 33,
+        "name": "Expert Aim",
+        "desc": "Gain 12% critical damage",
+        "rarity": 5,
+        "stacks": 0
+      },
+      {
+        "id": 34,
+        "name": "Hollow-point bullets",
+        "desc": "Increase damage by 30 \n (before weapon scaling)",
+        "rarity": 5,
         "stacks": 0
       }
     ]

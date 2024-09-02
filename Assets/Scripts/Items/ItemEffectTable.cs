@@ -62,10 +62,12 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                 break;
             case 10:
-                Debug.Log($"WIP Legendary item");
+                WeaponStats.Instance.PercentageFireDelay -= 30; //This makes it shoot 30% faster
+                Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}");
                 break;
             case 11:
-                Debug.Log($"WIP Legendary item");
+                WeaponStats.Instance.FlatCritChance += 24; //24% crit chance
+                Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                 break;
             case 12:
                 List<int> randomStats = new List<int> {0, 1, 2, 3, 4, 5};
@@ -178,6 +180,25 @@ public class ItemEffectTable : MonoBehaviour
                 break;
             case 29:
                 Debug.Log($"WIP Epic item");
+                break;
+            case 30:
+                Debug.Log("Unimplemented Overheating item");
+                break;
+            case 31:
+                TopDownMovement.Instance.PercentBonusSpeed += 15;
+                Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
+                break;
+            case 32:
+                PlayerStats.Instance.PercentBonusHealth += 30;
+                Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}");
+                break;
+            case 33:
+                WeaponStats.Instance.FlatCritDamage += 12; //12% crit damage
+                Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
+                break;
+            case 34:
+                WeaponStats.Instance.FlatDamage += 30;
+                Debug.Log($"Damage: {WeaponStats.Instance.Damage}");
                 break;
             default:
                 Debug.LogError($"The item: {ItemPanel.itemList[itemID].name} with ID: {ItemPanel.itemList[itemID].id} has not been given a case in the item effect table.");
