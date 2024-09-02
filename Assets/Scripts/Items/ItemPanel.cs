@@ -12,7 +12,8 @@ public enum rarity{
     Epic,
     Weapon,
     Legendary,
-    Cursed
+    Cursed,
+    Unimplemented //For items that are either temp or not working
 }
     
 public class ItemPanel : MonoBehaviour
