@@ -41,19 +41,21 @@ public class EnemyHealth : MonoBehaviour
     }
     public void ReceiveDamage(int damageTaken, bool critTrue)
     {
+        //Add a small random offset to the damage text number position so they don't all stack on top of each other
+        float randomOffset = UnityEngine.Random.Range(-0.3f, 0.3f);
         if (!bleeding && WeaponStats.Instance.BleedDamage > 0)
         {
             bleeding = true;
         }
         if (critTrue)
         {
-            GameObject critTextInst = Instantiate(critText, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+            GameObject critTextInst = Instantiate(critText, new Vector3(transform.position.x + randomOffset, transform.position.y + 1 + randomOffset, transform.position.z), Quaternion.identity);
             critTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString() + "!";
             health -= damageTaken;
         }
         else
         {
-            GameObject damageTextInst = Instantiate(damageText, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+            GameObject damageTextInst = Instantiate(damageText, new Vector3(transform.position.x + randomOffset, transform.position.y + 1 + randomOffset, transform.position.z), Quaternion.identity);
             damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
             health -= damageTaken;
         }
