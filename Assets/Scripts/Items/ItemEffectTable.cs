@@ -152,8 +152,8 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
                 break;
             default:
-                Debug.LogError($"The item: {ItemPanel.itemList[itemID].name} with ID: {ItemPanel.itemList[itemID].id} has not been given a case in the item effect table.");
-                break;
+                Debug.Log($"The ID: {itemID} has not been given a case in the item effect table.");
+            break;
         }
     }
 }

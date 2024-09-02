@@ -16,6 +16,7 @@ public class TerminalBehaviour : MonoBehaviour
     public static TerminalBehaviour Instance;
     public bool stopBoss;
     public bool stopEnemy;
+    private bool isGod;
 
     void Awake()
     {
@@ -85,7 +86,7 @@ public class TerminalBehaviour : MonoBehaviour
                     SetWave(commands[1]);
                 break;
                 case "godmode":
-                    GodMode(commands[1]);
+                    GodMode();
                 break;
                 case "cull":
                     Cull();
@@ -120,10 +121,10 @@ public class TerminalBehaviour : MonoBehaviour
             "setstat {stat} {value}    \t| sets the stat specified to the value given.\n\n" +
             "setwave {waveNo.}         \t| sets the next wave to the specified number\n\n" +
             "skipwave                  \t| will set the timer to 0, skipping the wave you are on\n\n" +
-            "godmode {bool}            \t| gives the player god mode.\n\n" +
+            "godmode                   \t| gives the player god mode.\n\n" +
             "spawn {enemyId} {count}   \t| spawns an enemy with the id given and the amount given\n\n" +
             "cull                      \t| will cull all current enemies and bullets on screen\n\n" +
-            "stopspawn {value}         \t| will toggle enemies or bosses from spawning.\n\n";
+            "togglespawn {value}       \t| will toggle enemies or bosses from spawning.\n\n";
         }
         else
         {
@@ -136,18 +137,18 @@ public class TerminalBehaviour : MonoBehaviour
                     output.text += "\ngiveitem {itemID:int} {amount:int}\n\nWill give the player the specified item related to that ID with the amount given(will not add to list of items the player has). Will fail if the ID does not match an item in the list.\n\nAccepted values: see item list\n\n";
                 break;
                 case "setstat":
-                    output.text += "\nsetstat {stat:string {value:int}\n\nWill give the player the increase, specified in value, to the flat bonus modifier of the given stat. Will fail if the stat does not match.\n\nAccepted values:\ndamage, \ncrit, \nmaxhealth, \nfiredelay, \nmovespeed, \ncritdamage\n\n";
+                    output.text += "\nsetstat {stat:string} {value:int}\n\nWill give the player the increase, specified in value, to the flat bonus modifier of the given stat. Will fail if the stat does not match.\n\nAccepted values:\ndamage, \ncrit, \nmaxhealth, \nfiredelay, \nmovespeed, \ncritdamage\n\n";
                 break;
                 case "setwave":
                     output.text += "\nsetstat {waveNo.:int}\n\nWill set the next wave to the number given.\n\n";
                 break;
                 case "godmode":
-                    output.text += "\ngodmode {bool:bool}\n\nWill toggle between turning on and off the players ability to be damaged, will not heal the player.\n\n";
+                    output.text += "\ngodmode\n\nWill toggle between turning on and off the players ability to be damaged, will not heal the player.\n\n";
                 break;
                 case "cull":
                     output.text += "\ncull\n\nCulls all active enemies and bullets on stage.\n\n";
                 break;
-                case "stopspawn":
+                case "togglespawn":
                     output.text += "\nstopspawn {value:string}\n\nWill stop either enemies or bosses, depeding on value given, from spawning further. Does not cull current eneimes, ues \"cull\" to do that.\n\nAccepted values: \nenemy, \nboss \n\n";
                 break;
                 case "skipwave":
@@ -198,28 +199,36 @@ public class TerminalBehaviour : MonoBehaviour
 
     private void GiveItem(string itemId, string itemAmount)
     {
-        if (!int.TryParse(itemId, out int id))
+        if (!int.TryParse(itemId, out int id) && id !< 0)
         {
-            output.text += "\nItemId given is incorrect\n\n";
+            output.text += "\nItemId given is not a valid number\n\n";
             return;
         }
-        if (!int.TryParse(itemAmount, out int amount))
+        if (!int.TryParse(itemAmount, out int amount) && amount !< 1)
         {
-            output.text += "\nAmount given is not a number\n\n";
+            output.text += "\nAmount given is not a valid number\n\n";
             return;
         }
         for (int i = 0; i < amount; i++)
         {
             effectTable.ItemPicked(id); //activate the item selected's code
         }
-        output.text += $"\nAdded {amount} {ItemPanel.itemList[id].name} to player\n\n";
+        try
+        {
+            output.text += $"\nAdded {amount} {ItemPanel.itemList[id].name} to player\n\n";
+        }
+        catch (System.Exception)
+        {
+            output.text += $"\nNot a valid ItemID\n\n";
+        }
+       
     }
 
     private void SetStat(string stat, string valueString)
     {
-        if (!int.TryParse(valueString, out int value))
+        if (!int.TryParse(valueString, out int value) && value !< 1)
         {
-            output.text += "\nValue given is not a number\n\n";
+            output.text += "\nValue given is not a valid number\n\n";
             return;
         }
         switch (stat)
@@ -256,28 +265,28 @@ public class TerminalBehaviour : MonoBehaviour
     }
     private void Spawn(string enemy, string count)
     {
-        if (!int.TryParse(enemy, out int enemyId))
+        if (!int.TryParse(enemy, out int enemyId) && enemyId !< 0)
         {
-            output.text += "\nEnemyId given is incorrect\n\n";
+            output.text += "\nEnemyId given is not a valid number\n\n";
             return;
         }
-        if (!int.TryParse(count, out int amount))
+        if (!int.TryParse(count, out int amount) && amount !< 1)
         {
-            output.text += "\nCount given is not a number\n\n";
+            output.text += "\nCount given is not a valid number\n\n";
             return;
         }
         for (int i = 0; i < amount; i++)
         {
             EnemySpawner.Instance.Spawn(enemyId);
         }
-
+        output.text += $"\nSpawned {amount} of level {enemyId} enemies\n\n";
         
     }
     private void SetWave(string wave)
     {
-        if (!int.TryParse(wave, out int waveNumber))
+        if (!int.TryParse(wave, out int waveNumber) && waveNumber !< 1)
         {
-            output.text = "\nWave number given is not a number\n\n";
+            output.text = "\nWave number given is not a valid number\n\n";
             return;
         }
         GameSettings.waveNumber = waveNumber - 1;
@@ -285,24 +294,11 @@ public class TerminalBehaviour : MonoBehaviour
         output.text += $"\nNext wave set to {GameSettings.waveNumber + 1}";
     }
 
-    private void GodMode(string boolean)
+    private void GodMode()
     {
-        if (!bool.TryParse(boolean, out bool isGod))
-        {
-            output.text += "\nBool given is not a boolean\n\n";
-            return;
-        }
-        if (isGod)
-        {
-            StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(99999999f));
-            output.text += "\nGodmode is on\n\n";
-        }
-        else
-        {
-            StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(0f));
-            output.text += "\nGodmode is off\n\n";
-        }
-
+        isGod = !isGod;
+        Physics2D.IgnoreLayerCollision(7, 9, isGod);
+        output.text += $"\nGodmode is {isGod}\n\n";
     }
 
     private void Cull()
