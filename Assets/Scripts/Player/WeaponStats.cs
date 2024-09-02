@@ -59,6 +59,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponBleedDamage = 0;
                     WeaponPiercing = false;
                     WeaponPierceAmount = 0;
+                    WeaponCameraSize = 0;
                     break;
 
                 case WeaponType.Sniper:
@@ -70,6 +71,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponRange = 200; //200% range
                     WeaponFireDelay = 200; //200% fire delay
                     WeaponBulletSpeed = 300; //300% bullet speed
+                    WeaponCameraSize = 3; //3 extra camera size
 
                     //Other stats set to base values
                     WeaponExplosiveBullets = false;
@@ -101,6 +103,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponSpread = 0; //Note: We may want to add spread to the machine gun?
                     WeaponPiercing = false;
                     WeaponPierceAmount = 0;
+                    WeaponCameraSize = 0;
                     break;
 
                 case WeaponType.DualPistol:
@@ -122,6 +125,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponSpread = 0;
                     WeaponPiercing = false;
                     WeaponPierceAmount = 0;
+                    WeaponCameraSize = 0;
                     break;
 
                 case WeaponType.Pistol: //Defining the stats for the pistol so it can be swapped to and away from when testing
@@ -141,6 +145,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponSpread = 0;
                     WeaponPiercing = false;
                     WeaponPierceAmount = 0;
+                    WeaponCameraSize = 0;
                     break;
 
                 case WeaponType.Sword: //Placeholder for the sword
@@ -162,6 +167,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponExplosionSize = 0;
                     WeaponExplosionDamage = 0;
                     WeaponBleedDamage = 0;
+                    WeaponCameraSize = 0;
                     break;
 
                 case WeaponType.RocketLauncher: //Placeholder for the rocket launcher
@@ -183,6 +189,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponSpread = 0;
                     WeaponPiercing = false;
                     WeaponPierceAmount = 0;
+                    WeaponCameraSize = 0;
                     break;
 
                 default:
@@ -522,6 +529,22 @@ public class WeaponStats : MonoBehaviour
         set { ricochetCount = value; }
     }
 
+    private float BASE_CAMERA_SIZE = 10f;
+    private float weaponCameraSize = 0;
+    public float WeaponCameraSize
+    {
+        get { return weaponCameraSize; }
+        set 
+        { 
+            weaponCameraSize = value;
+            StartCoroutine(CameraResize(CameraSize, 1f));
+        }
+    }
+    public float CameraSize
+    {
+        get { return BASE_CAMERA_SIZE + weaponCameraSize; }
+    }
+
 
     void Awake()
     {
@@ -531,6 +554,7 @@ public class WeaponStats : MonoBehaviour
             return;
         }
         Instance = this;
+        StartCoroutine(CameraResize(CameraSize));
     }
 
     void Start()
@@ -551,5 +575,18 @@ public class WeaponStats : MonoBehaviour
                 weapon.Weapon.SetActive(false);
             }
         }
+    }
+
+    public IEnumerator CameraResize(float newSize, float time = 0f) //Default is instant
+    {
+        float elapsedTime = 0;
+        float startingSize = Camera.main.orthographicSize;
+        while (elapsedTime < time)
+        {
+            Camera.main.orthographicSize = Mathf.Lerp(startingSize, newSize, elapsedTime / time);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        Camera.main.orthographicSize = newSize;
     }
 }
