@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/PauseMenuStyle.uss?fileID=7433441132597879392&amp;guid=a77dcd9403e893d45a5618f455cf92db&amp;type=3#PauseMenuStyle" />
+    <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.84); align-items: center; justify-content: center; flex-direction: column; align-self: stretch;">
+        <ui:VisualElement name="PauseMenu" style="flex-grow: 1; background-color: rgb(75, 75, 75); max-width: none; max-height: 75%; justify-content: flex-start; align-self: center; align-items: center; min-width: 75%; min-height: 75%; flex-direction: column;">
+            <ui:Label tabindex="-1" text="Paused" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Header" class="text header" />
+            <ui:Button text="Resume" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Resume" class="text button" />
+            <ui:Button text="Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Settings" class="text button" />
+            <ui:Button text="Quit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Quit" class="text button" />
+            <ui:VisualElement name="StatScreen" style="flex-grow: 1; min-width: 100%; justify-content: center; flex-direction: row;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
