@@ -31,6 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5656455699881316956}
+  - {fileID: 3431313791239197754}
   m_Father: {fileID: 5656455698361903578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1451691637355965336
@@ -85,6 +86,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4814391575297610086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3431313791239197754}
+  m_Layer: 0
+  m_Name: bombPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3431313791239197754
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4814391575297610086}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5575887171487423865}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5656455698361903583
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,6 +131,7 @@ GameObject:
   - component: {fileID: 4223785294766013922}
   - component: {fileID: 536421990431355149}
   - component: {fileID: 5279123959450887226}
+  - component: {fileID: 7389167939081178781}
   m_Layer: 6
   m_Name: EnemyBoss1
   m_TagString: Enemy
@@ -181,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   speed: 3
-  bullet: {fileID: 306907954499577549, guid: faa5f054840d20a4a8a823d96680b1c2, type: 3}
+  bullet: {fileID: 5418265743146168994, guid: 80580cccf9c60b14e9c7630a88835b6e, type: 3}
   bulletPosition: {fileID: 5656455699881316956}
   attackRange: 10
   attackInterval: 0.5
@@ -283,6 +316,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &7389167939081178781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656455698361903583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9575f56fe440a0b46bc11fca4ab211e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  speed: 3
+  bullet: {fileID: 306907954499577549, guid: faa5f054840d20a4a8a823d96680b1c2, type: 3}
+  bombPosition: {fileID: 5656455698361903578}
+  attackRange: 10
+  attackInterval: 0.5
 --- !u!1 &5656455699881316957
 GameObject:
   m_ObjectHideFlags: 0
