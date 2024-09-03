@@ -29,23 +29,8 @@ public class RadiusAttack : MonoBehaviour
 
     void Update()
     {
-        if (GameSettings.gameState != GameState.InGame) { return; }
-        float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
+        
 
-        distance = Vector2.Distance(transform.position, player.transform.position);
-        Vector2 direction = player.transform.position - transform.position;
-
-        //turns enemy towards player
-        direction.Normalize();
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.GetChild(0).rotation = Quaternion.Euler(Vector3.forward * angle);
-
-        if (distance >= attackRange)
-        {
-            transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (speed * tileSpeedModifier) * Time.deltaTime);
-        }
-        else
-        {
             if (attackCooldown <= 0)
             {
                 Shoot();
@@ -55,7 +40,7 @@ public class RadiusAttack : MonoBehaviour
                 attackCooldown -= Time.deltaTime;
             }
         }
-    }
+    
     void Shoot()
     {
         // Define the radius around the enemy within which bombs will be instantiated
@@ -63,7 +48,7 @@ public class RadiusAttack : MonoBehaviour
 
         // Generate a random position within the radius
         Vector2 randomPosition = Random.insideUnitCircle * spawnRadius;
-        Vector2 spawnPosition = (Vector2)transform.position + randomPosition;
+        Vector2 spawnPosition = (Vector2)player.transform.position + randomPosition;
 
         // Create a new bullet (bomb) instance at the random position
         GameObject bulletInstance = Instantiate(bullet, spawnPosition, Quaternion.identity);

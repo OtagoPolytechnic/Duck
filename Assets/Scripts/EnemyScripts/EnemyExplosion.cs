@@ -19,12 +19,7 @@ public class EnemyExplosion : MonoBehaviour
             transform.localScale = new Vector3(explosionSize, explosionSize, explosionSize);
         }
     }
-
-    private bool crit = false;
-    public bool Crit
-    {
-        set { crit = value; }
-    }
+     
     void Start()
     {
 

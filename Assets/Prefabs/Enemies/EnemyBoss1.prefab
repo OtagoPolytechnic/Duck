@@ -333,7 +333,7 @@ MonoBehaviour:
   bullet: {fileID: 306907954499577549, guid: faa5f054840d20a4a8a823d96680b1c2, type: 3}
   bombPosition: {fileID: 5656455698361903578}
   attackRange: 20
-  attackInterval: 0.25
+  attackInterval: 0.4
 --- !u!1 &5656455699881316957
 GameObject:
   m_ObjectHideFlags: 0
