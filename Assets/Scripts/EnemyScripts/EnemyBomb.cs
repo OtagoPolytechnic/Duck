@@ -101,8 +101,9 @@ public class EnemyBomb : MonoBehaviour
         // Destroy bullet on hit with player and lower health
         if (other.gameObject.CompareTag("Player"))
         {
-            player.GetComponent<PlayerStats>().ReceiveDamage(10);
             Destroy(gameObject);
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+          
         }
         else if (other.gameObject.CompareTag("Edges"))
         {

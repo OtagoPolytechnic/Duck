@@ -34,7 +34,7 @@ public class EnemyExplosion : MonoBehaviour
     }
     private IEnumerator DestroyExplosion()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }
 
@@ -42,8 +42,10 @@ public class EnemyExplosion : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+           
+           DestroyExplosion();
             other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(10);
-            Destroy(gameObject);
+          
            
         }
     }

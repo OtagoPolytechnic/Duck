@@ -59,7 +59,7 @@ public class RadiusAttack : MonoBehaviour
     void Shoot()
     {
         // Define the radius around the enemy within which bombs will be instantiated
-        float spawnRadius = 10f; // Adjust this radius as needed
+        float spawnRadius = 20f; // Adjust this radius as needed
 
         // Generate a random position within the radius
         Vector2 randomPosition = Random.insideUnitCircle * spawnRadius;

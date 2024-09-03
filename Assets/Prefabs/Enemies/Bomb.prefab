@@ -162,5 +162,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  bulletSpeed: 2.5
+  bulletSpeed: 3
   explosionPrefab: {fileID: 2638239130088948200, guid: 3fad2df2746ae8c4ebfc17b19956372b, type: 3}
