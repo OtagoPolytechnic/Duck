@@ -91,7 +91,7 @@ public class TerminalBehaviour : MonoBehaviour
                 case "cull":
                     Cull();
                 break;
-                case "stopspawn":
+                case "togglespawn":
                     StopSpawn(commands[1]);
                 break;
                 case "skipwave":
@@ -149,7 +149,7 @@ public class TerminalBehaviour : MonoBehaviour
                     output.text += "\ncull\n\nCulls all active enemies and bullets on stage.\n\n";
                 break;
                 case "togglespawn":
-                    output.text += "\nstopspawn {value:string}\n\nWill stop either enemies or bosses, depeding on value given, from spawning further. Does not cull current eneimes, ues \"cull\" to do that.\n\nAccepted values: \nenemy, \nboss \n\n";
+                    output.text += "\ntogglespawn {value:string}\n\nWill toggle spawning either for enemies or bosses, depending on value given, from spawning further. Does not cull current enemies, use \"cull\" to do that.\n\nAccepted values: \nenemy, \nboss \n\n";
                 break;
                 case "skipwave":
                     output.text += "\nskipwave\n\nSkips the current wave by setting the timer to 0.1.\n\n";
@@ -314,11 +314,11 @@ public class TerminalBehaviour : MonoBehaviour
         {
             case "enemy":
                 stopEnemy = !stopEnemy;
-                output.text += "\nEnemies will stop spawning\n\n";
+                output.text += $"\nEnemy spawning is now {stopEnemy}\n\n";
             break;
             case "boss":
                 stopBoss = !stopBoss;
-                output.text += "\nBosses will stop spawning\n\n";
+                output.text += $"\nBoss spawning is now {stopBoss}\n\n";
             break;
             default:
                 output.text += "\nChoice not a valid value\n\n";
