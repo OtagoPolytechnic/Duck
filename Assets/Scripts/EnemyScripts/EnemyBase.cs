@@ -12,7 +12,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] private int baseHealth;
     public int BaseHealth
     {
-        get { return (int)Math.Round(baseHealth * endlessScalar);}
+        get { return baseHealth;}
     }
     private int health;
     public int Health
@@ -23,7 +23,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] private int damage;
     public int Damage
     {
-        get {return (int)Math.Round(damage * endlessScalar);}
+        get {return damage;}
     }
     [SerializeField] private float speed;
     public float Speed
@@ -33,7 +33,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] private int points;
     public int Points
     {
-        get {return (int)Math.Round(points * endlessScalar);}
+        get {return points;}
     }
     public MapManager mapManager;
     public float bleedTick = 1f;
@@ -73,4 +73,10 @@ public abstract class EnemyBase : MonoBehaviour
     }
     public abstract void Move();
     public abstract void Die();
+    public void ScaleStats()
+    {
+        baseHealth = (int)Math.Round(BaseHealth * endlessScalar);
+        damage = (int)Math.Round(Damage * endlessScalar);
+        points = (int)Math.Round(Points * endlessScalar);
+    }
 }

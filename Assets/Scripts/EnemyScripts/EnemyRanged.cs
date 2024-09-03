@@ -13,6 +13,7 @@ public class EnemyRanged : EnemyBase
     private float attackCooldown;
     private void Awake()
     {
+        ScaleStats();
         mapManager = FindObjectOfType<MapManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         attackCooldown = 0;
