@@ -7,6 +7,7 @@ public class EnemyMeleeAttack : MonoBehaviour
 {
     private int damage; 
     public GameObject player;
+    public EnemyBase originEnemy;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");

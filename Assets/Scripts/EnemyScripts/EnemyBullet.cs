@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     public GameObject player;
+    public EnemyBase originEnemy;
     private Rigidbody2D rb;
     public float bulletSpeed = 10;
     private float range = 20f;

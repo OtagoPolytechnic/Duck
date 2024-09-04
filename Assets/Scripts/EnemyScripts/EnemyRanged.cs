@@ -60,6 +60,7 @@ public class EnemyRanged : EnemyBase
     {
         GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
         newBullet.GetComponent<EnemyBullet>().Damage = Damage;
+        newBullet.GetComponent<EnemyBullet>().originEnemy = this;
         attackCooldown = attackInterval;
 
         // Play the enemy shooting sound
