@@ -12,6 +12,7 @@ public class EnemyMelee : EnemyBase
 
     void Awake()
     {
+        ScaleStats();
         mapManager = FindObjectOfType<MapManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         attack = gameObject.transform.GetChild(0).GetChild(0).gameObject;

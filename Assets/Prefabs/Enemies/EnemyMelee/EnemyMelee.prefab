@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 4316639253410503294, guid: 729bc25e53437c74b90fcef0935225ac, type: 3}
+  originEnemy: {fileID: 69292089992521618}
 --- !u!1 &5656455698361903583
 GameObject:
   m_ObjectHideFlags: 0

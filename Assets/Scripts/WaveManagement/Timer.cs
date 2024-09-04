@@ -138,6 +138,10 @@ public class Timer : MonoBehaviour
         }
 
         //Scale stats if after wave 25
+        if (waveNumber > 25)
+        {
+            EnemyBase.endlessScalar += 0.1f;
+        }
     }
 
     public static void CullEnemies()
