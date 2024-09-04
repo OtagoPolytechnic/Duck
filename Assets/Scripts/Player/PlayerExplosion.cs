@@ -38,9 +38,16 @@ public class PlayerExplosion : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(explosionDamage, crit);
             //Debug explosion target and damage
             Debug.Log($"Explosion hit {other.gameObject.name} for {explosionDamage} damage");
+            if (other.gameObject.GetComponent<EnemyBase>())
+            {
+                other.gameObject.GetComponent<EnemyBase>().ReceiveDamage(explosionDamage, crit);
+            }
+            else
+            {
+                other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(explosionDamage, crit);
+            }
         }
     }
 }

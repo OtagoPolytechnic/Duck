@@ -78,11 +78,25 @@ public class Bullet : MonoBehaviour
                 }
                 if (crit)
                 {
-                    other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage((WeaponStats.Instance.Damage * WeaponStats.Instance.CritDamage) / 100, true);
+                    if (other.gameObject.GetComponent<EnemyBase>())
+                    {
+                        other.gameObject.GetComponent<EnemyBase>().ReceiveDamage((WeaponStats.Instance.Damage * WeaponStats.Instance.CritDamage) / 100, true);
+                    }
+                    else
+                    {
+                        other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage((WeaponStats.Instance.Damage * WeaponStats.Instance.CritDamage) / 100, true);
+                    }
                 }
                 else
                 {
-                    other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(WeaponStats.Instance.Damage, false);
+                    if (other.gameObject.GetComponent<EnemyBase>())
+                    {
+                        other.gameObject.GetComponent<EnemyBase>().ReceiveDamage(WeaponStats.Instance.Damage, false);
+                    }
+                    else
+                    {
+                        other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(WeaponStats.Instance.Damage, false);
+                    }
                 }
                 //If the piercing isn't infinite, check if it should pierce
                 if (pierceCount != -1)
