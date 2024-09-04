@@ -8,58 +8,107 @@ using System;
 public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance;
-    //health vars
-    private int maxHealth = 100;
-    public float MaxHealth
+    //Health
+    private const int BASE_MAX_HEALTH = 100;
+    private int flatBonusHealth = 0;
+    public int FlatBonusHealth
     {
-        get {return maxHealth;}
+        get {return flatBonusHealth;}
         set
         {
-            //When health is increased
-            if(value > maxHealth)
-            {
-                currentHealth += (int)value - maxHealth;
-            }
-
-            maxHealth = (int)value;
-            if (currentHealth > maxHealth)
-            {
-                currentHealth = maxHealth;
-            }
+            flatBonusHealth = value;
+            CurrentHealth += Math.Max(0, value); //This will increase the player's health by the flat bonus if it isn't negative
         }
     }
+    private int percentBonusHealth = 100; //100% of base health
+    public int PercentBonusHealth
+    {
+        get {return percentBonusHealth;}
+        set 
+        {
+            int oldHealth = MaxHealth;
+            percentBonusHealth = value;
+            int newHealth = MaxHealth;
+            CurrentHealth += Math.Max(0, newHealth - oldHealth);
+            //This will increase the player's health by the difference between the old and new max health
+            //As long as the new max health is greater than the old max health
+        }
+    }
+    public int MaxHealth
+    {
+        get {return ((BASE_MAX_HEALTH + FlatBonusHealth) * PercentBonusHealth) / 100;}
+    }
+
     private int currentHealth;
-    public float CurrentHealth
+    public int CurrentHealth
     {
         get {return currentHealth;}
         set
         {
-            currentHealth = (int)value;
-            if (currentHealth > maxHealth)
-            {
-                currentHealth = maxHealth;
-            }
+            currentHealth = Math.Min(value, MaxHealth);
+            //Locks the current health to the max health
         }
     }
-    private float regenTick = 3f;
-    private float regenInterval = 3f;
-    private float regenAmount = 0;
-    public float RegenAmount
+
+    //Regeneration
+    private const float BASE_REGENERATION_DELAY = 3f; //Base regeneration delay in seconds. Each point is one second of delay between regeneration ticks
+    private float flatRegenerationDelay = 0; //Flat reduction in regeneration delay. 0 = no reduction, 1 = 1 second reduction
+    public float FlatRegenerationDelay
     {
-        get {return regenAmount;}
-        set {regenAmount = value;}
+        get {return flatRegenerationDelay;}
+        set {flatRegenerationDelay = value;}
     }
-    private bool regenTrue = false;
-    public bool RegenTrue
+    private float percentRegenerationDelay = 100; //100% of base regeneration delay, 50 = half delay, 100 = 3 second delay
+    public float PercentRegenerationDelay
     {
-        get {return regenTrue;}
-        set {regenTrue = value;}
+        get {return percentRegenerationDelay;}
+        set {percentRegenerationDelay = value;}
     }
-    private float lifestealAmount = 0;
-    public float LifestealAmount
+    public float RegenerationDelay
     {
-        get {return lifestealAmount;}
-        set {lifestealAmount = value;}
+        get
+        {
+            float delay = ((BASE_REGENERATION_DELAY - FlatRegenerationDelay) * PercentRegenerationDelay) / 100;
+            return Mathf.Max(0, delay); //Prevents negative regeneration delays
+        }
+    }
+
+    private float nextRegenerationTick = 0; //Time of the next regeneration tick
+
+    //The regeneration amount can be negative to deal damage over time instead of healing
+    private int flatRegenerationPercentage = 0; //Percents of max health to regenerate per tick
+    public int FlatRegenerationPercentage
+    {
+        get {return flatRegenerationPercentage;}
+        set {flatRegenerationPercentage = value;}
+    }
+    private int percentRegenerationPercentage = 100; //100% of base regeneration amount. Use this to double/half regen amount
+    public int PercentRegenerationPercentage
+    {
+        get {return percentRegenerationPercentage;}
+        set {percentRegenerationPercentage = value;}
+    }
+    public int RegenerationPercentage //This returns the % of max health to regenerate per tick
+    {
+        get {return (FlatRegenerationPercentage * PercentRegenerationPercentage) / 100;}
+    }
+
+    //Lifesteal. The names for these are a little strange but I am keeping them the same as the other stats
+    private int flatLifestealPercentage = 0; //Flat lifesteal percentage. 0 = no lifesteal, 100 = 100% of weapon damage in lifesteal
+    public int FlatLifestealPercentage
+    {
+        get {return flatLifestealPercentage;}
+        set {flatLifestealPercentage = value;}
+    }
+    private int percentLifestealPercentage = 100; //100% of base lifesteal percentage. 50 = half lifesteal, 200 = double lifesteal
+    public int PercentLifestealPercentage
+    {
+        get {return percentLifestealPercentage;}
+        set {percentLifestealPercentage = value;}
+    }
+    public int LifestealPercentage
+    {
+        get {return (FlatLifestealPercentage * PercentLifestealPercentage) / 100;}
     }
     
     //other vars
@@ -75,15 +124,19 @@ public class PlayerStats : MonoBehaviour
             return;
         }
         Instance = this;
-        currentHealth = maxHealth;
+        CurrentHealth = MaxHealth;
     }
 
     void Update()
     {
-        Regen();
-        if (currentHealth <= 0 && GameSettings.gameState == GameState.InGame) //if the player dies
+        if (GameSettings.gameState != GameState.InGame){return;}
+        if (RegenerationPercentage != 0)
         {
+            CheckRegeneration();
+        }
 
+        if (currentHealth <= 0) //if the player dies
+        {
             if (lifeEggs.Count > 0)
             {
                 Respawn();
@@ -94,16 +147,15 @@ public class PlayerStats : MonoBehaviour
             }
         }
     }
-    void Regen()
+
+    void CheckRegeneration()
     {
-        if (GameSettings.gameState != GameState.InGame){return;}
-        regenTick -= Time.deltaTime;
-        if (regenTick <= 0 && regenTrue && currentHealth < maxHealth) //only works if the player is missing health
+        if (nextRegenerationTick <= 0) //Health property will deal with the max health cap
         {
-            regenTick = regenInterval;
-            CurrentHealth += regenAmount;
-            Debug.Log($"Regen: {currentHealth}");
+            nextRegenerationTick = RegenerationDelay;
+            CurrentHealth += Math.Max(((MaxHealth * RegenerationPercentage) / 100), 1); //Regenerate the % of max health per tick. Minimum 1
         }
+        nextRegenerationTick -= Time.fixedDeltaTime;
     }
 
     void Respawn()
@@ -118,11 +170,11 @@ public class PlayerStats : MonoBehaviour
             lifeEggs.Remove(lifeEggs[lifeEggs.Count - 1]);
         }
         //Debug.Log("Player health before collisions turned off: " + currentHealth);
-        currentHealth = maxHealth;
+        CurrentHealth = MaxHealth;
         StartCoroutine(DisableCollisionForDuration(2f));
     }
 
-    IEnumerator DisableCollisionForDuration(float duration)
+    public IEnumerator DisableCollisionForDuration(float duration)
     {
         // Set the collision matrix to ignore collisions between the player layer and enemy attacks for the specified duration
         Physics2D.IgnoreLayerCollision(7, 9, true);
@@ -133,8 +185,10 @@ public class PlayerStats : MonoBehaviour
         // Re-enable collisions between the player layer and itself
         Physics2D.IgnoreLayerCollision(7, 9, false);
     }
+
     public void ReceiveDamage(int damageTaken)
     {
+        //TODO: Multiple instances of damage shouldn't totally overlap. Maybe randomly offset them a bit?
         GameObject damageTextInst = Instantiate(damageText, gameObject.transform);
         damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
         currentHealth -= damageTaken;
