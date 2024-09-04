@@ -10,10 +10,17 @@ public class EnemyHealth : MonoBehaviour
     public const float BLEED_INTERVAL = 1f;
     public GameObject damageText;
     public GameObject critText;
-    public int baseHealth;
-    [HideInInspector] public int health;
+    [SerializeField] private int health;
+    public int Health
+    {
+        get {return health;}
+        set {health = value;}
+    }
     public float bleedTick = 1f;
-    public bool bleeding = false;
+    public float bleedInterval = 1f;
+    public bool bleedTrue;
+    public static int bleedAmount = 0;
+    [SerializeField] private int points;
 
 
     void Update()
@@ -22,8 +29,8 @@ public class EnemyHealth : MonoBehaviour
         if (health <= 0)
         {
             SFXManager.Instance.EnemyDieSound();
-            ScoreManager.Instance.IncreasePoints(10);
-            EnemySpawner.currentEnemies.Remove(gameObject);
+            ScoreManager.Instance.IncreasePoints(points);
+            EnemySpawner.Instance.currentEnemies.Remove(gameObject);
             Destroy(gameObject);
         }
         if (GameSettings.gameState != GameState.InGame) { return; }
@@ -44,8 +51,9 @@ public class EnemyHealth : MonoBehaviour
         //Add a small random offset to the damage text number position so they don't all stack on top of each other
         float randomOffset = UnityEngine.Random.Range(-0.3f, 0.3f);
         if (!bleeding && WeaponStats.Instance.BleedDamage > 0)
+
         {
-            bleeding = true;
+            bleedTrue = true;
         }
         if (critTrue)
         {

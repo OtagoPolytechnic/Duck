@@ -40,12 +40,12 @@ public class BossHealth : MonoBehaviour
         if (boss == null)
             return;
 
-        float healthFraction = boss.health / bossMaxHealth;
+        float healthFraction = boss.Health / bossMaxHealth;
         healthBar.style.width = Length.Percent(healthFraction * 100);
-        healthText.text = boss.health.ToString("F0") + "/" + bossMaxHealth.ToString("F0");
+        healthText.text = boss.Health.ToString("F0") + "/" + bossMaxHealth.ToString("F0");
 
         // Hide the health bar if boss health is 0 or less
-        if (boss.health <= 0)
+        if (boss.Health <= 0)
         {
             healthContainer.visible = false; // Hide the container holding the health bar
         }

@@ -9,6 +9,11 @@ public class EnemyBullet : MonoBehaviour
     public float bulletSpeed = 10;
     private float range = 20f;
     private Vector3 startPos;
+    private int damage;
+    public int Damage
+    {
+        set {damage = value;}
+    }
     
     void Start()
     {
@@ -36,7 +41,7 @@ public class EnemyBullet : MonoBehaviour
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Player"))
         {
-            player.GetComponent<PlayerStats>().ReceiveDamage(20);
+            player.GetComponent<PlayerStats>().ReceiveDamage(damage);
             Destroy(gameObject);
         }
         else if (other.gameObject.CompareTag("Edges"))
