@@ -65,15 +65,6 @@ public class GameManager : MonoBehaviour
 
     private void ResetVariables() //Any static variables that need to be reset on game start should be added to this method
     {
-        //Player variables
-        EnemyHealth.bleedAmount = 0;
-        PlayerStats.Instance.CurrentHealth = PlayerStats.Instance.MaxHealth;
-        WeaponStats.Instance.CurrentWeapon = WeaponType.Pistol;
-
-        //Enemy variables
-        EnemySpawner.healthMultiplier = 1f;
-        EnemySpawner.spawnTimer = 5f;
-
         //Item stacks
         foreach (Item i in ItemPanel.itemList)
         {

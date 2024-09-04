@@ -3,59 +3,70 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using System;
 
+//This script will be deleted once bosses are changed to inherit from enemyBase. This script should not be updated.
 public class EnemyHealth : MonoBehaviour
 {
+    public const float BLEED_INTERVAL = 1f;
     public GameObject damageText;
     public GameObject critText;
-    public int baseHealth;
-    [HideInInspector] public int health;
+    [SerializeField] private int health;
+    public int Health
+    {
+        get {return health;}
+        set {health = value;}
+    }
     public float bleedTick = 1f;
     public float bleedInterval = 1f;
-    public bool bleedTrue;
+    public bool bleeding;
     public static int bleedAmount = 0;
+    [SerializeField] private int points;
 
 
     void Update()
     {
-       
+
         if (health <= 0)
         {
             SFXManager.Instance.EnemyDieSound();
-            ScoreManager.Instance.IncreasePoints(10);
-            EnemySpawner.currentEnemies.Remove(gameObject);
+            ScoreManager.Instance.IncreasePoints(points);
+            EnemySpawner.Instance.currentEnemies.Remove(gameObject);
             Destroy(gameObject);
-        } 
-        if (GameSettings.gameState != GameState.InGame){return;}
+        }
+        if (GameSettings.gameState != GameState.InGame) { return; }
         Bleed();
     }
-    void Bleed() //this function needs to be reworked to be able to stack bleed on the target
+    void Bleed()
     {
+        if (!bleeding || WeaponStats.Instance.BleedDamage == 0) { return; } //If the enemy is not bleeding, return. This means there is a 1 second interval before the first bleed tick
         bleedTick -= Time.deltaTime;
-        if (bleedTick <= 0 && bleedTrue)
+        if (bleedTick <= 0)
         {
-            bleedTick = bleedInterval;
-            ReceiveDamage(bleedAmount, false);
+            bleedTick = BLEED_INTERVAL;
+            ReceiveDamage(Math.Max((Health * WeaponStats.Instance.BleedDamage) / 100, 1), false);
         }
     }
     public void ReceiveDamage(int damageTaken, bool critTrue)
     {
-        if (WeaponStats.Instance.BleedTrue && !bleedTrue)
+        //Add a small random offset to the damage text number position so they don't all stack on top of each other
+        float randomOffset = UnityEngine.Random.Range(-0.3f, 0.3f);
+        if (!bleeding && WeaponStats.Instance.BleedDamage > 0)
         {
-            bleedTrue = true;
+            bleeding = true;
         }
         if (critTrue)
         {
-            GameObject critTextInst = Instantiate(critText, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+            GameObject critTextInst = Instantiate(critText, new Vector3(transform.position.x + randomOffset, transform.position.y + 1 + randomOffset, transform.position.z), Quaternion.identity);
             critTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString() + "!";
             health -= damageTaken;
         }
         else
         {
-            GameObject damageTextInst = Instantiate(damageText, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+            GameObject damageTextInst = Instantiate(damageText, new Vector3(transform.position.x + randomOffset, transform.position.y + 1 + randomOffset, transform.position.z), Quaternion.identity);
             damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
             health -= damageTaken;
         }
-        
+
     }
 }

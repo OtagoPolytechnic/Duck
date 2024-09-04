@@ -12,6 +12,7 @@ TagManager:
   - Egg
   - EnemyRanged
   - EnemyMelee
+  - Explosion
   layers:
   - Default
   - TransparentFX
