@@ -81,7 +81,6 @@ public class EnemyBomb : MonoBehaviour
         
         }
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        Debug.LogError("Instantiated explosion");
         // Destroy the object after flashing
         Destroy(gameObject);
     }
