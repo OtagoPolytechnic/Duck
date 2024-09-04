@@ -14,15 +14,13 @@ public class BossBehaviour : MonoBehaviour
     
     [SerializeField] private int damage;
     private float attackCooldown;
-
     private MapManager mapManager;
-    private void Awake()
+   private void Awake()
     {
         mapManager = FindObjectOfType<MapManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         attackCooldown = 0;
     }
-
     void Update()
     {
         if (GameSettings.gameState != GameState.InGame) {return;}
@@ -51,14 +49,12 @@ public class BossBehaviour : MonoBehaviour
                 attackCooldown -= Time.deltaTime;
             }
         }
-
     }
     void Shoot()
     {
         GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
         newBullet.GetComponent<EnemyBullet>().Damage = damage;
         attackCooldown = attackInterval;
-
         // Play the enemy shooting sound
         if (SFXManager.Instance != null)
         {
@@ -68,7 +64,6 @@ public class BossBehaviour : MonoBehaviour
         {
             Debug.LogError("SFXManager instance is null in EnemyRanged.Shoot().");
         }
-
         attackCooldown = attackInterval;
     }
 }
