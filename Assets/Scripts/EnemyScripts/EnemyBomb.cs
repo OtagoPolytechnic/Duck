@@ -32,10 +32,6 @@ public class EnemyBomb : MonoBehaviour
         circleCollider = GetComponent<CircleCollider2D>();
         player = GameObject.FindGameObjectWithTag("Player");
 
-        //Vector3 direction = player.transform.position - transform.position;
-        //rb.velocity = new Vector2(direction.x, direction.y).normalized * bulletSpeed;
-        //bulletSpeed = 2 + (GameSettings.waveNumber / 5) * 5; // Increase speed by 5 for every 5 levels
-
         // Save the original color and size of the sprite and collider
         originalColor = spriteRenderer.color;
         originalColliderRadius = circleCollider.radius;
