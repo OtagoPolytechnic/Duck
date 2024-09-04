@@ -10,6 +10,7 @@ public class EnemyBullet : MonoBehaviour
     private float range = 20f;
     private Vector3 startPos;
     private int damage;
+    private Vector2 heldVelocity;
     public int Damage
     {
         set {damage = value;}
@@ -23,10 +24,19 @@ public class EnemyBullet : MonoBehaviour
 
         Vector3 direction = player.transform.position - transform.position;
         rb.velocity = new Vector2(direction.x, direction.y).normalized * bulletSpeed;
+        heldVelocity = rb.velocity;
     }
 
     void Update()
     {
+        if (GameSettings.gameState != GameState.InGame && rb.velocity != Vector2.zero) 
+        {
+            rb.velocity = Vector2.zero;
+        }
+        else if (GameSettings.gameState == GameState.InGame && rb.velocity == Vector2.zero)
+        {
+            rb.velocity = heldVelocity;
+        }
         //destroys bullet after range
         float distTravelled = Vector3.Distance(startPos, transform.position);
 
