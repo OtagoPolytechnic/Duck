@@ -127,14 +127,14 @@
       {
         "id": 17,
         "name": "Rocket Launcher",
-        "desc": "Shoot explosive rockets (WIP)",
+        "desc": "Shoot explosive rockets (Partially implemented)",
         "rarity": 4,
         "stacks": 0
       },
       {
         "id": 18,
         "name": "Sword",
-        "desc": "Melee range with high damage (WIP)",
+        "desc": "Melee range with high damage (Partially implemented)",
         "rarity": 4,
         "stacks": 0
       },
@@ -178,7 +178,7 @@
       },
       {
         "id": 24,
-        "name": "Bloodletter's Curse",
+        "name": "Blood letter's Curse",
         "desc": "Gain 60% lifesteal and double the effectiveness of all future lifesteal items\n\nYour health rapidly drains",
         "rarity": 6,
         "stacks": 0
