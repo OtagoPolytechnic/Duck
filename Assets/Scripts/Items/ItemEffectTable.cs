@@ -164,7 +164,7 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Dot tick: {PlayerStats.Instance.DotDamage}");
                 break;
             case 25:
-                WeaponStats.Instance.FlatCritDamage += 4; //4% crit damage
+                WeaponStats.Instance.FlatCritDamage += 8; //48% crit damage
                 Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
                 break;
             case 26:
@@ -193,7 +193,7 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}");
                 break;
             case 33:
-                WeaponStats.Instance.FlatCritDamage += 12; //12% crit damage
+                WeaponStats.Instance.FlatCritDamage += 24; //24% crit damage
                 Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
                 break;
             case 34:

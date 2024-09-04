@@ -186,7 +186,7 @@
       {
         "id": 25,
         "name": "Weak Spots",
-        "desc": "Gain 4% critical damage",
+        "desc": "Gain 8% critical damage",
         "rarity": 1,
         "stacks": 0
       },
@@ -246,7 +246,7 @@
       {
         "id": 33,
         "name": "Expert Aim",
-        "desc": "Gain 12% critical damage",
+        "desc": "Gain 24% critical damage",
         "rarity": 5,
         "stacks": 0
       },
