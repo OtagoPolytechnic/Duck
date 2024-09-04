@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using TMPro;
 using System;
 
+//This script will be deleted once bosses are changed to inherit from enemyBase. This script should not be updated.
 public class EnemyHealth : MonoBehaviour
 {
     public const float BLEED_INTERVAL = 1f;
@@ -18,7 +19,7 @@ public class EnemyHealth : MonoBehaviour
     }
     public float bleedTick = 1f;
     public float bleedInterval = 1f;
-    public bool bleedTrue;
+    public bool bleeding;
     public static int bleedAmount = 0;
     [SerializeField] private int points;
 
@@ -43,7 +44,7 @@ public class EnemyHealth : MonoBehaviour
         if (bleedTick <= 0)
         {
             bleedTick = BLEED_INTERVAL;
-            ReceiveDamage(Math.Max((baseHealth * WeaponStats.Instance.BleedDamage) / 100, 1), false);
+            ReceiveDamage(Math.Max((Health * WeaponStats.Instance.BleedDamage) / 100, 1), false);
         }
     }
     public void ReceiveDamage(int damageTaken, bool critTrue)
@@ -51,9 +52,8 @@ public class EnemyHealth : MonoBehaviour
         //Add a small random offset to the damage text number position so they don't all stack on top of each other
         float randomOffset = UnityEngine.Random.Range(-0.3f, 0.3f);
         if (!bleeding && WeaponStats.Instance.BleedDamage > 0)
-
         {
-            bleedTrue = true;
+            bleeding = true;
         }
         if (critTrue)
         {
