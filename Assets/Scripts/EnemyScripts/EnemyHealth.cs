@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using System;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -24,45 +25,48 @@ public class EnemyHealth : MonoBehaviour
 
     void Update()
     {
-       
+
         if (health <= 0)
         {
             SFXManager.Instance.EnemyDieSound();
             ScoreManager.Instance.IncreasePoints(points);
             EnemySpawner.Instance.currentEnemies.Remove(gameObject);
             Destroy(gameObject);
-        } 
-        if (GameSettings.gameState != GameState.InGame){return;}
+        }
+        if (GameSettings.gameState != GameState.InGame) { return; }
         Bleed();
     }
     void Bleed()
     {
-        if (!bleedTrue || WeaponStats.Instance.BleedDamage == 0){return;} //If the enemy is not bleeding, return. This means there is a 1 second interval before the first bleed tick
-        bleedTick -= Time.fixedDeltaTime;
+        if (!bleeding || WeaponStats.Instance.BleedDamage == 0) { return; } //If the enemy is not bleeding, return. This means there is a 1 second interval before the first bleed tick
+        bleedTick -= Time.deltaTime;
         if (bleedTick <= 0)
         {
             bleedTick = BLEED_INTERVAL;
-            ReceiveDamage((Health * WeaponStats.Instance.BleedDamage) / 100, false);
+            ReceiveDamage(Math.Max((baseHealth * WeaponStats.Instance.BleedDamage) / 100, 1), false);
         }
     }
     public void ReceiveDamage(int damageTaken, bool critTrue)
     {
-        if (!bleedTrue) //Always applies bleeding. It just does no damage if the weapon doesn't have bleed damage
+        //Add a small random offset to the damage text number position so they don't all stack on top of each other
+        float randomOffset = UnityEngine.Random.Range(-0.3f, 0.3f);
+        if (!bleeding && WeaponStats.Instance.BleedDamage > 0)
+
         {
             bleedTrue = true;
         }
         if (critTrue)
         {
-            GameObject critTextInst = Instantiate(critText, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+            GameObject critTextInst = Instantiate(critText, new Vector3(transform.position.x + randomOffset, transform.position.y + 1 + randomOffset, transform.position.z), Quaternion.identity);
             critTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString() + "!";
             health -= damageTaken;
         }
         else
         {
-            GameObject damageTextInst = Instantiate(damageText, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+            GameObject damageTextInst = Instantiate(damageText, new Vector3(transform.position.x + randomOffset, transform.position.y + 1 + randomOffset, transform.position.z), Quaternion.identity);
             damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
             health -= damageTaken;
         }
-        
+
     }
 }

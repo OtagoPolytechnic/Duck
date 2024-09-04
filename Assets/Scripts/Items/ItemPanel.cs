@@ -12,7 +12,8 @@ public enum rarity{
     Epic,
     Weapon,
     Legendary,
-    Cursed
+    Cursed,
+    Unimplemented //For items that are either temp or not working
 }
     
 public class ItemPanel : MonoBehaviour
@@ -20,7 +21,6 @@ public class ItemPanel : MonoBehaviour
     [HideInInspector]
     public bool itemChosen;  
     private int index;
-    private rarity roll;    
     public ItemEffectTable itemController;
     [SerializeField]
     private VisualElement panel;
@@ -30,6 +30,10 @@ public class ItemPanel : MonoBehaviour
     private Button skip;
     private VisualElement container;
     private IMGUIContainer buttonContainer;
+
+    private const float COMMON = 0.5f; //50%
+    private const float UNCOMMON = 0.8f; //30%
+
 
     [SerializeField]
     private StyleColor buttonColor  = new StyleColor(new Color32(70, 70, 70, 255));
@@ -64,6 +68,7 @@ public class ItemPanel : MonoBehaviour
         skip.RegisterCallback<ClickEvent>(RegisterSkipClick);
         LoadItems();
     }
+
     private void LoadItems()
     {
         string json = Resources.Load<TextAsset>("items").text;
@@ -71,81 +76,73 @@ public class ItemPanel : MonoBehaviour
         itemList = itemListJson.items;
     }
 
-    public rarity GetWeightedRarity() 
+    public List<rarity> GetRarities(int waveNumber)
     {
-        // not consts currently incase we want these values to change over time with the waves
-        float commonRoll = 0.5f; //50%
-        float uncommonRoll = 0.8f; //30%
-        float rareRoll = 1f; //20% 
+        List<rarity> rarities = new List<rarity>();
 
-        // generate a random value (0->1)
-        float randomRarity = Random.value;
-
-        // Figure out which threshold this falls under.
-        if (randomRarity < commonRoll)
+        if (waveNumber == 1)//Level 1 is always a weapon
         {
-            roll = rarity.Common;
+            rarities.Add(rarity.Weapon);
         }
-        else if (randomRarity < uncommonRoll)
+        else if (waveNumber == 5)
         {
-            roll = rarity.Uncommon;
+            rarities.Add(rarity.Epic);
         }
-        else if (randomRarity < rareRoll)
+        else if (waveNumber == 10)
         {
-            roll = rarity.Rare;
+            rarities.Add(rarity.Legendary);
         }
-        return roll;
-    }
-    public rarity GetBoundRarity(int waveNumber) 
-    {
-        if (waveNumber == 5)
+        else if (waveNumber == 15)
         {
-            roll = rarity.Weapon;
+            rarities.Add(rarity.Cursed);
         }
-        else if (waveNumber % 25 == 5)
+        else if (waveNumber % 5 == 0)
         {
-            roll = rarity.Legendary;
+            rarities.Add(rarity.Cursed);
+            rarities.Add(rarity.Legendary);
+            rarities.Add(rarity.Epic);
         }
-        else if (waveNumber % 25 == 10)
+        else //Wave isn't a special wave
         {
-            roll = rarity.Epic;
+            float randomRarity = Random.value;
+            if (randomRarity < COMMON)
+            {
+                rarities.Add(rarity.Common);
+            }
+            else if (randomRarity < UNCOMMON)
+            {
+                rarities.Add(rarity.Uncommon);
+            }
+            else
+            {
+                rarities.Add(rarity.Rare);
+            }
         }
-        else if (waveNumber % 25 == 15)
-        {
-            roll = rarity.Legendary;
-        }
-        else if (waveNumber % 25 == 20)
-        {
-            roll = rarity.Cursed;
-        }
-        else //assume wave is 25
-        {
-            roll = rarity.Epic;
-        }
-
-        return roll;
+        return rarities;
     }
 
     public void InitializeItemPanel(int waveNumber) //this is called every time the inventory ui pops up
     { 
-        if (waveNumber % 5 == 0)
+        if (waveNumber % 5 == 0 || waveNumber == 1) //if the wave is a bound wave
         {
             GetBoundItems(3, waveNumber);
         }
         else
         {
-            GetUnboundItems(3);
+            GetUnboundItems(3, waveNumber);
         }
     }
+
     private void GetBoundItems(int repetitions, int waveNumber)
     {
         List<Item> generatedRarityList = new List<Item>();
 
-        rarity boundItemRarity = GetBoundRarity(waveNumber);
+        List<rarity> rarities = GetRarities(waveNumber);
         // Create a list of all the available items of that rarity.
         foreach (Item j in itemList)
         {
-            if (j.rarity == boundItemRarity)
+            if (rarities.Contains(j.rarity)
+            && (j.weapons.Contains(WeaponStats.Instance.CurrentWeapon.ToString()) || j.weapons.Count == 0)) //If it has the right weapons or no weapons at all
             {
                 generatedRarityList.Add(j);
             }
@@ -178,7 +175,7 @@ public class ItemPanel : MonoBehaviour
             Button currentButton = panel.Q<Button>($"Item{i+1}");
 
             Label itemRarity = panel.Q<Label>($"ItemRarity{i+1}");
-            itemRarity.text = boundItemRarity.ToString();
+            itemRarity.text = selectedItems[i].rarity.ToString();
 
             itemRarity.style.color = selectedItems[i].rarityColor;
             currentButton.style.backgroundColor = buttonColor;
@@ -187,7 +184,7 @@ public class ItemPanel : MonoBehaviour
         }
         generatedRarityList.Clear();
     }
-    private void GetUnboundItems(int repetitions)
+    private void GetUnboundItems(int repetitions, int waveNumber)
     {
         buttonContainer.style.backgroundColor = new StyleColor(new Color32(166,166,166,255));
         List<Item> generatedRarityList = new List<Item>();
@@ -196,11 +193,11 @@ public class ItemPanel : MonoBehaviour
         {
             
             // Get a random rarity.
-            rarity randomItemRarity = GetWeightedRarity();
+            List<rarity> rarities = GetRarities(waveNumber);
             // Create a list of all the available items of that rarity.
             foreach (Item j in itemList)
             {
-                if (j.rarity == randomItemRarity)
+                if (j.rarity == rarities[0])
                 {
                     generatedRarityList.Add(j);
                 }
@@ -233,8 +230,7 @@ public class ItemPanel : MonoBehaviour
 
             Button currentButton = panel.Q<Button>($"Item{i+1}");
 
-            rarity unbounditemRarity = selectedItems[i].rarity;
-            itemRarity.text = unbounditemRarity.ToString();
+            itemRarity.text = selectedItems[i].rarity.ToString();
             currentButton.style.backgroundColor = selectedItems[i].rarityColor;
 
             generatedRarityList.Clear();
@@ -243,7 +239,10 @@ public class ItemPanel : MonoBehaviour
     }
     private void addItemToList(Item item)
     {
-        heldItems.Add(item);
+        if (heldItems.Contains(item) == false)
+        {
+            heldItems.Add(item);
+        }
         item.stacks++;
     }
 

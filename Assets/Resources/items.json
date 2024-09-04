@@ -43,7 +43,7 @@
         "id": 5,
         "name": "Chompers",
         "desc": "Your hits bleed enemies for 2% max health every second.\nPicking up another chomper increases the bleed damage",
-        "rarity": 1,
+        "rarity": 2,
         "stacks": 0
       },
       {
@@ -57,14 +57,15 @@
         "id": 7,
         "name": "Explosive Bullets",
         "desc": "Your bullets explode on impact\n\nDeal 50% damage to nearby enemies per item stack",
-        "rarity": 5,
+        "weapons": ["MachineGun", "Sniper", "DualPistol", "Pistol", "Shotgun", "Rocket Launcher"],
+        "rarity": 3,
         "stacks": 0
       },
       {
         "id": 8,
         "name": "Egg",
         "desc": "Gain an extra life",
-        "rarity": 3,
+        "rarity": 5,
         "stacks": 0
       },
       {
@@ -76,16 +77,16 @@
       },
       {
         "id": 10,
-        "name": "Epic",
-        "desc": "Temp (NOT IMPLEMENTED)",
-        "rarity": 3,
+        "name": "Supercharger",
+        "desc": "Shoot 30% faster",
+        "rarity": 5,
         "stacks": 0
       },
       {
         "id": 11,
-        "name": "Epic",
-        "desc": "Temp(NOT IMPLEMENTED)",
-        "rarity": 3,
+        "name": "Eye of the Eagle",
+        "desc": "Gain 24% crit strike chance\n\nExcess crit chance is converted to crit damage at a 2:1 ratio",
+        "rarity": 5,
         "stacks": 0
       },
       {
@@ -126,64 +127,134 @@
       {
         "id": 17,
         "name": "Rocket Launcher",
-        "desc": "Shoot explosive rockets (WIP)",
+        "desc": "Shoot explosive rockets (Partially implemented)",
         "rarity": 4,
         "stacks": 0
       },
       {
         "id": 18,
         "name": "Sword",
-        "desc": "Melee range with high damage (WIP)",
+        "desc": "Melee range with high damage (Partially implemented)",
         "rarity": 4,
         "stacks": 0
       },
       {
         "id": 19,
-        "name": "Overheat",
-        "desc": "Machine Gun Upgrade (NOT IMPLEMENTED)",
-        "rarity": 5,
+        "name": "Ricochet",
+        "desc": "Bullets can ricochet off an additional enemy",
+        "rarity": 3,
+        "weapons": ["Sniper", "DualPistol", "Pistol", "MachineGun"],
         "stacks": 0
       },
       {
         "id": 20,
-        "name": "Piercing",
-        "desc": "Sniper Upgrade (NOT IMPLEMENTED)",
-        "rarity": 5,
+        "name": "Piercing Bullets",
+        "desc": "Your bullets can pierce an additional enemy",
+        "rarity": 3,
+        "weapons": ["Sniper", "DualPistol", "Pistol", "Shotgun", "MachineGun"],
         "stacks": 0
       },
       {
         "id": 21,
-        "name": "More Pellets",
-        "desc": "Shotgun Upgrade (NOT IMPLEMENTED)",
-        "rarity": 5,
+        "name": "Bigger Barrel",
+        "desc": "Add another 6 pellets to your shots",
+        "rarity": 3,
+        "weapons": ["Shotgun"],
         "stacks": 0
       },
       {
         "id": 22,
         "name": "Midas Touch",
-        "desc": "Enemies take high damage when they damage you, but you are slowed significantly (NOT IMPLEMENTED)",
+        "desc": "Enemies take high damage when they damage you, but you are slowed by 50%",
         "rarity": 6,
         "stacks": 0
       },
       {
         "id": 23,
         "name": "Glass Cannon",
-        "desc": "Double your damage but halve your health",
+        "desc": "You gain double damage but lose half your health",
         "rarity": 6,
         "stacks": 0
       },
       {
         "id": 24,
         "name": "Blood letter's Curse",
-        "desc": "You gain incredible lifesteal but your health drains rapidly (NOT IMPLEMENTED)",
+        "desc": "Gain 60% lifesteal and double the effectiveness of all future lifesteal items\n\nYour health rapidly drains",
         "rarity": 6,
         "stacks": 0
       },
       {
         "id": 25,
         "name": "Weak Spots",
-        "desc": "Gain 4% critical damage",
-        "rarity": 0,
+        "desc": "Gain 8% critical damage",
+        "rarity": 1,
+        "stacks": 0
+      },
+      {
+        "id": 26,
+        "name": "Stone Wall",
+        "desc": "You gain double health but lose half your damage",
+        "rarity": 6,
+        "stacks": 0
+      },
+      {
+        "id": 27,
+        "name": "Epic",
+        "desc": "Rocket Launcher/Sword epic to fill space (NOT IMPLEMENTED)",
+        "rarity": 3,
+        "weapons": ["RocketLauncher", "Sword"],
+        "stacks": 0
+      },
+      {
+        "id": 28,
+        "name": "Epic",
+        "desc": "Rocket Launcher/Sword epic to fill space (NOT IMPLEMENTED)",
+        "rarity": 3,
+        "weapons": ["RocketLauncher", "Sword"],
+        "stacks": 0
+      },
+      {
+        "id": 29,
+        "name": "Epic",
+        "desc": "Sword epic to fill space (NOT IMPLEMENTED)",
+        "rarity": 3,
+        "weapons": ["Sword"],
+        "stacks": 0
+      },
+      {
+        "id": 30,
+        "name": "Overheat",
+        "desc": "Machine gun overheats to increase damage (NOT IMPLEMENTED)",
+        "rarity": 7,
+        "weapons": ["MachineGun"],
+        "stacks": 0
+      },
+      {
+        "id": 31,
+        "name": "Rocket Boots",
+        "desc": "Increase speed by 15%",
+        "rarity": 5,
+        "stacks": 0
+      },
+      {
+        "id": 32,
+        "name": "Full Breakfast",
+        "desc": "Increase max health by 30%",
+        "rarity": 5,
+        "stacks": 0
+      },
+      {
+        "id": 33,
+        "name": "Expert Aim",
+        "desc": "Gain 24% critical damage",
+        "rarity": 5,
+        "stacks": 0
+      },
+      {
+        "id": 34,
+        "name": "Hollow-point bullets",
+        "desc": "Increase damage by 30 \n (before weapon scaling)",
+        "rarity": 5,
         "stacks": 0
       }
     ]

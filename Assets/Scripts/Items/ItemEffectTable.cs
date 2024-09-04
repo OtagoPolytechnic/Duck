@@ -27,23 +27,23 @@ public class ItemEffectTable : MonoBehaviour
                 break;
             case 02:
                 TopDownMovement.Instance.PercentBonusSpeed += 5;
-                Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");           
+                Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                 break;
             case 03:
                 PlayerStats.Instance.FlatRegenerationPercentage += 1;
-                Debug.Log($"Regeneration Percentage: {PlayerStats.Instance.RegenerationPercentage}"); 
+                Debug.Log($"Regeneration Percentage: {PlayerStats.Instance.RegenerationPercentage}");
                 break;
             case 04:
                 WeaponStats.Instance.PercentageFireDelay -= 10; //This makes it shoot 10% faster
-                Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}"); 
+                Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}");
                 break;
             case 05:
                 WeaponStats.Instance.ItemBleedDamage += 2; //2% max health bleed per second
-                Debug.Log($"Bleed amount: {WeaponStats.Instance.BleedDamage}"); 
+                Debug.Log($"Bleed amount: {WeaponStats.Instance.BleedDamage}");
                 break;
             case 06:
                 PlayerStats.Instance.FlatLifestealPercentage += 1;
-                Debug.Log($"Lifesteal percentage: {PlayerStats.Instance.LifestealPercentage}"); 
+                Debug.Log($"Lifesteal percentage: {PlayerStats.Instance.LifestealPercentage}");
                 break;
             case 07:
                 WeaponStats.Instance.ItemExplosiveBullets = true;
@@ -51,7 +51,7 @@ public class ItemEffectTable : MonoBehaviour
                 WeaponStats.Instance.ItemExplosionDamage += 50; //50% of the weapon damage as an explosion. Unsure about the balance 
                 Debug.Log($"Explosion size: {WeaponStats.Instance.ExplosionSize}");
                 Debug.Log($"Explosion damage: {WeaponStats.Instance.ExplosionDamage}");
-                break;     
+                break;
             case 08:
                 //This is going to be changed to not being actual items on the ground
                 GameObject newEgg = Instantiate(eggPrefab,  new Vector3(0,0,0), Quaternion.identity, GameObject.Find("Nest").transform);
@@ -62,10 +62,12 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                 break;
             case 10:
-                Debug.Log($"WIP Epic item");
+                WeaponStats.Instance.PercentageFireDelay -= 30; //This makes it shoot 30% faster
+                Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}");
                 break;
             case 11:
-                Debug.Log($"WIP Epic item");
+                WeaponStats.Instance.FlatCritChance += 24; //24% crit chance
+                Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                 break;
             case 12:
                 List<int> randomStats = new List<int> {0, 1, 2, 3, 4, 5};
@@ -86,11 +88,11 @@ public class ItemEffectTable : MonoBehaviour
                             break;
                         case 2:
                             TopDownMovement.Instance.PercentBonusSpeed += 3;
-                            Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}"); 
+                            Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                             break;
                         case 3:
                             WeaponStats.Instance.PercentageFireDelay -= 6;
-                            Debug.Log($"Fire Delay: {WeaponStats.Instance.FireDelay}"); 
+                            Debug.Log($"Fire Delay: {WeaponStats.Instance.FireDelay}");
                             break;
                         case 4:
                             WeaponStats.Instance.FlatCritChance += 5;
@@ -113,7 +115,7 @@ public class ItemEffectTable : MonoBehaviour
                 break;
             case 15:
                 WeaponStats.Instance.CurrentWeapon = WeaponType.MachineGun;
-                Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");  
+                Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
             case 16:
                 WeaponStats.Instance.CurrentWeapon = WeaponType.DualPistol;
@@ -128,28 +130,75 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
             case 19:
-                Debug.Log($"Overheat (WIP)");
+                WeaponStats.Instance.RicochetCount += 1;
+                Debug.Log($"Ricochet count: {WeaponStats.Instance.RicochetCount}");
                 break;
             case 20:
-                Debug.Log($"Piercing (WIP)");
+                WeaponStats.Instance.ItemPiercing = true;
+                WeaponStats.Instance.ItemPierceAmount += 1;
+                Debug.Log($"Piercing: {WeaponStats.Instance.PierceAmount}");
                 break;
             case 21:
-                Debug.Log($"More Pellets (WIP)");
+                WeaponStats.Instance.ItemExtraBullets += 6;
+                Debug.Log($"Extra bullets: {WeaponStats.Instance.ExtraBullets}");
                 break;
             case 22:
-                Debug.Log($"Midas Touch (WIP)");
+                TopDownMovement.Instance.PercentBonusSpeed /= 2; //Half the speed
+                PlayerStats.Instance.MidasTouch = true;
+                PlayerStats.Instance.MidasPercent += 50; //50% of damage taken is dealt to the enemy per stack
+                Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                 break;
             case 23:
                 PlayerStats.Instance.PercentBonusHealth /= 2; //Half the current max health. If this is picked multiple times it will keep halving the max health
                 WeaponStats.Instance.PercentageDamage *= 2; //Double the damage. If this is picked multiple times it will keep doubling the damage 
-                Debug.Log($"Players max health as been cut in half to:{PlayerStats.Instance.MaxHealth}. Their current health is: {PlayerStats.Instance.CurrentHealth}. Their damage has been doubled to: {WeaponStats.Instance.Damage}");
+                Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}. Damage: {WeaponStats.Instance.Damage}");
                 break;
             case 24:
-                Debug.Log($"Blood letter's Curse(WIP)");
+                //This gives 30% of your damage as lifesteal and then doubles all your lifesteal
+                //This means it gives 60% total and doubles the effectiveness of all other lifesteal
+                PlayerStats.Instance.FlatLifestealPercentage += 30;
+                PlayerStats.Instance.PercentLifestealPercentage *= 2;
+                PlayerStats.Instance.DotTick = 0.1f; //Tick rate for the dot
+                PlayerStats.Instance.DotDamage += 1; //Damage per tick
+                Debug.Log($"Lifesteal percentage: {PlayerStats.Instance.LifestealPercentage}");
+                Debug.Log($"Dot tick: {PlayerStats.Instance.DotDamage}");
                 break;
             case 25:
-                WeaponStats.Instance.FlatCritDamage += 4; //4% crit damage
+                WeaponStats.Instance.FlatCritDamage += 8; //48% crit damage
                 Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
+                break;
+            case 26:
+                PlayerStats.Instance.PercentBonusHealth *= 2; //Double the current max health
+                WeaponStats.Instance.PercentageDamage /= 2; //Half the damage
+                Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}. Damage: {WeaponStats.Instance.Damage}");
+                break;
+            case 27:
+                Debug.Log($"WIP Epic item");
+                break;
+            case 28:
+                Debug.Log($"WIP Epic item");
+                break;
+            case 29:
+                Debug.Log($"WIP Epic item");
+                break;
+            case 30:
+                Debug.Log("Unimplemented Overheating item");
+                break;
+            case 31:
+                TopDownMovement.Instance.PercentBonusSpeed += 15;
+                Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
+                break;
+            case 32:
+                PlayerStats.Instance.PercentBonusHealth += 30;
+                Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}");
+                break;
+            case 33:
+                WeaponStats.Instance.FlatCritDamage += 24; //24% crit damage
+                Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
+                break;
+            case 34:
+                WeaponStats.Instance.FlatDamage += 30;
+                Debug.Log($"Damage: {WeaponStats.Instance.Damage}");
                 break;
             default:
                 Debug.Log($"The ID: {itemID} has not been given a case in the item effect table.");
