@@ -85,7 +85,7 @@ public class TerminalBehaviour : MonoBehaviour
                 case "setwave":
                     SetWave(commands[1]);
                 break;
-                case "godmode":
+                case "god":
                     GodMode();
                 break;
                 case "cull":
@@ -121,7 +121,7 @@ public class TerminalBehaviour : MonoBehaviour
             "setstat {stat} {value}    \t| sets the stat specified to the value given.\n\n" +
             "setwave {waveNo.}         \t| sets the next wave to the specified number\n\n" +
             "skipwave                  \t| will set the timer to 0, skipping the wave you are on\n\n" +
-            "godmode                   \t| gives the player god mode.\n\n" +
+            "god                       \t| gives the player god mode.\n\n" +
             "spawn {enemyId} {count}   \t| spawns an enemy with the id given and the amount given\n\n" +
             "cull                      \t| will cull all current enemies and bullets on screen\n\n" +
             "togglespawn {value}       \t| will toggle enemies or bosses from spawning.\n\n";
@@ -142,8 +142,8 @@ public class TerminalBehaviour : MonoBehaviour
                 case "setwave":
                     output.text += "\nsetstat {waveNo.:int}\n\nWill set the next wave to the number given.\n\n";
                 break;
-                case "godmode":
-                    output.text += "\ngodmode\n\nWill toggle between turning on and off the players ability to be damaged, will not heal the player.\n\n";
+                case "god":
+                    output.text += "\ngod\n\nWill toggle between turning on and off the players ability to be damaged, will not heal the player.\n\n";
                 break;
                 case "cull":
                     output.text += "\ncull\n\nCulls all active enemies and bullets on stage.\n\n";
@@ -155,7 +155,7 @@ public class TerminalBehaviour : MonoBehaviour
                     output.text += "\nskipwave\n\nSkips the current wave by setting the timer to 0.1.\n\n";
                 break;
                 case "spawn":
-                    output.text += "\nspawn {enemyID:int} {count:int}\n\nSpawns the amount of eneimes specified in count, and the type of enemy in enemyID.\n\n";
+                    output.text += "\nspawn {enemyID:int} {count:int}\n\nSpawns the amount of enemies specified in count, and the type of enemy in enemyID. Accepted values: 1 - " + EnemySpawner.Instance.allEnemies.Count +"\n\n";
                 break;
                 default:
                     output.text += "\nNot a valid command, type \"help\" to see all available commands\n\n";
@@ -199,12 +199,12 @@ public class TerminalBehaviour : MonoBehaviour
 
     private void GiveItem(string itemId, string itemAmount)
     {
-        if (!int.TryParse(itemId, out int id) && id !< 0)
+        if (!int.TryParse(itemId, out int id) || id < 0)
         {
             output.text += "\nItemId given is not a valid number\n\n";
             return;
         }
-        if (!int.TryParse(itemAmount, out int amount) && amount !< 1)
+        if (!int.TryParse(itemAmount, out int amount) || amount < 1)
         {
             output.text += "\nAmount given is not a valid number\n\n";
             return;
@@ -226,7 +226,7 @@ public class TerminalBehaviour : MonoBehaviour
 
     private void SetStat(string stat, string valueString)
     {
-        if (!int.TryParse(valueString, out int value) && value !< 1)
+        if (!int.TryParse(valueString, out int value))
         {
             output.text += "\nValue given is not a valid number\n\n";
             return;
@@ -265,26 +265,45 @@ public class TerminalBehaviour : MonoBehaviour
     }
     private void Spawn(string enemy, string count)
     {
-        if (!int.TryParse(enemy, out int enemyId) && enemyId !< 0)
+        if (!int.TryParse(enemy, out int enemyId) || enemyId < 0 || enemyId > EnemySpawner.Instance.allEnemies.Count)
         {
             output.text += "\nEnemyId given is not a valid number\n\n";
             return;
         }
-        if (!int.TryParse(count, out int amount) && amount !< 1)
+        if (!int.TryParse(count, out int amount) || amount < 1)
         {
             output.text += "\nCount given is not a valid number\n\n";
             return;
         }
         for (int i = 0; i < amount; i++)
         {
-            EnemySpawner.Instance.Spawn(enemyId);
+            Vector3 location = new Vector3();
+            int side = Random.Range(1,5); //Which side of the screen the enemy spawns at
+            switch (side)
+            {
+                case 1:  
+                    location = Camera.main.ViewportToWorldPoint(new Vector3(1.1f,Random.Range(0f,1f),0));
+                break;
+                case 2:
+                    location = Camera.main.ViewportToWorldPoint(new Vector3(-0.1f,Random.Range(0f,1f),0));
+                break;
+                case 3:
+                    location = Camera.main.ViewportToWorldPoint(new Vector3(Random.Range(0f,1f),1.1f,0));
+                break;
+                case 4:
+                    location = Camera.main.ViewportToWorldPoint(new Vector3(Random.Range(0f,1f),-0.1f,0));
+                break;
+            }
+
+            GameObject enemyInstance = Instantiate(EnemySpawner.Instance.allEnemies[enemyId - 1].enemy, location, Quaternion.identity);
+            EnemySpawner.Instance.currentEnemies.Add(enemyInstance);
         }
         output.text += $"\nSpawned {amount} of level {enemyId} enemies\n\n";
         
     }
     private void SetWave(string wave)
     {
-        if (!int.TryParse(wave, out int waveNumber) && waveNumber !< 1)
+        if (!int.TryParse(wave, out int waveNumber) || waveNumber < 1)
         {
             output.text = "\nWave number given is not a valid number\n\n";
             return;
