@@ -59,13 +59,9 @@ public class ItemPanel : MonoBehaviour
         buttonContainer = panel.Q<IMGUIContainer>("ButtonContainer");
 
         item1 = panel.Q<Button>("Item1");
-        item1.RegisterCallback<ClickEvent>(RegisterItem1Click);
         item2 = panel.Q<Button>("Item2");
-        item2.RegisterCallback<ClickEvent>(RegisterItem2Click);
         item3 = panel.Q<Button>("Item3");
-        item3.RegisterCallback<ClickEvent>(RegisterItem3Click);
         skip = panel.Q<Button>("Skip");
-        skip.RegisterCallback<ClickEvent>(RegisterSkipClick);
         LoadItems();
     }
 
@@ -123,6 +119,11 @@ public class ItemPanel : MonoBehaviour
 
     public void InitializeItemPanel(int waveNumber) //this is called every time the inventory ui pops up
     { 
+        item1.RegisterCallback<ClickEvent>(RegisterItem1Click);
+        item2.RegisterCallback<ClickEvent>(RegisterItem2Click);
+        item3.RegisterCallback<ClickEvent>(RegisterItem3Click);
+        skip.RegisterCallback<ClickEvent>(RegisterSkipClick);
+
         if (waveNumber % 5 == 0 || waveNumber == 1) //if the wave is a bound wave
         {
             GetBoundItems(3, waveNumber);
