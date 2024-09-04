@@ -41,39 +41,39 @@ public class SFXManager : MonoBehaviour
         }
     }
 
-    public void DuckShootSound(float volume = 1.0f)
+    public void DuckShootSound(float volume = 0.5f)
     {
         audioSource.volume = volume;
         audioSource.PlayOneShot(DuckShooting);
     }
-    public void EnemyShootSound(float volume = 10.0f)
+    public void EnemyShootSound(float volume = 5.0f)
     {
         audioSource.volume = volume;
         audioSource.PlayOneShot(EnemyShoot);
     }
-    public void EnemyBiteSound(float volume = 0.4f)
+    public void EnemyBiteSound(float volume = 0.2f)
     {
         audioSource.volume = volume;
         audioSource.PlayOneShot(Bite);
     }
-    public void DuckHitSound(float volume = 1.0f)
+    public void DuckHitSound(float volume = 0.5f)
     {
         audioSource.volume = volume;
         audioSource.PlayOneShot(DuckHit);
     }
-    public void EnemyDieSound(float volume = 3.0f)
+    public void EnemyDieSound(float volume = 1.5f)
     {
         audioSource.volume = volume;
         audioSource.PlayOneShot(EnemyDie);
     }
 
-    public void GameOverSound(float volume = 1.0f)
+    public void GameOverSound(float volume = 0.5f)
     {
         audioSource.volume = volume;
         audioSource.PlayOneShot(GameOver);
     }
 
-    public void PlayBackgroundMusic(AudioClip clip, float volume = 0.3f)
+    public void PlayBackgroundMusic(AudioClip clip, float volume = 0.15f)
     {
         // Check if the music is already playing and if it's the same clip
         if (audioSource.clip == clip && audioSource.isPlaying)

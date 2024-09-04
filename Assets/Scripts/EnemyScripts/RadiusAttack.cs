@@ -50,33 +50,12 @@ public class RadiusAttack : MonoBehaviour
         // Apply a random direction to the bullet's velocity
       
         Rigidbody2D bulletRb = bulletInstance.GetComponent<Rigidbody2D>();
-        if (bulletRb != null)
-        {
-            // Generate a random direction
-            float randomAngle = Random.Range(0f, 360f);
-            Vector2 shootDirection = new Vector2(Mathf.Cos(randomAngle * Mathf.Deg2Rad), Mathf.Sin(randomAngle * Mathf.Deg2Rad));
-
-          
-            bulletRb.velocity = shootDirection * bulletSpeed;
-        }
-        else
-        {
-            Debug.LogError("Rigidbody2D component missing on bullet prefab.");
-        }
-
+        // Generate a random direction
+        float randomAngle = Random.Range(0f, 360f);
+        Vector2 shootDirection = new Vector2(Mathf.Cos(randomAngle * Mathf.Deg2Rad), Mathf.Sin(randomAngle * Mathf.Deg2Rad));
+        bulletRb.velocity = shootDirection * bulletSpeed;
         attackCooldown = attackInterval;
 
-        // Play the enemy shooting sound
-        if (SFXManager.Instance != null)
-        {
-            SFXManager.Instance.EnemyShootSound();
-        }
-        else
-        {
-            Debug.LogError("SFXManager instance is null in RadiusAttack.Shoot().");
-        }
-
-        // Debug information
-        Debug.Log($"Bomb instantiated at: {spawnPosition}");
+        SFXManager.Instance.EnemyShootSound();
     }
 }
