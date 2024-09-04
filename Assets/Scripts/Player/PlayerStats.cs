@@ -155,7 +155,7 @@ public class PlayerStats : MonoBehaviour
             nextRegenerationTick = RegenerationDelay;
             CurrentHealth += Math.Max(((MaxHealth * RegenerationPercentage) / 100), 1); //Regenerate the % of max health per tick. Minimum 1
         }
-        nextRegenerationTick -= Time.fixedDeltaTime;
+        nextRegenerationTick -= Time.deltaTime;
     }
 
     void Respawn()
