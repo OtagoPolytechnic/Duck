@@ -32,9 +32,9 @@ public class EnemyBomb : MonoBehaviour
         circleCollider = GetComponent<CircleCollider2D>();
         player = GameObject.FindGameObjectWithTag("Player");
 
-        Vector3 direction = player.transform.position - transform.position;
-        rb.velocity = new Vector2(direction.x, direction.y).normalized * bulletSpeed;
-        bulletSpeed = 2 + (GameSettings.waveNumber / 5) * 5; // Increase speed by 5 for every 5 levels
+        //Vector3 direction = player.transform.position - transform.position;
+        //rb.velocity = new Vector2(direction.x, direction.y).normalized * bulletSpeed;
+        //bulletSpeed = 2 + (GameSettings.waveNumber / 5) * 5; // Increase speed by 5 for every 5 levels
 
         // Save the original color and size of the sprite and collider
         originalColor = spriteRenderer.color;
@@ -58,7 +58,7 @@ public class EnemyBomb : MonoBehaviour
     private IEnumerator RandomExplodeCoroutine()
     {
         // Wait for a random time between 0,5 and 2 seconds
-        float waitTime = Random.Range(1f, 3f);
+        float waitTime = Random.Range(.5f, 2f);
         yield return new WaitForSeconds(waitTime);
 
         // Call the method to handle explosion logic
@@ -82,13 +82,7 @@ public class EnemyBomb : MonoBehaviour
             spriteRenderer.color = originalColor;
             yield return new WaitForSeconds(flashDuration);
 
-            // Check if it's time to enlarge the collider (during the last 2 flashes)
-            if (i >= flashCount - 2)
-            {
-             
-
-
-            }
+        
         }
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         Debug.LogError("Instantiated explosion");
