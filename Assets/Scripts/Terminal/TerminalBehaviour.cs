@@ -310,7 +310,7 @@ public class TerminalBehaviour : MonoBehaviour
         }
         GameSettings.waveNumber = waveNumber - 1;
         Timer.Instance.waveNumber = waveNumber - 1;
-        output.text += $"\nNext wave set to {GameSettings.waveNumber + 1}";
+        output.text += $"\nNext wave set to {GameSettings.waveNumber + 1}\n\n";
     }
 
     private void GodMode()

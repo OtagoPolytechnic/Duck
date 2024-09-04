@@ -53,8 +53,7 @@ public class BossBehaviour : MonoBehaviour
     void Shoot()
     {
         GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
-        newBullet.GetComponent<EnemyBullet>().Damage = damage;
-        attackCooldown = attackInterval;
+        newBullet.GetComponent<BossBullet>().BulletDamage = damage;
         // Play the enemy shooting sound
         if (SFXManager.Instance != null)
         {

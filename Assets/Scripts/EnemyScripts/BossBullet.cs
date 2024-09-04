@@ -12,6 +12,11 @@ public class BossBullet : MonoBehaviour
 
     // Variable to hold the bullet damage
     private int bulletDamage;
+    public int BulletDamage
+    {
+        get {return bulletDamage;}
+        set {bulletDamage = value;}
+    }
 
     void Start()
     {
