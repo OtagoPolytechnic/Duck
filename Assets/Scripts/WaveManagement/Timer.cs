@@ -16,7 +16,7 @@ public class Timer : MonoBehaviour
     private Label timerText;
     [SerializeField] private BossSpawner bossSpawner;
     public float waveLength;
-    private float currentTime;
+    public float currentTime;
     public int waveNumber;
     bool geninventory = false;
     public static Timer Instance;
@@ -50,7 +50,7 @@ public class Timer : MonoBehaviour
         {
             return;
         }
-        if(GameSettings.gameState == GameState.InGame && GameSettings.waveNumber % 5 != 0)
+        if(GameSettings.gameState == GameState.InGame && GameSettings.waveNumber % 5 != 0 || TerminalBehaviour.Instance.stopBoss)
         {
             currentTime -= Time.deltaTime;
        
@@ -63,7 +63,7 @@ public class Timer : MonoBehaviour
             }
         }
         
-        if(currentTime <= 0 || (BossHealth.Instance.boss !=null && BossHealth.Instance.boss.health <=0))
+        if(currentTime <= 0 || (BossHealth.Instance.boss !=null && BossHealth.Instance.boss.Health <=0))
         {
             if (waveNumber == 25 && GameSettings.gameState == GameState.InGame)
             {
@@ -108,7 +108,7 @@ public class Timer : MonoBehaviour
         currentTime = waveLength;
         waveNumberText.text = "Wave: " + waveNumber.ToString();
 
-        if (waveNumber % 5 == 0)
+        if (waveNumber % 5 == 0 && !TerminalBehaviour.Instance.stopBoss)
         {
             bossSpawner.SpawnBoss();
             timerText.visible = false;
@@ -118,15 +118,30 @@ public class Timer : MonoBehaviour
             timerText.visible = true;
         }
             
-
-        EnemySpawner.healthMultiplier += 0.5f;
-        EnemySpawner.spawnTimer -= 0.1f;
-        if(EnemySpawner.spawnTimer < 0.1f)
-        {
-            EnemySpawner.spawnTimer = 0.1f;
-        }
         geninventory = false;
         itemPanel.itemChosen = false;
+
+        //Enemy scaling
+
+        if (waveNumber % 5 == 0)
+        {
+            EnemySpawner.Instance.EnemyLevel++;
+        }
+
+        if (EnemySpawner.Instance.SpawnTimer > 0.1f)
+        {
+            EnemySpawner.Instance.SpawnTimer -= 0.1f;
+        }
+        else
+        {
+            EnemySpawner.Instance.EnemyCap += 1;
+        }
+
+        //Scale stats if after wave 25
+        if (waveNumber > 25)
+        {
+            EnemyBase.endlessScalar += 0.1f;
+        }
     }
 
     public static void CullEnemies()
@@ -135,7 +150,7 @@ public class Timer : MonoBehaviour
 
         foreach (GameObject enemy in enemies)
         {
-            EnemySpawner.currentEnemies.Remove(enemy);
+            EnemySpawner.Instance.currentEnemies.Remove(enemy);
             Destroy(enemy);
         }
     }

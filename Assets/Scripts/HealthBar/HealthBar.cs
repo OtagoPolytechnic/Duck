@@ -18,7 +18,7 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
-        float healthFraction = PlayerStats.Instance.CurrentHealth / PlayerStats.Instance.MaxHealth;
+        float healthFraction = (float)PlayerStats.Instance.CurrentHealth / PlayerStats.Instance.MaxHealth; //As these are both ints now I need to cast one to a float
         healthBar.style.width = Length.Percent(healthFraction * 100);
         healthText.text = PlayerStats.Instance.CurrentHealth.ToString("F0") + "/" + PlayerStats.Instance.MaxHealth.ToString("F0");
     }
