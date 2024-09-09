@@ -178,7 +178,8 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Radiation damage: {WeaponStats.Instance.RadiationDamage}");
                 break;
             case 28:
-                Debug.Log($"WIP Epic item");
+                WeaponStats.Instance.SelfDamageExplosions = true;
+                Debug.Log($"Self damage {WeaponStats.Instance.SelfDamageExplosions}");
                 break;
             case 29:
                 Debug.Log($"WIP Epic item");

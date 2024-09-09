@@ -383,6 +383,12 @@ public class WeaponStats : MonoBehaviour
     {
         get { return ItemExplosiveBullets || WeaponExplosiveBullets; } //This will return true if either the weapon or an item has explosive bullets
     }
+    private bool selfDamageExplosions = false;
+    public bool SelfDamageExplosions
+    {
+        get {return selfDamageExplosions;}
+        set {selfDamageExplosions = value;}
+    }
 
     //Explosion size
     private int itemExplosionSize = 0;
