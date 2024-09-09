@@ -173,7 +173,9 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}. Damage: {WeaponStats.Instance.Damage}");
                 break;
             case 27:
-                Debug.Log($"WIP Epic item");
+                WeaponStats.Instance.ItemRadioactive = true;
+                WeaponStats.Instance.RadiationDamagePercentage += 10;
+                Debug.Log($"Radiation damage: {WeaponStats.Instance.RadiationDamage}");
                 break;
             case 28:
                 Debug.Log($"WIP Epic item");

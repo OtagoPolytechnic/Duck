@@ -420,6 +420,24 @@ public class WeaponStats : MonoBehaviour
         get { return (Damage * (ItemExplosionDamage + WeaponExplosionDamage)) / 100; } //This gives explosion damage as a percentage of the weapon's damage equal to the item % and the weapon % added together
     }
 
+    //Radioactive bombs
+    private bool itemRadioactive = false;
+    public bool ItemRadioactive
+    {
+        get {return itemRadioactive;}
+        set {itemRadioactive = true;}
+    }
+    private int radiationDamage = 0;
+    public int RadiationDamagePercentage
+    {
+        get {return radiationDamage;}
+        set {radiationDamage = value;}
+    }
+    public int RadiationDamage
+    {
+        get {return (Damage * RadiationDamagePercentage) / 100;} //Radiation damage is a % of weapon damage that increases when the item is taken
+    }
+
     //Bleed damage
     private int itemBleedDamage = 0; //Percentage of the weapon damage to be dealt as bleed damage
     public int ItemBleedDamage
