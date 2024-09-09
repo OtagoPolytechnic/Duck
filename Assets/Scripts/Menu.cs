@@ -21,7 +21,7 @@ public class Menu : MonoBehaviour
     {
         VisualElement document = GetComponent<UIDocument>().rootVisualElement;
         playButton = document.Q<Button>("Play");
-        playButton.RegisterCallback<ClickEvent>(Play);
+
 
         highscoreButton = document.Q<Button>("Highscores");
         tutorialButton = document.Q<Button>("Tutorial");
@@ -38,6 +38,7 @@ public class Menu : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         SFXManager.Instance.PlayBackgroundMusic(SFXManager.Instance.TitleScreen);
+        StartCoroutine(LoadBackgroundScene("SkillMenu", playButton));
         StartCoroutine(LoadBackgroundScene("Highscores", highscoreButton));
         StartCoroutine(LoadBackgroundScene("Tutorial", tutorialButton));
     }
