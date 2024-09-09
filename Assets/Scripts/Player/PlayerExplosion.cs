@@ -55,5 +55,10 @@ public class PlayerExplosion : MonoBehaviour
                 other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(explosionDamage, crit);
             }
         }
+        if (WeaponStats.Instance.SelfDamageExplosions && other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("overlapped player");
+            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(explosionDamage);
+        }
     }
 }
