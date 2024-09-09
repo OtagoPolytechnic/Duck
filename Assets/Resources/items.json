@@ -57,7 +57,7 @@
         "id": 7,
         "name": "Explosive Bullets",
         "desc": "Your bullets explode on impact\n\nDeal 50% damage to nearby enemies per item stack",
-        "weapons": ["MachineGun", "Sniper", "DualPistol", "Pistol", "Shotgun", "Rocket Launcher"],
+        "weapons": ["MachineGun", "Sniper", "DualPistol", "Pistol", "Shotgun", "RocketLauncher"],
         "rarity": 3,
         "stacks": 0
       },
@@ -199,10 +199,10 @@
       },
       {
         "id": 27,
-        "name": "Epic",
-        "desc": "Rocket Launcher/Sword epic to fill space (NOT IMPLEMENTED)",
+        "name": "Radiating Bombs",
+        "desc": "Your explosions leave a lingering area that deals damage over time.",
         "rarity": 3,
-        "weapons": ["RocketLauncher", "Sword"],
+        "weapons": ["RocketLauncher"],
         "stacks": 0
       },
       {
