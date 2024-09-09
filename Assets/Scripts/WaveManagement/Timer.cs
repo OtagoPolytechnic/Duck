@@ -65,9 +65,11 @@ public class Timer : MonoBehaviour
         
         if(currentTime <= 0 || (BossHealth.Instance.boss !=null && BossHealth.Instance.boss.Health <=0))
         {
+            Debug.Log(BossHealth.Instance.boss);
             if (waveNumber == 25 && GameSettings.gameState == GameState.InGame)
             {
                 GameManager.Instance.BossVictory();
+           
             }
             else
             {

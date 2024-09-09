@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 4223785294766013922}
   - component: {fileID: 5279123959450887226}
   - component: {fileID: 7389167939081178781}
-  - component: {fileID: 2241478453883188217}
   m_Layer: 6
   m_Name: EnemyBoss1
   m_TagString: Enemy
@@ -212,13 +211,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd852330ade5bd04d98f6f7a6bf6b9ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  damageText: {fileID: 391528759432483411, guid: aa150d6d100764d45af1b8790d3f8c9c, type: 3}
+  critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
+  baseHealth: 0
+  damage: 0
   speed: 3
+  points: 100
+  mapManager: {fileID: 0}
+  bleedTick: 1
+  bleedInterval: 1
+  bleeding: 0
+  player: {fileID: 0}
   bullet: {fileID: 5418265743146168994, guid: 80580cccf9c60b14e9c7630a88835b6e, type: 3}
   bulletPosition: {fileID: 5656455699881316956}
   attackRange: 10
   attackInterval: 1
-  damage: 0
 --- !u!212 &4223785294766013922
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -316,25 +323,6 @@ MonoBehaviour:
   bombPosition: {fileID: 5656455698361903578}
   attackRange: 20
   attackInterval: 0.4
---- !u!114 &2241478453883188217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5656455698361903583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1082bcd48a9d8fb429c8962b4e40d524, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageText: {fileID: 391528759432483411, guid: aa150d6d100764d45af1b8790d3f8c9c, type: 3}
-  critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
-  health: 0
-  bleedTick: 1
-  bleedInterval: 1
-  bleeding: 0
-  points: 100
 --- !u!1 &5656455699881316957
 GameObject:
   m_ObjectHideFlags: 0

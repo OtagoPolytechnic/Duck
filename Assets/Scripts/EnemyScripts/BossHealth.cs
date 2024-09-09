@@ -12,7 +12,7 @@ public class BossHealth : MonoBehaviour
     private IMGUIContainer healthBar;
     private VisualElement healthContainer; // Reference to the container holding the health bar
     private float maxHealthBarSize;
-    public EnemyHealth boss;
+    public EnemyBase boss;
     private float bossMaxHealth;
 
     public float BossMaxHealth

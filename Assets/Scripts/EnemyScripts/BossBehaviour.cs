@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossBehaviour : MonoBehaviour
+public class BossBehaviour : EnemyBase
 {
     public GameObject player;
-    public float speed;
+
     private float distance;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletPosition;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackInterval;
     
-    [SerializeField] private int damage;
+
     private float attackCooldown;
-    private MapManager mapManager;
+
    private void Awake()
     {
         mapManager = FindObjectOfType<MapManager>();
@@ -22,9 +22,12 @@ public class BossBehaviour : MonoBehaviour
         attackCooldown = 0;
     }
     void Update()
-    {
+    {    if (Health <= 0)
+        {
+             
+           Die();
+        }
         if (GameSettings.gameState != GameState.InGame) {return;}
-        float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
 
         distance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;
@@ -36,7 +39,7 @@ public class BossBehaviour : MonoBehaviour
 
         if (distance >= attackRange)
         {
-            transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (speed * tileSpeedModifier) * Time.deltaTime);
+            Move();
         }
         else
         {
@@ -49,11 +52,27 @@ public class BossBehaviour : MonoBehaviour
                 attackCooldown -= Time.deltaTime;
             }
         }
+    
+      
+        Bleed();
+    }
+    public override void Move()
+    {
+        float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
+        transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (Speed * tileSpeedModifier) * Time.deltaTime);
+    }
+    public override void Die()
+    {
+            SFXManager.Instance.EnemyDieSound();
+            ScoreManager.Instance.IncreasePoints(Points);
+            EnemySpawner.Instance.currentEnemies.Remove(gameObject);
+            Destroy(gameObject);
+       
     }
     void Shoot()
     {
         GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
-        newBullet.GetComponent<BossBullet>().BulletDamage = damage;
+        newBullet.GetComponent<BossBullet>().BulletDamage = Damage;
         // Play the enemy shooting sound
         SFXManager.Instance.EnemyShootSound();
         attackCooldown = attackInterval;
