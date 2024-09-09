@@ -256,6 +256,22 @@
         "desc": "Increase damage by 30 \n (before weapon scaling)",
         "rarity": 5,
         "stacks": 0
+      },
+      {
+        "id": 35,
+        "name": "Epic",
+        "desc": "Sword epic to fill space (NOT IMPLEMENTED)",
+        "rarity": 3,
+        "weapons": ["Sword"],
+        "stacks": 0
+      },
+      {
+        "id": 36,
+        "name": "Epic",
+        "desc": "Sword epic to fill space (NOT IMPLEMENTED)",
+        "rarity": 3,
+        "weapons": ["Sword"],
+        "stacks": 0
       }
     ]
   }
