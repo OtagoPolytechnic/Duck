@@ -24,6 +24,7 @@ public class PlayerExplosion : MonoBehaviour
     {
         set { crit = value; }
     }
+    [SerializeField] private GameObject radiation;
     void Start()
     {
         StartCoroutine(DestroyExplosion());
@@ -31,6 +32,11 @@ public class PlayerExplosion : MonoBehaviour
     private IEnumerator DestroyExplosion()
     {
         yield return new WaitForSeconds(0.25f);
+        if (WeaponStats.Instance.ItemRadioactive)
+        {
+            GameObject radiationInstance = Instantiate(radiation, transform.position, transform.rotation);
+            radiationInstance.transform.localScale = gameObject.transform.localScale; //Radiation size = explosion size
+        }
         Destroy(gameObject);
     }
 
