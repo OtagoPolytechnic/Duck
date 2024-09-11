@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 4223785294766013922}
   - component: {fileID: 5279123959450887226}
   m_Layer: 6
-  m_Name: EnemyBoss2
+  m_Name: ShotgunBoss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
