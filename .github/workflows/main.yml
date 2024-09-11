@@ -106,6 +106,14 @@ jobs:
           name: build #the name is required to specify which artifact is needed
           path: ./gameBuild
 
+      - name: Cleanup
+        id: cleanup
+        run: |
+          cd ./gameBuild
+          rm -r StandaloneWindows_BurstDebugInformation_DoNotShip
+          mv StandaloneWindows.exe DuckGame.exe
+          mv StandaloneWindows_Data DuckGame_Data
+
       - name: ZIP Build
         id: zip-release
         uses: thedoctor0/zip-release@master
