@@ -8,6 +8,7 @@ public class Shooting : MonoBehaviour
     public static Shooting Instance;
 
     [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject swordAttack;
     [SerializeField] private Transform sprite;
     [SerializeField] private Transform firePoint;
     [SerializeField] private Transform dualFirePoint;
@@ -63,6 +64,11 @@ public class Shooting : MonoBehaviour
 
     private void Shoot()
     {
+        if (WeaponStats.Instance.CurrentWeapon == WeaponType.Sword)
+        {
+            StartCoroutine(SwordAttack());
+            return;
+        }
         if (WeaponStats.Instance.Spread > 0)
         {
             //shoot 1+stacks(2) bullets in a cone infront of the player
@@ -99,5 +105,16 @@ public class Shooting : MonoBehaviour
     {
         GameObject bulletClone = Instantiate(bullet, bulletFirePoint.position, Quaternion.Euler(0, 0, lookAngle));
         bulletClone.GetComponent<Rigidbody2D>().velocity = bulletFirePoint.right * WeaponStats.Instance.BulletSpeed;
+    }
+
+    IEnumerator SwordAttack()
+    {
+        swordAttack.SetActive(true);
+
+        yield return new WaitForSeconds(WeaponStats.Instance.FireDelay/2);
+
+        swordAttack.SetActive(false);
+
+        StopCoroutine(SwordAttack());
     }
 }
