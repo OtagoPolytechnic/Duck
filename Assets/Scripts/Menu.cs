@@ -22,11 +22,12 @@ public class Menu : MonoBehaviour
     void Awake()
     {
         VisualElement document = GetComponent<UIDocument>().rootVisualElement;
-        playButton = document.Q<Button>("Play");
+        playButton = document.Q<Button>("SkillMenu");
 
 
         highscoreButton = document.Q<Button>("Highscores");
         settingsButton = document.Q<Button>("Settings");
+        creditsButton = document.Q<Button>("Credits");
 
         quitButton = document.Q<Button>("Quit");
         quitButton.RegisterCallback<ClickEvent>(Quit);
@@ -43,6 +44,7 @@ public class Menu : MonoBehaviour
         StartCoroutine(LoadBackgroundScene("SkillMenu", playButton));
         StartCoroutine(LoadBackgroundScene("Highscores", highscoreButton));
         StartCoroutine(LoadBackgroundScene("Settings", settingsButton));
+        StartCoroutine(LoadBackgroundScene("Credits", creditsButton));
     }
 
     IEnumerator LoadBackgroundScene(string sceneName, Button button)
