@@ -1,0 +1,24 @@
+{
+    "skills": [
+      {
+        "id" : 0,
+        "name": "Dash",
+        "desc": "Dash forward to dodge enemies.",
+        "cooldown": 3
+      },
+      {
+        "id" : 1,
+        "name": "Vanish",
+        "desc": "Cloak yourself and take no damage.",
+        "cooldown": 15,
+        "duration": 5
+      },
+      {
+        "id" : 2,
+        "name": "Decoy",
+        "desc": "Throw out a copy of yourself to distract enemies.",
+        "cooldown": 25,
+        "duration": 10
+      }
+    ]
+  }

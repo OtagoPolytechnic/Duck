@@ -16,4 +16,5 @@ public static class GameSettings
 {
     public static GameState gameState = GameState.InGame;
     public static int waveNumber;
+    public static SkillEnum activeSkill = SkillEnum.dash;
 }
