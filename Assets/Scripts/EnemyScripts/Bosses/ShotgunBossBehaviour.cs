@@ -1,14 +1,13 @@
-using Codice.CM.Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 public class ShotgunBossBehaviour : EnemyBase
 {
     public GameObject player;
     private float distance;
     [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject shadow;
     [SerializeField] private Transform bulletPosition;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackInterval;
@@ -19,6 +18,8 @@ public class ShotgunBossBehaviour : EnemyBase
     private float jumpAttackCooldown;
     private float jumpAttackTimer;
     private bool isJumping = false;
+    private Renderer bossRenderer; // Reference to the boss's Renderer component
+    private SpriteRenderer spriteRenderer; // Reference to the SpriteRenderer component of the Sprite child
 
     private void Awake()
     {
@@ -27,6 +28,16 @@ public class ShotgunBossBehaviour : EnemyBase
         attackCooldown = 0;
         jumpAttackCooldown = Random.Range(jumpAttackMinInterval, jumpAttackMaxInterval);
         jumpAttackTimer = 0;
+
+        // Initialize the Renderer component
+        bossRenderer = GetComponent<Renderer>();
+
+        // Initialize the SpriteRenderer component
+        Transform spriteChild = transform.Find("Sprite");
+        if (spriteChild != null)
+        {
+            spriteRenderer = spriteChild.GetComponent<SpriteRenderer>();
+        }
     }
 
     void Update()
@@ -83,19 +94,44 @@ public class ShotgunBossBehaviour : EnemyBase
     {
         isJumping = true;
         Debug.Log("JUMPATTACK started");
+
+        // Make the boss invisible
+        if (bossRenderer != null)
+        {
+            bossRenderer.enabled = false;
+        }
+
+        // Make the SpriteRenderer invisible
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = false;
+        }
+
         StartCoroutine(ResetJumpStateAfterDelay(3f));
     }
 
     private IEnumerator ResetJumpStateAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+
+        // Make the boss visible again
+        if (bossRenderer != null)
+        {
+            bossRenderer.enabled = true;
+        }
+
+        // Make the SpriteRenderer visible again
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = true;
+        }
+
         isJumping = false;
         Debug.Log("JUMPATTACK ended");
     }
 
     void ShotgunShoot()
     {
-
         // Shotgun boss shooting
         for (int i = 0; i < 3; i++) // Shoot 3 bullets
         {
