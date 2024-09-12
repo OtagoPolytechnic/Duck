@@ -7,11 +7,12 @@
         <ui:VisualElement name="ButtonContainer" style="flex-direction: column; justify-content: space-between; align-items: center; min-width: auto; height: 585px;">
             <ui:Button text="Play" display-tooltip-when-elided="true" name="Play" class="text button buttonText" style="-unity-text-align: middle-center; white-space: normal;" />
             <ui:Button text="Highscores" display-tooltip-when-elided="true" name="Highscores" class="text button buttonText" style="background-color: rgb(80, 231, 167);" />
-            <ui:Button text="Tutorial" display-tooltip-when-elided="true" name="Tutorial" class="text button buttonText" style="background-color: rgb(172, 135, 201);" />
+            <ui:Button text="Settings" display-tooltip-when-elided="true" name="Settings" class="text button buttonText" style="background-color: rgb(172, 135, 201);" />
             <ui:Button text="Quit" display-tooltip-when-elided="true" name="Quit" class="text button buttonText" style="background-color: rgb(208, 50, 42);" />
         </ui:VisualElement>
-        <ui:VisualElement name="FooterContainer" style="padding-bottom: 0; padding-top: 0;">
+        <ui:VisualElement name="FooterContainer" style="padding-bottom: 0; padding-top: 0; flex-direction: row-reverse; justify-content: space-between;">
             <ui:Label text="Alpha v0.0.0" display-tooltip-when-elided="true" name="VersionNumber" class="text" style="-unity-text-align: lower-right; color: rgb(255, 255, 255); padding-right: 100px; margin-top: 0; height: 97px;" />
+            <ui:Button text="Credits" display-tooltip-when-elided="true" name="Credits" class="text button buttonText" style="background-color: rgb(255, 137, 0);" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
