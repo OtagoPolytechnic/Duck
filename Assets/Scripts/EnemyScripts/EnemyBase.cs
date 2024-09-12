@@ -76,7 +76,13 @@ public abstract class EnemyBase : MonoBehaviour
         
     }
     public abstract void Move();
-    public abstract void Die();
+    public virtual void Die()
+    {
+        SFXManager.Instance.EnemyDieSound();
+        ScoreManager.Instance.IncreasePoints(Points);
+        EnemySpawner.Instance.currentEnemies.Remove(gameObject);
+        Destroy(gameObject);
+    }
     public void ScaleStats()
     {
         baseHealth = (int)Math.Round(BaseHealth * endlessScalar);
