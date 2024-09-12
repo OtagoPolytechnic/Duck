@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShotgunBossBehaviour : EnemyBase
@@ -7,36 +6,34 @@ public class ShotgunBossBehaviour : EnemyBase
     public GameObject player;
     private float distance;
     [SerializeField] private GameObject bullet;
-    [SerializeField] private GameObject shadow;
+    [SerializeField] private GameObject shadowPrefab; // Reference to the shadow prefab
     [SerializeField] private Transform bulletPosition;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackInterval;
-    [SerializeField] private float jumpAttackMinInterval = 5f;
-    [SerializeField] private float jumpAttackMaxInterval = 10f;
+    [SerializeField] private float minJumpAttackInterval = 1f; // Minimum interval between jump attacks
+    [SerializeField] private float maxJumpAttackInterval = 3f; // Maximum interval between jump attacks
+    [SerializeField] private float jumpAttackCooldown = 2f; // Cooldown period after each jump attack
 
     private float attackCooldown;
-    private float jumpAttackCooldown;
     private float jumpAttackTimer;
+    private float jumpAttackCooldownTimer;
     private bool isJumping = false;
-    private Renderer bossRenderer; // Reference to the boss's Renderer component
-    private SpriteRenderer spriteRenderer; // Reference to the SpriteRenderer component of the Sprite child
+    private GameObject currentShadow; // Reference to the current shadow instance
+    private SpriteRenderer bossSpriteRenderer; // Reference to the SpriteRenderer component of the Sprite child
 
     private void Awake()
     {
         mapManager = FindObjectOfType<MapManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         attackCooldown = 0;
-        jumpAttackCooldown = Random.Range(jumpAttackMinInterval, jumpAttackMaxInterval);
-        jumpAttackTimer = 0;
-
-        // Initialize the Renderer component
-        bossRenderer = GetComponent<Renderer>();
+        jumpAttackTimer = Random.Range(minJumpAttackInterval, maxJumpAttackInterval);
+        jumpAttackCooldownTimer = 0; // Initialize cooldown timer
 
         // Initialize the SpriteRenderer component
         Transform spriteChild = transform.Find("Sprite");
         if (spriteChild != null)
         {
-            spriteRenderer = spriteChild.GetComponent<SpriteRenderer>();
+            bossSpriteRenderer = spriteChild.GetComponent<SpriteRenderer>();
         }
     }
 
@@ -62,7 +59,7 @@ public class ShotgunBossBehaviour : EnemyBase
         }
         else
         {
-            if (attackCooldown <= 0 && isJumping == false)
+            if (attackCooldown <= 0 && !isJumping)
             {
                 ShotgunShoot();
             }
@@ -73,15 +70,43 @@ public class ShotgunBossBehaviour : EnemyBase
         }
 
         // Handle jump attack timing
-        jumpAttackTimer += Time.deltaTime;
-        if (jumpAttackTimer >= jumpAttackCooldown)
+        if (jumpAttackCooldownTimer <= 0)
         {
-            JumpAttack();
-            jumpAttackTimer = 0;
-            jumpAttackCooldown = Random.Range(jumpAttackMinInterval, jumpAttackMaxInterval);
+            jumpAttackTimer -= Time.deltaTime;
+            if (jumpAttackTimer <= 0 && !isJumping)
+            {
+                JumpAttack();
+                jumpAttackCooldownTimer = jumpAttackCooldown; // Set cooldown after a jump attack
+                jumpAttackTimer = Random.Range(minJumpAttackInterval, maxJumpAttackInterval); // Reset jump attack timer
+            }
+        }
+        else
+        {
+            jumpAttackCooldownTimer -= Time.deltaTime; // Decrease cooldown timer
         }
 
+        // Update the visibility of the boss sprite based on the shadow presence
+        UpdateBossVisibility();
+
         Bleed();
+    }
+
+    private void UpdateBossVisibility()
+    {
+        if (currentShadow != null)
+        {
+            if (bossSpriteRenderer != null)
+            {
+                bossSpriteRenderer.enabled = false; // Hide the boss sprite while shadow exists
+            }
+        }
+        else
+        {
+            if (bossSpriteRenderer != null)
+            {
+                bossSpriteRenderer.enabled = true; // Show the boss sprite when shadow is not present
+            }
+        }
     }
 
     public override void Move()
@@ -95,39 +120,36 @@ public class ShotgunBossBehaviour : EnemyBase
         isJumping = true;
         Debug.Log("JUMPATTACK started");
 
-        // Make the boss invisible
-        if (bossRenderer != null)
+        // Instantiate the shadow prefab at the boss's position
+        if (shadowPrefab != null)
         {
-            bossRenderer.enabled = false;
-        }
+            currentShadow = Instantiate(shadowPrefab, transform.position, Quaternion.identity);
 
-        // Make the SpriteRenderer invisible
-        if (spriteRenderer != null)
+            // Set the ShotgunBossBehaviour reference in the shadow prefab
+            ShadowAttack shadowAttack = currentShadow.GetComponent<ShadowAttack>();
+            if (shadowAttack != null)
+            {
+                shadowAttack.SetShotgunBossBehaviour(this);
+                shadowAttack.SetPlayer(player); // Set the player reference
+                shadowAttack.SetBossSpriteRenderer(bossSpriteRenderer); // Pass the boss's SpriteRenderer
+                Debug.Log("ShadowAttack component set with ShotgunBossBehaviour, player, and boss SpriteRenderer.");
+            }
+            else
+            {
+                Debug.LogError("ShadowAttack component not found on shadowPrefab.");
+            }
+        }
+        else
         {
-            spriteRenderer.enabled = false;
+            Debug.LogError("Shadow prefab is not assigned.");
         }
-
-        StartCoroutine(ResetJumpStateAfterDelay(3f));
     }
 
-    private IEnumerator ResetJumpStateAfterDelay(float delay)
+    public void ResetJumpState()
     {
-        yield return new WaitForSeconds(delay);
-
-        // Make the boss visible again
-        if (bossRenderer != null)
-        {
-            bossRenderer.enabled = true;
-        }
-
-        // Make the SpriteRenderer visible again
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.enabled = true;
-        }
-
+        Debug.Log("ResetJumpState");
         isJumping = false;
-        Debug.Log("JUMPATTACK ended");
+        currentShadow = null; // Clear the reference to the shadow
     }
 
     void ShotgunShoot()
