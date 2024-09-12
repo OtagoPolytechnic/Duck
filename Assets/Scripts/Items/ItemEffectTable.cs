@@ -179,7 +179,7 @@ public class ItemEffectTable : MonoBehaviour
                 break;
             case 28:
                 WeaponStats.Instance.SelfDamageExplosions = true;
-                WeaponStats.Instance.WeaponExplosionSize *=2;
+                WeaponStats.Instance.PercentageExplosionSize += 100;
                 Debug.Log($"Self damage {WeaponStats.Instance.SelfDamageExplosions}");
                 break;
             case 29:

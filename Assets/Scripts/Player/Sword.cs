@@ -7,6 +7,7 @@ public class Sword : MonoBehaviour
     private bool crit;
     public bool Crit
     {
+        get {return crit;}
         set {crit = value;}
     }
 

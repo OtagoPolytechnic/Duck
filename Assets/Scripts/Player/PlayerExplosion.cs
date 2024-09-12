@@ -35,7 +35,7 @@ public class PlayerExplosion : MonoBehaviour
         if (WeaponStats.Instance.ItemRadioactive)
         {
             GameObject radiationInstance = Instantiate(radiation, transform.position, transform.rotation);
-            radiationInstance.transform.localScale = gameObject.transform.localScale; //Radiation size = explosion size
+            radiationInstance.transform.localScale = gameObject.transform.localScale * 1.5f; //Radiation size = explosion size
         }
         Destroy(gameObject);
     }

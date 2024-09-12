@@ -148,26 +148,28 @@ public class WeaponStats : MonoBehaviour
                     WeaponCameraSize = 0;
                     break;
 
-                case WeaponType.Sword: //Placeholder for the sword
-                    //Trying to hack together a basic sword with bullets. VERY WIP
-                    WeaponRange = 5; //5% range
-                    WeaponDamage = 150; //150% damage
-                    WeaponPiercing = true; //Can pierce by default
-                    WeaponPierceAmount = -1; //Pierces all enemies
-                    WeaponBulletSpeed = 200; //Trying to make it instant so the bullets don't appear
+                case WeaponType.Sword:
+                    //Sword Values
+                    WeaponDamage = 150; //200% damage
                     WeaponFireDelay = 50; //50% fire delay
-                    WeaponExtraBullets = 20; //20 extra bullets to make a full arc
-                    WeaponSpread = 100; //Large spread to make a full arc 
 
                     //Other stats set to base values
                     weaponCritChancePercentage = 100; //Possible extra crit chance or damage? Could be too powerful
                     WeaponCritChanceFlat = 0;
                     WeaponCritDamage = 100;
+                    WeaponBleedDamage = 0;
+                    WeaponCameraSize = 0;
+
+                    //These stats are never used by the sword
+                    WeaponPiercing = false;
+                    WeaponPierceAmount = 0;
+                    WeaponExtraBullets = 0;
                     WeaponExplosiveBullets = false;
                     WeaponExplosionSize = 0;
                     WeaponExplosionDamage = 0;
-                    WeaponBleedDamage = 0;
-                    WeaponCameraSize = 0;
+                    WeaponRange = 5;
+                    WeaponSpread = 100;
+                    WeaponBulletSpeed = 200; 
                     break;
 
                 case WeaponType.RocketLauncher: //Placeholder for the rocket launcher
@@ -403,9 +405,15 @@ public class WeaponStats : MonoBehaviour
         get { return weaponExplosionSize; }
         set { weaponExplosionSize = value; }
     }
+    private int percentageExplosionSize = 100;
+    public int PercentageExplosionSize
+    {
+        get { return percentageExplosionSize; }
+        set { percentageExplosionSize = value; }
+    }
     public int ExplosionSize
     {
-        get { return ItemExplosionSize + WeaponExplosionSize; } //This will return the sum of the item and weapon explosion sizes
+        get { return ((ItemExplosionSize + WeaponExplosionSize) * percentageExplosionSize) / 100; } //This will return the sum of the item and weapon explosion sizes
     }
 
     //Explosion damage
