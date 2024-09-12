@@ -53,6 +53,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
+          buildName: DuckGame
 
       - uses: actions/upload-artifact@v3
         with:
@@ -110,9 +111,7 @@ jobs:
         id: cleanup
         run: |
           cd ./gameBuild
-          rm -r StandaloneWindows_BurstDebugInformation_DoNotShip
-          mv StandaloneWindows.exe DuckGame.exe
-          mv StandaloneWindows_Data DuckGame_Data
+          rm -r DuckGame_BurstDebugInformation_DoNotShip
 
       - name: ZIP Build
         id: zip-release
