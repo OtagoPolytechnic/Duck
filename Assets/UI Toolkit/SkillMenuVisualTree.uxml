@@ -4,15 +4,15 @@
         <ui:Button text="Play" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PlayGame" class="buttonText" style="max-width: none; min-width: 20%; min-height: 10%; font-size: 40px;" />
         <ui:VisualElement name="SkillContainer" style="flex-grow: 1; flex-direction: row; align-items: center; justify-content: space-between; width: 100%;">
             <ui:VisualElement name="SkillContainer" style="flex-grow: 1; align-items: center;">
-                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Skill1" class="text buttonText skill button" />
+                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Skill1" class="text buttonText skill button" style="background-image: url(&quot;project://database/Assets/Sprites/Skills/Dashv2.png?fileID=2800000&amp;guid=711c5c87db9a637439741d61c23a7650&amp;type=3#Dashv2&quot;);" />
                 <ui:Label tabindex="-1" text="Dash" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Skill1Name" class="text" style="font-size: 30px;" />
             </ui:VisualElement>
             <ui:VisualElement name="SkillContainer" style="flex-grow: 1; align-items: center;">
-                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Skill2" class="text buttonText skill button" />
+                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Skill2" class="text buttonText skill button" style="background-image: url(&quot;project://database/Assets/Sprites/Skills/Vanishv2.png?fileID=2800000&amp;guid=6314bfc529d707f4ca18ec4f0fe73da7&amp;type=3#Vanishv2&quot;);" />
                 <ui:Label tabindex="-1" text="Vanish" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillName" class="text" style="font-size: 30px;" />
             </ui:VisualElement>
             <ui:VisualElement name="SkillContainer" style="flex-grow: 1; align-items: center;">
-                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Skill3" class="text buttonText skill button" />
+                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Skill3" class="text buttonText skill button" style="background-image: url(&quot;project://database/Assets/Sprites/Skills/Decoy.png?fileID=2800000&amp;guid=1ebb5f7a62b21e74ea4b132aa9f6cd2a&amp;type=3#Decoy&quot;);" />
                 <ui:Label tabindex="-1" text="Decoy" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillName" class="text" style="font-size: 30px;" />
             </ui:VisualElement>
         </ui:VisualElement>
