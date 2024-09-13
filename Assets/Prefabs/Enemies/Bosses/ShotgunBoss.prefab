@@ -273,8 +273,9 @@ MonoBehaviour:
   bulletPosition: {fileID: 5656455699881316956}
   attackRange: 10
   attackInterval: 1
-  jumpAttackMinInterval: 5
-  jumpAttackMaxInterval: 10
+  minJumpAttackInterval: 5
+  maxJumpAttackInterval: 10
+  jumpAttackCooldown: 10
 --- !u!1 &5656455699881316957
 GameObject:
   m_ObjectHideFlags: 0

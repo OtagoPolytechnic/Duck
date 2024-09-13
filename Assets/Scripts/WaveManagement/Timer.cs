@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-
-
 public class Timer : MonoBehaviour
 {
     [SerializeField]
@@ -15,11 +13,14 @@ public class Timer : MonoBehaviour
     private Label waveNumberText;
     private Label timerText;
     [SerializeField] private BossSpawner bossSpawner;
+    [SerializeField] private TargetIndicator targetIndicator; // Add this line
+
     public float waveLength;
     public float currentTime;
     public int waveNumber;
     bool geninventory = false;
     public static Timer Instance;
+
     void Awake()
     {
         if (Instance == null)
@@ -50,26 +51,24 @@ public class Timer : MonoBehaviour
         {
             return;
         }
-        if(GameSettings.gameState == GameState.InGame && GameSettings.waveNumber % 5 != 0 || TerminalBehaviour.Instance.stopBoss)
+
+        if (GameSettings.gameState == GameState.InGame && GameSettings.waveNumber % 5 != 0 || TerminalBehaviour.Instance.stopBoss)
         {
             currentTime -= Time.deltaTime;
-       
         }
-        else if(GameSettings.gameState == GameState.ItemSelect)
+        else if (GameSettings.gameState == GameState.ItemSelect)
         {
             if (itemPanel.itemChosen)
             {
                 NextWave();
             }
         }
-        
-        if(currentTime <= 0 || (BossHealth.Instance.boss !=null && BossHealth.Instance.boss.Health <=0))
+
+        if (currentTime <= 0 || (BossHealth.Instance.boss != null && BossHealth.Instance.boss.Health <= 0))
         {
-          
             if (waveNumber == 25 && GameSettings.gameState == GameState.InGame)
             {
                 GameManager.Instance.BossVictory();
-           
             }
             else
             {
@@ -83,7 +82,6 @@ public class Timer : MonoBehaviour
     public void EndWave()
     {
         GameSettings.gameState = GameState.ItemSelect;
-    	
         CullBullets();
         if (waveNumber % 5 == 4)
         {
@@ -92,7 +90,6 @@ public class Timer : MonoBehaviour
         if (!geninventory)
         {
             itemPanel.InitializeItemPanel(waveNumber);
-            
             geninventory = true;
         }
     }
@@ -114,17 +111,28 @@ public class Timer : MonoBehaviour
         {
             bossSpawner.SpawnBoss();
             timerText.visible = false;
+
+            // Activate or deactivate TargetIndicator based on the wave
+            if (targetIndicator != null)
+            {
+                targetIndicator.ActivateIndicator(); // Make sure to have a method for this
+            }
         }
         else
-        { 
+        {
             timerText.visible = true;
+
+            // Deactivate TargetIndicator if it's not a boss wave
+            if (targetIndicator != null)
+            {
+                targetIndicator.DeactivateIndicator(); // Make sure to have a method for this
+            }
         }
-            
+
         geninventory = false;
         itemPanel.itemChosen = false;
 
-        //Enemy scaling
-
+        // Enemy scaling
         if (waveNumber % 5 == 0)
         {
             EnemySpawner.Instance.EnemyLevel++;
@@ -139,7 +147,7 @@ public class Timer : MonoBehaviour
             EnemySpawner.Instance.EnemyCap += 1;
         }
 
-        //Scale stats if after wave 25
+        // Scale stats if after wave 25
         if (waveNumber > 25)
         {
             EnemyBase.endlessScalar += 0.1f;
@@ -156,6 +164,7 @@ public class Timer : MonoBehaviour
             Destroy(enemy);
         }
     }
+
     public static void CullBullets()
     {
         GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");

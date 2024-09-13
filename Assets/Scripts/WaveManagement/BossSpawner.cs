@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,6 +18,13 @@ public class BossSpawner : MonoBehaviour
     public GameObject bossHealthBar;
     public GameObject bigBoss;
 
+    // Reference to the Player object
+    public GameObject player;
+
+    // Cache for the TargetIndicator component
+
+    public TargetIndicator targetIndicator;
+
     private List<GameObject> shuffledBosses;
     private int currentBossIndex = 0;
 
@@ -27,6 +33,7 @@ public class BossSpawner : MonoBehaviour
         lastSpawn = spawnTimer;
         shuffledBosses = new List<GameObject>(bosses);
         ShuffleBosses();
+
     }
 
     void ShuffleBosses()
@@ -70,11 +77,24 @@ public class BossSpawner : MonoBehaviour
             currentEnemies.Add(bossInstance);
             Debug.Log("SpawnBoss called. Boss spawned at: " + spawnPosition);
             bossInstance.GetComponent<EnemyBase>().Health = bossHealth;
+
+            // Setup boss health UI
             document = bossHealthBar.GetComponent<UIDocument>().rootVisualElement;
             container = document.Q<VisualElement>("BossHealthContainer");
             container.visible = true;
             BossHealth.Instance.boss = bossInstance.GetComponent<EnemyBase>();
             BossHealth.Instance.BossMaxHealth = bossHealth;
+
+            // Activate TargetIndicator if assigned
+            if (targetIndicator != null)
+            {
+                targetIndicator.ActivateIndicator(); // Activate the TargetIndicator
+                targetIndicator.Target = bossInstance.transform; // Set the newly spawned boss as the target
+            }
+            else
+            {
+                Debug.LogWarning("TargetIndicator component is not found on the Player object.");
+            }
         }
         else
         {
