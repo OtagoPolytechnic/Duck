@@ -35,9 +35,9 @@ public class SkillMenu : MonoBehaviour
         skill2Button.RegisterCallback<ClickEvent, SkillEnum>(SkillClick, SkillEnum.vanish);
         Button skill3Button = document.Q<Button>("Skill3");
         skill3Button.RegisterCallback<ClickEvent, SkillEnum>(SkillClick, SkillEnum.decoy);
-        LoadItems();
+        Load();
     }
-    private void LoadItems()
+    private void Load()
     {
         string json = Resources.Load<TextAsset>("skills").text;
         SkillList skillsJson = JsonUtility.FromJson<SkillList>(json);
@@ -47,7 +47,7 @@ public class SkillMenu : MonoBehaviour
     public void PlayGame(ClickEvent click)
     {
         GameSettings.gameState = GameState.InGame;
-        StartCoroutine(LoadScene("MainScene"));
+        StartCoroutine(LoadScene("SkillsTesting(Delete)")); //change to main scene
     }
 
     IEnumerator LoadScene(string sceneName)
