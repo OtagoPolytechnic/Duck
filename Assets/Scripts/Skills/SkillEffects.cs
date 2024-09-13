@@ -26,15 +26,24 @@ public class SkillEffects : MonoBehaviour
                 case SkillEnum.dash:
                 {
                     Debug.Log("Player has Dashed!");
+                    //get the position of the cursor on the screen and make a vector of its direction from the player
+                    //add some velocity to the player and push them some distance towards that direction
                     break;
                 }
                 case SkillEnum.vanish:
                 {
+                    //disable the players collision for the duration
+                    //add a darkness to the player or screen
+                    //stop all enemy movement towards the player
+                    //revert those once the duration has finished
                     Debug.Log("Player has Vanished!");
                     break;
                 }
                 case SkillEnum.decoy:
                 {
+                    //spawn another duck prefab
+                    //make all enemies target that one for the duration
+                    //after duration all eneimes go back to targeting the player
                     Debug.Log("Player has Decoyed!");
                     break;
                 }
