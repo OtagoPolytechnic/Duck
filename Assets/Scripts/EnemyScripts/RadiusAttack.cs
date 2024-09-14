@@ -56,6 +56,6 @@ public class RadiusAttack : MonoBehaviour
         bulletRb.velocity = shootDirection * bulletSpeed;
         attackCooldown = attackInterval;
 
-        SFXManager.Instance.EnemyShootSound();
+        SFXManager.Instance.PlaySFX("EnemyShoot");
     }
 }

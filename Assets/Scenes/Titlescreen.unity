@@ -364,7 +364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee86e0d0c5b898b46b50c337c27ed2e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Camera: {fileID: 519420032}
   DuckShooting: {fileID: 8300000, guid: 1e0f73f88111ad845bb75fcdf8c6fecb, type: 3}
   EnemyShoot: {fileID: 8300000, guid: 9d19fa2ee9ac290468515457b8e9295c, type: 3}
   Bite: {fileID: 8300000, guid: 853a048c0909da44492ec607ba4730bd, type: 3}
@@ -464,7 +463,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b897a351c7215b448644fe99a1bbcca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instance: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

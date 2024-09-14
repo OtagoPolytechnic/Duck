@@ -362,7 +362,7 @@ GameObject:
   - component: {fileID: 1843071201}
   - component: {fileID: 1843071203}
   m_Layer: 5
-  m_Name: TutorialUI
+  m_Name: SettingsUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -411,6 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77fe00404bde0849a325f04baf6307e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 2c0f61ecac209d24e92419846d7e2d75, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
