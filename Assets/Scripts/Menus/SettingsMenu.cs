@@ -1,7 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Credits : MonoBehaviour
+public class SettingsMenu : MonoBehaviour
 {
     public VisualElement document;
     void Awake()
@@ -9,10 +11,20 @@ public class Credits : MonoBehaviour
         document = GetComponent<UIDocument>().rootVisualElement;
         Button goBack = document.Q<Button>("Return");
         goBack.RegisterCallback<ClickEvent>(ReturnToMainMenu);
-
-        Label paragraph = document.Q<Label>("Paragraph");
-        paragraph.text = "Developers:\n\nAlex Reid\nKyle Black\nRohan Anakin\nPalin Wiseman\n\nFormer developers:\n\nLorna Hart\nJun Xu";
     }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
     private void ReturnToMainMenu(ClickEvent click)
     {
         if (document != null)
