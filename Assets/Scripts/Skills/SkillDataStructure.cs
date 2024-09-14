@@ -10,7 +10,7 @@ public class Skill
     public string name;
     public string desc;
     public int cooldown;
-    public int duration;
+    public float duration;
 
 }
 [Serializable]

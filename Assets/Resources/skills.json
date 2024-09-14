@@ -4,7 +4,8 @@
         "id" : 0,
         "name": "Dash",
         "desc": "Dash forward to dodge enemies.",
-        "cooldown": 3
+        "cooldown": 3,
+        "duration": 0.2
       },
       {
         "id" : 1,
