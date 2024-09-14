@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class Tutorial : MonoBehaviour
+public class Credits : MonoBehaviour
 {
     public VisualElement document;
     void Awake()
@@ -12,7 +12,7 @@ public class Tutorial : MonoBehaviour
         goBack.RegisterCallback<ClickEvent>(ReturnToMainMenu);
 
         Label paragraph = document.Q<Label>("Paragraph");
-        paragraph.text = "WASD to move. Hold left click to shoot.\nAfter each wave you get a choice of item.\nSee how long you can survive!";
+        paragraph.text = "Developers:\n\nAlex Reid\nKyle Black\nRohan Anakin\nPalin Wiseman\n\nFormer developers:\n\nLorna Hart\nJun Xu";
     }
     private void ReturnToMainMenu(ClickEvent click)
     {
