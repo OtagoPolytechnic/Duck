@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/TutorialStyle.uss?fileID=7433441132597879392&amp;guid=1b12938c142319f41bdb738fa40be24e&amp;type=3#TutorialStyle" />
+    <Style src="project://database/Assets/UI%20Toolkit/SettingsStyle.uss?fileID=7433441132597879392&amp;guid=130ceae52b142d1499669fa3a74b8b26&amp;type=3#SettingsStyle" />
     <ui:VisualElement name="Background" style="background-color: rgb(0, 0, 0); height: 1086px; visibility: visible;">
         <ui:VisualElement name="Header" class="header" style="flex-direction: row; margin-left: 35px; margin-right: 35px; margin-top: 25px; justify-content: center;">
             <ui:Label text="How to Play" display-tooltip-when-elided="true" name="Title" class="text" style="font-size: 100px;" />
