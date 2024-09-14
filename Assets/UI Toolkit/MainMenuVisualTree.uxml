@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=54b9a6b1cdc53744c98b1d99e6f472a3&amp;type=3#MainMenuStyle" />
-    <ui:VisualElement name="Background" style="background-color: rgb(0, 0, 0);">
+    <ui:VisualElement name="Background" style="background-color: rgb(0, 0, 0); flex-grow: 1; justify-content: space-between;">
         <ui:VisualElement name="HeaderContainer">
             <ui:Label text="DUCK GAME" display-tooltip-when-elided="true" name="Title" class="text header" style="color: rgb(255, 251, 0); -unity-text-align: middle-center;" />
         </ui:VisualElement>

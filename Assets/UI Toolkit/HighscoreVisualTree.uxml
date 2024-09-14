@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/HighscoreStyle.uss?fileID=7433441132597879392&amp;guid=ea3e33529cbeebc40bf06b5e8e1fedf8&amp;type=3#HighscoreStyle" />
-    <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgb(0, 0, 0); visibility: visible; display: flex; overflow: visible; align-items: center; justify-content: flex-end;">
+    <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgb(0, 0, 0); visibility: visible; display: flex; overflow: visible; align-items: center; justify-content: space-around;">
         <ui:VisualElement name="Selection" style="flex-grow: 0; flex-direction: row; flex-shrink: 0;">
             <ui:Button text="Boss" display-tooltip-when-elided="true" name="Boss" class="text buttonText button" style="overflow: hidden; height: 100px; background-color: rgb(80, 231, 167);" />
             <ui:Button text="Endless" display-tooltip-when-elided="true" name="Endless" class="text buttonText button" style="overflow: hidden; height: 100px; background-color: rgb(172, 135, 201);" />
