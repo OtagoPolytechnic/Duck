@@ -68,12 +68,8 @@ public class SkillEffects : MonoBehaviour
                 }
                 case SkillEnum.vanish:
                 {
-                    state = SkillState.vanished;
-                    //disable the players collision for the duration
-                    //add a darkness to the player or screen
-                    //stop all enemy movement towards the player
-                    //revert those once the duration has finished
                     Debug.Log("Player has Vanished!");
+                    state = SkillState.vanished;
                     break;
                 }
                 case SkillEnum.decoy:
@@ -118,7 +114,7 @@ public class SkillEffects : MonoBehaviour
         if (state == SkillState.vanished && durationActive)
         {   
             //disable the players collision for the duration
-            Physics2D.IgnoreLayerCollision(7, 9, true);
+            PlayerStats.Instance.StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(durationRemaining));
             //add a darkness to the player or screen
             GetComponentInChildren<SpriteRenderer>().color = new Color(255,255,255,0.5f);
             //stop all enemy movement towards the player
@@ -126,7 +122,6 @@ public class SkillEffects : MonoBehaviour
         }
         else
         {
-            Physics2D.IgnoreLayerCollision(7, 9, false);
             GetComponentInChildren<SpriteRenderer>().color = new Color(255,255,255,1f);
             vanishActive = false;
         }
