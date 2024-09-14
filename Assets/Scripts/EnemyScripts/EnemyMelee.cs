@@ -35,6 +35,7 @@ public class EnemyMelee : EnemyBase
             distance = Vector2.Distance(transform.position, player.transform.position);
             if (distance <= attackRange)
             {
+                if (SkillEffects.Instance.vanishActive) { return; }
                 StartCoroutine(Attack());
             }
         }
@@ -64,6 +65,8 @@ public class EnemyMelee : EnemyBase
 
     public override void Move()
     {
+        if (SkillEffects.Instance.vanishActive) { return; }
+
         Vector2 direction = player.transform.position - transform.position;
 
         //turns enemy towards player

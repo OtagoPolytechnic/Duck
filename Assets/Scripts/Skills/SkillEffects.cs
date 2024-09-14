@@ -7,6 +7,7 @@ public enum SkillState
 {
     none,
     dashing,
+    vanished,
 }
 public class SkillEffects : MonoBehaviour
 {
@@ -22,10 +23,20 @@ public class SkillEffects : MonoBehaviour
     private Rigidbody2D rb;
     private Vector3 dashVector;
     private SkillState state;
+    public bool vanishActive;
     public bool moveMode;
+    public static SkillEffects Instance;
 
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         Load();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -33,7 +44,7 @@ public class SkillEffects : MonoBehaviour
     {
         if (context.performed && !cooldownActive)
         {   
-            //depending on active skill run the code that controls it, start the duration, and start the cooldown
+            //depending on active skill, setup the base values and set the state to activate the skill on button press.
             switch (GameSettings.activeSkill)
             {
                 case SkillEnum.dash:
@@ -57,6 +68,7 @@ public class SkillEffects : MonoBehaviour
                 }
                 case SkillEnum.vanish:
                 {
+                    state = SkillState.vanished;
                     //disable the players collision for the duration
                     //add a darkness to the player or screen
                     //stop all enemy movement towards the player
@@ -103,6 +115,22 @@ public class SkillEffects : MonoBehaviour
             //add some velocity to the player and push them some distance towards that direction
             rb.AddForce(dashVector * dashForce, ForceMode2D.Impulse);
         }
+        if (state == SkillState.vanished && durationActive)
+        {   
+            //disable the players collision for the duration
+            Physics2D.IgnoreLayerCollision(7, 9, true);
+            //add a darkness to the player or screen
+            GetComponentInChildren<SpriteRenderer>().color = new Color(255,255,255,0.5f);
+            //stop all enemy movement towards the player
+            vanishActive = true;
+        }
+        else
+        {
+            Physics2D.IgnoreLayerCollision(7, 9, false);
+            GetComponentInChildren<SpriteRenderer>().color = new Color(255,255,255,1f);
+            vanishActive = false;
+        }
+
     }
 
     private void StartCooldown()

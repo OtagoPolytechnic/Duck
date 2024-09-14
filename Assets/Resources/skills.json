@@ -17,7 +17,7 @@
       {
         "id" : 2,
         "name": "Decoy",
-        "desc": "Throw out a copy of yourself to distract enemies.",
+        "desc": "Place a copy of yourself to distract enemies.",
         "cooldown": 25,
         "duration": 10
       }
