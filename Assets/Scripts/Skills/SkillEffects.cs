@@ -21,10 +21,17 @@ public class SkillEffects : MonoBehaviour
     private float dashForce;
     private List<Skill> skillList = new List<Skill>();
     private Rigidbody2D rb;
+    public bool moveMode;
     private Vector3 dashVector;
     private SkillState state;
+    [Header("Vanish")]
     public bool vanishActive;
-    public bool moveMode;
+    [Header("Decoy")]
+
+    [SerializeField]
+    private GameObject decoy;
+    private GameObject spawnedDecoy;
+    public bool decoyActive;
     public static SkillEffects Instance;
 
     void Awake()
@@ -42,7 +49,7 @@ public class SkillEffects : MonoBehaviour
     }
     public void RunSkill(InputAction.CallbackContext context)
     {
-        if (context.performed && !cooldownActive)
+        if (context.performed && !cooldownActive && GameSettings.gameState == GameState.InGame)
         {   
             //depending on active skill, setup the base values and set the state to activate the skill on button press.
             switch (GameSettings.activeSkill)
@@ -74,9 +81,9 @@ public class SkillEffects : MonoBehaviour
                 }
                 case SkillEnum.decoy:
                 {
-                    //spawn another duck prefab
-                    //make all enemies target that one for the duration
-                    //after duration all eneimes go back to targeting the player
+                    //spawn another duck 
+                    spawnedDecoy = Instantiate(decoy, transform.position, Quaternion.identity);  
+                    decoyActive = true;
                     Debug.Log("Player has Decoyed!");
                     break;
                 }
@@ -94,6 +101,7 @@ public class SkillEffects : MonoBehaviour
 
     void Update()
     {
+        if (GameSettings.gameState != GameState.InGame) { return; }
         if (durationActive)
         {
             CheckDuration();
@@ -124,6 +132,11 @@ public class SkillEffects : MonoBehaviour
         {
             GetComponentInChildren<SpriteRenderer>().color = new Color(255,255,255,1f);
             vanishActive = false;
+        }
+        if (decoyActive && !durationActive)
+        {
+            decoyActive = false;
+            Destroy(spawnedDecoy);
         }
 
     }

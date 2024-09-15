@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyMelee : EnemyBase
 {
     public GameObject player;
+    private bool stopCheck;
     private float distance;
     private bool attacking = false;
     [SerializeField] private float attackRange;
@@ -29,6 +30,16 @@ public class EnemyMelee : EnemyBase
         }
         Bleed();
 
+        if (SkillEffects.Instance.decoyActive && !stopCheck)
+        {
+            player = GameObject.FindWithTag("Decoy");
+            stopCheck = true;
+        }
+        else if (!SkillEffects.Instance.decoyActive && stopCheck)
+        {
+            player = GameObject.FindWithTag("Player");
+            stopCheck = false;
+        }
         if (!attacking) //This enemy type stops moving to attack
         {
             Move();
