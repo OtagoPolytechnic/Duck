@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,8 @@ public class SkillEffects : MonoBehaviour
     private VisualElement uiCooldownBG;
     private Label uiCooldownTimer;
     private VisualElement activeSkillIcon;
+    private IMGUIContainer durationBar;
+    private IMGUIContainer durationContainer;
     [Header("Cooldowns")]
     public bool cooldownActive;
     private float cooldownRemaining;
@@ -58,8 +61,11 @@ public class SkillEffects : MonoBehaviour
         Load();
         rb = GetComponent<Rigidbody2D>();
         hud = uiDocument.GetComponent<UIDocument>().rootVisualElement;
+
         uiCooldownBG = hud.Q<VisualElement>("SkillCooldown");
+        uiCooldownBG.visible = false; //error checking
         uiCooldownTimer = hud.Q<Label>("SkillTimer");
+
         activeSkillIcon = hud.Q<VisualElement>("ActiveSkill");
         if (GameSettings.activeSkill == SkillEnum.dash)
         {
@@ -73,6 +79,10 @@ public class SkillEffects : MonoBehaviour
         {
             activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Decoy");
         }
+
+        durationBar = hud.Q<IMGUIContainer>("Duration");
+        durationContainer = hud.Q<IMGUIContainer>("DurationBackground");
+        durationContainer.style.opacity = 0;
     }
     public void RunSkill(InputAction.CallbackContext context)
     {
@@ -131,8 +141,9 @@ public class SkillEffects : MonoBehaviour
         if (GameSettings.gameState != GameState.InGame) { return; }
         if (durationActive)
         {
+            //lerp the opacity of the duration box in update
+            durationContainer.style.opacity = Mathf.Lerp(0, 1, 0.3f); //unsure if this lerp function is doing anything :/
             CheckDuration();
-            //do the healthbar size calc for the duration bar somewhere
         }
         if (cooldownActive)
         {
@@ -172,19 +183,14 @@ public class SkillEffects : MonoBehaviour
     private void StartCooldown()
     {
         cooldownRemaining = skillList[(int)GameSettings.activeSkill].cooldown;//this restricts the ability to make one conjoined method of StartCooldown, StartDuration, etc. etc.
-        //set the cooldown timer to the cooldown remaining
-        uiCooldownTimer.text = cooldownRemaining.ToString("0.0");
         cooldownActive = true;
-        //set the cooldown background to visible
         uiCooldownBG.visible = true;
     }
 
     private void StartDuration()
     {
         durationRemaining = skillList[(int)GameSettings.activeSkill].duration;
-        //lerp the opacity of the duration box in update
         durationActive = true;
-        //set the duration timer to the duration remaining
     }
 
     private void CheckDuration()
@@ -192,12 +198,15 @@ public class SkillEffects : MonoBehaviour
         if (durationRemaining > 0)
         {
             durationRemaining -= Time.deltaTime;
+            float durationFraction = durationRemaining / skillList[(int)GameSettings.activeSkill].duration;
+            durationBar.style.width = Length.Percent(durationFraction * 100);
         }
         else
         {
             Debug.Log("Duration ended");
             durationActive = false;
             state = SkillState.none;
+            durationContainer.style.opacity = 0;
         }
     }
 
@@ -206,7 +215,7 @@ public class SkillEffects : MonoBehaviour
         if (cooldownRemaining > 0)
         {
             cooldownRemaining -= Time.deltaTime;
-            uiCooldownTimer.text = cooldownRemaining.ToString();
+            uiCooldownTimer.text = Mathf.Round(cooldownRemaining).ToString();
         }
         else
         {
