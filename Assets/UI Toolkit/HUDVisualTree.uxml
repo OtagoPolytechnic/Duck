@@ -2,13 +2,26 @@
     <Style src="project://database/Assets/UI%20Toolkit/HUDStyle.uss?fileID=7433441132597879392&amp;guid=7d8e0bf430b9f5f498d843f5b6443724&amp;type=3#HUDStyle" />
     <ui:VisualElement name="HeaderContainer" style="color: rgb(255, 255, 255); flex-direction: row; justify-content: space-around; margin-top: 60px;">
         <ui:Label text="Wave 0" display-tooltip-when-elided="true" name="WaveNumber" class="text header" style="white-space: nowrap; -unity-text-align: upper-left; color: rgb(255, 255, 255); margin-top: 0; margin-right: 0;" />
-        <ui:IMGUIContainer name="HealthBar" style="background-image: url(&apos;project://database/Assets/Scripts/HealthBar/HP_MP_Bar%20(1).png?fileID=-2002936986&amp;guid=3245bd78fbd9e8949b410b9f27e116de&amp;type=3#HP_MP_Bar (1)_0&apos;); height: 70px; width: 600px; margin-top: 0; flex-direction: column; align-items: stretch; justify-content: center;">
+        <ui:IMGUIContainer name="HealthBar" style="background-image: url(&quot;project://database/Assets/Scripts/HealthBar/HP_MP_Bar%20(1).png?fileID=-2002936986&amp;guid=3245bd78fbd9e8949b410b9f27e116de&amp;type=3#HP_MP_Bar (1)_0&quot;); height: 70px; width: 600px; margin-top: 0; flex-direction: column; align-items: stretch; justify-content: center;">
             <ui:IMGUIContainer name="HealthContainer" style="background-image: none; flex-direction: column; align-items: stretch; justify-content: center; width: 588px; height: 46px; margin-left: 0; min-width: auto; position: absolute; margin-right: 0; left: 6px; top: 12px;">
-                <ui:IMGUIContainer name="Health" style="background-image: url(&apos;project://database/Assets/Scripts/HealthBar/HP_MP_Bar%20(1).png?fileID=-47574867&amp;guid=3245bd78fbd9e8949b410b9f27e116de&amp;type=3#HP_MP_Bar (1)_1&apos;); flex-direction: column; align-items: center; justify-content: center; width: 589px; height: 46px; margin-left: 0; min-width: auto; position: absolute; margin-right: 0;" />
+                <ui:IMGUIContainer name="Health" style="background-image: url(&quot;project://database/Assets/Scripts/HealthBar/HP_MP_Bar%20(1).png?fileID=-47574867&amp;guid=3245bd78fbd9e8949b410b9f27e116de&amp;type=3#HP_MP_Bar (1)_1&quot;); flex-direction: column; align-items: center; justify-content: center; width: 589px; height: 46px; margin-left: 0; min-width: auto; position: absolute; margin-right: 0;" />
                 <ui:Label text="0" display-tooltip-when-elided="true" name="HealthNumber" class="text" style="-unity-text-align: middle-center;" />
             </ui:IMGUIContainer>
         </ui:IMGUIContainer>
         <ui:Label text="Points: 0" display-tooltip-when-elided="true" name="Points" class="header text" style="margin-right: 40px; white-space: normal; margin-top: 0; margin-left: 0; flex-basis: auto; flex-wrap: wrap; flex-direction: column;" />
     </ui:VisualElement>
     <ui:Label text="Timer" display-tooltip-when-elided="true" name="Timer" class="text" style="margin-left: 120px; margin-top: 0;" />
+    <ui:VisualElement name="DurationContainer" style="flex-grow: 1; flex-direction: column-reverse; align-items: center;">
+        <ui:IMGUIContainer name="DurationBar" style="background-image: url(&quot;project://database/Assets/Scripts/HealthBar/HP_MP_Bar%20(1).png?fileID=-2002936986&amp;guid=3245bd78fbd9e8949b410b9f27e116de&amp;type=3#HP_MP_Bar (1)_0&quot;); height: 30px; width: 200px; margin-top: 0; flex-direction: column; align-items: stretch; justify-content: center; position: relative; top: 0; left: 0; -unity-background-image-tint-color: rgb(255, 255, 255); opacity: 0; visibility: visible;">
+            <ui:IMGUIContainer name="DurationContainer" style="flex-direction: column; align-items: stretch; justify-content: center; width: 196px; height: 30px; margin-left: 0; min-width: auto; position: absolute; margin-right: 0; left: 2px; top: -1px;">
+                <ui:IMGUIContainer name="Duration" style="background-image: none; flex-direction: column; align-items: center; justify-content: center; width: 196px; height: 20px; margin-left: 0; min-width: auto; position: absolute; margin-right: 0; top: 6px; left: 0; background-color: rgb(255, 255, 255);" />
+            </ui:IMGUIContainer>
+        </ui:IMGUIContainer>
+    </ui:VisualElement>
+    <ui:VisualElement name="SkillContainer" style="flex-grow: 1; flex-direction: column; align-items: flex-end; justify-content: flex-end; height: 0; opacity: 1;">
+        <ui:VisualElement name="ActiveSkill" class="skill" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/Skills/Dashv2.png?fileID=2800000&amp;guid=711c5c87db9a637439741d61c23a7650&amp;type=3#Dashv2&quot;); top: 200px;" />
+        <ui:VisualElement name="SkillCooldown" class="skill" style="flex-grow: 1; background-image: none; position: relative; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.72); visibility: hidden; justify-content: space-between; align-items: stretch;">
+            <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillTimer" style="background-color: rgba(0, 0, 0, 0); color: rgb(255, 255, 255); -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&amp;guid=f08ae915995c0db4f9feee7e49baaec2&amp;type=3#ARCADE_N&quot;); -unity-font-definition: initial; -unity-text-align: middle-center; white-space: nowrap; bottom: 7px; left: -3px; right: 0;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>
