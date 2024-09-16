@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4223785294766013922}
   - component: {fileID: 5279123959450887226}
   - component: {fileID: 8927977832014847647}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: BossShadow
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.75, y: 1.75}
+  m_Size: {x: 0.08, y: 0.1}
   m_EdgeRadius: 0
 --- !u!212 &4223785294766013922
 SpriteRenderer:

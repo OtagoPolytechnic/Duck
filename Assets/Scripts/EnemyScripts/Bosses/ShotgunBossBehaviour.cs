@@ -4,22 +4,21 @@ using UnityEngine;
 public class ShotgunBossBehaviour : EnemyBase
 {
     public GameObject player;
-    private float distance;
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject shadowPrefab; // Reference to the shadow prefab
     [SerializeField] private Transform bulletPosition;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackInterval;
-    [SerializeField] private float minJumpAttackInterval = 1f; // Minimum interval between jump attacks
-    [SerializeField] private float maxJumpAttackInterval = 3f; // Maximum interval between jump attacks
-    [SerializeField] private float jumpAttackCooldown = 2f; // Cooldown period after each jump attack
+    [SerializeField] private float minJumpAttackInterval = 1f;
+    [SerializeField] private float maxJumpAttackInterval = 3f;
+    [SerializeField] private float jumpAttackCooldown = 2f;
 
     private float attackCooldown;
     private float jumpAttackTimer;
     private float jumpAttackCooldownTimer;
-    private bool isJumping = false;
-    private GameObject currentShadow; // Reference to the current shadow instance
-    private SpriteRenderer bossSpriteRenderer; // Reference to the SpriteRenderer component of the Sprite child
+    private bool isJumping;
+    private GameObject currentShadow;
+    private SpriteRenderer bossSpriteRenderer;
 
     private void Awake()
     {
@@ -27,143 +26,120 @@ public class ShotgunBossBehaviour : EnemyBase
         player = GameObject.FindGameObjectWithTag("Player");
         attackCooldown = 0;
         jumpAttackTimer = Random.Range(minJumpAttackInterval, maxJumpAttackInterval);
-        jumpAttackCooldownTimer = 0; // Initialize cooldown timer
 
-        // Initialize the SpriteRenderer component
         Transform spriteChild = transform.Find("Sprite");
-        if (spriteChild != null)
-        {
-            bossSpriteRenderer = spriteChild.GetComponent<SpriteRenderer>();
-        }
+        bossSpriteRenderer = spriteChild ? spriteChild.GetComponent<SpriteRenderer>() : null;
     }
 
-    void Update()
+    private void Update()
     {
         if (Health <= 0)
         {
             Die();
+            return;
         }
-        if (GameSettings.gameState != GameState.InGame) { return; }
 
-        distance = Vector2.Distance(transform.position, player.transform.position);
+        if (GameSettings.gameState != GameState.InGame) return;
+
+        HandleMovement();
+        HandleAttack();
+        UpdateBossVisibility();
+        Bleed();
+    }
+
+    private void HandleMovement()
+    {
+        float distance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;
-
-        // Turns enemy towards player
         direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.GetChild(0).rotation = Quaternion.Euler(Vector3.forward * angle);
+        transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angle);
 
         if (distance >= attackRange)
         {
             Move();
         }
+        else if (attackCooldown <= 0 && !isJumping)
+        {
+            ShotgunShoot();
+        }
         else
         {
-            if (attackCooldown <= 0 && !isJumping)
-            {
-                ShotgunShoot();
-            }
-            else
-            {
-                attackCooldown -= Time.deltaTime;
-            }
+            attackCooldown -= Time.deltaTime;
         }
+    }
 
-        // Handle jump attack timing
+    private void HandleAttack()
+    {
         if (jumpAttackCooldownTimer <= 0)
         {
             jumpAttackTimer -= Time.deltaTime;
             if (jumpAttackTimer <= 0 && !isJumping)
             {
                 JumpAttack();
-                jumpAttackCooldownTimer = jumpAttackCooldown; // Set cooldown after a jump attack
-                jumpAttackTimer = Random.Range(minJumpAttackInterval, maxJumpAttackInterval); // Reset jump attack timer
+                jumpAttackCooldownTimer = jumpAttackCooldown;
+                jumpAttackTimer = Random.Range(minJumpAttackInterval, maxJumpAttackInterval);
             }
         }
         else
         {
-            jumpAttackCooldownTimer -= Time.deltaTime; // Decrease cooldown timer
+            jumpAttackCooldownTimer -= Time.deltaTime;
         }
-
-        // Update the visibility of the boss sprite based on the shadow presence
-        UpdateBossVisibility();
-
-        Bleed();
     }
 
     private void UpdateBossVisibility()
     {
-        if (currentShadow != null)
+        if (bossSpriteRenderer)
         {
-            if (bossSpriteRenderer != null)
-            {
-                bossSpriteRenderer.enabled = false; // Hide the boss sprite while shadow exists
-            }
-        }
-        else
-        {
-            if (bossSpriteRenderer != null)
-            {
-                bossSpriteRenderer.enabled = true; // Show the boss sprite when shadow is not present
-            }
+            bossSpriteRenderer.enabled = currentShadow == null;
         }
     }
 
     public override void Move()
     {
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
-        transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (Speed * tileSpeedModifier) * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, Speed * tileSpeedModifier * Time.deltaTime);
     }
 
-    void JumpAttack()
+    private void JumpAttack()
     {
-        isJumping = true;
-        Debug.Log("JUMPATTACK started");
-
-        // Instantiate the shadow prefab at the boss's position
-        if (shadowPrefab != null)
+        if (!shadowPrefab)
         {
-            currentShadow = Instantiate(shadowPrefab, transform.position, Quaternion.identity);
+            Debug.LogError("Shadow prefab is not assigned.");
+            return;
+        }
 
-            // Set the ShotgunBossBehaviour reference in the shadow prefab
-            ShadowAttack shadowAttack = currentShadow.GetComponent<ShadowAttack>();
-            if (shadowAttack != null)
-            {
-                shadowAttack.SetShotgunBossBehaviour(this);
-                shadowAttack.SetPlayer(player); // Set the player reference
-                shadowAttack.SetBossSpriteRenderer(bossSpriteRenderer); // Pass the boss's SpriteRenderer
-                Debug.Log("ShadowAttack component set with ShotgunBossBehaviour, player, and boss SpriteRenderer.");
-            }
-            else
-            {
-                Debug.LogError("ShadowAttack component not found on shadowPrefab.");
-            }
+        isJumping = true;
+        currentShadow = Instantiate(shadowPrefab, transform.position, Quaternion.identity);
+        ShadowAttack shadowAttack = currentShadow.GetComponent<ShadowAttack>();
+
+        if (shadowAttack)
+        {
+            shadowAttack.SetShotgunBossBehaviour(this);
+            shadowAttack.SetPlayer(player);
+            shadowAttack.SetBossSpriteRenderer(bossSpriteRenderer);
         }
         else
         {
-            Debug.LogError("Shadow prefab is not assigned.");
+            Debug.LogError("ShadowAttack component not found on shadowPrefab.");
         }
     }
 
     public void ResetJumpState()
     {
-        Debug.Log("ResetJumpState");
         isJumping = false;
-        currentShadow = null; // Clear the reference to the shadow
+        currentShadow = null;
     }
 
-    void ShotgunShoot()
+    private void ShotgunShoot()
     {
-        // Shotgun boss shooting
-        for (int i = 0; i < 3; i++) // Shoot 3 bullets
+        for (int i = 0; i < 3; i++)
         {
             GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
-            float angleOffset = 10f * (i - 1); // Adjust angle offsets as needed
-            newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, true, angleOffset); // Pass true for shotgun and angle offset
+            float angleOffset = 10f * (i - 1);
+            newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, true, angleOffset);
         }
         SFXManager.Instance.EnemyShootSound();
         attackCooldown = attackInterval;
-
-        Debug.Log($"ShotgunShoot executed with attackInterval = {attackInterval}");
     }
 }
