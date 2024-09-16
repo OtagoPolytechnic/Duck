@@ -9,6 +9,7 @@ public class Shooting : MonoBehaviour
 
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject swordAttack;
+    [SerializeField] private GameObject swordBeam;
     [SerializeField] private Transform sprite;
     [SerializeField] private Transform firePoint;
     [SerializeField] private Transform dualFirePoint;
@@ -66,6 +67,11 @@ public class Shooting : MonoBehaviour
     {
         if (WeaponStats.Instance.CurrentWeapon == WeaponType.Sword)
         {
+            if (WeaponStats.Instance.HasSwordBeam && PlayerStats.Instance.CurrentHealth == PlayerStats.Instance.MaxHealth)
+            {
+                GameObject swordBeamClone = Instantiate(swordBeam, swordAttack.transform.position, Quaternion.Euler(0, 0, lookAngle));
+                swordBeamClone.GetComponent<Rigidbody2D>().velocity = lookDirection * WeaponStats.Instance.BulletSpeed;
+            }
             if (Random.Range(0, 100) < WeaponStats.Instance.CritChance)
             {
                 swordAttack.GetComponent<Sword>().Crit = true;

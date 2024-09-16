@@ -525,6 +525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 1970858085864543839, guid: 699c37d916ee4864c970c209d0813901, type: 3}
   swordAttack: {fileID: 7867431926470822112}
+  swordBeam: {fileID: 3265426413025683171, guid: b201c515655e6624fa70da06553c2cd9, type: 3}
   sprite: {fileID: 7125250178445594680}
   firePoint: {fileID: 8125265843478098268}
   dualFirePoint: {fileID: 9005761530049302232}

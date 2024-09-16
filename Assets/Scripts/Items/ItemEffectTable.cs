@@ -183,7 +183,16 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Self damage {WeaponStats.Instance.SelfDamageExplosions}");
                 break;
             case 29:
-                Debug.Log($"WIP Epic item");
+                if (!WeaponStats.Instance.HasSwordBeam)
+                {
+                    WeaponStats.Instance.HasSwordBeam = true;
+                    Debug.Log($"Given player sword beam");
+
+                }
+                else
+                {
+                    Debug.Log($"Player already has sword beam");
+                }
                 break;
             case 30:
                 Debug.Log("Unimplemented Overheating item");

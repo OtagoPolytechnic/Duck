@@ -152,6 +152,7 @@ public class WeaponStats : MonoBehaviour
                     //Sword Values
                     WeaponDamage = 150; //200% damage
                     WeaponFireDelay = 50; //50% fire delay
+                    WeaponBulletSpeed = 10; //Speed for the sword beam item
 
                     //Other stats set to base values
                     weaponCritChancePercentage = 100; //Possible extra crit chance or damage? Could be too powerful
@@ -169,7 +170,6 @@ public class WeaponStats : MonoBehaviour
                     WeaponExplosionDamage = 0;
                     WeaponRange = 5;
                     WeaponSpread = 100;
-                    WeaponBulletSpeed = 200; 
                     break;
 
                 case WeaponType.RocketLauncher: //Placeholder for the rocket launcher
@@ -577,6 +577,12 @@ public class WeaponStats : MonoBehaviour
         get { return BASE_CAMERA_SIZE + weaponCameraSize; }
     }
 
+    private bool hasSwordBeam = false;
+    public bool HasSwordBeam
+    {
+        get {return hasSwordBeam;}
+        set {hasSwordBeam = value;}
+    }
 
     void Awake()
     {

@@ -215,9 +215,9 @@
       },
       {
         "id": 29,
-        "name": "Epic",
-        "desc": "Sword epic to fill space (NOT IMPLEMENTED)",
-        "rarity": 3,
+        "name": "Sword of the Master",
+        "desc": "Fire a sword projectile forward if you attack with full health\n\nProjectile does 50% damage",
+        "rarity": 7,
         "weapons": ["Sword"],
         "stacks": 0
       },
