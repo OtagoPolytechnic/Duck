@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4223785294766013922}
   - component: {fileID: 5279123959450887226}
   - component: {fileID: 8927977832014847647}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: BossShadow
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5656455698361903583}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
