@@ -60,7 +60,14 @@ public class SkillEffects : MonoBehaviour
                     state = SkillState.dashing;
                     if (!moveMode)
                     {
-                        dashVector = new Vector3(TopDownMovement.Instance.moveInput.x, TopDownMovement.Instance.moveInput.y, 0);
+                        if (TopDownMovement.Instance.moveInput == Vector2.zero)
+                        {
+                            dashVector = transform.up;
+                        }
+                        else
+                        {
+                            dashVector = new Vector3(TopDownMovement.Instance.moveInput.x, TopDownMovement.Instance.moveInput.y, 0);
+                        }
                         dashForce = 20f;
                     }
                     else
