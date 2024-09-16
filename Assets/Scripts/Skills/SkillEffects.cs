@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public enum SkillState
 {
@@ -11,6 +13,20 @@ public enum SkillState
 }
 public class SkillEffects : MonoBehaviour
 {
+    [Header("References and other variables")]
+    private List<Skill> skillList = new List<Skill>();
+    public static SkillEffects Instance;
+    private SkillState state;
+    private Rigidbody2D rb;
+    [Header("UI")]
+    [SerializeField]
+    private GameObject uiDocument;
+    private VisualElement hud;
+    private VisualElement uiCooldownBG;
+    private Label uiCooldownTimer;
+    private VisualElement activeSkillIcon;
+    private IMGUIContainer durationBar;
+    private IMGUIContainer durationContainer;
     [Header("Cooldowns")]
     public bool cooldownActive;
     private float cooldownRemaining;
@@ -19,11 +35,9 @@ public class SkillEffects : MonoBehaviour
     [Header("Dash")]
     [SerializeField]
     private float dashForce;
-    private List<Skill> skillList = new List<Skill>();
-    private Rigidbody2D rb;
     public bool moveMode;
     private Vector3 dashVector;
-    private SkillState state;
+
     [Header("Vanish")]
     public bool vanishActive;
     [Header("Decoy")]
@@ -32,7 +46,7 @@ public class SkillEffects : MonoBehaviour
     private GameObject decoy;
     private GameObject spawnedDecoy;
     public bool decoyActive;
-    public static SkillEffects Instance;
+
 
     void Awake()
     {
@@ -46,6 +60,29 @@ public class SkillEffects : MonoBehaviour
         }
         Load();
         rb = GetComponent<Rigidbody2D>();
+        hud = uiDocument.GetComponent<UIDocument>().rootVisualElement;
+
+        uiCooldownBG = hud.Q<VisualElement>("SkillCooldown");
+        uiCooldownBG.visible = false; //error checking
+        uiCooldownTimer = hud.Q<Label>("SkillTimer");
+
+        activeSkillIcon = hud.Q<VisualElement>("ActiveSkill");
+        if (GameSettings.activeSkill == SkillEnum.dash)
+        {
+            activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("DashV2");
+        }
+        else if (GameSettings.activeSkill == SkillEnum.vanish)
+        {
+            activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("VanishV2");
+        }
+        else if (GameSettings.activeSkill == SkillEnum.decoy)
+        {
+            activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Decoy");
+        }
+
+        durationBar = hud.Q<IMGUIContainer>("Duration");
+        durationContainer = hud.Q<IMGUIContainer>("DurationBackground");
+        durationContainer.style.opacity = 0;
     }
     public void RunSkill(InputAction.CallbackContext context)
     {
@@ -111,6 +148,8 @@ public class SkillEffects : MonoBehaviour
         if (GameSettings.gameState != GameState.InGame) { return; }
         if (durationActive)
         {
+            //lerp the opacity of the duration box in update
+            durationContainer.style.opacity = Mathf.Lerp(0, 1, 0.3f); //unsure if this lerp function is doing anything :/
             CheckDuration();
         }
         if (cooldownActive)
@@ -152,6 +191,7 @@ public class SkillEffects : MonoBehaviour
     {
         cooldownRemaining = skillList[(int)GameSettings.activeSkill].cooldown;//this restricts the ability to make one conjoined method of StartCooldown, StartDuration, etc. etc.
         cooldownActive = true;
+        uiCooldownBG.visible = true;
     }
 
     private void StartDuration()
@@ -165,12 +205,15 @@ public class SkillEffects : MonoBehaviour
         if (durationRemaining > 0)
         {
             durationRemaining -= Time.deltaTime;
+            float durationFraction = durationRemaining / skillList[(int)GameSettings.activeSkill].duration;
+            durationBar.style.width = Length.Percent(durationFraction * 100);
         }
         else
         {
             Debug.Log("Duration ended");
             durationActive = false;
             state = SkillState.none;
+            durationContainer.style.opacity = 0;
         }
     }
 
@@ -179,11 +222,13 @@ public class SkillEffects : MonoBehaviour
         if (cooldownRemaining > 0)
         {
             cooldownRemaining -= Time.deltaTime;
+            uiCooldownTimer.text = Mathf.Round(cooldownRemaining).ToString();
         }
         else
         {
             Debug.Log("Cooldown ended");
             cooldownActive = false;
+            uiCooldownBG.visible = false;
         }
     }
 

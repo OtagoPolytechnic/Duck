@@ -1,5 +1,5 @@
 .text {
-    -unity-font: url('project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&guid=f08ae915995c0db4f9feee7e49baaec2&type=3#ARCADE_N');
+    -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&guid=f08ae915995c0db4f9feee7e49baaec2&type=3#ARCADE_N");
     -unity-font-definition: initial;
     font-size: 50px;
     color: rgb(255, 255, 255);
@@ -12,4 +12,27 @@
     width: auto;
     max-width: 400px;
     min-width: 400px;
+}
+
+.skill {
+    border-top-width: 75px;
+    border-right-width: 75px;
+    border-bottom-width: 75px;
+    border-left-width: 75px;
+    border-top-left-radius: 700px;
+    border-top-right-radius: 700px;
+    border-bottom-right-radius: 700px;
+    border-bottom-left-radius: 700px;
+    border-left-color: rgba(188, 188, 188, 0);
+    border-right-color: rgba(188, 188, 188, 0);
+    border-top-color: rgba(188, 188, 188, 0);
+    border-bottom-color: rgba(188, 188, 188, 0);
+    background-image: none;
+    max-width: 0;
+    max-height: 0;
+    margin-left: 50px;
+    min-width: 0;
+    min-height: 0;
+    margin-right: 50px;
+    margin-bottom: 50px;
 }
