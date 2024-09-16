@@ -19,6 +19,7 @@ public class ShotgunBossBehaviour : EnemyBase
     private bool isJumping;
     private GameObject currentShadow;
     private SpriteRenderer bossSpriteRenderer;
+    private Collider2D bossCollider;
 
     private void Awake()
     {
@@ -29,6 +30,13 @@ public class ShotgunBossBehaviour : EnemyBase
 
         Transform spriteChild = transform.Find("Sprite");
         bossSpriteRenderer = spriteChild ? spriteChild.GetComponent<SpriteRenderer>() : null;
+
+        // Find and store the collider component
+        bossCollider = GetComponent<Collider2D>();
+        if (bossCollider == null)
+        {
+            Debug.LogError("No Collider2D component found on the boss prefab.");
+        }
     }
 
     private void Update()
@@ -109,6 +117,12 @@ public class ShotgunBossBehaviour : EnemyBase
             return;
         }
 
+        // Disable the boss collider
+        if (bossCollider)
+        {
+            bossCollider.enabled = false;
+        }
+
         isJumping = true;
         currentShadow = Instantiate(shadowPrefab, transform.position, Quaternion.identity);
         ShadowAttack shadowAttack = currentShadow.GetComponent<ShadowAttack>();
@@ -129,6 +143,12 @@ public class ShotgunBossBehaviour : EnemyBase
     {
         isJumping = false;
         currentShadow = null;
+
+        // Re-enable the boss collider
+        if (bossCollider)
+        {
+            bossCollider.enabled = true;
+        }
     }
 
     private void ShotgunShoot()
