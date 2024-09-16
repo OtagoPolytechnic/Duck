@@ -11,7 +11,9 @@ public class Credits : MonoBehaviour
         goBack.RegisterCallback<ClickEvent>(ReturnToMainMenu);
 
         Label paragraph = document.Q<Label>("Paragraph");
-        paragraph.text = "Developers:\n\nAlex Reid\nKyle Black\nRohan Anakin\nPalin Wiseman\n\nFormer developers:\n\nLorna Hart\nJun Xu";
+        paragraph.text = "Developers:\n\nAlex Reid\nKyle Black\nRohan Anakin\nPalin Wiseman\n\n" +
+        "Former developers:\n\nLorna Hart\nJun Xu\n\n" +
+        "Music:\n\n \"8Bit Music - 062022\"  -  GWriterStudio";
     }
     private void ReturnToMainMenu(ClickEvent click)
     {
