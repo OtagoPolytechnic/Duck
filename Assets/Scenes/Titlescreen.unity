@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -320,6 +321,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c72cbe9ac78f5614c8c28703b2ef7deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &843612143
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,14 +377,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee86e0d0c5b898b46b50c337c27ed2e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DuckShooting: {fileID: 8300000, guid: 1e0f73f88111ad845bb75fcdf8c6fecb, type: 3}
-  EnemyShoot: {fileID: 8300000, guid: 9d19fa2ee9ac290468515457b8e9295c, type: 3}
-  Bite: {fileID: 8300000, guid: 853a048c0909da44492ec607ba4730bd, type: 3}
-  DuckHit: {fileID: 8300000, guid: 1302ef80ef0ae924bb6c3da8cbb7a8b4, type: 3}
-  EnemyDie: {fileID: 8300000, guid: 5795d332a291fa344b6e42518b31a678, type: 3}
-  GameOver: {fileID: 8300000, guid: 3b62a663333279b4cae920dba78e22f0, type: 3}
-  TitleScreen: {fileID: 8300000, guid: 06906d718be5b6a4cb2df8732bf39832, type: 3}
-  WaveMusic: {fileID: 8300000, guid: 89f935015cc98724a862a586326fdf21, type: 3}
 --- !u!1 &1032031600
 GameObject:
   m_ObjectHideFlags: 0

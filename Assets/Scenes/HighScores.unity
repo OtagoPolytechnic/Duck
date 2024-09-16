@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 617158048}
   - component: {fileID: 617158047}
   - component: {fileID: 617158050}
+  - component: {fileID: 617158051}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -320,6 +321,18 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &617158051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617158046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c72cbe9ac78f5614c8c28703b2ef7deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &665691451
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +362,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed64c02b87b997b45a2b28535eaf61d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossSavedScores:
+    highscores: []
+  endlessSavedScores:
+    highscores: []
 --- !u!4 &665691453
 Transform:
   m_ObjectHideFlags: 0

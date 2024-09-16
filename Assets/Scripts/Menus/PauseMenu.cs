@@ -22,8 +22,7 @@ public class PauseMenu : MonoBehaviour
         resumeButton.RegisterCallback<ClickEvent>(Resume);
 
         settingsButton = document.Q<Button>("Settings");
-        settingsButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
-
+        settingsButton.RegisterCallback<ClickEvent>(Settings);
 
         quitButton = document.Q<Button>("Quit");
         quitButton.RegisterCallback<ClickEvent>(Quit);
@@ -50,6 +49,12 @@ public class PauseMenu : MonoBehaviour
         GameSettings.gameState = heldState;
         background.visible = false;
     }
+
+    private void Settings(ClickEvent click)
+    {
+        SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
+    }
+
     private void Quit(ClickEvent click)
     {
         GameSettings.gameState = GameState.InGame;
