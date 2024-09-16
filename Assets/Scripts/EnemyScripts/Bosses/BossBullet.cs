@@ -25,7 +25,16 @@ public class BossBullet : MonoBehaviour
     {
         startPos = transform.position;
         rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        if (SkillEffects.Instance.decoyActive)
+        {
+            player = GameObject.FindGameObjectWithTag("Decoy");
+
+        }
+        else if (!SkillEffects.Instance.decoyActive)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+
+        }
 
         // Set bullet damage based on current wave
         bulletDamage = 30 + (GameSettings.waveNumber / 5) * 5;

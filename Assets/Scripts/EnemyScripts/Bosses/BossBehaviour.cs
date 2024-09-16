@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossBehaviour : EnemyBase
 {
     public GameObject player;
-
+    private bool stopCheck;
     private float distance;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletPosition;
@@ -33,10 +33,25 @@ public class BossBehaviour : EnemyBase
         distance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;
 
+        if (SkillEffects.Instance.decoyActive && !stopCheck)
+        {
+            player = GameObject.FindGameObjectWithTag("Decoy");
+            stopCheck = true;
+        }
+        else if (!SkillEffects.Instance.decoyActive && stopCheck)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            stopCheck = false;
+        }
+
         //turns enemy towards player
-        direction.Normalize();
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.GetChild(0).rotation = Quaternion.Euler(Vector3.forward * angle);
+         if (SkillEffects.Instance.vanishActive) { return; }
+        else
+        {
+            direction.Normalize();
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.GetChild(0).rotation = Quaternion.Euler(Vector3.forward * angle);
+        }
 
         if (distance >= attackRange)
         {
@@ -44,17 +59,11 @@ public class BossBehaviour : EnemyBase
         }
         else
         {
-            if (attackCooldown <= 0 && GameObject.Find("ShotgunBoss(Clone)") == null)
+            if (attackCooldown <= 0)
             {
-                Debug.Log("Normal shoot");
+                if (SkillEffects.Instance.vanishActive) { return; }
                 Shoot();
             }
-            else if (attackCooldown <= 0 && GameObject.Find("ShotgunBoss(Clone)") != null)
-            {
-                Debug.Log("Shotgun shoot");
-                ShotgunShoot();
-            }
-
             else
             {
                 attackCooldown -= Time.deltaTime;
@@ -66,6 +75,7 @@ public class BossBehaviour : EnemyBase
     }
     public override void Move()
     {
+        if (SkillEffects.Instance.vanishActive) { return; }
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (Speed * tileSpeedModifier) * Time.deltaTime);
     }
@@ -79,16 +89,4 @@ public class BossBehaviour : EnemyBase
         attackCooldown = attackInterval;
     }
 
-    void ShotgunShoot()
-    {
-        // Shotgun boss shooting
-        for (int i = 0; i < 3; i++) // Shoot 3 bullets
-        {
-            GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
-            float angleOffset = 10f * (i - 1); // Adjust angle offsets as needed
-            newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, true, angleOffset); // Pass true for shotgun and angle offset
-        }
-        SFXManager.Instance.EnemyShootSound();
-        attackCooldown = attackInterval;
-    }
 }

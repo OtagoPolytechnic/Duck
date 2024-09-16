@@ -4,6 +4,7 @@ using UnityEngine;
 public class ShotgunBossBehaviour : EnemyBase
 {
     public GameObject player;
+    private bool stopCheck;
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject shadowPrefab; // Reference to the shadow prefab
     [SerializeField] private Transform bulletPosition;
@@ -48,6 +49,16 @@ public class ShotgunBossBehaviour : EnemyBase
         }
 
         if (GameSettings.gameState != GameState.InGame) return;
+        if (SkillEffects.Instance.decoyActive)
+        {
+            player = GameObject.FindGameObjectWithTag("Decoy");
+
+        }
+        else if (!SkillEffects.Instance.decoyActive)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+
+        }
 
         HandleMovement();
         HandleAttack();
@@ -57,11 +68,17 @@ public class ShotgunBossBehaviour : EnemyBase
 
     private void HandleMovement()
     {
+
         float distance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;
-        direction.Normalize();
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angle);
+
+        if (SkillEffects.Instance.vanishActive) { return; }
+        else
+        {
+            direction.Normalize();
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.GetChild(0).rotation = Quaternion.Euler(Vector3.forward * angle);
+        }
 
         if (distance >= attackRange)
         {
@@ -84,6 +101,7 @@ public class ShotgunBossBehaviour : EnemyBase
             jumpAttackTimer -= Time.deltaTime;
             if (jumpAttackTimer <= 0 && !isJumping)
             {
+                if (SkillEffects.Instance.vanishActive) { return; }
                 JumpAttack();
                 jumpAttackCooldownTimer = jumpAttackCooldown;
                 jumpAttackTimer = Random.Range(minJumpAttackInterval, maxJumpAttackInterval);
@@ -105,6 +123,7 @@ public class ShotgunBossBehaviour : EnemyBase
 
     public override void Move()
     {
+        if (SkillEffects.Instance.vanishActive) { return; }
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, Speed * tileSpeedModifier * Time.deltaTime);
     }
