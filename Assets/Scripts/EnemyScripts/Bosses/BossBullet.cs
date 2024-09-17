@@ -75,12 +75,12 @@ public class BossBullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !SkillEffects.Instance.decoyActive)
         {
             player.GetComponent<PlayerStats>().ReceiveDamage(bulletDamage);
             Destroy(gameObject);
         }
-        else if (other.gameObject.CompareTag("Edges"))
+        else if (other.gameObject.CompareTag("Edges") || other.gameObject.CompareTag("Decoy"))
         {
             Destroy(gameObject);
         }
