@@ -45,7 +45,6 @@ public class ShotgunBossBehaviour : EnemyBase
         }
     }
 
-    // Updates the boss's behavior each frame, including movement, attack handling, visibility, and health.
     private void Update()
     {
         if (Health <= 0)
@@ -56,13 +55,12 @@ public class ShotgunBossBehaviour : EnemyBase
 
         if (GameSettings.gameState != GameState.InGame) return;
 
-        HandleMovement();
-        HandleAttack();
+        HandleMovement();  // Movement-related updates
+        HandleAttack();    // Attack-related updates
         UpdateBossVisibility();
         Bleed();
     }
 
-    // Handles the boss's movement towards the player and manages attack behavior based on distance and cooldowns.
     private void HandleMovement()
     {
         float distance = Vector2.Distance(transform.position, player.transform.position);
@@ -71,13 +69,10 @@ public class ShotgunBossBehaviour : EnemyBase
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angle);
 
-        if (distance >= attackRange)
+        // Move if not in attack cooldown and there's no delay
+        if (distance >= attackRange && initialShootingDelayTimer <= 0)
         {
             Move();
-        }
-        else if (attackCooldown <= 0 && !isJumping && resumptionDelayTimer <= 0 && initialShootingDelayTimer <= 0)
-        {
-            ShotgunShoot();
         }
         else
         {
@@ -85,9 +80,9 @@ public class ShotgunBossBehaviour : EnemyBase
         }
     }
 
-    // Manages the timing and execution of jump attacks, including cooldowns and intervals.
     private void HandleAttack()
     {
+        // Handle jump attack
         if (jumpAttackCooldownTimer <= 0)
         {
             jumpAttackTimer -= Time.deltaTime;
@@ -102,7 +97,14 @@ public class ShotgunBossBehaviour : EnemyBase
         {
             jumpAttackCooldownTimer -= Time.deltaTime;
         }
+
+        // Handle shooting if cooldown allows and there's no delay
+        if (attackCooldown <= 0 && !isJumping && resumptionDelayTimer <= 0 && initialShootingDelayTimer <= 0)
+        {
+            ShotgunShoot();
+        }
     }
+
 
     // Updates the visibility of the boss based on the presence of a current shadow attack.
     private void UpdateBossVisibility()

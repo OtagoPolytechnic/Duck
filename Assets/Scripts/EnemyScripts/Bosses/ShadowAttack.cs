@@ -44,12 +44,17 @@ public class ShadowAttack : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         if (shadowShockwavePrefab)
+        {
             Instantiate(shadowShockwavePrefab, transform.position, Quaternion.identity);
+        }
         if (bossSpriteRenderer)
-            bossSpriteRenderer.enabled = true;
-
+        { 
+             bossSpriteRenderer.enabled = true;
+        }
         if (shotgunBossBehaviour)
+        {
             shotgunBossBehaviour.transform.position = transform.position;
+        }
 
         Destroy(gameObject);
         shotgunBossBehaviour?.ResetJumpState();
