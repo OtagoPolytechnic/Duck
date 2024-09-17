@@ -21,7 +21,7 @@
     <ui:VisualElement name="SkillContainer" style="flex-grow: 1; flex-direction: column; align-items: flex-end; justify-content: flex-end; height: 0; opacity: 1;">
         <ui:VisualElement name="ActiveSkill" class="skill" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Resources/Dashv2.png?fileID=2800000&amp;guid=711c5c87db9a637439741d61c23a7650&amp;type=3#Dashv2&quot;); top: 200px;" />
         <ui:VisualElement name="SkillCooldown" class="skill" style="flex-grow: 1; background-image: none; position: relative; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.72); visibility: visible; justify-content: space-between; align-items: stretch;">
-            <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillTimer" style="background-color: rgba(0, 0, 0, 0); color: rgb(255, 255, 255); -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&amp;guid=f08ae915995c0db4f9feee7e49baaec2&amp;type=3#ARCADE_N&quot;); -unity-font-definition: initial; -unity-text-align: middle-center; white-space: nowrap; bottom: 7px; left: -3px; right: 0; font-size: 40px;" />
+            <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillTimer" style="background-color: rgba(0, 0, 0, 0); color: rgb(255, 255, 255); -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&amp;guid=f08ae915995c0db4f9feee7e49baaec2&amp;type=3#ARCADE_N&quot;); -unity-font-definition: initial; -unity-text-align: middle-center; white-space: nowrap; bottom: 7px; left: -3px; right: 0; font-size: 40px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

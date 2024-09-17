@@ -20,10 +20,10 @@ public class SkillEffects : MonoBehaviour
     private Rigidbody2D rb;
     [Header("UI")]
     [SerializeField]
-    private GameObject uiDocument;
+    private GameObject document;
     private VisualElement hud;
-    private VisualElement uiCooldownBG;
-    private Label uiCooldownTimer;
+    private VisualElement cooldownBG;
+    private Label cooldownTimer;
     private VisualElement activeSkillIcon;
     private IMGUIContainer durationBar;
     private IMGUIContainer durationContainer;
@@ -60,11 +60,11 @@ public class SkillEffects : MonoBehaviour
         }
         Load();
         rb = GetComponent<Rigidbody2D>();
-        hud = uiDocument.GetComponent<UIDocument>().rootVisualElement;
+        hud = document.GetComponent<UIDocument>().rootVisualElement;
 
-        uiCooldownBG = hud.Q<VisualElement>("SkillCooldown");
-        uiCooldownBG.visible = false; //error checking
-        uiCooldownTimer = hud.Q<Label>("SkillTimer");
+        cooldownBG = hud.Q<VisualElement>("SkillCooldown");
+        cooldownBG.visible = false; //error checking
+        cooldownTimer = hud.Q<Label>("SkillTimer");
 
         activeSkillIcon = hud.Q<VisualElement>("ActiveSkill");
         if (GameSettings.activeSkill == SkillEnum.dash)
@@ -118,7 +118,6 @@ public class SkillEffects : MonoBehaviour
                 }
                 case SkillEnum.vanish:
                 {
-                    Debug.Log("Player has Vanished!");
                     state = SkillState.vanished;
                     break;
                 }
@@ -127,12 +126,10 @@ public class SkillEffects : MonoBehaviour
                     //spawn another duck 
                     spawnedDecoy = Instantiate(decoy, transform.position, Quaternion.identity);  
                     decoyActive = true;
-                    Debug.Log("Player has Decoyed!");
                     break;
                 }
             }
             StartDuration();
-            StartCooldown();
         }
     }
     private void Load()
@@ -190,13 +187,13 @@ public class SkillEffects : MonoBehaviour
     {
         cooldownRemaining = skillList[(int)GameSettings.activeSkill].cooldown;//this restricts the ability to make one conjoined method of StartCooldown, StartDuration, etc. etc.
         cooldownActive = true;
-        uiCooldownBG.visible = true;
     }
 
     private void StartDuration()
     {
         durationRemaining = skillList[(int)GameSettings.activeSkill].duration;
         durationActive = true;
+        cooldownBG.visible = true;
     }
 
     private void CheckDuration()
@@ -209,10 +206,10 @@ public class SkillEffects : MonoBehaviour
         }
         else
         {
-            Debug.Log("Duration ended");
             durationActive = false;
             state = SkillState.none;
             durationContainer.style.opacity = 0;
+            StartCooldown();
         }
     }
 
@@ -221,13 +218,13 @@ public class SkillEffects : MonoBehaviour
         if (cooldownRemaining > 0)
         {
             cooldownRemaining -= Time.deltaTime;
-            uiCooldownTimer.text = Mathf.Round(cooldownRemaining).ToString();
+            cooldownTimer.text = Mathf.Round(cooldownRemaining).ToString();
         }
         else
         {
-            Debug.Log("Cooldown ended");
             cooldownActive = false;
-            uiCooldownBG.visible = false;
+            cooldownBG.visible = false;
+            cooldownTimer.text = "";
         }
     }
 
