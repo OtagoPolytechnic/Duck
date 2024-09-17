@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class TargetIndicator : MonoBehaviour
 {
-    public float HideDistance = 10f; // Distance at which the indicator hides
     public float UpdateInterval = 1f; // Time between enemy searches
+    public Camera mainCamera; // Reference to the main camera
 
     private Transform target; // The current target
     private Transform closestEnemy; // The closest enemy found
@@ -37,8 +37,13 @@ public class TargetIndicator : MonoBehaviour
 
         if (target != null)
         {
-            var dir = target.position - transform.position;
-            if (dir.magnitude < HideDistance)
+            // Convert the target position to viewport space
+            Vector3 viewportPosition = mainCamera.WorldToViewportPoint(target.position);
+
+            // Check if the target is within the camera view
+            bool isInScreen = viewportPosition.z > 0 && viewportPosition.x >= 0 && viewportPosition.x <= 1 && viewportPosition.y >= 0 && viewportPosition.y <= 1;
+
+            if (isInScreen)
             {
                 SetChildrenActive(false);
             }
@@ -46,13 +51,16 @@ public class TargetIndicator : MonoBehaviour
             {
                 SetChildrenActive(true);
 
-                // Calculate the angle to face the target
-                var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(0, 0, angle);
+                // Calculate the direction to the target and the angle
+                Vector3 dir = target.position - transform.position;
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
                 // Update the arrow position to maintain the desired distance
                 Vector3 offset = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad) * ArrowDistance, Mathf.Sin(angle * Mathf.Deg2Rad) * ArrowDistance, 0);
                 transform.localPosition = offset;
+
+                // Set the rotation to face the target
+                transform.rotation = Quaternion.Euler(0, 0, angle);
             }
         }
         else

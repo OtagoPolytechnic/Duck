@@ -6,10 +6,13 @@ public class Shockwave : MonoBehaviour
 {
     public GameObject player;
     private int shockwaveDamage;
-    public int ShockwaveDamage
+    public bool playerHit;
+      public int ShockwaveDamage
     {
+        get { return shockwaveDamage; }
         set { shockwaveDamage = value; }
     }
+
     private int shockwaveSize;
     public int ShockwaveSize
     {
@@ -23,9 +26,17 @@ public class Shockwave : MonoBehaviour
     void Start()
     {
 
-        ShockwaveSize = 15;
+        shockwaveDamage = 30 + (GameSettings.waveNumber / 5) * 5;
+        player = GameObject.FindGameObjectWithTag("Player");
+        ShockwaveSize = 12;
 
         StartCoroutine(DestroyExplosion());
+    }
+    public void InitializeBullet(GameObject player, int damage, bool isShotgun, float angleOffset = 0f)
+    {
+        this.player = player;
+        this.shockwaveDamage = damage;
+
     }
     private IEnumerator DestroyExplosion()
     {
@@ -35,11 +46,19 @@ public class Shockwave : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && playerHit == false)
         {
 
-            DestroyExplosion();
-            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(40);
+            //DestroyExplosion();
+            player.GetComponent<PlayerStats>().ReceiveDamage(shockwaveDamage);
+
+
+        }
+        else if (other.gameObject.CompareTag("Player") && playerHit == true)
+        {
+
+            //DestroyExplosion();
+            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(0);
 
 
         }

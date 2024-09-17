@@ -275,7 +275,8 @@ MonoBehaviour:
   attackInterval: 1
   minJumpAttackInterval: 2
   maxJumpAttackInterval: 5
-  jumpAttackCooldown: 2
+  jumpAttackCooldown: 5
+  attackResumptionDelay: 2
 --- !u!1 &5656455699881316957
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,12 +16,9 @@ public class ShadowAttack : MonoBehaviour
     private Vector3 initialScale;
     private Vector3 targetScale;
     private float scaleUpTimer;
+    private float scaleUpRate;
 
-    public int ShadowDamage
-    {
-        set => shadowDamage = value;
-    }
-
+ 
     public int ShadowSize
     {
         set
@@ -35,33 +32,26 @@ public class ShadowAttack : MonoBehaviour
     {
         initialScale = transform.localScale;
         transform.localScale = Vector3.one * shadowSize;
+        scaleUpRate = (20 - shadowSize) / scaleUpDuration; // Calculate the scaling rate per second
         StartCoroutine(ShadowLifetime(5.0f));
     }
-
+  
     private IEnumerator ShadowLifetime(float duration)
     {
         yield return new WaitForSeconds(duration - 3.0f);
-        BeginFinalPhase();
-        yield return new WaitForSeconds(0.5f);
+        //BeginFinalPhase();
+        yield return new WaitForSeconds(0.3f);
 
         if (shadowShockwavePrefab)
             Instantiate(shadowShockwavePrefab, transform.position, Quaternion.identity);
-
-        Destroy(gameObject);
-        shotgunBossBehaviour?.ResetJumpState();
-    }
-
-    private void BeginFinalPhase()
-    {
-        isFinalPhase = true;
-        targetScale = initialScale * 5;
-
         if (bossSpriteRenderer)
             bossSpriteRenderer.enabled = true;
 
-
         if (shotgunBossBehaviour)
             shotgunBossBehaviour.transform.position = transform.position;
+       
+        Destroy(gameObject);
+        shotgunBossBehaviour?.ResetJumpState();
     }
 
     public void SetShotgunBossBehaviour(ShotgunBossBehaviour bossBehaviour)
@@ -77,25 +67,22 @@ public class ShadowAttack : MonoBehaviour
     public void SetBossSpriteRenderer(SpriteRenderer spriteRenderer)
     {
         this.bossSpriteRenderer = spriteRenderer;
-
     }
 
     private void Update()
     {
         if (player == null) return;
 
-        if (isFinalPhase)
-        {
-            if (scaleUpTimer < scaleUpDuration)
-            {
-                scaleUpTimer += Time.deltaTime;
-                float scaleLerp = Mathf.Clamp01(scaleUpTimer / scaleUpDuration);
-                transform.localScale = Vector3.Lerp(initialScale, targetScale, scaleLerp);
-            }
-            return;
-        }
-
         // Smoothly move the shadow towards the player's position
         transform.position = Vector3.Lerp(transform.position, player.transform.position, followSpeed * Time.deltaTime);
+
+        // Gradually increase the shadow's size
+        if (scaleUpTimer < scaleUpDuration)
+        {
+            scaleUpTimer += Time.deltaTime;
+            float scaleLerp = Mathf.Clamp01(scaleUpTimer / scaleUpDuration);
+            float newScale = Mathf.Lerp(shadowSize, 90, scaleLerp);
+            transform.localScale = Vector3.one * newScale;
+        }
     }
 }

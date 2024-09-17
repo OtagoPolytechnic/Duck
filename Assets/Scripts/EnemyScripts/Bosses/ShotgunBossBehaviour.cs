@@ -5,17 +5,19 @@ public class ShotgunBossBehaviour : EnemyBase
 {
     public GameObject player;
     [SerializeField] private GameObject bullet;
-    [SerializeField] private GameObject shadowPrefab; // Reference to the shadow prefab
+    [SerializeField] private GameObject shadowPrefab;
     [SerializeField] private Transform bulletPosition;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackInterval;
     [SerializeField] private float minJumpAttackInterval = 1f;
     [SerializeField] private float maxJumpAttackInterval = 3f;
     [SerializeField] private float jumpAttackCooldown = 2f;
+    [SerializeField] private float attackResumptionDelay = 2f; // New variable for delay after shadow attack
 
     private float attackCooldown;
     private float jumpAttackTimer;
     private float jumpAttackCooldownTimer;
+    private float resumptionDelayTimer; // New timer for delay
     private bool isJumping;
     private GameObject currentShadow;
     private SpriteRenderer bossSpriteRenderer;
@@ -27,11 +29,11 @@ public class ShotgunBossBehaviour : EnemyBase
         player = GameObject.FindGameObjectWithTag("Player");
         attackCooldown = 0;
         jumpAttackTimer = Random.Range(minJumpAttackInterval, maxJumpAttackInterval);
+        resumptionDelayTimer = 0; // Initialize the resumption delay timer
 
         Transform spriteChild = transform.Find("Sprite");
         bossSpriteRenderer = spriteChild ? spriteChild.GetComponent<SpriteRenderer>() : null;
 
-        // Find and store the collider component
         bossCollider = GetComponent<Collider2D>();
         if (bossCollider == null)
         {
@@ -67,7 +69,7 @@ public class ShotgunBossBehaviour : EnemyBase
         {
             Move();
         }
-        else if (attackCooldown <= 0 && !isJumping)
+        else if (attackCooldown <= 0 && !isJumping && resumptionDelayTimer <= 0)
         {
             ShotgunShoot();
         }
@@ -117,7 +119,6 @@ public class ShotgunBossBehaviour : EnemyBase
             return;
         }
 
-        // Disable the boss collider
         if (bossCollider)
         {
             bossCollider.enabled = false;
@@ -144,11 +145,13 @@ public class ShotgunBossBehaviour : EnemyBase
         isJumping = false;
         currentShadow = null;
 
-        // Re-enable the boss collider
         if (bossCollider)
         {
             bossCollider.enabled = true;
         }
+
+        // Start the resumption delay timer
+        resumptionDelayTimer = attackResumptionDelay;
     }
 
     private void ShotgunShoot()
@@ -162,4 +165,14 @@ public class ShotgunBossBehaviour : EnemyBase
         SFXManager.Instance.EnemyShootSound();
         attackCooldown = attackInterval;
     }
+
+    private void LateUpdate()
+    {
+        // Manage the resumption delay timer
+        if (resumptionDelayTimer > 0)
+        {
+            resumptionDelayTimer -= Time.deltaTime;
+        }
+    }
 }
+
