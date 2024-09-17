@@ -160,6 +160,7 @@ public class SkillEffects : MonoBehaviour
         {
             //add some velocity to the player and push them some distance towards that direction
             rb.AddForce(dashVector * dashForce, ForceMode2D.Impulse);
+            PlayerStats.Instance.StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(durationRemaining));
         }
         if (state == SkillState.vanished && durationActive)
         {   
