@@ -191,6 +191,7 @@ public class ItemEffectTable : MonoBehaviour
                 }
                 else
                 {
+                    WeaponStats.Instance.SwordBeamMultiplier += 0.1f;
                     Debug.Log($"Player already has sword beam");
                 }
                 break;

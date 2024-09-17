@@ -583,6 +583,12 @@ public class WeaponStats : MonoBehaviour
         get {return hasSwordBeam;}
         set {hasSwordBeam = value;}
     }
+    private float swordBeamMultiplier = 0.5f; //Damage multiplier for sword beam item
+    public float SwordBeamMultiplier
+    {
+        get {return swordBeamMultiplier;}
+        set {swordBeamMultiplier = value;}
+    }
 
     void Awake()
     {

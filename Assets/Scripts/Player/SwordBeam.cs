@@ -31,7 +31,7 @@ public class SwordBeam : MonoBehaviour
         {
             if (other.gameObject.GetComponent<EnemyBase>())
             {
-                other.gameObject.GetComponent<EnemyBase>().ReceiveDamage(WeaponStats.Instance.Damage / 2, false); //Deals half non-crit damage
+                other.gameObject.GetComponent<EnemyBase>().ReceiveDamage(Mathf.RoundToInt(WeaponStats.Instance.Damage * WeaponStats.Instance.SwordBeamMultiplier), false); //Deals half non-crit damage
             }
             Destroy(gameObject);
         }
