@@ -86,7 +86,7 @@ public class SkillEffects : MonoBehaviour
     }
     public void RunSkill(InputAction.CallbackContext context)
     {
-        if (context.performed && !cooldownActive && GameSettings.gameState == GameState.InGame)
+        if (context.performed && !cooldownActive && !durationActive && GameSettings.gameState == GameState.InGame)
         {   
             //depending on active skill, setup the base values and set the state to activate the skill on button press.
             switch (GameSettings.activeSkill)
@@ -156,6 +156,7 @@ public class SkillEffects : MonoBehaviour
 
     void LateUpdate()
     {
+        if (GameSettings.gameState != GameState.InGame) { return; }
         if (state == SkillState.dashing && durationActive) 
         {
             //add some velocity to the player and push them some distance towards that direction

@@ -58,9 +58,18 @@ public class EnemyBullet : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         //destroys bullet on hit with player and lowers health
-        if (other.gameObject.CompareTag("Player") && !SkillEffects.Instance.decoyActive)
+        if (other.gameObject.CompareTag("Player") )
         {
-            player.GetComponent<PlayerStats>().ReceiveDamage(damage);
+            if (SkillEffects.Instance.decoyActive)
+            {
+                player = GameObject.FindGameObjectWithTag("Player");
+                player.GetComponent<PlayerStats>().ReceiveDamage(damage);
+                player = GameObject.FindGameObjectWithTag("Decoy");
+            }
+            else
+            {
+                player.GetComponent<PlayerStats>().ReceiveDamage(damage);
+            }
             Destroy(gameObject);
         }
         else if (other.gameObject.CompareTag("Edges") || other.gameObject.CompareTag("Decoy"))
