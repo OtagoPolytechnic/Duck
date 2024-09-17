@@ -217,7 +217,7 @@
         "id": 29,
         "name": "Sword of the Master",
         "desc": "Fire a sword projectile forward if you attack with full health\n\nProjectile does 50% damage",
-        "rarity": 7,
+        "rarity": 3,
         "weapons": ["Sword"],
         "stacks": 0
       },
