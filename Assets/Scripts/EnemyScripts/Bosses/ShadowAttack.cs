@@ -4,21 +4,19 @@ using UnityEngine;
 public class ShadowAttack : MonoBehaviour
 {
     public GameObject player;
-    public float followSpeed = 5.0f; // Speed at which the shadow follows the player
+    public float followSpeedModifier = 0.7f; // A modifier to adjust follow speed relative to player speed
     public float scaleUpDuration = 3.0f; // Duration over which the shadow will scale up
     public GameObject shadowShockwavePrefab; // Reference to the ShadowShockwave prefab
 
-    private int shadowDamage;
+    private float followSpeed;
     private int shadowSize = 6; // Default size
     private ShotgunBossBehaviour shotgunBossBehaviour;
     private SpriteRenderer bossSpriteRenderer;
     private bool isFinalPhase;
     private Vector3 initialScale;
-    private Vector3 targetScale;
     private float scaleUpTimer;
     private float scaleUpRate;
 
- 
     public int ShadowSize
     {
         set
@@ -35,7 +33,7 @@ public class ShadowAttack : MonoBehaviour
         scaleUpRate = (20 - shadowSize) / scaleUpDuration; // Calculate the scaling rate per second
         StartCoroutine(ShadowLifetime(5.0f));
     }
-  
+
     private IEnumerator ShadowLifetime(float duration)
     {
         yield return new WaitForSeconds(duration - 3.0f);
@@ -49,7 +47,7 @@ public class ShadowAttack : MonoBehaviour
 
         if (shotgunBossBehaviour)
             shotgunBossBehaviour.transform.position = transform.position;
-       
+
         Destroy(gameObject);
         shotgunBossBehaviour?.ResetJumpState();
     }
@@ -72,6 +70,10 @@ public class ShadowAttack : MonoBehaviour
     private void Update()
     {
         if (player == null) return;
+
+        // Dynamically calculate the follow speed based on the player's move speed
+        float playerSpeed = TopDownMovement.Instance.MoveSpeed;
+        followSpeed = playerSpeed * followSpeedModifier;
 
         // Smoothly move the shadow towards the player's position
         transform.position = Vector3.Lerp(transform.position, player.transform.position, followSpeed * Time.deltaTime);

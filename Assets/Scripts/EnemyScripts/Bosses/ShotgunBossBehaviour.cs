@@ -13,11 +13,13 @@ public class ShotgunBossBehaviour : EnemyBase
     [SerializeField] private float maxJumpAttackInterval = 3f;
     [SerializeField] private float jumpAttackCooldown = 2f;
     [SerializeField] private float attackResumptionDelay = 2f; // New variable for delay after shadow attack
+    [SerializeField] private float initialShootingDelay = 2f; // New variable for initial delay
 
     private float attackCooldown;
     private float jumpAttackTimer;
     private float jumpAttackCooldownTimer;
     private float resumptionDelayTimer; // New timer for delay
+    private float initialShootingDelayTimer; // New timer for initial shooting delay
     private bool isJumping;
     private GameObject currentShadow;
     private SpriteRenderer bossSpriteRenderer;
@@ -30,6 +32,7 @@ public class ShotgunBossBehaviour : EnemyBase
         attackCooldown = 0;
         jumpAttackTimer = Random.Range(minJumpAttackInterval, maxJumpAttackInterval);
         resumptionDelayTimer = 0; // Initialize the resumption delay timer
+        initialShootingDelayTimer = initialShootingDelay; // Initialize the initial shooting delay timer
 
         Transform spriteChild = transform.Find("Sprite");
         bossSpriteRenderer = spriteChild ? spriteChild.GetComponent<SpriteRenderer>() : null;
@@ -69,7 +72,7 @@ public class ShotgunBossBehaviour : EnemyBase
         {
             Move();
         }
-        else if (attackCooldown <= 0 && !isJumping && resumptionDelayTimer <= 0)
+        else if (attackCooldown <= 0 && !isJumping && resumptionDelayTimer <= 0 && initialShootingDelayTimer <= 0)
         {
             ShotgunShoot();
         }
@@ -173,6 +176,11 @@ public class ShotgunBossBehaviour : EnemyBase
         {
             resumptionDelayTimer -= Time.deltaTime;
         }
+
+        // Manage the initial shooting delay timer
+        if (initialShootingDelayTimer > 0)
+        {
+            initialShootingDelayTimer -= Time.deltaTime;
+        }
     }
 }
-

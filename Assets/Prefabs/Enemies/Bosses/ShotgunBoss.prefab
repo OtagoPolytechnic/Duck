@@ -272,11 +272,12 @@ MonoBehaviour:
   shadowPrefab: {fileID: 5656455698361903583, guid: 6eb3f49fce118544da10f920001f0fad, type: 3}
   bulletPosition: {fileID: 5656455699881316956}
   attackRange: 10
-  attackInterval: 1
+  attackInterval: 1.5
   minJumpAttackInterval: 2
   maxJumpAttackInterval: 5
   jumpAttackCooldown: 5
   attackResumptionDelay: 2
+  initialShootingDelay: 2
 --- !u!1 &5656455699881316957
 GameObject:
   m_ObjectHideFlags: 0
