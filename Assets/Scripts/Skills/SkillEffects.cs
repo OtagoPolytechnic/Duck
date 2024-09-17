@@ -93,13 +93,12 @@ public class SkillEffects : MonoBehaviour
             {
                 case SkillEnum.dash:
                 {
-                    Debug.Log("Player has Dashed!");
                     state = SkillState.dashing;
                     if (!moveMode)
                     {
                         if (TopDownMovement.Instance.moveInput == Vector2.zero)
                         {
-                            dashVector = transform.up;
+                            return;
                         }
                         else
                         {
@@ -107,7 +106,7 @@ public class SkillEffects : MonoBehaviour
                         }
                         dashForce = 20f;
                     }
-                    else
+                    else 
                     {
                         //get the position of the cursor on the screen and make a vector of its direction from the player
                         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
