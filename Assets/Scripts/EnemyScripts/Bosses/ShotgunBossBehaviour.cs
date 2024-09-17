@@ -25,6 +25,7 @@ public class ShotgunBossBehaviour : EnemyBase
     private SpriteRenderer bossSpriteRenderer;
     private Collider2D bossCollider;
 
+    // Initializes the boss properties, including player reference, timers, and components.
     private void Awake()
     {
         mapManager = FindObjectOfType<MapManager>();
@@ -44,6 +45,7 @@ public class ShotgunBossBehaviour : EnemyBase
         }
     }
 
+    // Updates the boss's behavior each frame, including movement, attack handling, visibility, and health.
     private void Update()
     {
         if (Health <= 0)
@@ -60,6 +62,7 @@ public class ShotgunBossBehaviour : EnemyBase
         Bleed();
     }
 
+    // Handles the boss's movement towards the player and manages attack behavior based on distance and cooldowns.
     private void HandleMovement()
     {
         float distance = Vector2.Distance(transform.position, player.transform.position);
@@ -82,6 +85,7 @@ public class ShotgunBossBehaviour : EnemyBase
         }
     }
 
+    // Manages the timing and execution of jump attacks, including cooldowns and intervals.
     private void HandleAttack()
     {
         if (jumpAttackCooldownTimer <= 0)
@@ -100,6 +104,7 @@ public class ShotgunBossBehaviour : EnemyBase
         }
     }
 
+    // Updates the visibility of the boss based on the presence of a current shadow attack.
     private void UpdateBossVisibility()
     {
         if (bossSpriteRenderer)
@@ -108,12 +113,14 @@ public class ShotgunBossBehaviour : EnemyBase
         }
     }
 
+    // Moves the boss towards the player, adjusting movement speed based on the tile type.
     public override void Move()
     {
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, Speed * tileSpeedModifier * Time.deltaTime);
     }
 
+    // Initiates a jump attack by creating a shadow attack and disabling the boss's collider.
     private void JumpAttack()
     {
         if (!shadowPrefab)
@@ -143,6 +150,7 @@ public class ShotgunBossBehaviour : EnemyBase
         }
     }
 
+    // Resets the jump attack state, re-enables the collider, and starts the resumption delay timer.
     public void ResetJumpState()
     {
         isJumping = false;
@@ -157,6 +165,7 @@ public class ShotgunBossBehaviour : EnemyBase
         resumptionDelayTimer = attackResumptionDelay;
     }
 
+    // Creates and fires a set of bullets at the player, and handles the shooting sound effect.
     private void ShotgunShoot()
     {
         for (int i = 0; i < 3; i++)
@@ -169,6 +178,7 @@ public class ShotgunBossBehaviour : EnemyBase
         attackCooldown = attackInterval;
     }
 
+    // Manages the timers for resumption delay and initial shooting delay.
     private void LateUpdate()
     {
         // Manage the resumption delay timer

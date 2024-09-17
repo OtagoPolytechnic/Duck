@@ -14,12 +14,14 @@ public class TargetIndicator : MonoBehaviour
     // Distance at which the arrow is positioned relative to the player
     public float ArrowDistance = 5f;
 
+    // Property to get or set the target Transform.
     public Transform Target
     {
         get => target;
         set => target = value;
     }
 
+    // Updates the indicator each frame. Manages target visibility, updates position and rotation of the indicator arrow.
     void Update()
     {
         if (!isActive)
@@ -69,6 +71,7 @@ public class TargetIndicator : MonoBehaviour
         }
     }
 
+    // Finds the closest enemy in the scene and sets it as the target.
     void FindClosestEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -95,6 +98,7 @@ public class TargetIndicator : MonoBehaviour
         target = closestEnemy;
     }
 
+    // Activates or deactivates all child GameObjects of the indicator.
     void SetChildrenActive(bool value)
     {
         foreach (Transform child in transform)

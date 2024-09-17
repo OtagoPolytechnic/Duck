@@ -17,6 +17,7 @@ public class ShadowAttack : MonoBehaviour
     private float scaleUpTimer;
     private float scaleUpRate;
 
+    // Sets the shadow size and updates its scale accordingly.
     public int ShadowSize
     {
         set
@@ -26,6 +27,7 @@ public class ShadowAttack : MonoBehaviour
         }
     }
 
+    // Initializes the shadow's initial properties, including its scale and scaling rate. Also starts the coroutine to handle the shadow's lifetime.
     private void Start()
     {
         initialScale = transform.localScale;
@@ -34,6 +36,7 @@ public class ShadowAttack : MonoBehaviour
         StartCoroutine(ShadowLifetime(5.0f));
     }
 
+    // Coroutine to manage the shadow's lifetime. Handles waiting, creating a shockwave effect, enabling the boss's sprite renderer, updating the boss's position, and destroying the shadow.
     private IEnumerator ShadowLifetime(float duration)
     {
         yield return new WaitForSeconds(duration - 3.0f);
@@ -52,21 +55,25 @@ public class ShadowAttack : MonoBehaviour
         shotgunBossBehaviour?.ResetJumpState();
     }
 
+    // Sets the reference to the ShotgunBossBehaviour component.
     public void SetShotgunBossBehaviour(ShotgunBossBehaviour bossBehaviour)
     {
         shotgunBossBehaviour = bossBehaviour;
     }
 
+    // Sets the reference to the player GameObject.
     public void SetPlayer(GameObject player)
     {
         this.player = player;
     }
 
+    // Sets the reference to the SpriteRenderer component of the boss.
     public void SetBossSpriteRenderer(SpriteRenderer spriteRenderer)
     {
         this.bossSpriteRenderer = spriteRenderer;
     }
 
+    // Updates the shadow's position to follow the player and scales the shadow up gradually over time.
     private void Update()
     {
         if (player == null) return;

@@ -23,6 +23,7 @@ public class Shockwave : MonoBehaviour
         }
     }
 
+    // Initializes the shockwave properties, including damage, size, and starts the destruction coroutine.
     void Start()
     {
 
@@ -32,6 +33,8 @@ public class Shockwave : MonoBehaviour
 
         StartCoroutine(DestroyExplosion());
     }
+
+    // Initializes the shockwave with specific player reference and damage values.
     public void InitializeBullet(GameObject player, int damage, bool isShotgun, float angleOffset = 0f)
     {
         this.player = player;
@@ -44,6 +47,7 @@ public class Shockwave : MonoBehaviour
         Destroy(gameObject);
     }
 
+    // Handles collision with other GameObjects, applying damage to the player if hit.
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player") && playerHit == false)
