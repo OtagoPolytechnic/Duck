@@ -15,7 +15,6 @@ public class Shooting : MonoBehaviour
     private float lastShot = 0;
     private bool held = false;
 
-    Vector2 lookDirection;
     float lookAngle;
 
     void Awake()
@@ -37,15 +36,54 @@ public class Shooting : MonoBehaviour
     void Update()
     {
         if (GameSettings.gameState != GameState.InGame){return;}
-        lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        lookDirection = new Vector2(lookDirection.x - transform.position.x, lookDirection.y - transform.position.y);
-        lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+
+        if(GameSettings.controlType == controlType.Keyboard)
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, Camera.main.nearClipPlane));
+            Vector2 lookDirection = new Vector2(worldPosition.x - transform.position.x, worldPosition.y - transform.position.y);
+            lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+        }
 
         sprite.rotation = Quaternion.Euler(0, 0, lookAngle);
+
         if (held && Time.time - lastShot > WeaponStats.Instance.FireDelay)
         {
             lastShot = Time.time;
             Shoot();
+        }
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        Debug.Log(context.ReadValue<Vector2>());
+        if (GameSettings.controlType != controlType.Controller)
+        {
+            return;
+        }
+        if (context.performed)
+        {
+            Vector2 lookInput = context.ReadValue<Vector2>();
+            if (lookInput.sqrMagnitude > 0.01f)
+            {
+                lookAngle = Mathf.Atan2(lookInput.y, lookInput.x) * Mathf.Rad2Deg;
+            }
+        }
+    }
+
+    public void OnArcadeLook(InputAction.CallbackContext context)
+    {
+        if (GameSettings.controlType != controlType.Arcade)
+        {
+            return;
+        }
+        if (context.performed)
+        {
+            Vector2 lookInput = context.ReadValue<Vector2>();
+            if (lookInput.sqrMagnitude > 0.01f)
+            {
+                lookAngle = Mathf.Atan2(lookInput.y, lookInput.x) * Mathf.Rad2Deg;
+            }
         }
     }
 
