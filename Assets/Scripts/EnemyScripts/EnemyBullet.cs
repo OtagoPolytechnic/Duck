@@ -60,16 +60,7 @@ public class EnemyBullet : MonoBehaviour
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Player") )
         {
-            if (SkillEffects.Instance.decoyActive)
-            {
-                player = GameObject.FindGameObjectWithTag("Player");
-                player.GetComponent<PlayerStats>().ReceiveDamage(damage);
-                player = GameObject.FindGameObjectWithTag("Decoy");
-            }
-            else
-            {
-                player.GetComponent<PlayerStats>().ReceiveDamage(damage);
-            }
+            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(damage);
             Destroy(gameObject);
         }
         else if (other.gameObject.CompareTag("Edges") || other.gameObject.CompareTag("Decoy"))

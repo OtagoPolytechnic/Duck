@@ -77,16 +77,7 @@ public class BossBullet : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") )
         {
-            if (SkillEffects.Instance.decoyActive)
-            {
-                player = GameObject.FindGameObjectWithTag("Player");
-                player.GetComponent<PlayerStats>().ReceiveDamage(bulletDamage);
-                player = GameObject.FindGameObjectWithTag("Decoy");
-            }
-            else
-            {
-                player.GetComponent<PlayerStats>().ReceiveDamage(bulletDamage);
-            }
+            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(bulletDamage);
             Destroy(gameObject);
         }
         else if (other.gameObject.CompareTag("Edges") || other.gameObject.CompareTag("Decoy"))
