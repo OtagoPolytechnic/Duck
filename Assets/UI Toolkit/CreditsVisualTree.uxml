@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI%20Toolkit/CreditsStyle.uss?fileID=7433441132597879392&amp;guid=1b12938c142319f41bdb738fa40be24e&amp;type=3#CreditsStyle" />
     <ui:VisualElement name="Background" style="background-color: rgb(80, 80, 80); height: 1086px; visibility: visible; flex-grow: 1; justify-content: space-around;">
         <ui:VisualElement name="Header" class="header" style="flex-direction: row; margin-left: 35px; margin-right: 35px; margin-top: 25px; justify-content: center; margin-bottom: 50px;">
-            <ui:Label text="Settings" display-tooltip-when-elided="true" name="Title" class="text" style="font-size: 100px;" />
+            <ui:Label text="Credits" display-tooltip-when-elided="true" name="Title" class="text" style="font-size: 100px;" />
         </ui:VisualElement>
         <ui:VisualElement name="ParagraphContainer" style="justify-content: center; align-items: center;">
             <ui:Label display-tooltip-when-elided="true" name="Paragraph" class="text" style="-unity-text-align: upper-center; height: 650px; width: 1000px; font-size: 20px; white-space: normal;" />

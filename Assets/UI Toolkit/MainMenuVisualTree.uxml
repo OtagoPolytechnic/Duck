@@ -10,7 +10,7 @@
             <ui:Button text="Settings" display-tooltip-when-elided="true" name="Settings" class="text button buttonText" style="background-color: rgb(172, 135, 201);" />
             <ui:Button text="Quit" display-tooltip-when-elided="true" name="Quit" class="text button buttonText" style="background-color: rgb(208, 50, 42);" />
         </ui:VisualElement>
-        <ui:VisualElement name="FooterContainer" style="padding-bottom: 0; padding-top: 0; flex-direction: row-reverse; justify-content: space-between;">
+        <ui:VisualElement name="FooterContainer" style="padding-bottom: 0; padding-top: 0; flex-direction: row-reverse; justify-content: space-between; border-left-width: 50px; border-right-width: 50px; border-bottom-width: 20px;">
             <ui:Label text="Alpha v0.0.0" display-tooltip-when-elided="true" name="VersionNumber" class="text" style="-unity-text-align: lower-right; color: rgb(255, 255, 255); padding-right: 100px; margin-top: 0; height: 97px;" />
             <ui:Button text="Credits" display-tooltip-when-elided="true" name="Credits" class="text button buttonText" style="background-color: rgb(255, 137, 0);" />
         </ui:VisualElement>
