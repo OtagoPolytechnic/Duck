@@ -200,7 +200,7 @@
       {
         "id": 27,
         "name": "Radiating Bombs",
-        "desc": "Your explosions leave a lingering area that deals damage over time",
+        "desc": "Your explosions leave a lingering area that deals 10% weapon damage every second",
         "rarity": 3,
         "weapons": ["RocketLauncher"],
         "stacks": 0
@@ -208,7 +208,7 @@
       {
         "id": 28,
         "name": "MOAB",
-        "desc": "Your explosions double in size, but they can also damage you",
+        "desc": "Your explosions double in size, but they also do half damage to you",
         "rarity": 3,
         "weapons": ["RocketLauncher"],
         "stacks": 0
