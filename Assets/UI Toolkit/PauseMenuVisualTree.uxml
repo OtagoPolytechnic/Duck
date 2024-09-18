@@ -5,7 +5,7 @@
             <ui:Label tabindex="-1" text="Paused" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Header" class="text header" />
             <ui:Button text="Resume" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Resume" class="text button" />
             <ui:Button text="Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Settings" class="text button" />
-            <ui:Button text="Quit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Quit" class="text button" />
+            <ui:Button text="Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Quit" class="text button" />
             <ui:VisualElement name="StatScreen" style="flex-grow: 1; min-width: 100%; justify-content: center; flex-direction: row;" />
         </ui:VisualElement>
     </ui:VisualElement>

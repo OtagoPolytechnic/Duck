@@ -11,8 +11,10 @@ public class Menu : MonoBehaviour
 
     private Button playButton;
     private Button highscoreButton;
-    private Button tutorialButton;
+    private Button settingsButton;
     private Button quitButton;
+    private Button creditsButton;
+
     private Label versionNumber;
 
     private Dictionary<string, VisualElement> sceneRootElements = new Dictionary<string, VisualElement>();
@@ -20,11 +22,12 @@ public class Menu : MonoBehaviour
     void Awake()
     {
         VisualElement document = GetComponent<UIDocument>().rootVisualElement;
-        playButton = document.Q<Button>("Play");
-        playButton.RegisterCallback<ClickEvent>(Play);
+        playButton = document.Q<Button>("SkillMenu");
+
 
         highscoreButton = document.Q<Button>("Highscores");
-        tutorialButton = document.Q<Button>("Tutorial");
+        settingsButton = document.Q<Button>("Settings");
+        creditsButton = document.Q<Button>("Credits");
 
         quitButton = document.Q<Button>("Quit");
         quitButton.RegisterCallback<ClickEvent>(Quit);
@@ -37,9 +40,10 @@ public class Menu : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 60;
-        SFXManager.Instance.PlayBackgroundMusic(SFXManager.Instance.TitleScreen);
+        StartCoroutine(LoadBackgroundScene("SkillMenu", playButton));
         StartCoroutine(LoadBackgroundScene("Highscores", highscoreButton));
-        StartCoroutine(LoadBackgroundScene("Tutorial", tutorialButton));
+        StartCoroutine(LoadBackgroundScene("Settings", settingsButton));
+        StartCoroutine(LoadBackgroundScene("Credits", creditsButton));
     }
 
     IEnumerator LoadBackgroundScene(string sceneName, Button button)

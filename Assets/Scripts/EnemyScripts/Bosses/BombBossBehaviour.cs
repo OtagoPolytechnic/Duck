@@ -68,7 +68,7 @@ public class BombBossBehaviour : EnemyBase
         // Normal boss shooting
         GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
         newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, false); // Pass false for shotgun
-        SFXManager.Instance.EnemyShootSound();
+        SFXManager.Instance.PlaySFX("EnemyShoot");
         attackCooldown = attackInterval;
     }
 }

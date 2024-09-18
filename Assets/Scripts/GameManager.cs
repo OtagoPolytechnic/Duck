@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         {
             GameSettings.gameState = GameState.EndGame;
             Timer.CullEnemies();
-            SFXManager.Instance.GameOverSound();
+            SFXManager.Instance.PlaySFX("GameOver");
             StartCoroutine(ScoreManager.Instance.FinalScore());
             container.visible = true;
         }

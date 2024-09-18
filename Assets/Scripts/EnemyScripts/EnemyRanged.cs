@@ -66,7 +66,7 @@ public class EnemyRanged : EnemyBase
         // Play the enemy shooting sound
         if (SFXManager.Instance != null)
         {
-            SFXManager.Instance.EnemyShootSound();
+            SFXManager.Instance.PlaySFX("EnemyShoot");
         }
         else
         {
@@ -84,7 +84,7 @@ public class EnemyRanged : EnemyBase
     
     public override void Die()
     {
-        SFXManager.Instance.EnemyDieSound();
+        SFXManager.Instance.PlaySFX("EnemyDie");
         ScoreManager.Instance.IncreasePoints(Points);
         EnemySpawner.Instance.currentEnemies.Remove(gameObject);
         Destroy(gameObject);

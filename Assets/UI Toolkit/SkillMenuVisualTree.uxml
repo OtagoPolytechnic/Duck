@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/SkillMenuStyle.uss?fileID=7433441132597879392&amp;guid=c281d9d333fcbc5459c56fb38e890017&amp;type=3#SkillMenuStyle" />
+    <ui:VisualElement name="Background" style="flex-grow: 1; flex-direction: column-reverse; background-color: rgb(0, 0, 0); justify-content: space-between; align-items: center;">
+        <ui:Button text="Play" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Play" class="buttonText" style="max-width: none; min-width: 20%; min-height: 10%; font-size: 40px;" />
+        <ui:VisualElement name="SkillContainer" style="flex-grow: 1; flex-direction: row; align-items: center; justify-content: space-between; width: 100%;">
+            <ui:VisualElement name="Skill1Container" style="flex-grow: 1; align-items: center;">
+                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Skill1" class="text buttonText skill" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Skill1Name" class="text" style="font-size: 30px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
