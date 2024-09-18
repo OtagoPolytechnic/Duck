@@ -60,7 +60,7 @@ public class EnemyMelee : EnemyBase
                                                              // Play the enemy bite sound
         if (SFXManager.Instance != null)
         {
-            SFXManager.Instance.EnemyBiteSound();
+            SFXManager.Instance.PlaySFX("Bite");
         }
         else
         {
@@ -90,7 +90,7 @@ public class EnemyMelee : EnemyBase
     }
     public override void Die()
     {
-        SFXManager.Instance.EnemyDieSound();
+        SFXManager.Instance.PlaySFX("EnemyDie");
         ScoreManager.Instance.IncreasePoints(Points);
         EnemySpawner.Instance.currentEnemies.Remove(gameObject);
         Destroy(gameObject);

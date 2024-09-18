@@ -8,6 +8,8 @@ public class Shooting : MonoBehaviour
     public static Shooting Instance;
 
     [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject swordAttack;
+    [SerializeField] private GameObject swordBeam;
     [SerializeField] private Transform sprite;
     [SerializeField] private Transform firePoint;
     [SerializeField] private Transform dualFirePoint;
@@ -15,7 +17,6 @@ public class Shooting : MonoBehaviour
     private float lastShot = 0;
     private bool held = false;
 
-    Vector2 lookDirection;
     float lookAngle;
 
     void Awake()
@@ -37,15 +38,54 @@ public class Shooting : MonoBehaviour
     void Update()
     {
         if (GameSettings.gameState != GameState.InGame){return;}
-        lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        lookDirection = new Vector2(lookDirection.x - transform.position.x, lookDirection.y - transform.position.y);
-        lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+
+        if(GameSettings.controlType == controlType.Keyboard)
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, Camera.main.nearClipPlane));
+            Vector2 lookDirection = new Vector2(worldPosition.x - transform.position.x, worldPosition.y - transform.position.y);
+            lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+        }
 
         sprite.rotation = Quaternion.Euler(0, 0, lookAngle);
+
         if (held && Time.time - lastShot > WeaponStats.Instance.FireDelay)
         {
             lastShot = Time.time;
             Shoot();
+        }
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        Debug.Log(context.ReadValue<Vector2>());
+        if (GameSettings.controlType != controlType.Controller)
+        {
+            return;
+        }
+        if (context.performed)
+        {
+            Vector2 lookInput = context.ReadValue<Vector2>();
+            if (lookInput.sqrMagnitude > 0.01f)
+            {
+                lookAngle = Mathf.Atan2(lookInput.y, lookInput.x) * Mathf.Rad2Deg;
+            }
+        }
+    }
+
+    public void OnArcadeLook(InputAction.CallbackContext context)
+    {
+        if (GameSettings.controlType != controlType.Arcade)
+        {
+            return;
+        }
+        if (context.performed)
+        {
+            Vector2 lookInput = context.ReadValue<Vector2>();
+            if (lookInput.sqrMagnitude > 0.01f)
+            {
+                lookAngle = Mathf.Atan2(lookInput.y, lookInput.x) * Mathf.Rad2Deg;
+            }
         }
     }
 
@@ -63,6 +103,24 @@ public class Shooting : MonoBehaviour
 
     private void Shoot()
     {
+        if (WeaponStats.Instance.CurrentWeapon == WeaponType.Sword)
+        {
+            if (WeaponStats.Instance.HasSwordBeam && PlayerStats.Instance.CurrentHealth == PlayerStats.Instance.MaxHealth)
+            {
+                GameObject swordBeamClone = Instantiate(swordBeam, swordAttack.transform.position, Quaternion.Euler(0, 0, lookAngle));
+                swordBeamClone.GetComponent<Rigidbody2D>().velocity = lookDirection * WeaponStats.Instance.BulletSpeed;
+            }
+            if (Random.Range(0, 100) < WeaponStats.Instance.CritChance)
+            {
+                swordAttack.GetComponent<Sword>().Crit = true;
+            }
+            else
+            {
+                swordAttack.GetComponent<Sword>().Crit = false;
+            }
+            StartCoroutine(SwordAttack());
+            return;
+        }
         if (WeaponStats.Instance.Spread > 0)
         {
             //shoot 1+stacks(2) bullets in a cone infront of the player
@@ -92,12 +150,36 @@ public class Shooting : MonoBehaviour
             FireBullet(firePoint);
         }
         // Play the duck shooting sound
-        SFXManager.Instance.DuckShootSound(); 
+        SFXManager.Instance.PlaySFX("DuckShooting");
     }
 
     private void FireBullet(Transform bulletFirePoint)
     {
         GameObject bulletClone = Instantiate(bullet, bulletFirePoint.position, Quaternion.Euler(0, 0, lookAngle));
         bulletClone.GetComponent<Rigidbody2D>().velocity = bulletFirePoint.right * WeaponStats.Instance.BulletSpeed;
+    }
+
+    IEnumerator SwordAttack()
+    {
+        swordAttack.SetActive(true);
+
+        if (swordAttack.GetComponent<Sword>().Crit) //Activate either crit or non crit sprite
+        {
+            swordAttack.transform.GetChild(1).gameObject.SetActive(true);
+        }
+        else
+        {
+            swordAttack.transform.GetChild(0).gameObject.SetActive(true);
+        }
+
+        yield return new WaitForSeconds(WeaponStats.Instance.FireDelay/2);
+
+        swordAttack.SetActive(false);
+
+        swordAttack.transform.GetChild(0).gameObject.SetActive(false); //Set sprites not active
+        swordAttack.transform.GetChild(1).gameObject.SetActive(false);
+
+
+        StopCoroutine(SwordAttack());
     }
 }

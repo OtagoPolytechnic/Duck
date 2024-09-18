@@ -6,33 +6,39 @@ public class ShotgunBossBehaviour : EnemyBase
     public GameObject player;
     private bool stopCheck;
     [SerializeField] private GameObject bullet;
-    [SerializeField] private GameObject shadowPrefab; // Reference to the shadow prefab
+    [SerializeField] private GameObject shadowPrefab;
     [SerializeField] private Transform bulletPosition;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackInterval;
     [SerializeField] private float minJumpAttackInterval = 1f;
     [SerializeField] private float maxJumpAttackInterval = 3f;
     [SerializeField] private float jumpAttackCooldown = 2f;
+    [SerializeField] private float attackResumptionDelay = 2f; // New variable for delay after shadow attack
+    [SerializeField] private float initialShootingDelay = 2f; // New variable for initial delay
 
     private float attackCooldown;
     private float jumpAttackTimer;
     private float jumpAttackCooldownTimer;
+    private float resumptionDelayTimer; // New timer for delay
+    private float initialShootingDelayTimer; // New timer for initial shooting delay
     private bool isJumping;
     private GameObject currentShadow;
     private SpriteRenderer bossSpriteRenderer;
     private Collider2D bossCollider;
 
+    // Initializes the boss properties, including player reference, timers, and components.
     private void Awake()
     {
         mapManager = FindObjectOfType<MapManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         attackCooldown = 0;
         jumpAttackTimer = Random.Range(minJumpAttackInterval, maxJumpAttackInterval);
+        resumptionDelayTimer = 0; // Initialize the resumption delay timer
+        initialShootingDelayTimer = initialShootingDelay; // Initialize the initial shooting delay timer
 
         Transform spriteChild = transform.Find("Sprite");
         bossSpriteRenderer = spriteChild ? spriteChild.GetComponent<SpriteRenderer>() : null;
 
-        // Find and store the collider component
         bossCollider = GetComponent<Collider2D>();
         if (bossCollider == null)
         {
@@ -60,8 +66,8 @@ public class ShotgunBossBehaviour : EnemyBase
 
         }
 
-        HandleMovement();
-        HandleAttack();
+        HandleMovement();  // Movement-related updates
+        HandleAttack();    // Attack-related updates
         UpdateBossVisibility();
         Bleed();
     }
@@ -80,13 +86,10 @@ public class ShotgunBossBehaviour : EnemyBase
             transform.GetChild(0).rotation = Quaternion.Euler(Vector3.forward * angle);
         }
 
-        if (distance >= attackRange)
+        // Move if not in attack cooldown and there's no delay
+        if (distance >= attackRange && initialShootingDelayTimer <= 0)
         {
             Move();
-        }
-        else if (attackCooldown <= 0 && !isJumping)
-        {
-            ShotgunShoot();
         }
         else
         {
@@ -96,6 +99,7 @@ public class ShotgunBossBehaviour : EnemyBase
 
     private void HandleAttack()
     {
+        // Handle jump attack
         if (jumpAttackCooldownTimer <= 0)
         {
             jumpAttackTimer -= Time.deltaTime;
@@ -111,8 +115,16 @@ public class ShotgunBossBehaviour : EnemyBase
         {
             jumpAttackCooldownTimer -= Time.deltaTime;
         }
+
+        // Handle shooting if cooldown allows and there's no delay
+        if (attackCooldown <= 0 && !isJumping && resumptionDelayTimer <= 0 && initialShootingDelayTimer <= 0)
+        {
+            ShotgunShoot();
+        }
     }
 
+
+    // Updates the visibility of the boss based on the presence of a current shadow attack.
     private void UpdateBossVisibility()
     {
         if (bossSpriteRenderer)
@@ -121,6 +133,7 @@ public class ShotgunBossBehaviour : EnemyBase
         }
     }
 
+    // Moves the boss towards the player, adjusting movement speed based on the tile type.
     public override void Move()
     {
         if (SkillEffects.Instance.vanishActive) { return; }
@@ -128,6 +141,7 @@ public class ShotgunBossBehaviour : EnemyBase
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, Speed * tileSpeedModifier * Time.deltaTime);
     }
 
+    // Initiates a jump attack by creating a shadow attack and disabling the boss's collider.
     private void JumpAttack()
     {
         if (!shadowPrefab)
@@ -136,7 +150,6 @@ public class ShotgunBossBehaviour : EnemyBase
             return;
         }
 
-        // Disable the boss collider
         if (bossCollider)
         {
             bossCollider.enabled = false;
@@ -158,18 +171,22 @@ public class ShotgunBossBehaviour : EnemyBase
         }
     }
 
+    // Resets the jump attack state, re-enables the collider, and starts the resumption delay timer.
     public void ResetJumpState()
     {
         isJumping = false;
         currentShadow = null;
 
-        // Re-enable the boss collider
         if (bossCollider)
         {
             bossCollider.enabled = true;
         }
+
+        // Start the resumption delay timer
+        resumptionDelayTimer = attackResumptionDelay;
     }
 
+    // Creates and fires a set of bullets at the player, and handles the shooting sound effect.
     private void ShotgunShoot()
     {
         for (int i = 0; i < 3; i++)
@@ -180,5 +197,21 @@ public class ShotgunBossBehaviour : EnemyBase
         }
         SFXManager.Instance.EnemyShootSound();
         attackCooldown = attackInterval;
+    }
+
+    // Manages the timers for resumption delay and initial shooting delay.
+    private void LateUpdate()
+    {
+        // Manage the resumption delay timer
+        if (resumptionDelayTimer > 0)
+        {
+            resumptionDelayTimer -= Time.deltaTime;
+        }
+
+        // Manage the initial shooting delay timer
+        if (initialShootingDelayTimer > 0)
+        {
+            initialShootingDelayTimer -= Time.deltaTime;
+        }
     }
 }

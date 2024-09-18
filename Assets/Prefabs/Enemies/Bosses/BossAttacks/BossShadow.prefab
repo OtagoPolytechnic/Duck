@@ -30,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.7900004, y: 4.9183974, z: 6.7900004}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 6.7900004, y: 6.79, z: 6.7900004}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -172,6 +172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  followSpeed: 2
-  scaleUpDuration: 1
+  followSpeedModifier: 0.1
+  scaleUpDuration: 3
   shadowShockwavePrefab: {fileID: 2638239130088948200, guid: 8886c8bf2e829744c951fa4554420643, type: 3}

@@ -6,10 +6,13 @@ public class Shockwave : MonoBehaviour
 {
     public GameObject player;
     private int shockwaveDamage;
-    public int ShockwaveDamage
+    public bool playerHit;
+      public int ShockwaveDamage
     {
+        get { return shockwaveDamage; }
         set { shockwaveDamage = value; }
     }
+
     private int shockwaveSize;
     public int ShockwaveSize
     {
@@ -20,28 +23,34 @@ public class Shockwave : MonoBehaviour
         }
     }
 
+    // Initializes the shockwave properties, including damage, size, and starts the destruction coroutine.
     void Start()
     {
 
-        ShockwaveSize = 15;
+        shockwaveDamage = 30 + GameSettings.waveNumber;
+        player = GameObject.FindGameObjectWithTag("Player");
+        ShockwaveSize = 12;
 
         StartCoroutine(DestroyExplosion());
     }
+
+
     private IEnumerator DestroyExplosion()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }
 
+    // Handles collision with other GameObjects, applying damage to the player if hit.
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && playerHit == false)
         {
 
-            DestroyExplosion();
-            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(40);
+            //DestroyExplosion();
+            player.GetComponent<PlayerStats>().ReceiveDamage(shockwaveDamage);
 
 
         }
+        }
     }
-}

@@ -18,7 +18,6 @@ public class SkillMenu : MonoBehaviour
     private Label skillTimers;
     private List<Skill> skillList = new List<Skill>();
 
-
     void Awake()
     {
         VisualElement document = GetComponent<UIDocument>().rootVisualElement;
@@ -60,7 +59,6 @@ public class SkillMenu : MonoBehaviour
             yield return null;
         }
     }
-
     public void SkillClick(ClickEvent click, SkillEnum skillEnum)
     {
         foreach (Skill s in skillList)
