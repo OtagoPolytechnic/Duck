@@ -25,7 +25,16 @@ public class BossBullet : MonoBehaviour
     {
         startPos = transform.position;
         rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        if (SkillEffects.Instance.decoyActive)
+        {
+            player = GameObject.FindGameObjectWithTag("Decoy");
+
+        }
+        else if (!SkillEffects.Instance.decoyActive)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+
+        }
 
         // Set bullet damage based on current wave
         bulletDamage = 30 + (GameSettings.waveNumber / 5) * 5;
@@ -66,12 +75,12 @@ public class BossBullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") )
         {
-            player.GetComponent<PlayerStats>().ReceiveDamage(bulletDamage);
+            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(bulletDamage);
             Destroy(gameObject);
         }
-        else if (other.gameObject.CompareTag("Edges"))
+        else if (other.gameObject.CompareTag("Edges") || other.gameObject.CompareTag("Decoy"))
         {
             Destroy(gameObject);
         }

@@ -22,5 +22,6 @@ public static class GameSettings
 {
     public static GameState gameState = GameState.InGame;
     public static int waveNumber;
+    public static SkillEnum activeSkill = SkillEnum.dash;
     public static controlType controlType = controlType.Keyboard; //Default to keyboard. Can change this for the arcade build
 }
