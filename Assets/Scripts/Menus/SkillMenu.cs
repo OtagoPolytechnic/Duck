@@ -46,7 +46,7 @@ public class SkillMenu : MonoBehaviour
     public void PlayGame(ClickEvent click)
     {
         GameSettings.gameState = GameState.InGame;
-        StartCoroutine(LoadScene("SkillsTesting(Delete)")); //change to main scene
+        StartCoroutine(LoadScene("MainScene")); //change to main scene
     }
 
     IEnumerator LoadScene(string sceneName)

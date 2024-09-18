@@ -78,7 +78,7 @@ public abstract class EnemyBase : MonoBehaviour
     public abstract void Move();
     public virtual void Die()
     {
-        SFXManager.Instance.EnemyDieSound();
+        SFXManager.Instance.PlaySFX("EnemyDie");
         ScoreManager.Instance.IncreasePoints(Points);
         EnemySpawner.Instance.currentEnemies.Remove(gameObject);
         Destroy(gameObject);

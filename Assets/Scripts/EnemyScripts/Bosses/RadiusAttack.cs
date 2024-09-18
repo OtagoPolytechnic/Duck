@@ -55,7 +55,5 @@ public class RadiusAttack : MonoBehaviour
         Vector2 shootDirection = new Vector2(Mathf.Cos(randomAngle * Mathf.Deg2Rad), Mathf.Sin(randomAngle * Mathf.Deg2Rad));
         bulletRb.velocity = shootDirection * bulletSpeed;
         attackCooldown = attackInterval;
-
-        SFXManager.Instance.PlaySFX("EnemyShoot");
     }
 }

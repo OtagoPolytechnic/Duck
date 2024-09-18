@@ -16,7 +16,7 @@ public class Shooting : MonoBehaviour
     private bool dualShot = false;
     private float lastShot = 0;
     private bool held = false;
-
+    Vector2 lookDirection;
     float lookAngle;
 
     void Awake()
@@ -43,7 +43,7 @@ public class Shooting : MonoBehaviour
         {
             Vector3 mousePosition = Input.mousePosition;
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, Camera.main.nearClipPlane));
-            Vector2 lookDirection = new Vector2(worldPosition.x - transform.position.x, worldPosition.y - transform.position.y);
+            lookDirection = new Vector2(worldPosition.x - transform.position.x, worldPosition.y - transform.position.y);
             lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
         }
 
@@ -58,7 +58,6 @@ public class Shooting : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        Debug.Log(context.ReadValue<Vector2>());
         if (GameSettings.controlType != controlType.Controller)
         {
             return;

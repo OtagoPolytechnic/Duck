@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour
 
     public Transform followTransform;
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         transform.position = new Vector3(followTransform.position.x, followTransform.position.y, transform.position.z);
     }

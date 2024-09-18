@@ -85,18 +85,4 @@ public class EnemyBomb : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        // Destroy bullet on hit with player and lower health
-        if (other.gameObject.CompareTag("Player"))
-        {
-            Destroy(gameObject);
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-          
-        }
-        else if (other.gameObject.CompareTag("Edges"))
-        {
-            Destroy(gameObject);
-        }
-    }
 }

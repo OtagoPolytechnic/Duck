@@ -195,7 +195,7 @@ public class ShotgunBossBehaviour : EnemyBase
             float angleOffset = 10f * (i - 1);
             newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, true, angleOffset);
         }
-        SFXManager.Instance.EnemyShootSound();
+        SFXManager.Instance.PlaySFX("EnemyShoot");
         attackCooldown = attackInterval;
     }
 
