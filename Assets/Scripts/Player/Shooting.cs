@@ -8,6 +8,8 @@ public class Shooting : MonoBehaviour
     public static Shooting Instance;
 
     [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject swordAttack;
+    [SerializeField] private GameObject swordBeam;
     [SerializeField] private Transform sprite;
     [SerializeField] private Transform firePoint;
     [SerializeField] private Transform dualFirePoint;
@@ -63,6 +65,24 @@ public class Shooting : MonoBehaviour
 
     private void Shoot()
     {
+        if (WeaponStats.Instance.CurrentWeapon == WeaponType.Sword)
+        {
+            if (WeaponStats.Instance.HasSwordBeam && PlayerStats.Instance.CurrentHealth == PlayerStats.Instance.MaxHealth)
+            {
+                GameObject swordBeamClone = Instantiate(swordBeam, swordAttack.transform.position, Quaternion.Euler(0, 0, lookAngle));
+                swordBeamClone.GetComponent<Rigidbody2D>().velocity = lookDirection * WeaponStats.Instance.BulletSpeed;
+            }
+            if (Random.Range(0, 100) < WeaponStats.Instance.CritChance)
+            {
+                swordAttack.GetComponent<Sword>().Crit = true;
+            }
+            else
+            {
+                swordAttack.GetComponent<Sword>().Crit = false;
+            }
+            StartCoroutine(SwordAttack());
+            return;
+        }
         if (WeaponStats.Instance.Spread > 0)
         {
             //shoot 1+stacks(2) bullets in a cone infront of the player
@@ -99,5 +119,29 @@ public class Shooting : MonoBehaviour
     {
         GameObject bulletClone = Instantiate(bullet, bulletFirePoint.position, Quaternion.Euler(0, 0, lookAngle));
         bulletClone.GetComponent<Rigidbody2D>().velocity = bulletFirePoint.right * WeaponStats.Instance.BulletSpeed;
+    }
+
+    IEnumerator SwordAttack()
+    {
+        swordAttack.SetActive(true);
+
+        if (swordAttack.GetComponent<Sword>().Crit) //Activate either crit or non crit sprite
+        {
+            swordAttack.transform.GetChild(1).gameObject.SetActive(true);
+        }
+        else
+        {
+            swordAttack.transform.GetChild(0).gameObject.SetActive(true);
+        }
+
+        yield return new WaitForSeconds(WeaponStats.Instance.FireDelay/2);
+
+        swordAttack.SetActive(false);
+
+        swordAttack.transform.GetChild(0).gameObject.SetActive(false); //Set sprites not active
+        swordAttack.transform.GetChild(1).gameObject.SetActive(false);
+
+
+        StopCoroutine(SwordAttack());
     }
 }
