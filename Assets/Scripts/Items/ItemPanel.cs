@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Collections;
+using System.Linq;
+
 
 
 
@@ -119,10 +122,7 @@ public class ItemPanel : MonoBehaviour
 
     public void InitializeItemPanel(int waveNumber) //this is called every time the inventory ui pops up
     { 
-        item1.RegisterCallback<ClickEvent>(RegisterItem1Click);
-        item2.RegisterCallback<ClickEvent>(RegisterItem2Click);
-        item3.RegisterCallback<ClickEvent>(RegisterItem3Click);
-        skip.RegisterCallback<ClickEvent>(RegisterSkipClick);
+        StartCoroutine(SelectDelay());
 
         if (waveNumber % 5 == 0 || waveNumber == 1) //if the wave is a bound wave
         {
@@ -132,6 +132,15 @@ public class ItemPanel : MonoBehaviour
         {
             GetUnboundItems(3, waveNumber);
         }
+    }
+
+    private IEnumerator SelectDelay()
+    {
+        yield return new WaitForSeconds(1.5f);
+        item1.RegisterCallback<ClickEvent>(RegisterItem1Click);
+        item2.RegisterCallback<ClickEvent>(RegisterItem2Click);
+        item3.RegisterCallback<ClickEvent>(RegisterItem3Click);
+        skip.RegisterCallback<ClickEvent>(RegisterSkipClick);
     }
 
     private void GetBoundItems(int repetitions, int waveNumber)
