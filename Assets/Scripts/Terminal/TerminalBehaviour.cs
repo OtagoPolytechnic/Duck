@@ -204,7 +204,7 @@ public class TerminalBehaviour : MonoBehaviour
         output.text += $"Weapon set to {WeaponStats.Instance.CurrentWeapon}\n\n";
     }
 
-    private void GiveItem(string itemId, string itemAmount)
+    private void GiveItem(string itemId, string itemAmount = 1)
     {
         if (!int.TryParse(itemId, out int id) || id < 0)
         {
@@ -242,35 +242,31 @@ public class TerminalBehaviour : MonoBehaviour
         {
             case "damage":
                 WeaponStats.Instance.FlatDamage = value;
-                output.text += $"\nAdded {value} amount of damage to the player\n\n";                
             break;
             case "maxhealth":
                 PlayerStats.Instance.FlatBonusHealth = value;
-                output.text += $"\nAdded {value} amount of max health to the player\n\n";
             break;
             case "crit":
                 WeaponStats.Instance.FlatCritChance = value;
-                output.text += $"\nAdded {value} amount of crit chance to the player\n\n";
             break;
             case "firedelay":
                 WeaponStats.Instance.FlatFireDelay = value; 
-                output.text += $"\nAdded {value} amount of fire speed to the player\n\n";               
             break;
             case "movespeed":
                 TopDownMovement.Instance.FlatBonusSpeed = value; 
-                output.text += $"\nAdded {value} amount of move speed to the player\n\n";               
             break;
             case "critdamage":
                 WeaponStats.Instance.FlatCritDamage = value; 
-                output.text += $"\nAdded {value} amount of fire speed to the player\n\n";               
             break;
             default:
                 output.text += "\nStat given is not a valid enterable stat\n\n";
+                return;
             break;
         }
+        output.text += $"\nSet {stat} to {value}\n\n";             
 
     }
-    private void Spawn(string enemy, string count)
+    private void Spawn(string enemy, string count = 1)
     {
         if (!int.TryParse(enemy, out int enemyId) || enemyId < 0 || enemyId > EnemySpawner.Instance.allEnemies.Count)
         {
