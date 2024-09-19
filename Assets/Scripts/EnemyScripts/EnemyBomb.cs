@@ -10,6 +10,7 @@ public class EnemyBomb : MonoBehaviour
     private CircleCollider2D circleCollider;
     public float bulletSpeed = 2;
     private float range = 20f;
+    private Vector2 heldVelocity;
     private Vector3 startPos;
 
     // Original color of the sprite
@@ -35,13 +36,21 @@ public class EnemyBomb : MonoBehaviour
         // Save the original color and size of the sprite and collider
         originalColor = spriteRenderer.color;
         originalColliderRadius = circleCollider.radius;
-
+        heldVelocity = rb.velocity;
         // Start the random explosion coroutine
         StartCoroutine(RandomExplodeCoroutine());
     }
 
     void Update()
     {
+        if (GameSettings.gameState != GameState.InGame && rb.velocity != Vector2.zero) 
+        {
+            rb.velocity = Vector2.zero;
+        }
+        else if (GameSettings.gameState == GameState.InGame && rb.velocity == Vector2.zero)
+        {
+            rb.velocity = heldVelocity;
+        }
         // Destroy bullet after range
         float distTravelled = Vector3.Distance(startPos, transform.position);
 
@@ -55,8 +64,16 @@ public class EnemyBomb : MonoBehaviour
     {
         // Wait for a random time between 0,5 and 2 seconds
         float waitTime = Random.Range(.5f, 2f);
-        yield return new WaitForSeconds(waitTime);
-
+        float elapsedTime = 0f;
+        while (elapsedTime < waitTime)
+        {
+            elapsedTime += .1f;
+            yield return new WaitForSeconds(.1f);
+            while (GameSettings.gameState != GameState.InGame)
+            {
+                yield return null;
+            }
+        }
         // Call the method to handle explosion logic
         StartCoroutine(FlashEffectCoroutine());
     }
@@ -73,11 +90,19 @@ public class EnemyBomb : MonoBehaviour
             // Flash red
             spriteRenderer.color = Color.red;
             yield return new WaitForSeconds(flashDuration);
+            
+            while (GameSettings.gameState != GameState.InGame)
+            {
+                yield return null;
+            }
 
             // Flash back to original color
             spriteRenderer.color = originalColor;
             yield return new WaitForSeconds(flashDuration);
-
+            while (GameSettings.gameState != GameState.InGame)
+            {
+                yield return null;
+            }
         
         }
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);

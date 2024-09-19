@@ -33,15 +33,22 @@ public class ShadowAttack : MonoBehaviour
         initialScale = transform.localScale;
         transform.localScale = Vector3.one * shadowSize;
         scaleUpRate = (20 - shadowSize) / scaleUpDuration; // Calculate the scaling rate per second
-        StartCoroutine(ShadowLifetime(5.0f));
+        StartCoroutine(ShadowLifetime(3.3f));
     }
 
     // Coroutine to manage the shadow's lifetime. Handles waiting, creating a shockwave effect, enabling the boss's sprite renderer, updating the boss's position, and destroying the shadow.
     private IEnumerator ShadowLifetime(float duration)
     {
-        yield return new WaitForSeconds(duration - 3.0f);
-        //BeginFinalPhase();
-        yield return new WaitForSeconds(0.3f);
+        float elapsedTime = 0;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += .1f;
+            yield return new WaitForSeconds(.1f);
+            while (GameSettings.gameState != GameState.InGame)
+            {
+                yield return null;
+            }
+        }
 
         if (shadowShockwavePrefab)
         {
@@ -81,6 +88,10 @@ public class ShadowAttack : MonoBehaviour
     // Updates the shadow's position to follow the player and scales the shadow up gradually over time.
     private void Update()
     {
+        while (GameSettings.gameState != GameState.InGame)
+        {
+            return;
+        }
         if (player == null) return;
 
         // Dynamically calculate the follow speed based on the player's move speed

@@ -23,7 +23,7 @@ public class RadiusAttack : MonoBehaviour
     }
     void Update()
     {
-        
+        if (GameSettings.gameState != GameState.InGame){return;}
 
             if (attackCooldown <= 0)
             {

@@ -65,6 +65,14 @@ public class BossBullet : MonoBehaviour
 
     void Update()
     {
+        if (GameSettings.gameState != GameState.InGame && rb.velocity != Vector2.zero) 
+        {
+            rb.velocity = Vector2.zero;
+        }
+        else if (GameSettings.gameState == GameState.InGame && rb.velocity == Vector2.zero)
+        {
+            rb.velocity = heldVelocity;
+        }
         // Destroys bullet after range
         float distTravelled = Vector3.Distance(startPos, transform.position);
         if (distTravelled > range)
