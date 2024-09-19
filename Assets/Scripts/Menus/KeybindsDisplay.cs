@@ -13,6 +13,8 @@ public class KeybindsDisplay : MonoBehaviour
     private Label shootingKey;
     private Label skillKey;
 
+    private const string CONTROL_TYPE_PREF = "ControlType";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,8 @@ public class KeybindsDisplay : MonoBehaviour
         shootingKey = document.Q<Label>("ShootingKeys");
         skillKey = document.Q<Label>("SkillKeys");
         radioButtonGroup.RegisterCallback<ChangeEvent<int>>(ControlTypeChanged);
+
+        GameSettings.controlType = (controlType)PlayerPrefs.GetInt(CONTROL_TYPE_PREF, 0); //Default is Keyboard. Change the default value for the arcade machine build
 
         if (GameSettings.controlType == controlType.Keyboard)
         {
@@ -56,6 +60,7 @@ public class KeybindsDisplay : MonoBehaviour
             GameSettings.controlType = controlType.Arcade;
             displayArcadeControls();
         }
+        PlayerPrefs.SetInt(CONTROL_TYPE_PREF, (int)GameSettings.controlType);
     }
 
     private void displayKeyboardControls()
