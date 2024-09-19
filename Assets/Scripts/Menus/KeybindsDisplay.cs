@@ -78,7 +78,7 @@ public class KeybindsDisplay : MonoBehaviour
         movementKey.text = "Left Stick";
         aimingKey.text = "Right Stick";
         shootingKey.text = "Right Trigger";
-        skillKey.text = "South Button"; //This sounds weird. How should this be phrased
+        skillKey.text = "Left Trigger";
     }
 
     private void displayArcadeControls()

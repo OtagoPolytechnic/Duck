@@ -369,8 +369,8 @@
                 },
                 {
                     "name": "",
-                    "id": "8f271d83-8324-4230-8eb1-918da214676b",
-                    "path": "<Gamepad>/buttonSouth",
+                    "id": "c136dc5b-64ce-4479-b429-20eed2ea718f",
+                    "path": "<Joystick>/{SecondaryAction}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -380,8 +380,8 @@
                 },
                 {
                     "name": "",
-                    "id": "c136dc5b-64ce-4479-b429-20eed2ea718f",
-                    "path": "<Joystick>/{SecondaryAction}",
+                    "id": "25591ebc-b6c8-4dcb-8831-725186f3eeab",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
