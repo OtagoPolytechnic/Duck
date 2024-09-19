@@ -17,10 +17,11 @@ public class SkillMenu : MonoBehaviour
     private Label skillDesc;
     private Label skillTimers;
     private List<Skill> skillList = new List<Skill>();
+    VisualElement document;
 
     void Awake()
     {
-        VisualElement document = GetComponent<UIDocument>().rootVisualElement;
+        document = GetComponent<UIDocument>().rootVisualElement;
         playButton = document.Q<Button>("PlayGame");
 
         skillLabel = document.Q<Label>("SkillLabel");
@@ -34,6 +35,8 @@ public class SkillMenu : MonoBehaviour
         skill2Button.RegisterCallback<ClickEvent, SkillEnum>(SkillClick, SkillEnum.vanish);
         Button skill3Button = document.Q<Button>("Skill3");
         skill3Button.RegisterCallback<ClickEvent, SkillEnum>(SkillClick, SkillEnum.decoy);
+        Button backButton = document.Q<Button>("Return");
+        backButton.RegisterCallback<ClickEvent>(ReturnToMainMenu);
         Load();
     }
     private void Load()
@@ -75,5 +78,16 @@ public class SkillMenu : MonoBehaviour
         playButton.style.backgroundColor = new StyleColor(new Color(88, 255, 88, 255));
         GameSettings.activeSkill = skillEnum;
         Debug.Log(GameSettings.activeSkill);
+    }
+
+    private void ReturnToMainMenu(ClickEvent click)
+    {
+        GameSettings.activeSkill = SkillEnum.dash;
+        playButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
+        playButton.UnregisterCallback<ClickEvent>(PlayGame);
+        if (document != null)
+        {
+            document.style.display = DisplayStyle.None;
+        }
     }
 }
