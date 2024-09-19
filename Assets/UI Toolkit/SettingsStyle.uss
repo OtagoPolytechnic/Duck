@@ -1,0 +1,22 @@
+.text {
+    -unity-font-definition: initial;
+    -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&guid=f08ae915995c0db4f9feee7e49baaec2&type=3#ARCADE_N");
+    color: rgb(250, 255, 0);
+}
+
+.header {
+    font-size: 130px;
+    padding-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+#unity-radio-button-group__container {
+    font-size: 30px;
+}
+
+.unity-base-field:focus > .unity-base-field__label {
+    color: rgb(250, 255, 0);
+}

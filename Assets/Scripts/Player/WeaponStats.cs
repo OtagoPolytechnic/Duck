@@ -148,26 +148,28 @@ public class WeaponStats : MonoBehaviour
                     WeaponCameraSize = 0;
                     break;
 
-                case WeaponType.Sword: //Placeholder for the sword
-                    //Trying to hack together a basic sword with bullets. VERY WIP
-                    WeaponRange = 5; //5% range
-                    WeaponDamage = 150; //150% damage
-                    WeaponPiercing = true; //Can pierce by default
-                    WeaponPierceAmount = -1; //Pierces all enemies
-                    WeaponBulletSpeed = 200; //Trying to make it instant so the bullets don't appear
+                case WeaponType.Sword:
+                    //Sword Values
+                    WeaponDamage = 150; //200% damage
                     WeaponFireDelay = 50; //50% fire delay
-                    WeaponExtraBullets = 20; //20 extra bullets to make a full arc
-                    WeaponSpread = 100; //Large spread to make a full arc 
+                    WeaponBulletSpeed = 10; //Speed for the sword beam item
 
                     //Other stats set to base values
                     weaponCritChancePercentage = 100; //Possible extra crit chance or damage? Could be too powerful
                     WeaponCritChanceFlat = 0;
                     WeaponCritDamage = 100;
+                    WeaponBleedDamage = 0;
+                    WeaponCameraSize = 0;
+
+                    //These stats are never used by the sword
+                    WeaponPiercing = false;
+                    WeaponPierceAmount = 0;
+                    WeaponExtraBullets = 0;
                     WeaponExplosiveBullets = false;
                     WeaponExplosionSize = 0;
                     WeaponExplosionDamage = 0;
-                    WeaponBleedDamage = 0;
-                    WeaponCameraSize = 0;
+                    WeaponRange = 5;
+                    WeaponSpread = 100;
                     break;
 
                 case WeaponType.RocketLauncher: //Placeholder for the rocket launcher
@@ -383,6 +385,12 @@ public class WeaponStats : MonoBehaviour
     {
         get { return ItemExplosiveBullets || WeaponExplosiveBullets; } //This will return true if either the weapon or an item has explosive bullets
     }
+    private bool selfDamageExplosions = false;
+    public bool SelfDamageExplosions
+    {
+        get {return selfDamageExplosions;}
+        set {selfDamageExplosions = value;}
+    }
 
     //Explosion size
     private int itemExplosionSize = 0;
@@ -397,9 +405,15 @@ public class WeaponStats : MonoBehaviour
         get { return weaponExplosionSize; }
         set { weaponExplosionSize = value; }
     }
+    private int percentageExplosionSize = 100;
+    public int PercentageExplosionSize
+    {
+        get { return percentageExplosionSize; }
+        set { percentageExplosionSize = value; }
+    }
     public int ExplosionSize
     {
-        get { return ItemExplosionSize + WeaponExplosionSize; } //This will return the sum of the item and weapon explosion sizes
+        get { return ((ItemExplosionSize + WeaponExplosionSize) * percentageExplosionSize) / 100; } //This will return the sum of the item and weapon explosion sizes
     }
 
     //Explosion damage
@@ -418,6 +432,24 @@ public class WeaponStats : MonoBehaviour
     public int ExplosionDamage
     {
         get { return (Damage * (ItemExplosionDamage + WeaponExplosionDamage)) / 100; } //This gives explosion damage as a percentage of the weapon's damage equal to the item % and the weapon % added together
+    }
+
+    //Radioactive bombs
+    private bool itemRadioactive = false;
+    public bool ItemRadioactive
+    {
+        get {return itemRadioactive;}
+        set {itemRadioactive = true;}
+    }
+    private int radiationDamage = 0;
+    public int RadiationDamagePercentage
+    {
+        get {return radiationDamage;}
+        set {radiationDamage = value;}
+    }
+    public int RadiationDamage
+    {
+        get {return (Damage * RadiationDamagePercentage) / 100;} //Radiation damage is a % of weapon damage that increases when the item is taken
     }
 
     //Bleed damage
@@ -545,6 +577,18 @@ public class WeaponStats : MonoBehaviour
         get { return BASE_CAMERA_SIZE + weaponCameraSize; }
     }
 
+    private bool hasSwordBeam = false;
+    public bool HasSwordBeam
+    {
+        get {return hasSwordBeam;}
+        set {hasSwordBeam = value;}
+    }
+    private float swordBeamMultiplier = 0.5f; //Damage multiplier for sword beam item
+    public float SwordBeamMultiplier
+    {
+        get {return swordBeamMultiplier;}
+        set {swordBeamMultiplier = value;}
+    }
 
     void Awake()
     {

@@ -57,7 +57,7 @@
         "id": 7,
         "name": "Explosive Bullets",
         "desc": "Your bullets explode on impact\n\nDeal 50% damage to nearby enemies per item stack",
-        "weapons": ["MachineGun", "Sniper", "DualPistol", "Pistol", "Shotgun", "Rocket Launcher"],
+        "weapons": ["MachineGun", "Sniper", "DualPistol", "Pistol", "Shotgun", "RocketLauncher"],
         "rarity": 3,
         "stacks": 0
       },
@@ -77,7 +77,7 @@
       },
       {
         "id": 10,
-        "name": "Supercharger",
+        "name": "Super Charger",
         "desc": "Shoot 30% faster",
         "rarity": 5,
         "stacks": 0
@@ -127,7 +127,7 @@
       {
         "id": 17,
         "name": "Rocket Launcher",
-        "desc": "Shoot explosive rockets (Partially implemented)",
+        "desc": "Shoot explosive rockets",
         "rarity": 4,
         "stacks": 0
       },
@@ -199,24 +199,24 @@
       },
       {
         "id": 27,
-        "name": "Epic",
-        "desc": "Rocket Launcher/Sword epic to fill space (NOT IMPLEMENTED)",
+        "name": "Radiating Bombs",
+        "desc": "Your explosions leave a lingering area that deals 10% weapon damage every second",
         "rarity": 3,
-        "weapons": ["RocketLauncher", "Sword"],
+        "weapons": ["RocketLauncher"],
         "stacks": 0
       },
       {
         "id": 28,
-        "name": "Epic",
-        "desc": "Rocket Launcher/Sword epic to fill space (NOT IMPLEMENTED)",
+        "name": "MOAB",
+        "desc": "Your explosions double in size, but they also do half damage to you",
         "rarity": 3,
-        "weapons": ["RocketLauncher", "Sword"],
+        "weapons": ["RocketLauncher"],
         "stacks": 0
       },
       {
         "id": 29,
-        "name": "Epic",
-        "desc": "Sword epic to fill space (NOT IMPLEMENTED)",
+        "name": "Sword of the Master",
+        "desc": "Fire a sword projectile forward if you attack with full health\n\nProjectile does 50% damage",
         "rarity": 3,
         "weapons": ["Sword"],
         "stacks": 0
@@ -255,6 +255,22 @@
         "name": "Hollow-point bullets",
         "desc": "Increase damage by 30 \n (before weapon scaling)",
         "rarity": 5,
+        "stacks": 0
+      },
+      {
+        "id": 35,
+        "name": "Epic",
+        "desc": "Sword epic to fill space (NOT IMPLEMENTED)",
+        "rarity": 3,
+        "weapons": ["Sword"],
+        "stacks": 0
+      },
+      {
+        "id": 36,
+        "name": "Epic",
+        "desc": "Sword epic to fill space (NOT IMPLEMENTED)",
+        "rarity": 3,
+        "weapons": ["Sword"],
         "stacks": 0
       }
     ]

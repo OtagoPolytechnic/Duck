@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/HighscoreStyle.uss?fileID=7433441132597879392&amp;guid=ea3e33529cbeebc40bf06b5e8e1fedf8&amp;type=3#HighscoreStyle" />
-    <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgb(0, 0, 0); visibility: visible; display: flex; overflow: visible; align-items: center; justify-content: flex-end;">
+    <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgb(80, 80, 80); visibility: visible; display: flex; overflow: visible; align-items: center; justify-content: space-around;">
         <ui:VisualElement name="Selection" style="flex-grow: 0; flex-direction: row; flex-shrink: 0;">
             <ui:Button text="Boss" display-tooltip-when-elided="true" name="Boss" class="text buttonText button" style="overflow: hidden; height: 100px; background-color: rgb(80, 231, 167);" />
             <ui:Button text="Endless" display-tooltip-when-elided="true" name="Endless" class="text buttonText button" style="overflow: hidden; height: 100px; background-color: rgb(172, 135, 201);" />
@@ -16,7 +16,7 @@
             </ui:MultiColumnListView>
             <ui:VisualElement style="flex-grow: 1; width: 75%; justify-content: flex-start; margin-left: 5px; margin-top: 0; margin-right: 5px;">
                 <ui:Label tabindex="-1" text="SCORE INFO" parse-escape-sequences="true" display-tooltip-when-elided="true" class="text" style="font-size: 25px; background-color: rgb(188, 188, 188); -unity-text-align: upper-center; margin-top: 2px; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 8px; padding-bottom: 8px; border-left-color: rgba(188, 188, 188, 0); border-right-color: rgba(188, 188, 188, 0); border-top-color: rgba(188, 188, 188, 0); border-bottom-color: rgba(188, 188, 188, 0); border-top-width: 0;" />
-                <ui:ListView show-alternating-row-backgrounds="ContentOnly" name="MoreInfoList" virtualization-method="FixedHeight" fixed-item-height="100" class="text" style="width: 100%; background-color: rgb(97, 97, 97); font-size: 40px; align-items: flex-start; justify-content: space-between; -unity-text-align: middle-left; margin-left: 0; padding-left: 10px;" />
+                <ui:ListView show-alternating-row-backgrounds="ContentOnly" name="MoreInfoList" virtualization-method="FixedHeight" fixed-item-height="100" class="text" style="width: 100%; background-color: rgb(132, 132, 132); font-size: 40px; align-items: flex-start; justify-content: space-between; -unity-text-align: middle-left; margin-left: 0; padding-left: 10px;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:Button text="Return" display-tooltip-when-elided="true" name="MainMenu" class="text buttonText button" style="overflow: hidden;" />

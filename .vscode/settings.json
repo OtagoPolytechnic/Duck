@@ -56,5 +56,11 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Duck.sln"
+    "dotnet.defaultSolution": "Duck.sln",
+    "cSpell.words": [
+        "Behaviour",
+        "cooldown",
+        "Cooldowns",
+        "Rigidbody"
+    ]
 }

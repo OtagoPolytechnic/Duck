@@ -2,111 +2,118 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class SFXManager : MonoBehaviour
 {
     public static SFXManager Instance;
 
-    public Transform Camera;
-    public AudioClip DuckShooting;
-    public AudioClip EnemyShoot;
-    public AudioClip Bite;
-    public AudioClip DuckHit;
-    public AudioClip EnemyDie;
-    public AudioClip GameOver;
-    public AudioClip TitleScreen;
-    public AudioClip WaveMusic;
-    private AudioSource audioSource;
- 
+    private AudioMixer audioMixer;
 
-    private void Awake()
+    private Dictionary<string, AudioClip> soundClips;
+    private AudioSource sfxAudioSource;
+    private AudioSource musicAudioSource;
+    
+    private const string AUDIO_PATH = "Audio/";
+
+    void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            //Debug.Log("SFXManager instance set and will not be destroyed on load.");
         }
         else
         {
             Destroy(gameObject);
-            return;
         }
+        audioMixer = Resources.Load<AudioMixer>("Audio/AudioMixer");
+        AudioMixerGroup musicGroup = FindAudioMixerGroup("Music");
+        AudioMixerGroup sfxGroup = FindAudioMixerGroup("SFX");
 
-        audioSource = GetComponent<AudioSource>();
-
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
-    }
-
-    public void DuckShootSound(float volume = 0.5f)
-    {
-        audioSource.volume = volume;
-        audioSource.PlayOneShot(DuckShooting);
-    }
-    public void EnemyShootSound(float volume = 5.0f)
-    {
-        audioSource.volume = volume;
-        audioSource.PlayOneShot(EnemyShoot);
-    }
-    public void EnemyBiteSound(float volume = 0.2f)
-    {
-        audioSource.volume = volume;
-        audioSource.PlayOneShot(Bite);
-    }
-    public void DuckHitSound(float volume = 0.5f)
-    {
-        audioSource.volume = volume;
-        audioSource.PlayOneShot(DuckHit);
-    }
-    public void EnemyDieSound(float volume = 1.5f)
-    {
-        audioSource.volume = volume;
-        audioSource.PlayOneShot(EnemyDie);
+        sfxAudioSource = gameObject.AddComponent<AudioSource>();
+        sfxAudioSource.outputAudioMixerGroup = sfxGroup;
+        musicAudioSource = gameObject.AddComponent<AudioSource>();
+        musicAudioSource.outputAudioMixerGroup = musicGroup;
+        musicAudioSource.loop = true;
+        //Load AudioClips from Resources
+        LoadAudioClips();
     }
 
-    public void GameOverSound(float volume = 0.5f)
-    {
-        audioSource.volume = volume;
-        audioSource.PlayOneShot(GameOver);
-    }
-
-    public void PlayBackgroundMusic(AudioClip clip, float volume = 0.15f)
-    {
-        // Check if the music is already playing and if it's the same clip
-        if (audioSource.clip == clip && audioSource.isPlaying)
-        {
-            return; // Do nothing if the same music is already playing
-        }
-
-        audioSource.volume = volume;
-        audioSource.clip = clip;
-        audioSource.loop = true;
-        audioSource.Play();
-    }
-
-    private void OnEnable()
+    void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void OnDisable()
+    private void LoadAudioClips()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        //To add a new sound effect, add the AudioClip to the Resources/Audio folder, then add a new entry to the dictionary below
+        soundClips = new Dictionary<string, AudioClip>
+        {
+            { "DuckShooting", Resources.Load<AudioClip>(AUDIO_PATH + "DuckShooting") },
+            { "EnemyShoot", Resources.Load<AudioClip>(AUDIO_PATH + "EnemyShoot") },
+            { "Bite", Resources.Load<AudioClip>(AUDIO_PATH + "Bite") },
+            { "DuckHit", Resources.Load<AudioClip>(AUDIO_PATH + "DuckHit") },
+            { "EnemyDie", Resources.Load<AudioClip>(AUDIO_PATH + "EnemyDie") },
+            { "GameOver", Resources.Load<AudioClip>(AUDIO_PATH + "GameOver") },
+            { "TitleMusic", Resources.Load<AudioClip>(AUDIO_PATH + "TitleMusic") },
+            { "WaveMusic", Resources.Load<AudioClip>(AUDIO_PATH + "WaveMusic") }
+        };
+    }
+
+    private AudioMixerGroup FindAudioMixerGroup(string groupName)
+    {
+        AudioMixerGroup[] groups = audioMixer.FindMatchingGroups(groupName);
+        if (groups.Length > 0)
+        {
+            return groups[0]; // Return the first matching group
+        }
+        else
+        {
+            Debug.LogError($"AudioMixerGroup '{groupName}' not found!");
+            return null;
+        }
+    }
+
+    public void PlaySFX(string name)
+    {
+        if (soundClips.TryGetValue(name, out AudioClip clip))
+        {
+            sfxAudioSource.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.LogError($"Clip '{name}' not found in dictionary!");
+        }
+    }
+
+    public void PlayBackgroundMusic(string name)
+    {
+        if (soundClips.TryGetValue(name, out AudioClip clip))
+        {
+            // Check if the music is already playing and if it's the same clip
+            if (musicAudioSource.clip == clip && musicAudioSource.isPlaying)
+            {
+                return; // Do nothing if the same music is already playing
+            }
+            musicAudioSource.clip = clip;
+            musicAudioSource.Play();
+        }
+        else
+        {
+            Debug.LogError($"Clip '{name}' not found in dictionary!");
+        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "TitleScreen")
+        if (scene.name == "Titlescreen")
         {
-            PlayBackgroundMusic(TitleScreen);
+            PlayBackgroundMusic("TitleMusic");
         }
         else if (scene.name == "MainScene")
         {
-            audioSource.loop = false;
-            audioSource.Stop();
+            PlayBackgroundMusic("WaveMusic");
         }
     }
 }

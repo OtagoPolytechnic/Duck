@@ -13,6 +13,9 @@ TagManager:
   - EnemyRanged
   - EnemyMelee
   - Explosion
+  - Decoy
+  - BossPointer
+  - Target
   layers:
   - Default
   - TransparentFX
@@ -25,7 +28,7 @@ TagManager:
   - PlayerBullet
   - EnemyBullet
   - MapBorder
-  - 
+  - Shadow
   - 
   - 
   - 

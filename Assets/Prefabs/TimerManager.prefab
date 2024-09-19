@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709565837640871389}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.4965191, y: 1.0789946, z: 295.1748}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &709565837640871388
 MonoBehaviour:
@@ -44,16 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e535d8ac783e02b438cad2412fc9e9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryUI: {fileID: 0}
-  inventorySize: 3
-  waveNumberText: {fileID: 0}
-  timerText: {fileID: 0}
+  itemPanel: {fileID: 0}
+  HUD: {fileID: 0}
+  bossSpawner: {fileID: 0}
+  targetIndicator: {fileID: 0}
   waveLength: 30
   currentTime: 30
   waveNumber: 1
-  running: 1
-  inventoryItems:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  itemObjects: []

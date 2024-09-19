@@ -21,8 +21,16 @@ public class EnemyBullet : MonoBehaviour
     {
         startPos = transform.position;
         rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        if (SkillEffects.Instance.decoyActive)
+        {
+            player = GameObject.FindGameObjectWithTag("Decoy");
 
+        }
+        else if (!SkillEffects.Instance.decoyActive)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+
+        }
         Vector3 direction = player.transform.position - transform.position;
         rb.velocity = new Vector2(direction.x, direction.y).normalized * bulletSpeed;
         heldVelocity = rb.velocity;
@@ -50,12 +58,12 @@ public class EnemyBullet : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         //destroys bullet on hit with player and lowers health
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") )
         {
-            player.GetComponent<PlayerStats>().ReceiveDamage(damage);
+            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(damage);
             Destroy(gameObject);
         }
-        else if (other.gameObject.CompareTag("Edges"))
+        else if (other.gameObject.CompareTag("Edges") || other.gameObject.CompareTag("Decoy"))
         {
             Destroy(gameObject);
         }

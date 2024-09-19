@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyMelee : EnemyBase
 {
     public GameObject player;
+    private bool stopCheck;
     private float distance;
     private bool attacking = false;
     [SerializeField] private float attackRange;
@@ -29,12 +30,23 @@ public class EnemyMelee : EnemyBase
         }
         Bleed();
 
+        if (SkillEffects.Instance.decoyActive && !stopCheck)
+        {
+            player = GameObject.FindWithTag("Decoy");
+            stopCheck = true;
+        }
+        else if (!SkillEffects.Instance.decoyActive && stopCheck)
+        {
+            player = GameObject.FindWithTag("Player");
+            stopCheck = false;
+        }
         if (!attacking) //This enemy type stops moving to attack
         {
             Move();
             distance = Vector2.Distance(transform.position, player.transform.position);
             if (distance <= attackRange)
             {
+                if (SkillEffects.Instance.vanishActive) { return; }
                 StartCoroutine(Attack());
             }
         }
@@ -48,7 +60,7 @@ public class EnemyMelee : EnemyBase
                                                              // Play the enemy bite sound
         if (SFXManager.Instance != null)
         {
-            SFXManager.Instance.EnemyBiteSound();
+            SFXManager.Instance.PlaySFX("Bite");
         }
         else
         {
@@ -64,6 +76,8 @@ public class EnemyMelee : EnemyBase
 
     public override void Move()
     {
+        if (SkillEffects.Instance.vanishActive) { return; }
+
         Vector2 direction = player.transform.position - transform.position;
 
         //turns enemy towards player
@@ -76,7 +90,7 @@ public class EnemyMelee : EnemyBase
     }
     public override void Die()
     {
-        SFXManager.Instance.EnemyDieSound();
+        SFXManager.Instance.PlaySFX("EnemyDie");
         ScoreManager.Instance.IncreasePoints(Points);
         EnemySpawner.Instance.currentEnemies.Remove(gameObject);
         Destroy(gameObject);

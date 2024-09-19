@@ -29,7 +29,7 @@ public class EnemyHealth : MonoBehaviour
 
         if (health <= 0)
         {
-            SFXManager.Instance.EnemyDieSound();
+            SFXManager.Instance.PlaySFX("EnemyDie");
             ScoreManager.Instance.IncreasePoints(points);
             EnemySpawner.Instance.currentEnemies.Remove(gameObject);
             Destroy(gameObject);

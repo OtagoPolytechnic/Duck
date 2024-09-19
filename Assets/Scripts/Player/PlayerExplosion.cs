@@ -24,6 +24,7 @@ public class PlayerExplosion : MonoBehaviour
     {
         set { crit = value; }
     }
+    [SerializeField] private GameObject radiation;
     void Start()
     {
         StartCoroutine(DestroyExplosion());
@@ -31,6 +32,11 @@ public class PlayerExplosion : MonoBehaviour
     private IEnumerator DestroyExplosion()
     {
         yield return new WaitForSeconds(0.25f);
+        if (WeaponStats.Instance.ItemRadioactive)
+        {
+            GameObject radiationInstance = Instantiate(radiation, transform.position, transform.rotation);
+            radiationInstance.transform.localScale = gameObject.transform.localScale * 1.5f; //Radiation size = explosion size
+        }
         Destroy(gameObject);
     }
 
@@ -39,7 +45,6 @@ public class PlayerExplosion : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             //Debug explosion target and damage
-            Debug.Log($"Explosion hit {other.gameObject.name} for {explosionDamage} damage");
             if (other.gameObject.GetComponent<EnemyBase>())
             {
                 other.gameObject.GetComponent<EnemyBase>().ReceiveDamage(explosionDamage, crit);
@@ -48,6 +53,10 @@ public class PlayerExplosion : MonoBehaviour
             {
                 other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(explosionDamage, crit);
             }
+        }
+        if (WeaponStats.Instance.SelfDamageExplosions && other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(explosionDamage/2);
         }
     }
 }

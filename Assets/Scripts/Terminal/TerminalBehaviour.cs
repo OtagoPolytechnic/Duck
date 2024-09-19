@@ -100,6 +100,9 @@ public class TerminalBehaviour : MonoBehaviour
                 case "spawn":
                     Spawn(commands[1], commands[2]);
                 break;
+                case "setskill":
+                    SetSkill(commands[1]);
+                    break;
                 default:
                     output.text += "\nNot a valid command, type \"help\" to see all available commands\n\n";
                 break;
@@ -124,7 +127,8 @@ public class TerminalBehaviour : MonoBehaviour
             "god                       \t| gives the player god mode.\n\n" +
             "spawn {enemyId} {count}   \t| spawns an enemy with the id given and the amount given\n\n" +
             "cull                      \t| will cull all current enemies and bullets on screen\n\n" +
-            "togglespawn {value}       \t| will toggle enemies or bosses from spawning.\n\n";
+            "togglespawn {value}       \t| will toggle enemies or bosses from spawning.\n\n" +
+            "setskill {skill}          \t| will set the players active skill to the skill given\n\n";
         }
         else
         {
@@ -156,6 +160,9 @@ public class TerminalBehaviour : MonoBehaviour
                 break;
                 case "spawn":
                     output.text += "\nspawn {enemyID:int} {count:int}\n\nSpawns the amount of enemies specified in count, and the type of enemy in enemyID. Accepted values: 1 - " + EnemySpawner.Instance.allEnemies.Count +"\n\n";
+                break;
+                case "setskill":
+                    output.text += "\nsetskill {skill:string}\n\nSets the players active skill to the skill given. Will fail if the skill given does not match a skill in the list.\n\nAccepted values:\ndash, \nvanish, \ndecoy\n\n";
                 break;
                 default:
                     output.text += "\nNot a valid command, type \"help\" to see all available commands\n\n";
@@ -197,7 +204,7 @@ public class TerminalBehaviour : MonoBehaviour
         output.text += $"Weapon set to {WeaponStats.Instance.CurrentWeapon}\n\n";
     }
 
-    private void GiveItem(string itemId, string itemAmount)
+    private void GiveItem(string itemId, string itemAmount = 1)
     {
         if (!int.TryParse(itemId, out int id) || id < 0)
         {
@@ -235,35 +242,31 @@ public class TerminalBehaviour : MonoBehaviour
         {
             case "damage":
                 WeaponStats.Instance.FlatDamage = value;
-                output.text += $"\nAdded {value} amount of damage to the player\n\n";                
             break;
             case "maxhealth":
                 PlayerStats.Instance.FlatBonusHealth = value;
-                output.text += $"\nAdded {value} amount of max health to the player\n\n";
             break;
             case "crit":
                 WeaponStats.Instance.FlatCritChance = value;
-                output.text += $"\nAdded {value} amount of crit chance to the player\n\n";
             break;
             case "firedelay":
                 WeaponStats.Instance.FlatFireDelay = value; 
-                output.text += $"\nAdded {value} amount of fire speed to the player\n\n";               
             break;
             case "movespeed":
                 TopDownMovement.Instance.FlatBonusSpeed = value; 
-                output.text += $"\nAdded {value} amount of move speed to the player\n\n";               
             break;
             case "critdamage":
                 WeaponStats.Instance.FlatCritDamage = value; 
-                output.text += $"\nAdded {value} amount of fire speed to the player\n\n";               
             break;
             default:
                 output.text += "\nStat given is not a valid enterable stat\n\n";
+                return;
             break;
         }
+        output.text += $"\nSet {stat} to {value}\n\n";             
 
     }
-    private void Spawn(string enemy, string count)
+    private void Spawn(string enemy, string count = 1)
     {
         if (!int.TryParse(enemy, out int enemyId) || enemyId < 0 || enemyId > EnemySpawner.Instance.allEnemies.Count)
         {
@@ -332,12 +335,18 @@ public class TerminalBehaviour : MonoBehaviour
         switch (choice)
         {
             case "enemy":
+            {
                 stopEnemy = !stopEnemy;
-                output.text += $"\nEnemy spawning is now {stopEnemy}\n\n";
+                string stopCondition = stopEnemy ? "stopped" : "resumed";
+                output.text += $"\nEnemy spawning is now {stopCondition}\n\n";
+            }
             break;
             case "boss":
+            {
                 stopBoss = !stopBoss;
-                output.text += $"\nBoss spawning is now {stopBoss}\n\n";
+                string stopCondition = stopEnemy ? "stopped" : "resumed";
+                output.text += $"\nBoss spawning is now {stopCondition}\n\n";
+            }
             break;
             default:
                 output.text += "\nChoice not a valid value\n\n";
@@ -349,5 +358,25 @@ public class TerminalBehaviour : MonoBehaviour
     {
         Timer.Instance.currentTime = 0.1f;
         output.text += "\nWave Skipped!\n\n";
+    }
+
+    private void SetSkill(string skill)
+    {
+        switch (skill)
+        {
+            case "dash":
+                GameSettings.activeSkill = SkillEnum.dash;
+            break;
+            case "vanish":
+                GameSettings.activeSkill = SkillEnum.vanish;
+            break;
+            case "decoy":
+                GameSettings.activeSkill = SkillEnum.decoy;
+            break;
+            default:
+                output.text += "\nSkill given is not a skill\n\n";
+            break;
+        }
+        output.text += $"Skill set to {GameSettings.activeSkill}\n\n";
     }
 }

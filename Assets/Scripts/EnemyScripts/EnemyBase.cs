@@ -10,6 +10,7 @@ public abstract class EnemyBase : MonoBehaviour
     public const float BLEED_INTERVAL = 1f;
     public GameObject damageText;
     public GameObject critText;
+    private int maxHealth;
     [SerializeField] private int baseHealth;
     public int BaseHealth
     {
@@ -50,7 +51,7 @@ public abstract class EnemyBase : MonoBehaviour
         if (bleedTick <= 0)
         {
             bleedTick = BLEED_INTERVAL;
-            ReceiveDamage(Math.Max((Health * WeaponStats.Instance.BleedDamage) / 100, 1), false);
+            ReceiveDamage(Math.Max((maxHealth * WeaponStats.Instance.BleedDamage) / 100, 1), false);
         }
     }
     public void ReceiveDamage(int damageTaken, bool critTrue)
@@ -76,10 +77,17 @@ public abstract class EnemyBase : MonoBehaviour
         
     }
     public abstract void Move();
-    public abstract void Die();
+    public virtual void Die()
+    {
+        SFXManager.Instance.PlaySFX("EnemyDie");
+        ScoreManager.Instance.IncreasePoints(Points);
+        EnemySpawner.Instance.currentEnemies.Remove(gameObject);
+        Destroy(gameObject);
+    }
     public void ScaleStats()
     {
         baseHealth = (int)Math.Round(BaseHealth * endlessScalar);
+        maxHealth = baseHealth;
         damage = (int)Math.Round(Damage * endlessScalar);
         points = (int)Math.Round(Points * endlessScalar);
     }

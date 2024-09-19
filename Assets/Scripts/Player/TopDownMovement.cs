@@ -26,7 +26,7 @@ public class TopDownMovement : MonoBehaviour
     }
 
     public Rigidbody2D hitBox;
-    private Vector2 moveInput;
+    public Vector2 moveInput;
 
     private MapManager mapManager;
 
