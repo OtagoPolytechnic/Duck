@@ -55,7 +55,11 @@ public class SettingsMenu : MonoBehaviour
         PopulateResolutions();
 
         audioMixer = Resources.Load<AudioMixer>("Audio/AudioMixer");
-        SFXManager.Instance.PlayBackgroundMusic("TitleMusic");
+        //Check scene and play appropriate music
+        if (SceneManager.GetActiveScene().name == "Titlescreen")
+        {
+            SFXManager.Instance.PlayBackgroundMusic("TitleMusic");
+        }
     }
     private void Return(ClickEvent click)
     {

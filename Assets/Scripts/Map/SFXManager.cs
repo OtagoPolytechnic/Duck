@@ -22,12 +22,10 @@ public class SFXManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            //Debug.Log("SFXManager instance set and will not be destroyed on load.");
         }
         else
         {
             Destroy(gameObject);
-            return;
         }
         audioMixer = Resources.Load<AudioMixer>("Audio/AudioMixer");
         AudioMixerGroup musicGroup = FindAudioMixerGroup("Music");
@@ -38,7 +36,7 @@ public class SFXManager : MonoBehaviour
         musicAudioSource = gameObject.AddComponent<AudioSource>();
         musicAudioSource.outputAudioMixerGroup = musicGroup;
         musicAudioSource.loop = true;
-        // Load AudioClips from Resources
+        //Load AudioClips from Resources
         LoadAudioClips();
     }
 
@@ -109,7 +107,7 @@ public class SFXManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "TitleScreen")
+        if (scene.name == "Titlescreen")
         {
             PlayBackgroundMusic("TitleMusic");
         }
