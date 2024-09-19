@@ -204,7 +204,7 @@ public class TerminalBehaviour : MonoBehaviour
         output.text += $"Weapon set to {WeaponStats.Instance.CurrentWeapon}\n\n";
     }
 
-    private void GiveItem(string itemId, string itemAmount = 1)
+    private void GiveItem(string itemId, string itemAmount = "1")
     {
         if (!int.TryParse(itemId, out int id) || id < 0)
         {
@@ -266,7 +266,7 @@ public class TerminalBehaviour : MonoBehaviour
         output.text += $"\nSet {stat} to {value}\n\n";             
 
     }
-    private void Spawn(string enemy, string count = 1)
+    private void Spawn(string enemy, string count = "1")
     {
         if (!int.TryParse(enemy, out int enemyId) || enemyId < 0 || enemyId > EnemySpawner.Instance.allEnemies.Count)
         {
