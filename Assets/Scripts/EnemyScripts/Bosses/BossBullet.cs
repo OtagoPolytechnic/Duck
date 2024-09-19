@@ -9,6 +9,7 @@ public class BossBullet : MonoBehaviour
     public float bulletSpeed;
     private float range;
     private Vector3 startPos;
+    private Vector2 heldVelocity;
 
     // Variable to hold the bullet damage
     private int bulletDamage;
