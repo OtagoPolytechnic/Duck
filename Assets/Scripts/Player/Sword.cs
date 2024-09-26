@@ -29,5 +29,9 @@ public class Sword : MonoBehaviour
                 other.gameObject.GetComponent<EnemyBase>().ReceiveDamage(WeaponStats.Instance.Damage, false);
             }
         }
+        else if (WeaponStats.Instance.HasReflector && other.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(other.gameObject);
+        }
     }
 }

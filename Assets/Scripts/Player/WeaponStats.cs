@@ -590,6 +590,12 @@ public class WeaponStats : MonoBehaviour
         set {swordBeamMultiplier = value;}
     }
 
+    private bool hasReflector;
+    public bool HasReflector
+    {
+        get {return hasReflector;}
+        set {hasReflector = value;}
+    }
     void Awake()
     {
         if (Instance != null)

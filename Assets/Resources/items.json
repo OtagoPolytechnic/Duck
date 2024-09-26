@@ -259,8 +259,8 @@
       },
       {
         "id": 35,
-        "name": "Epic",
-        "desc": "Sword epic to fill space (NOT IMPLEMENTED)",
+        "name": "Deflector",
+        "desc": "Allows your sword to deflect enemy bullets",
         "rarity": 3,
         "weapons": ["Sword"],
         "stacks": 0
