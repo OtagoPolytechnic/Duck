@@ -15,6 +15,7 @@ public class EnemyBullet : MonoBehaviour
     public int Damage
     {
         set {damage = value;}
+        get {return damage;}
     }
     
     void Start()

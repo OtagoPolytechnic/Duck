@@ -1423,6 +1423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec7be84310b29746bc088ad103070a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reflectedBullet: {fileID: 5418265743146168994, guid: 252e4ffae3f1f214b818c716c14ec9b0, type: 3}
 --- !u!1 &8239369925319004889
 GameObject:
   m_ObjectHideFlags: 0
