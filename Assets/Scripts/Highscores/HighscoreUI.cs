@@ -8,18 +8,12 @@ using System;
 
 public class HighscoreUI : MonoBehaviour
 {
-    private enum HighscoreType //This is so I can keep track of which highscores are being displayed and not rewrite the same data
-    {
-        Boss,
-        Endless,
-        None
-    }
     private VisualElement document;
     private MultiColumnListView highscores;
     public static HighscoreUI Instance; //Singleton pattern
     private Button bossButton;
     private Button endlessButton;
-    private HighscoreType displayedHighscores = HighscoreType.None;
+    private GameMode displayedHighscores = GameMode.Boss;
     private ListView moreInfoList;
 
     void Awake()
@@ -63,11 +57,11 @@ public class HighscoreUI : MonoBehaviour
 
     public void DisplayEndlessHighscores(ClickEvent click = null) //Nullable so I can call it manually as well
     {
-        if (displayedHighscores == HighscoreType.Endless) //If the endless data is already displayed then don't display it again
+        if (displayedHighscores == GameMode.Endless) //If the endless data is already displayed then don't display it again
         {
             return;
         }
-        displayedHighscores = HighscoreType.Endless;
+        displayedHighscores = GameMode.Endless;
         DisplayHighscores(Scoreboard.Instance.endlessSavedScores.highscores);
         //Clear selected items
         highscores.ClearSelection();
@@ -76,11 +70,11 @@ public class HighscoreUI : MonoBehaviour
 
     public void DisplayBossHighscores(ClickEvent click = null) //Nullable so I can call it manually as well
     {
-        if (displayedHighscores == HighscoreType.Boss) //If the boss data is already displayed then don't display it again
+        if (displayedHighscores == GameMode.Boss) //If the boss data is already displayed then don't display it again
         {
             return;
         }
-        displayedHighscores = HighscoreType.Boss;
+        displayedHighscores = GameMode.Boss;
         highscores.ClearSelection();
         clearMoreInfoList();
         DisplayHighscores(Scoreboard.Instance.bossSavedScores.highscores);

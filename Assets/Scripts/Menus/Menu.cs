@@ -40,6 +40,7 @@ public class Menu : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 60;
+        StartCoroutine(LoadBackgroundScene("ModeSelect", playButton));
         StartCoroutine(LoadBackgroundScene("SkillMenu", playButton));
         StartCoroutine(LoadBackgroundScene("Highscores", highscoreButton));
         StartCoroutine(LoadBackgroundScene("Settings", settingsButton));
