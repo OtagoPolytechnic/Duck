@@ -1,4 +1,3 @@
-using Codice.CM.Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +11,9 @@ public class RiotBossBehaviour : EnemyBase
     [SerializeField] private Transform bulletPosition;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackInterval;
-
+    [SerializeField] private GameObject napalmBombPrefab;
+    [SerializeField] private float minNapalmInterval;
+    [SerializeField] private float maxNapalmInterval;
 
     private float attackCooldown;
 
@@ -21,12 +22,13 @@ public class RiotBossBehaviour : EnemyBase
         mapManager = FindObjectOfType<MapManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         attackCooldown = 0;
+        StartCoroutine(SpawnNapalmBomb());
     }
+
     void Update()
     {
         if (Health <= 0)
         {
-
             Die();
         }
         if (GameSettings.gameState != GameState.InGame) { return; }
@@ -70,9 +72,9 @@ public class RiotBossBehaviour : EnemyBase
             }
         }
 
-
         Bleed();
     }
+
     public override void Move()
     {
         if (SkillEffects.Instance.vanishActive) { return; }
@@ -82,10 +84,19 @@ public class RiotBossBehaviour : EnemyBase
 
     void Shoot()
     {
-        // Normal boss shooting
         GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
-        newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, false); // Pass false for shotgun
+        newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, false);
         SFXManager.Instance.PlaySFX("EnemyShoot");
         attackCooldown = attackInterval;
+    }
+
+    private IEnumerator SpawnNapalmBomb()
+    {
+        while (true)
+        {
+            float randomInterval = Random.Range(minNapalmInterval, maxNapalmInterval);
+            yield return new WaitForSeconds(randomInterval);
+            GameObject napalmBomb = Instantiate(napalmBombPrefab, bulletPosition.position, bulletPosition.rotation);
+        }
     }
 }
