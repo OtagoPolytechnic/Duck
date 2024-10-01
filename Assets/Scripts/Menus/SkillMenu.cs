@@ -7,6 +7,7 @@ using System.Linq;
 
 public enum SkillEnum
 {
+    none, //Need to add a none for highscore importing
     dash,
     vanish,
     decoy

@@ -41,7 +41,7 @@ public class Menu : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         StartCoroutine(LoadBackgroundScene("ModeSelect", playButton));
-        StartCoroutine(LoadBackgroundScene("SkillMenu")); //Null button as you can't open this sceen from the main menu
+        StartCoroutine(LoadBackgroundScene("SkillMenu")); //Null button as you can't open this screen from the main menu
         StartCoroutine(LoadBackgroundScene("Highscores", highscoreButton));
         StartCoroutine(LoadBackgroundScene("Settings", settingsButton));
         StartCoroutine(LoadBackgroundScene("Credits", creditsButton));

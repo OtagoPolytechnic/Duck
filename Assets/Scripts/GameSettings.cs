@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public enum GameState
 {
@@ -18,8 +19,10 @@ public enum controlType
     Arcade
 }
 
+[Serializable]
 public enum GameMode //There is an endless and a boss gamemode
 {
+    None,
     Boss,
     Endless
 }
