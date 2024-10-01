@@ -256,6 +256,25 @@ public class ItemPanel : MonoBehaviour
         item.stacks++;
     }
 
+    //Removes the weapon from the list of items
+    public List<Item> HighscoreItems()
+    {
+        //New list to store the items
+        List<Item> highscoreItems = new List<Item>();
+        //For each item in the held items list, add it to the highscore items list
+        foreach (Item i in heldItems)
+        {
+            //If not the weapon
+            if (i.rarity != rarity.Weapon)
+            {
+                highscoreItems.Add(i);
+            }
+        }
+        //Sort the list by rarity
+        highscoreItems.Sort((x, y) => x.rarity.CompareTo(y.rarity));
+        return highscoreItems;
+    }
+
     private void RegisterItem1Click(ClickEvent click)
     {
         itemController.ItemPicked(selectedItems[0].id); //activate the item selected's code

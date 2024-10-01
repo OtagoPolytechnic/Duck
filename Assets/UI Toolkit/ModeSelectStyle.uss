@@ -1,0 +1,44 @@
+.text {
+    -unity-font-definition: initial;
+    -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&guid=f08ae915995c0db4f9feee7e49baaec2&type=3#ARCADE_N");
+    color: rgb(255, 255, 255);
+}
+
+.buttonText {
+    -unity-font-definition: initial;
+    -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&guid=f08ae915995c0db4f9feee7e49baaec2&type=3#ARCADE_N");
+    font-size: 28px;
+}
+
+.skill {
+    border-top-width: 145px;
+    border-right-width: 80px;
+    border-bottom-width: 145px;
+    border-left-width: 80px;
+    border-top-left-radius: 700px;
+    border-top-right-radius: 700px;
+    border-bottom-right-radius: 700px;
+    border-bottom-left-radius: 700px;
+    border-left-color: rgba(188, 188, 188, 0);
+    border-right-color: rgba(188, 188, 188, 0);
+    border-top-color: rgba(188, 188, 188, 0);
+    border-bottom-color: rgba(188, 188, 188, 0);
+    background-image: url("project://database/Assets/Sprites/Player/BulletPlayer.png?fileID=2800000&guid=05b388285607b5f4b8c97e5eaa61bfca&type=3#BulletPlayer");
+    max-width: 400px;
+    max-height: 400px;
+    margin-right: 50px;
+    margin-left: 50px;
+    min-width: 400px;
+    min-height: 400px;
+}
+
+.button:focus {
+    border-left-color: rgb(0, 255, 3);
+    border-right-color: rgb(0, 255, 3);
+    border-top-color: rgb(0, 255, 3);
+    border-bottom-color: rgb(0, 255, 3);
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+}

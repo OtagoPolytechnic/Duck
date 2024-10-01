@@ -8,19 +8,15 @@ using System;
 
 public class HighscoreUI : MonoBehaviour
 {
-    private enum HighscoreType //This is so I can keep track of which highscores are being displayed and not rewrite the same data
-    {
-        Boss,
-        Endless,
-        None
-    }
     private VisualElement document;
     private MultiColumnListView highscores;
     public static HighscoreUI Instance; //Singleton pattern
     private Button bossButton;
     private Button endlessButton;
-    private HighscoreType displayedHighscores = HighscoreType.None;
+    private GameMode displayedHighscores = GameMode.None;
     private ListView moreInfoList;
+    private Color bossColour;
+    private Color endlessColour;
 
     void Awake()
     {
@@ -36,6 +32,8 @@ public class HighscoreUI : MonoBehaviour
         Button menuButton = document.Q<Button>("MainMenu");
         bossButton = document.Q<Button>("Boss");
         endlessButton = document.Q<Button>("Endless");
+        bossColour = bossButton.resolvedStyle.backgroundColor;
+        endlessColour = endlessButton.resolvedStyle.backgroundColor;
         menuButton.RegisterCallback<ClickEvent>(Menu);
         bossButton.RegisterCallback<ClickEvent>(DisplayBossHighscores);
         endlessButton.RegisterCallback<ClickEvent>(DisplayEndlessHighscores);
@@ -63,28 +61,32 @@ public class HighscoreUI : MonoBehaviour
 
     public void DisplayEndlessHighscores(ClickEvent click = null) //Nullable so I can call it manually as well
     {
-        if (displayedHighscores == HighscoreType.Endless) //If the endless data is already displayed then don't display it again
-        {
-            return;
-        }
-        displayedHighscores = HighscoreType.Endless;
-        DisplayHighscores(Scoreboard.Instance.endlessSavedScores.highscores);
+        //Turn endless button grey and boss button to original colour. We need a better and more unified solution for selected buttons
+        bossButton.style.backgroundColor = bossColour;
+        endlessButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
+        //Remove endless click event and add boss click event
+        endlessButton.UnregisterCallback<ClickEvent>(DisplayEndlessHighscores);
+        bossButton.RegisterCallback<ClickEvent>(DisplayBossHighscores);
+        displayedHighscores = GameMode.Endless;
         //Clear selected items
         highscores.ClearSelection();
         clearMoreInfoList();
+        DisplayHighscores(Scoreboard.Instance.savedScores.highscores);
     }
 
     public void DisplayBossHighscores(ClickEvent click = null) //Nullable so I can call it manually as well
     {
-        if (displayedHighscores == HighscoreType.Boss) //If the boss data is already displayed then don't display it again
-        {
-            return;
-        }
-        displayedHighscores = HighscoreType.Boss;
+        //Turn boss button grey and endless button to original colour. We need a better and more unified solution for selected buttons
+        bossButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
+        endlessButton.style.backgroundColor = endlessColour;
+        //Remove boss click event and add endless click event
+        bossButton.UnregisterCallback<ClickEvent>(DisplayBossHighscores);
+        endlessButton.RegisterCallback<ClickEvent>(DisplayEndlessHighscores);
+        displayedHighscores = GameMode.Boss;
+        //Clear selected items
         highscores.ClearSelection();
         clearMoreInfoList();
-        DisplayHighscores(Scoreboard.Instance.bossSavedScores.highscores);
-        //Clear selected items
+        DisplayHighscores(Scoreboard.Instance.savedScores.highscores);
     }
 
     //Making MultiColumnListViews are really confusing. This is the result of several hours of trial and error.
@@ -94,22 +96,22 @@ public class HighscoreUI : MonoBehaviour
         //Clear the previous data
         highscores.itemsSource = new List<EntryData>();
         highscores.Rebuild();
+        List<EntryData> displayedData = highscoreData.Where(entry => entry.gameMode == displayedHighscores).ToList();
 
         //If the list is empty return
-        if (highscoreData == null || highscoreData.Count == 0 || highscoreData[0] == null)
+        if (displayedData == null || displayedData.Count == 0 || displayedData[0] == null)
         {
             return;
         }
-
         //Set the new data
-        highscores.itemsSource = highscoreData;
+        highscores.itemsSource = displayedData;
 
         // Helper method to bind cell data
         void BindCell(VisualElement element, int index, Func<EntryData, string> getValue)
         {
-            if (index >= 0 && index < highscoreData.Count)
+            if (index >= 0 && index < displayedData.Count)
             {
-                (element as Label).text = getValue(highscoreData[index]);
+                (element as Label).text = getValue(displayedData[index]);
             }
         }
 
@@ -131,7 +133,6 @@ public class HighscoreUI : MonoBehaviour
         highscores.selectionChanged += OnRowClicked;
     }
 
-    //TODO: Get to show a window
     private void OnRowClicked(IEnumerable<object> selectedItems)
     {
         foreach (EntryData item in selectedItems)
@@ -144,7 +145,7 @@ public class HighscoreUI : MonoBehaviour
 
     private void clearMoreInfoList()
     {
-        //Make the list just have an empty string so there is not list empty message
+        //Make the list just have an empty string so there is not a "list empty" message
         moreInfoList.itemsSource = new List<string> { "" };
         moreInfoList.Rebuild();
     }
