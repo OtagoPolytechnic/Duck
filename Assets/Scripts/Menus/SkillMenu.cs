@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public enum SkillEnum
 {
@@ -17,7 +18,7 @@ public class SkillMenu : MonoBehaviour
     private Label skillDesc;
     private Label skillTimers;
     private List<Skill> skillList = new List<Skill>();
-    VisualElement document;
+    private VisualElement document;
 
     void Awake()
     {
@@ -36,7 +37,7 @@ public class SkillMenu : MonoBehaviour
         Button skill3Button = document.Q<Button>("Skill3");
         skill3Button.RegisterCallback<ClickEvent, SkillEnum>(SkillClick, SkillEnum.decoy);
         Button backButton = document.Q<Button>("Return");
-        backButton.RegisterCallback<ClickEvent>(ReturnToMainMenu);
+        backButton.RegisterCallback<ClickEvent>(ReturnToModeMenu);
         Load();
     }
     private void Load()
@@ -80,7 +81,7 @@ public class SkillMenu : MonoBehaviour
         Debug.Log(GameSettings.activeSkill);
     }
 
-    private void ReturnToMainMenu(ClickEvent click)
+    private void ReturnToModeMenu(ClickEvent click)
     {
         GameSettings.activeSkill = SkillEnum.dash;
         playButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
@@ -88,6 +89,25 @@ public class SkillMenu : MonoBehaviour
         if (document != null)
         {
             document.style.display = DisplayStyle.None;
+        }
+        showModeMenu();
+    }
+
+    private void showModeMenu()
+    {
+        Scene modeScene = SceneManager.GetSceneByName("ModeSelect");
+        if (modeScene.IsValid())
+        {
+            GameObject[] rootObjects = modeScene.GetRootGameObjects(); // Gets an array of all the objects in the scene that aren't inside other objects
+            UIDocument uiDocument = rootObjects
+                .Select(obj => obj.GetComponent<UIDocument>())
+                .FirstOrDefault(doc => doc != null); // Checking each object to see if it has a UIDocument component, and if it does, it returns it
+            
+            if (uiDocument != null)
+            {
+                VisualElement rootElement = uiDocument.rootVisualElement; // Getting the root visual element of the UI document
+                rootElement.style.display = DisplayStyle.Flex;
+            }
         }
     }
 }
