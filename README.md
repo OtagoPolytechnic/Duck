@@ -65,3 +65,7 @@ GNU General Public License v3.0
 See [license file](https://github.com/OtagoPolytechnic/Duck/blob/main/LICENSE) for full license text
 
 <!-- Credits section for any assets or sounds needed -->
+
+## Credits
+
+Reroll icon by Stephen Kerr from [Noun Project](https://thenounproject.com/browse/icons/term/reroll/) (CC BY 3.0)
