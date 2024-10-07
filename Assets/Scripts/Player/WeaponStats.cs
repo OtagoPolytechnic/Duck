@@ -633,4 +633,27 @@ public class WeaponStats : MonoBehaviour
         }
         Camera.main.orthographicSize = newSize;
     }
+
+    public string WeaponNameFormatted()
+    {
+        switch (CurrentWeapon)
+        {
+            case WeaponType.Pistol:
+                return "Pistol";
+            case WeaponType.Shotgun:
+                return "Shotgun";
+            case WeaponType.Sniper:
+                return "Sniper Rifle";
+            case WeaponType.MachineGun:
+                return "Machine Gun";
+            case WeaponType.DualPistol:
+                return "Dual Pistol";
+            case WeaponType.Sword:
+                return "Sword";
+            case WeaponType.RocketLauncher:
+                return "Rocket Launcher";
+            default:
+                return "Weapon";
+        }
+    }
 }
