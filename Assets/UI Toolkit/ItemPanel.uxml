@@ -97,5 +97,13 @@
                 </ui:Button>
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement name="PopupBackground" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.29); align-items: center; justify-content: center;">
+            <ui:VisualElement name="Popup" style="flex-grow: 0; position: relative; width: 50%; height: 30%; background-color: rgb(229, 229, 255); -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&amp;guid=f08ae915995c0db4f9feee7e49baaec2&amp;type=3#ARCADE_N&quot;); -unity-font-definition: initial;">
+                <ui:Label tabindex="-1" text="Confirm Selection of:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ConfirmText" style="height: 35%; -unity-text-align: lower-center; font-size: 32px;" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SelectedItem" style="height: 28%; font-size: 32px; -unity-text-align: upper-center;" />
+                <ui:Button text="Confirm" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Confirm" style="width: 50%; align-self: center; height: 26%; margin-top: 10px; margin-bottom: 10px; font-size: 28px;" />
+                <ui:Button text="Cancel" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Cancel" style="position: absolute; top: auto; left: 20px; bottom: 12px; height: 60px; width: 160px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

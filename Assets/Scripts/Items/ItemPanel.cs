@@ -28,6 +28,7 @@ public class ItemPanel : MonoBehaviour
     private VisualElement document;
     private VisualElement container;
     private VisualElement selectionContainer;
+    private VisualElement confirmPanel;
 
     private const float COMMON = 0.5f; //50%
     private const float UNCOMMON = 0.8f; //30%
@@ -38,12 +39,16 @@ public class ItemPanel : MonoBehaviour
     private List<Button> itemButtons = new List<Button>();
     private Button skip;
     private Button reroll;
+    private Button confirmButton;
+    private Button cancelButton;
+    private Label selectedItemLabel;
     public static List<Item> itemList = new List<Item>();
 
     public List<Item> heldItems = new List<Item>();
     public static ItemPanel Instance;
 
     private int rerollCharges;
+    private int selectedIndex;
     private System.Random rand;
     void Awake()
     {
@@ -56,16 +61,30 @@ public class ItemPanel : MonoBehaviour
             Destroy(gameObject);
         }
         document = GetComponent<UIDocument>().rootVisualElement;
-        
+    }
+    void Start()
+    {
         container = document.Q<VisualElement>("Background");
         selectionContainer = container.Q<VisualElement>("Selection");
         VisualElement rerollAndSkip = container.Q<VisualElement>("RerollAndSkip");
         skip = rerollAndSkip.Q<Button>("Skip");
         reroll = rerollAndSkip.Q<Button>("Reroll");
+
+        confirmPanel = container.Q<VisualElement>("PopupBackground");
+        VisualElement innerConfirmPanel = confirmPanel.Q<VisualElement>("Popup");
+        confirmButton = innerConfirmPanel.Q<Button>("Confirm");
+        cancelButton = innerConfirmPanel.Q<Button>("Cancel");
+        selectedItemLabel = innerConfirmPanel.Q<Label>("SelectedItem");
+
+        confirmButton.RegisterCallback<ClickEvent>(ConfirmSelection);
+        cancelButton.RegisterCallback<ClickEvent>(CancelSelection);
+
+        confirmPanel.style.display = DisplayStyle.None;
+
         rerollCharges = GameSettings.MaxRerollCharges;
         rand = new System.Random();
-        itemChosen = false;
         LoadItems();
+        
     }
 
     private void LoadItems()
@@ -124,12 +143,11 @@ public class ItemPanel : MonoBehaviour
     {
         setStats();
         GetItems(3, waveNumber);
-        StartCoroutine(SelectDelay());
+        activateButtons();
     }
 
-    private IEnumerator SelectDelay()
+    private void activateButtons()
     {
-        yield return new WaitForSeconds(.5f);
         itemButtons[0].RegisterCallback<ClickEvent>(RegisterItem1Click);
         itemButtons[1].RegisterCallback<ClickEvent>(RegisterItem2Click);
         itemButtons[2].RegisterCallback<ClickEvent>(RegisterItem3Click);
@@ -236,32 +254,49 @@ public class ItemPanel : MonoBehaviour
 
     private void RegisterItem1Click(ClickEvent click)
     {
-        itemController.ItemPicked(selectedItems[0].id); //activate the item selected's code
-        itemChosen = true; 
-        addItemToList(selectedItems[0]);
-        selectedItems.Clear();
+        selectedIndex = 0;
+        selectedItemLabel.text = selectedItems[0].name;
+        confirmPanel.style.display = DisplayStyle.Flex;
     }
     private void RegisterItem2Click(ClickEvent click)
     {
-        itemController.ItemPicked(selectedItems[1].id); //activate the item selected's code
-        itemChosen = true; 
-        addItemToList(selectedItems[1]);
-        selectedItems.Clear();
+        selectedIndex = 1;
+        selectedItemLabel.text = selectedItems[1].name;
+        confirmPanel.style.display = DisplayStyle.Flex;
     }
     private void RegisterItem3Click(ClickEvent click)
     {
-        itemController.ItemPicked(selectedItems[2].id); //activate the item selected's code
-        itemChosen = true; 
-        addItemToList(selectedItems[2]);
-        selectedItems.Clear();
-
+        selectedIndex = 2;
+        selectedItemLabel.text = selectedItems[2].name;
+        confirmPanel.style.display = DisplayStyle.Flex;
     }
     private void RegisterSkipClick(ClickEvent click)
     {
-        PlayerStats.Instance.CurrentHealth += 5;
-        itemController.ItemPicked(-1);
-        itemChosen = true; 
+        selectedIndex = -1;
+        selectedItemLabel.text = "Skip";
+        confirmPanel.style.display = DisplayStyle.Flex;
+    }
+
+    private void ConfirmSelection(ClickEvent click)
+    {
+        if (selectedIndex == -1)
+        {
+            PlayerStats.Instance.CurrentHealth += 5;
+            itemController.ItemPicked(-1);
+        }
+        else
+        {
+            itemController.ItemPicked(selectedItems[selectedIndex].id); //activate the item selected's code
+            addItemToList(selectedItems[selectedIndex]);
+        }
+        itemChosen = true;
         selectedItems.Clear();
+        confirmPanel.style.display = DisplayStyle.None;
+    }
+
+    private void CancelSelection(ClickEvent click)
+    {
+        confirmPanel.style.display = DisplayStyle.None;
     }
 
     private void RegisterRerollClick(ClickEvent click)
