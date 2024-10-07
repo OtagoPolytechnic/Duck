@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections;
 using System.Linq;
-
-
+using System;
 
 
 public enum rarity{
@@ -22,30 +21,36 @@ public enum rarity{
 public class ItemPanel : MonoBehaviour
 {   
     [HideInInspector]
-    public bool itemChosen;  
-    private int index;
+    public bool itemChosen;
     public ItemEffectTable itemController;
     [SerializeField]
-    private VisualElement panel;
-    private Button item1;
-    private Button item2;
-    private Button item3;
-    private Button skip;
+    private VisualElement document;
     private VisualElement container;
-    private IMGUIContainer buttonContainer;
+    private VisualElement selectionContainer;
+    private VisualElement confirmPanel;
 
     private const float COMMON = 0.5f; //50%
     private const float UNCOMMON = 0.8f; //30%
 
 
     [SerializeField]
-    private StyleColor buttonColor  = new StyleColor(new Color32(70, 70, 70, 255));
     private List<Item> selectedItems = new List<Item>();
+    private List<Button> itemButtons = new List<Button>();
+    private Button skip;
+    private Button reroll;
+    private Button confirmButton;
+    private Button cancelButton;
+    private Label selectedItemLabel;
     public static List<Item> itemList = new List<Item>();
 
     public List<Item> heldItems = new List<Item>();
     public static ItemPanel Instance;
 
+    private int rerollCharges;
+    private int selectedIndex;
+    private System.Random rand;
+    private Color green = new Color(0.0f, 0.6f, 0.0f);
+    private Color red = new Color(0.6f, 0.0f, 0.0f);
     void Awake()
     {
         if(Instance == null)
@@ -56,16 +61,31 @@ public class ItemPanel : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        panel = GetComponent<UIDocument>().rootVisualElement;
-        
-        container = panel.Q<VisualElement>("Background");
-        buttonContainer = panel.Q<IMGUIContainer>("ButtonContainer");
+        document = GetComponent<UIDocument>().rootVisualElement;
+    }
+    void Start()
+    {
+        container = document.Q<VisualElement>("Background");
+        selectionContainer = container.Q<VisualElement>("Selection");
+        VisualElement rerollAndSkip = container.Q<VisualElement>("RerollAndSkip");
+        skip = rerollAndSkip.Q<Button>("Skip");
+        reroll = rerollAndSkip.Q<Button>("Reroll");
 
-        item1 = panel.Q<Button>("Item1");
-        item2 = panel.Q<Button>("Item2");
-        item3 = panel.Q<Button>("Item3");
-        skip = panel.Q<Button>("Skip");
+        confirmPanel = container.Q<VisualElement>("PopupBackground");
+        VisualElement innerConfirmPanel = confirmPanel.Q<VisualElement>("Popup");
+        confirmButton = innerConfirmPanel.Q<Button>("Confirm");
+        cancelButton = innerConfirmPanel.Q<Button>("Cancel");
+        selectedItemLabel = innerConfirmPanel.Q<Label>("SelectedItem");
+
+        confirmButton.RegisterCallback<ClickEvent>(ConfirmSelection);
+        cancelButton.RegisterCallback<ClickEvent>(CancelSelection);
+
+        confirmPanel.style.display = DisplayStyle.None;
+
+        rerollCharges = GameSettings.MaxRerollCharges;
+        rand = new System.Random();
         LoadItems();
+        
     }
 
     private void LoadItems()
@@ -103,7 +123,7 @@ public class ItemPanel : MonoBehaviour
         }
         else //Wave isn't a special wave
         {
-            float randomRarity = Random.value;
+            float randomRarity = UnityEngine.Random.value;
             if (randomRarity < COMMON)
             {
                 rarities.Add(rarity.Common);
@@ -121,132 +141,105 @@ public class ItemPanel : MonoBehaviour
     }
 
     public void InitializeItemPanel(int waveNumber) //this is called every time the inventory ui pops up
-    { 
-        StartCoroutine(SelectDelay());
+    {
+        setStats();
+        setWeapon();
+        setItems();
+        GetItems(3, waveNumber);
+        activateButtons();
+    }
 
-        if (waveNumber % 5 == 0 || waveNumber == 1) //if the wave is a bound wave
+    private void activateButtons()
+    {
+        itemButtons[0].RegisterCallback<ClickEvent>(RegisterItem1Click);
+        itemButtons[1].RegisterCallback<ClickEvent>(RegisterItem2Click);
+        itemButtons[2].RegisterCallback<ClickEvent>(RegisterItem3Click);
+        skip.RegisterCallback<ClickEvent>(RegisterSkipClick);
+        reroll.RegisterCallback<ClickEvent>(RegisterRerollClick);
+    }
+
+    public void setStats()
+    {
+        VisualElement statsPanel = document.Q<VisualElement>("Stats");
+        
+        //Set each stat
+        statsPanel.Q<Label>("Health").text = $"{PlayerStats.Instance.CurrentHealth}/{PlayerStats.Instance.MaxHealth}";
+        statsPanel.Q<Label>("Damage").text = $"{WeaponStats.Instance.Damage}";
+        statsPanel.Q<Label>("Range").text = $"{WeaponStats.Instance.Range}";
+        statsPanel.Q<Label>("CritChance").text = $"{WeaponStats.Instance.CritChance}%";
+        statsPanel.Q<Label>("CritDamage").text = $"{WeaponStats.Instance.CritDamage}%";
+        statsPanel.Q<Label>("MovementSpeed").text = $"{TopDownMovement.Instance.MoveSpeed}";
+        statsPanel.Q<Label>("AttackSpeed").text = $"{WeaponStats.Instance.AttackSpeed:0.00}";
+        statsPanel.Q<Label>("Regeneration").text = $"{PlayerStats.Instance.RegenerationPercentage}%";
+        statsPanel.Q<Label>("ExplosionSize").text = $"{WeaponStats.Instance.ExplosionSize}";
+        statsPanel.Q<Label>("ExplosionDamage").text = $"{WeaponStats.Instance.ExplosionDamage}";
+        statsPanel.Q<Label>("BulletSpeed").text = $"{WeaponStats.Instance.BulletSpeed}";
+        statsPanel.Q<Label>("BleedDamage").text = $"{WeaponStats.Instance.BleedDamage}%";
+        if (WeaponStats.Instance.PierceAmount == -1 || WeaponStats.Instance.CurrentWeapon == WeaponType.Sword)
         {
-            GetBoundItems(3, waveNumber);
+            statsPanel.Q<Label>("Pierce").text = "∞";
         }
         else
         {
-            GetUnboundItems(3, waveNumber);
+            statsPanel.Q<Label>("Pierce").text = $"{WeaponStats.Instance.PierceAmount}";
         }
+        statsPanel.Q<Label>("Lifesteal").text = $"{PlayerStats.Instance.LifestealPercentage}%";
+
+        VisualElement rerollCount = reroll.Q<VisualElement>("RerollCount");
+        rerollCount.Q<Label>("RerollCountText").text = $"{rerollCharges}";
     }
 
-    private IEnumerator SelectDelay()
+    private void setWeapon()
     {
-        yield return new WaitForSeconds(1.5f);
-        item1.RegisterCallback<ClickEvent>(RegisterItem1Click);
-        item2.RegisterCallback<ClickEvent>(RegisterItem2Click);
-        item3.RegisterCallback<ClickEvent>(RegisterItem3Click);
-        skip.RegisterCallback<ClickEvent>(RegisterSkipClick);
+        VisualElement weaponPanel = document.Q<VisualElement>("Weapon");
+        weaponPanel.Q<Label>("WeaponName").text = WeaponStats.Instance.WeaponNameFormatted();
     }
 
-    private void GetBoundItems(int repetitions, int waveNumber)
+    private void setItems()
     {
-        List<Item> generatedRarityList = new List<Item>();
-
-        List<rarity> rarities = GetRarities(waveNumber);
-        // Create a list of all the available items of that rarity.
-        foreach (Item j in itemList)
+        ListView itemList = document.Q<ListView>("ItemsListView");
+        List<string> items = new List<string>();
+        foreach (Item i in heldItems)
         {
-            if (rarities.Contains(j.rarity)
-            && (j.weapons.Contains(WeaponStats.Instance.CurrentWeapon.ToString()) || j.weapons.Count == 0)) //If it has the right weapons or no weapons at all
-            {
-                generatedRarityList.Add(j);
-            }
+            items.Add($"{i.name} x{i.stacks}");
         }
-        buttonContainer.style.backgroundColor = generatedRarityList[0].rarityColor;
-
-        for (int i = 0; i < repetitions; i++) 
-        {
-            //if the item has already been selected, remove it from the possible pool of items
-            foreach (Item k in selectedItems)
-            {
-                if (generatedRarityList.Contains(k))
-                {
-                    generatedRarityList.Remove(k);
-                }
-            }
-            // then pick a random index from that subset and use that as the item.
-            index = Random.Range(0, generatedRarityList.Count); 
-            selectedItems.Add(generatedRarityList[index]);
-
-            Label itemName = panel.Q<Label>($"ItemName{i+1}");
-            itemName.text = selectedItems[i].name;
-
-            Label itemDesc = panel.Q<Label>($"ItemDesc{i+1}");
-            itemDesc.text = selectedItems[i].desc;
-
-            Label itemStacks = panel.Q<Label>($"ItemStacks{i+1}");
-            itemStacks.text = $"You have {selectedItems[i].stacks}";
-            
-            Button currentButton = panel.Q<Button>($"Item{i+1}");
-
-            Label itemRarity = panel.Q<Label>($"ItemRarity{i+1}");
-            itemRarity.text = selectedItems[i].rarity.ToString();
-
-            itemRarity.style.color = selectedItems[i].rarityColor;
-            currentButton.style.backgroundColor = buttonColor;
-
-            Debug.Log($"In InventoryPage.cs: index chosen is {index} and item is {selectedItems[i].name}");
-        }
-        generatedRarityList.Clear();
+        itemList.itemsSource = items;
+        itemList.Rebuild();
     }
-    private void GetUnboundItems(int repetitions, int waveNumber)
-    {
-        buttonContainer.style.backgroundColor = new StyleColor(new Color32(166,166,166,255));
-        List<Item> generatedRarityList = new List<Item>();
 
-        for (int i = 0; i < repetitions; i++) 
+    private void GetItems(int repetitions, int waveNumber)
+    {
+        for (int i = 0; i < repetitions; i++)
         {
-            
-            // Get a random rarity.
+            List<Item> generatedRarityList = new List<Item>();
+            //Get a random rarity.
             List<rarity> rarities = GetRarities(waveNumber);
-            // Create a list of all the available items of that rarity.
+            VisualElement currentItem = selectionContainer.Q<VisualElement>($"Item{i+1}");
+            //Create a list of all the available items of that rarity.
             foreach (Item j in itemList)
             {
-                if (j.rarity == rarities[0])
+                if (rarities.Contains(j.rarity)
+                && (j.weapons.Contains(WeaponStats.Instance.CurrentWeapon.ToString()) || j.weapons.Count == 0) //If it has the right weapons or no weapons at all
+                && !selectedItems.Contains(j)) //If it hasn't already been selected
                 {
                     generatedRarityList.Add(j);
                 }
             }
-            Label itemRarity = panel.Q<Label>($"ItemRarity{i+1}");
-            itemRarity.style.color = new StyleColor(new Color32(255,255,255,255));
-
-
-
-            //if the item has already been selected, remove it from the possible pool of items
-            foreach (Item k in selectedItems)
-            {
-                if (generatedRarityList.Contains(k))
-                {
-                    generatedRarityList.Remove(k);
-                }
-            }
-            // then pick a random index from that subset and use that as the item.
-            index = Random.Range(0, generatedRarityList.Count); 
+            int index = rand.Next(0, generatedRarityList.Count);
             selectedItems.Add(generatedRarityList[index]);
+            Label name = currentItem.Q<Label>("Name");
+            Label rarity = currentItem.Q<Label>("Rarity");
+            Label desc = currentItem.Q<Label>("Description");
+            Button button = currentItem.Q<Button>("Button");
 
-            Label itemName = panel.Q<Label>($"ItemName{i+1}");
-            itemName.text = selectedItems[i].name;
-
-            Label itemDesc = panel.Q<Label>($"ItemDesc{i+1}");
-            itemDesc.text = selectedItems[i].desc;
-
-            Label itemStacks = panel.Q<Label>($"ItemStacks{i+1}");
-            itemStacks.text = $"You have {selectedItems[i].stacks}";
-
-            Button currentButton = panel.Q<Button>($"Item{i+1}");
-
-            itemRarity.text = selectedItems[i].rarity.ToString();
-            currentButton.style.backgroundColor = selectedItems[i].rarityColor;
-
-            generatedRarityList.Clear();
-            Debug.Log($"In InventoryPage.cs: index chosen is {index} and item is {selectedItems[i].name}");
+            currentItem.style.backgroundColor = selectedItems[i].rarityColor;
+            name.text = selectedItems[i].name;
+            rarity.text = selectedItems[i].rarity.ToString();
+            desc.text = selectedItems[i].desc;
+            itemButtons.Add(button);
         }
     }
+
     private void addItemToList(Item item)
     {
         if (heldItems.Contains(item) == false)
@@ -258,31 +251,257 @@ public class ItemPanel : MonoBehaviour
 
     private void RegisterItem1Click(ClickEvent click)
     {
-        itemController.ItemPicked(selectedItems[0].id); //activate the item selected's code
-        itemChosen = true; 
-        addItemToList(selectedItems[0]);
-        selectedItems.Clear();
+        selectedIndex = 0;
+        selectedItemLabel.text = selectedItems[0].name;
+        confirmPanel.style.display = DisplayStyle.Flex;
     }
     private void RegisterItem2Click(ClickEvent click)
     {
-        itemController.ItemPicked(selectedItems[1].id); //activate the item selected's code
-        itemChosen = true; 
-        addItemToList(selectedItems[1]);
-        selectedItems.Clear();
+        selectedIndex = 1;
+        selectedItemLabel.text = selectedItems[1].name;
+        confirmPanel.style.display = DisplayStyle.Flex;
     }
     private void RegisterItem3Click(ClickEvent click)
     {
-        itemController.ItemPicked(selectedItems[2].id); //activate the item selected's code
-        itemChosen = true; 
-        addItemToList(selectedItems[2]);
-        selectedItems.Clear();
-
+        selectedIndex = 2;
+        selectedItemLabel.text = selectedItems[2].name;
+        confirmPanel.style.display = DisplayStyle.Flex;
     }
     private void RegisterSkipClick(ClickEvent click)
     {
-        itemController.ItemPicked(-1);
-        itemChosen = true; 
+        selectedIndex = -1;
+        selectedItemLabel.text = "Skip";
+        confirmPanel.style.display = DisplayStyle.Flex;
+    }
+
+    private void ConfirmSelection(ClickEvent click)
+    {
+        if (selectedIndex == -1)
+        {
+            PlayerStats.Instance.CurrentHealth += 5;
+            itemController.ItemPicked(-1);
+        }
+        else
+        {
+            itemController.ItemPicked(selectedItems[selectedIndex].id); //activate the item selected's code
+            addItemToList(selectedItems[selectedIndex]);
+        }
+        //itemChosen = true;
         selectedItems.Clear();
+        confirmPanel.style.display = DisplayStyle.None;
+        StartCoroutine(ShowNewStats());
+    }
+
+    private IEnumerator ShowNewStats()
+    {
+        itemButtons[0].UnregisterCallback<ClickEvent>(RegisterItem1Click);
+        itemButtons[1].UnregisterCallback<ClickEvent>(RegisterItem2Click);
+        itemButtons[2].UnregisterCallback<ClickEvent>(RegisterItem3Click);
+        skip.UnregisterCallback<ClickEvent>(RegisterSkipClick);
+        reroll.UnregisterCallback<ClickEvent>(RegisterRerollClick);
+        updateStats();
+        setStats();
+        setItems();
+        setWeapon();
+        yield return new WaitForSeconds(1.5f);
+        itemChosen = true;
+        resetColour();
+    }
+
+    private void updateStats()
+    {
+        //Check each stat and if its changed from the current value make the text green if its increased and red if its decreased
+        VisualElement statsPanel = document.Q<VisualElement>("Stats");
+
+        int oldHealth = int.Parse(statsPanel.Q<Label>("Health").text.Split('/')[1]);
+        if (PlayerStats.Instance.MaxHealth > oldHealth)
+        {
+            statsPanel.Q<Label>("Health").style.color = red;
+        }
+        else if (PlayerStats.Instance.MaxHealth < oldHealth)
+        {
+            statsPanel.Q<Label>("Health").style.color = green;
+        }
+
+        int oldDamage = int.Parse(statsPanel.Q<Label>("Damage").text);
+        if (WeaponStats.Instance.Damage > oldDamage)
+        {
+            statsPanel.Q<Label>("Damage").style.color = green;
+        }
+        else if (WeaponStats.Instance.Damage < oldDamage)
+        {
+            statsPanel.Q<Label>("Damage").style.color = red;
+        }
+
+        int oldRange = int.Parse(statsPanel.Q<Label>("Range").text);
+        if (WeaponStats.Instance.Range > oldRange)
+        {
+            statsPanel.Q<Label>("Range").style.color = green;
+        }
+        else if (WeaponStats.Instance.Range < oldRange)
+        {
+            statsPanel.Q<Label>("Range").style.color = red;
+        }
+
+        int oldCritChance = int.Parse(statsPanel.Q<Label>("CritChance").text.Split('%')[0]);
+        if (WeaponStats.Instance.CritChance > oldCritChance)
+        {
+            statsPanel.Q<Label>("CritChance").style.color = green;
+        }
+        else if (WeaponStats.Instance.CritChance < oldCritChance)
+        {
+            statsPanel.Q<Label>("CritChance").style.color = red;
+        }
+
+        int oldCritDamage = int.Parse(statsPanel.Q<Label>("CritDamage").text.Split('%')[0]);
+        if (WeaponStats.Instance.CritDamage > oldCritDamage)
+        {
+            statsPanel.Q<Label>("CritDamage").style.color = green;
+        }
+        else if (WeaponStats.Instance.CritDamage < oldCritDamage)
+        {
+            statsPanel.Q<Label>("CritDamage").style.color = red;
+        }
+
+        float oldMoveSpeed = float.Parse(statsPanel.Q<Label>("MovementSpeed").text);
+        //Comparing floats needs to be rounded or its unreliable
+        if ((float)Math.Round(TopDownMovement.Instance.MoveSpeed, 2) > oldMoveSpeed)
+        {
+            statsPanel.Q<Label>("MovementSpeed").style.color = green;
+        }
+        else if ((float)Math.Round(TopDownMovement.Instance.MoveSpeed, 2) < oldMoveSpeed)
+        {
+            statsPanel.Q<Label>("MovementSpeed").style.color = red;
+        }
+
+        float oldAttackSpeed = float.Parse(statsPanel.Q<Label>("AttackSpeed").text);
+        if ((float)Math.Round(WeaponStats.Instance.AttackSpeed, 2) > oldAttackSpeed)
+        {
+            statsPanel.Q<Label>("AttackSpeed").style.color = green;
+        }
+        else if ((float)Math.Round(WeaponStats.Instance.AttackSpeed, 2) < oldAttackSpeed)
+        {
+            statsPanel.Q<Label>("AttackSpeed").style.color = red;
+        }
+
+        int oldRegen = int.Parse(statsPanel.Q<Label>("Regeneration").text.Split('%')[0]);
+        if (PlayerStats.Instance.RegenerationPercentage > oldRegen)
+        {
+            statsPanel.Q<Label>("Regeneration").style.color = green;
+        }
+        else if (PlayerStats.Instance.RegenerationPercentage < oldRegen)
+        {
+            statsPanel.Q<Label>("Regeneration").style.color = red;
+        }
+
+        int oldExplosionSize = int.Parse(statsPanel.Q<Label>("ExplosionSize").text);
+        if (WeaponStats.Instance.ExplosionSize > oldExplosionSize)
+        {
+            statsPanel.Q<Label>("ExplosionSize").style.color = green;
+        }
+        else if (WeaponStats.Instance.ExplosionSize < oldExplosionSize)
+        {
+            statsPanel.Q<Label>("ExplosionSize").style.color = red;
+        }
+
+        int oldExplosionDamage = int.Parse(statsPanel.Q<Label>("ExplosionDamage").text);
+        if (WeaponStats.Instance.ExplosionDamage > oldExplosionDamage)
+        {
+            statsPanel.Q<Label>("ExplosionDamage").style.color = green;
+        }
+        else if (WeaponStats.Instance.ExplosionDamage < oldExplosionDamage)
+        {
+            statsPanel.Q<Label>("ExplosionDamage").style.color = red;
+        }
+
+        int oldBulletSpeed = int.Parse(statsPanel.Q<Label>("BulletSpeed").text);
+        if (WeaponStats.Instance.BulletSpeed > oldBulletSpeed)
+        {
+            statsPanel.Q<Label>("BulletSpeed").style.color = green;
+        }
+        else if (WeaponStats.Instance.BulletSpeed < oldBulletSpeed)
+        {
+            statsPanel.Q<Label>("BulletSpeed").style.color = red;
+        }
+
+        int oldBleed = int.Parse(statsPanel.Q<Label>("BleedDamage").text.Split('%')[0]);
+        if (WeaponStats.Instance.BleedDamage > oldBleed)
+        {
+            statsPanel.Q<Label>("BleedDamage").style.color = green;
+        }
+        else if (WeaponStats.Instance.BleedDamage < oldBleed)
+        {
+            statsPanel.Q<Label>("BleedDamage").style.color = red;
+        }
+        if (statsPanel.Q<Label>("Pierce").text != "∞")
+        {
+            int oldPierce = int.Parse(statsPanel.Q<Label>("Pierce").text);
+            if (WeaponStats.Instance.PierceAmount == -1 || WeaponStats.Instance.CurrentWeapon == WeaponType.Sword || WeaponStats.Instance.PierceAmount > oldPierce)
+            {
+                statsPanel.Q<Label>("Pierce").style.color = green;
+            }
+            else if(WeaponStats.Instance.PierceAmount < oldPierce)
+            {
+                statsPanel.Q<Label>("Pierce").style.color = red;
+            }
+        }
+
+        int oldLifesteal = int.Parse(statsPanel.Q<Label>("Lifesteal").text.Split('%')[0]);
+        if (PlayerStats.Instance.LifestealPercentage > oldLifesteal)
+        {
+            statsPanel.Q<Label>("Lifesteal").style.color = green;
+        }
+        else if (PlayerStats.Instance.LifestealPercentage < oldLifesteal)
+        {
+            statsPanel.Q<Label>("Lifesteal").style.color = red;
+        }
+    }
+
+    private void resetColour()
+    {
+        VisualElement statsPanel = document.Q<VisualElement>("Stats");
+        //change all fields back to 1B1B1B
+        Color defaultColour = new Color(0.11f, 0.11f, 0.11f);
+        statsPanel.Q<Label>("Health").style.color = defaultColour;
+        statsPanel.Q<Label>("Damage").style.color = defaultColour;
+        statsPanel.Q<Label>("Range").style.color = defaultColour;
+        statsPanel.Q<Label>("CritChance").style.color = defaultColour;
+        statsPanel.Q<Label>("CritDamage").style.color = defaultColour;
+        statsPanel.Q<Label>("MovementSpeed").style.color = defaultColour;
+        statsPanel.Q<Label>("AttackSpeed").style.color = defaultColour;
+        statsPanel.Q<Label>("Regeneration").style.color = defaultColour;
+        statsPanel.Q<Label>("ExplosionSize").style.color = defaultColour;
+        statsPanel.Q<Label>("ExplosionDamage").style.color = defaultColour;
+        statsPanel.Q<Label>("BulletSpeed").style.color = defaultColour;
+        statsPanel.Q<Label>("BleedDamage").style.color = defaultColour;
+        statsPanel.Q<Label>("Pierce").style.color = defaultColour;
+        statsPanel.Q<Label>("Lifesteal").style.color = defaultColour;
+    }
+
+    private void CancelSelection(ClickEvent click)
+    {
+        confirmPanel.style.display = DisplayStyle.None;
+    }
+
+    private void RegisterRerollClick(ClickEvent click)
+    {
+        if (rerollCharges > 0)
+        {
+            rerollCharges--;
+            //Change the reroll count
+            VisualElement rerollCount = reroll.Q<VisualElement>("RerollCount");
+            rerollCount.Q<Label>("RerollCountText").text = $"{rerollCharges}";
+            //Deregister the buttons
+            itemButtons[0].UnregisterCallback<ClickEvent>(RegisterItem1Click);
+            itemButtons[1].UnregisterCallback<ClickEvent>(RegisterItem2Click);
+            itemButtons[2].UnregisterCallback<ClickEvent>(RegisterItem3Click);
+
+            //Clear the selected items
+            selectedItems.Clear();
+
+            //Get new items
+            InitializeItemPanel(GameSettings.waveNumber);
+        }
     }
     
     public void Show()

@@ -182,7 +182,7 @@ public class PlayerStats : MonoBehaviour
             nextDotTick = DotTick;
             CurrentHealth -= Math.Max(((MaxHealth * DotDamage) / 100), 1); //Deal the % of max health per tick. Minimum 1
         }
-        nextDotTick -= Time.fixedDeltaTime;
+        nextDotTick -= Time.deltaTime;
     }
 
     void Respawn()
