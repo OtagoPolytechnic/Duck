@@ -154,7 +154,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponBulletSpeed = 10; //Speed for the sword beam item
 
                     //Other stats set to base values
-                    weaponCritChancePercentage = 100; //Possible extra crit chance or damage? Could be too powerful
+                    weaponCritChancePercentage = 100;
                     WeaponCritChanceFlat = 0;
                     WeaponCritDamage = 100;
                     WeaponBleedDamage = 0;
@@ -172,7 +172,6 @@ public class WeaponStats : MonoBehaviour
                     break;
 
                 case WeaponType.RocketLauncher: //Placeholder for the rocket launcher
-                    //Testing values for the Rocket Launcher. Focussing on getting it implemented. Can balance it later
                     WeaponExplosiveBullets = true; //Rocket launcher has explosive bullets
                     WeaponExplosionSize = 5; //Explosion size is 10
                     WeaponExplosionDamage = 100; //100% of the weapon's damage is dealt as explosion damage
