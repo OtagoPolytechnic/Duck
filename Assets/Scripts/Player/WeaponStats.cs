@@ -26,7 +26,6 @@ public class WeaponStats : MonoBehaviour
 {
     public static WeaponStats Instance;
     private WeaponType currentWeapon;
-
     [SerializeField] private Weapons[] weapons;
 
     public WeaponType CurrentWeapon
@@ -336,8 +335,14 @@ public class WeaponStats : MonoBehaviour
     }
     public float FireDelay
     {
-        get { return Math.Max(((BASE_FIRE_DELAY + FlatFireDelay) * PercentageFireDelay * WeaponFireDelay) / 10000, 0.1f); }
-        //This isn't allowed to be any quicker than 0.1 seconds per shot. Can change value?
+        get { return Math.Max(((BASE_FIRE_DELAY + FlatFireDelay) * PercentageFireDelay * WeaponFireDelay) / 10000, 0.01f); }
+        //This isn't allowed to be any quicker than 0.01 seconds per shot. Can change value?
+    }
+
+    //Attack speed to show to user. Amount of times per second you can attack
+    public float AttackSpeed
+    {
+        get { return 1 / FireDelay; }
     }
 
     //Bullet speed
