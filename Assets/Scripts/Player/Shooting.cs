@@ -15,6 +15,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] private Transform dualFirePoint;
     private bool dualShot = false;
     private float lastShot = 0;
+    private float reflectCooldown;
     private bool held = false;
     Vector2 lookDirection;
     float lookAngle;
@@ -161,6 +162,13 @@ public class Shooting : MonoBehaviour
     IEnumerator SwordAttack()
     {
         swordAttack.SetActive(true);
+        if (WeaponStats.Instance.HasReflector)
+        {
+            if (reflectCooldown <= 0)
+            {
+                swordAttack.GetComponent<Sword>().Reflecting = true;
+            }
+        }
 
         if (swordAttack.GetComponent<Sword>().Crit) //Activate either crit or non crit sprite
         {
@@ -179,6 +187,11 @@ public class Shooting : MonoBehaviour
         swordAttack.transform.GetChild(1).gameObject.SetActive(false);
 
 
+        if (swordAttack.GetComponent<Sword>().Reflecting)
+        {
+            swordAttack.GetComponent<Sword>().Reflecting = false;
+            reflectCooldown = WeaponStats.Instance.ReflectCooldown;
+        }
         StopCoroutine(SwordAttack());
     }
 }

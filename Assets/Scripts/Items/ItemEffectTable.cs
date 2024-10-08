@@ -215,8 +215,16 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Damage: {WeaponStats.Instance.Damage}");
                 break;
             case 35:
-                Debug.Log($"Gained reflector");
-                WeaponStats.Instance.HasReflector = true;
+                if (!WeaponStats.Instance.HasReflector)
+                {
+                    Debug.Log($"Gained reflector");
+                    WeaponStats.Instance.HasReflector = true;
+                }
+                else
+                {
+                    WeaponStats.Instance.ReflectCooldown -= 0.5f;
+                    Debug.Log($"Reflector cooldown reduced to {WeaponStats.Instance.ReflectCooldown}");
+                }
                 break;
             default:
                 Debug.Log($"The ID: {itemID} has not been given a case in the item effect table.");

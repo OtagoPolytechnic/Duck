@@ -596,6 +596,12 @@ public class WeaponStats : MonoBehaviour
         get {return hasReflector;}
         set {hasReflector = value;}
     }
+    private float reflectCooldown = 3f;
+    public float ReflectCooldown
+    {
+        get {return reflectCooldown;}
+        set {reflectCooldown = MathF.Max(value, 0f);} //Cooldown cannot go negative
+    }
     void Awake()
     {
         if (Instance != null)

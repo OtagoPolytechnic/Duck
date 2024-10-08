@@ -260,7 +260,7 @@
       {
         "id": 35,
         "name": "Deflector",
-        "desc": "Allows your sword to deflect enemy bullets",
+        "desc": "Allows your sword to deflect enemy bullets every 3 seconds.\n\nReduces cool down by 0.5 seconds per stack",
         "rarity": 3,
         "weapons": ["Sword"],
         "stacks": 0
