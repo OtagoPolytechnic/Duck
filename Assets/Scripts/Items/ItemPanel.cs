@@ -201,7 +201,10 @@ public class ItemPanel : MonoBehaviour
         List<string> items = new List<string>();
         foreach (Item i in heldItems)
         {
-            items.Add($"{i.name} x{i.stacks}");
+            if ((int)i.rarity > 2)
+            {
+                items.Add($"{i.name} x{i.stacks}");
+            }
         }
         itemList.itemsSource = items;
         itemList.Rebuild();
