@@ -28,6 +28,7 @@ public class ItemPanel : MonoBehaviour
     private VisualElement container;
     private VisualElement selectionContainer;
     private VisualElement confirmPanel;
+    private VisualElement continuePanel;
 
     private const float COMMON = 0.5f; //50%
     private const float UNCOMMON = 0.8f; //30%
@@ -40,6 +41,7 @@ public class ItemPanel : MonoBehaviour
     private Button reroll;
     private Button confirmButton;
     private Button cancelButton;
+    private Button continueButton;
     private Label selectedItemLabel;
     public static List<Item> itemList = new List<Item>();
 
@@ -77,10 +79,15 @@ public class ItemPanel : MonoBehaviour
         cancelButton = innerConfirmPanel.Q<Button>("Cancel");
         selectedItemLabel = innerConfirmPanel.Q<Label>("SelectedItem");
 
+        continuePanel = container.Q<VisualElement>("ContinueBox");
+        continueButton = continuePanel.Q<Button>("Continue");
+
         confirmButton.RegisterCallback<ClickEvent>(ConfirmSelection);
         cancelButton.RegisterCallback<ClickEvent>(CancelSelection);
+        continueButton.RegisterCallback<ClickEvent>(Continue);
 
         confirmPanel.style.display = DisplayStyle.None;
+        continuePanel.style.display = DisplayStyle.None;
 
         rerollCharges = GameSettings.MaxRerollCharges;
         rand = new System.Random();
@@ -292,23 +299,20 @@ public class ItemPanel : MonoBehaviour
         //itemChosen = true;
         selectedItems.Clear();
         confirmPanel.style.display = DisplayStyle.None;
-        StartCoroutine(ShowNewStats());
-    }
-
-    private IEnumerator ShowNewStats()
-    {
-        itemButtons[0].UnregisterCallback<ClickEvent>(RegisterItem1Click);
-        itemButtons[1].UnregisterCallback<ClickEvent>(RegisterItem2Click);
-        itemButtons[2].UnregisterCallback<ClickEvent>(RegisterItem3Click);
-        skip.UnregisterCallback<ClickEvent>(RegisterSkipClick);
-        reroll.UnregisterCallback<ClickEvent>(RegisterRerollClick);
+        selectionContainer.style.display = DisplayStyle.None;
+        continuePanel.style.display = DisplayStyle.Flex;
         updateStats();
         setStats();
         setItems();
         setWeapon();
-        yield return new WaitForSeconds(1.5f);
-        itemChosen = true;
+    }
+
+    private void Continue(ClickEvent click)
+    {
+        continuePanel.style.display = DisplayStyle.None;
+        selectionContainer.style.display = DisplayStyle.Flex;
         resetColour();
+        itemChosen = true;
     }
 
     private void updateStats()
