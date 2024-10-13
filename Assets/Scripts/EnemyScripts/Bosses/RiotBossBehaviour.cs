@@ -10,10 +10,18 @@ public class RiotBossBehaviour : EnemyBase
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletPosition;
     [SerializeField] private float attackRange;
-    [SerializeField] private float attackInterval;
+    [SerializeField] private float attackInterval; 
     [SerializeField] private GameObject napalmBombPrefab;
     [SerializeField] private float minNapalmInterval;
     [SerializeField] private float maxNapalmInterval;
+
+ 
+    [SerializeField] private GameObject shieldPrefab;  
+    private GameObject shieldInstance;                 
+    [SerializeField] private float minShieldInterval = 5f;
+    [SerializeField] private float maxShieldInterval = 15f;
+    [SerializeField] private Transform shotPoint;    
+    [SerializeField] private float shieldOffset = 0.5f;
 
     private float attackCooldown;
 
@@ -23,6 +31,7 @@ public class RiotBossBehaviour : EnemyBase
         player = GameObject.FindGameObjectWithTag("Player");
         attackCooldown = 0;
         StartCoroutine(SpawnNapalmBomb());
+        StartCoroutine(SpawnShield());  
     }
 
     void Update()
@@ -61,14 +70,17 @@ public class RiotBossBehaviour : EnemyBase
         }
         else
         {
-            if (attackCooldown <= 0)
+           
+            if (shieldInstance == null)
             {
-                if (SkillEffects.Instance.vanishActive) { return; }
-                Shoot();
-            }
-            else
-            {
-                attackCooldown -= Time.deltaTime;
+                if (attackCooldown <= 0)
+                {
+                    Shoot();
+                }
+                else
+                {
+                    attackCooldown -= Time.deltaTime; 
+                }
             }
         }
 
@@ -87,7 +99,7 @@ public class RiotBossBehaviour : EnemyBase
         GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
         newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, false);
         SFXManager.Instance.PlaySFX("EnemyShoot");
-        attackCooldown = attackInterval;
+        attackCooldown = attackInterval; 
     }
 
     private IEnumerator SpawnNapalmBomb()
@@ -97,6 +109,27 @@ public class RiotBossBehaviour : EnemyBase
             float randomInterval = Random.Range(minNapalmInterval, maxNapalmInterval);
             yield return new WaitForSeconds(randomInterval);
             GameObject napalmBomb = Instantiate(napalmBombPrefab, bulletPosition.position, bulletPosition.rotation);
+        }
+    }
+
+    private IEnumerator SpawnShield()
+    {
+        while (true)
+        {
+         
+            float randomInterval = Random.Range(minShieldInterval, maxShieldInterval);
+            yield return new WaitForSeconds(randomInterval); 
+
+            if (shieldInstance == null)
+            {
+              
+                Vector2 shieldPosition = (Vector2)shotPoint.position + (Vector2)(shotPoint.right * shieldOffset);     
+                shieldInstance = Instantiate(shieldPrefab, shieldPosition, shotPoint.rotation);             
+                shieldInstance.transform.SetParent(shotPoint);
+                shieldInstance.transform.localPosition = Vector3.zero;
+
+                yield return new WaitUntil(() => shieldInstance == null);
+            }
         }
     }
 }
