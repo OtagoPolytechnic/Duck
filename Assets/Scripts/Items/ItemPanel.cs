@@ -208,7 +208,7 @@ public class ItemPanel : MonoBehaviour
         List<string> items = new List<string>();
         foreach (Item i in heldItems)
         {
-            if ((int)i.rarity > 2)
+            if ((int)i.rarity > 2 && i.rarity != rarity.Weapon)
             {
                 items.Add($"{i.name} x{i.stacks}");
             }
