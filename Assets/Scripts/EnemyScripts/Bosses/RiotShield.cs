@@ -4,39 +4,24 @@ using UnityEngine;
 
 public class RiotShield : MonoBehaviour
 {
- 
-    void Start()
-    {
-   
-        StartCoroutine(DestroyShieldAfterRandomTime());
-    }
+    public int shieldHealth=5;
+    public int maxShieldHealth = 5; 
 
-    private IEnumerator DestroyShieldAfterRandomTime()
+
+    private void Update()
     {
-     
-        float randomTime = Random.Range(5f, 15f);
-     
-        yield return new WaitForSeconds(randomTime);
-    
+        if (shieldHealth <= 0)
+        { 
+            Die(); 
+        }
+    }
+    void Awake()
+    {
+        shieldHealth = maxShieldHealth;
+    }
+    public void Die()
+    {
         Destroy(gameObject);
     }
 
-   
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-      
-        Debug.Log($"Collided with: {collision.gameObject.name}");
-
-     
-        if (collision.gameObject.CompareTag("Bullet"))
-        {
-            Debug.Log("Bullet hit the shield!");
-
-          
-            Destroy(collision.gameObject);
-
-         
-            Debug.Log($"{collision.gameObject.name} was destroyed.");
-        }
-    }
 }

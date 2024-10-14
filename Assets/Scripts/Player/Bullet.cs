@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Runtime.CompilerServices;
 
 public class Bullet : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Bullet : MonoBehaviour
     public GameObject ExplosionPrefab;
     private GameObject Explosion;
     private int ricochetCount;
+    public RiotShield riotShield;
 
     void Start()
     {
@@ -49,7 +51,14 @@ public class Bullet : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D other)
-    {
+    { 
+        if (other.gameObject.CompareTag("Shield"))
+        {
+            Destroy(gameObject);
+            Debug.Log("Destroyed" + gameObject) ;
+            other.gameObject.GetComponent<RiotShield>().shieldHealth--;
+    
+        }
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Enemy"))
         {
@@ -63,6 +72,7 @@ public class Bullet : MonoBehaviour
                 {
                     explosionScript.ExplosionDamage = (WeaponStats.Instance.ExplosionDamage * WeaponStats.Instance.CritDamage) / 100;
                 }
+               
                 else
                 {
                     explosionScript.ExplosionDamage = WeaponStats.Instance.ExplosionDamage;
