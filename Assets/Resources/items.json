@@ -268,7 +268,7 @@
       {
         "id": 36,
         "name": "Claymore",
-        "desc": "Quadruple your weapon damage but reduce attack speed to a third",
+        "desc": "Increase your weapon damage by 400%, but reduce attack speed to 33%",
         "rarity": 3,
         "weapons": ["Sword"],
         "stacks": 0
