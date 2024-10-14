@@ -267,8 +267,8 @@
       },
       {
         "id": 36,
-        "name": "Epic",
-        "desc": "Sword epic to fill space (NOT IMPLEMENTED)",
+        "name": "Claymore",
+        "desc": "Quadruple your weapon damage but reduce attack speed to a third",
         "rarity": 3,
         "weapons": ["Sword"],
         "stacks": 0
