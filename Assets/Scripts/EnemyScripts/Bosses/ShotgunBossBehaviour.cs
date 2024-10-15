@@ -50,7 +50,7 @@ public class ShotgunBossBehaviour : EnemyBase
     {
         if (Health <= 0)
         {
-            Die();
+            StartCoroutine(Timeout.Instance.TimeoutEnemy(gameObject, 5f));
             return;
         }
 

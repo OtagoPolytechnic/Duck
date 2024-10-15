@@ -24,11 +24,12 @@ public class EnemyRanged : EnemyBase
     void Update()
     {
         
-        if (GameSettings.gameState != GameState.InGame) {return;}
+        if (GameSettings.gameState != GameState.InGame || Dying) {return;}
 
         if (Health <= 0)
         {
-            Die();
+            StartCoroutine(Timeout.Instance.TimeoutEnemy(gameObject, 1f));
+            Dying = true;
         }
         Bleed();
 
@@ -101,11 +102,11 @@ public class EnemyRanged : EnemyBase
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (Speed * tileSpeedModifier) * Time.deltaTime);
     }
     
-    public override void Die()
-    {
-        SFXManager.Instance.PlaySFX("EnemyDie");
-        ScoreManager.Instance.IncreasePoints(Points);
-        EnemySpawner.Instance.currentEnemies.Remove(gameObject);
-        Destroy(gameObject);
-    }
+    // public override void Die()
+    // {
+    //     SFXManager.Instance.PlaySFX("EnemyDie");
+    //     ScoreManager.Instance.IncreasePoints(Points);
+    //     EnemySpawner.Instance.currentEnemies.Remove(gameObject);
+    //     Destroy(gameObject);
+    // }
 }

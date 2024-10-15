@@ -23,13 +23,14 @@ public class BombBossBehaviour : EnemyBase
     }
     void Update()
     {
+
+        if (GameSettings.gameState != GameState.InGame || Dying) { return; }
+
         if (Health <= 0)
         {
-
-            Die();
+            StartCoroutine(Timeout.Instance.TimeoutEnemy(gameObject, 5f));
+            Dying = true;
         }
-        if (GameSettings.gameState != GameState.InGame) { return; }
-
         if (SkillEffects.Instance.decoyActive && !stopCheck)
         {
             player = GameObject.FindGameObjectWithTag("Decoy");

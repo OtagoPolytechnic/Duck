@@ -7,6 +7,7 @@ using System;
 
 public abstract class EnemyBase : MonoBehaviour
 {
+    public static EnemyBase Instance { get; private set;}
     public const float BLEED_INTERVAL = 1f;
     public GameObject damageText;
     public GameObject critText;
@@ -36,6 +37,12 @@ public abstract class EnemyBase : MonoBehaviour
     public int Points
     {
         get {return points;}
+    }
+    private bool dying;
+    public bool Dying
+    {
+        get {return dying;}
+        set {dying = value;}
     }
     public MapManager mapManager;
     public float bleedTick = 1f;
@@ -77,12 +84,6 @@ public abstract class EnemyBase : MonoBehaviour
         
     }
     public abstract void Move();
-    public virtual void Die()
-    {
-        SFXManager.Instance.PlaySFX("EnemyDie");
-        ScoreManager.Instance.IncreasePoints(Points);
-        StartCoroutine(Timeout.Instance.TimeoutEnemy(gameObject, 1f));
-    }
     public void ScaleStats()
     {
         baseHealth = (int)Math.Round(BaseHealth * endlessScalar);

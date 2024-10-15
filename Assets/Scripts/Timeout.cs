@@ -16,7 +16,7 @@ public class Timeout : MonoBehaviour
         Instance = this;
     }
 
-    public IEnumerator TimeoutEnemy(GameObject enemy, float duration)
+    public IEnumerator TimeoutEnemy(GameObject enemy, float duration) //this is currently broken becuase I cannot grab the instanced enemy to delete. (it is 1 am, i'll fix this tommorrow)
     {
         Debug.Log("This is being called correctly");
         SpriteRenderer sprite = enemy.GetComponentInChildren<SpriteRenderer>();
@@ -31,9 +31,12 @@ public class Timeout : MonoBehaviour
         }
 
         yield return new WaitForSeconds(duration);
+
+        SFXManager.Instance.PlaySFX("EnemyDie");
+        ScoreManager.Instance.IncreasePoints(EnemyBase.Instance.Points);
         
-        Debug.Log("This is culling the eneimes correctly");
         EnemySpawner.Instance.currentEnemies.Remove(enemy);
+        Debug.Log("This is culling the eneimes correctly");
         Destroy(enemy);
 
     }
