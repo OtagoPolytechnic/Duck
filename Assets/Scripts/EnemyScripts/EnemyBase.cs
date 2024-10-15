@@ -81,8 +81,7 @@ public abstract class EnemyBase : MonoBehaviour
     {
         SFXManager.Instance.PlaySFX("EnemyDie");
         ScoreManager.Instance.IncreasePoints(Points);
-        EnemySpawner.Instance.currentEnemies.Remove(gameObject);
-        Destroy(gameObject);
+        StartCoroutine(Timeout.Instance.TimeoutEnemy(gameObject, 1f));
     }
     public void ScaleStats()
     {

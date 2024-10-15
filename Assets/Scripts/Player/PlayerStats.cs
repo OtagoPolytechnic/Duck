@@ -154,14 +154,8 @@ public class PlayerStats : MonoBehaviour
 
         if (currentHealth <= 0) //if the player dies
         {
-            if (lifeEggs.Count > 0)
-            {
-                Respawn();
-            }
-            else
-            {
-                FindObjectOfType<GameManager>().GameOver();
-            }
+            GameSettings.gameState = GameState.Dead;
+            StartCoroutine(Timeout.Instance.TimeoutPlayer(gameObject, 1f));
         }
     }
 
@@ -185,7 +179,7 @@ public class PlayerStats : MonoBehaviour
         nextDotTick -= Time.fixedDeltaTime;
     }
 
-    void Respawn()
+    public void Respawn()
     {
         //This event currently has no listeners, it is here for future use 
         onPlayerRespawn?.Invoke();
