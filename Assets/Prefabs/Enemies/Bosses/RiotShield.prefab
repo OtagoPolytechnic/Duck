@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shieldHealth: 0
-  maxShieldHealth: 5
+  maxShieldHealth: 10
 --- !u!61 &-8006567097689919295
 BoxCollider2D:
   m_ObjectHideFlags: 0
