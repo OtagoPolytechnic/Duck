@@ -12,6 +12,7 @@ public class PauseMenu : MonoBehaviour
     private Button quitButton;
     private VisualElement background;
     private GameState heldState;
+    [SerializeField] private StatDisplay statDisplay;
     void Awake()
     {
         VisualElement document = GetComponent<UIDocument>().rootVisualElement;
@@ -38,6 +39,7 @@ public class PauseMenu : MonoBehaviour
             }
             else if (GameSettings.gameState == GameState.InGame || GameSettings.gameState == GameState.ItemSelect)
             {
+                statDisplay.UpdateStats();
                 heldState = GameSettings.gameState;
                 GameSettings.gameState = GameState.Paused;
                 background.visible = !background.visible; 
