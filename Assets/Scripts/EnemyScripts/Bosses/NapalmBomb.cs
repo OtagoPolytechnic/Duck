@@ -3,15 +3,16 @@ using UnityEngine;
 
 public class NapalmBomb : MonoBehaviour
 {
-    public float moveSpeed = 8f;
+    [SerializeField] private GameObject napalmFirePrefab;
+    private float moveSpeed = 8f;
     private Rigidbody2D rb;
     private GameObject player;
-    public float minDurationBeforeStop = .5f;
-    public float maxDurationBeforeStop = 2f;
-    public GameObject napalmFirePrefab;
-    public int minFirePrefabs = 4;
-    public int maxFirePrefabs = 10;
-    public float spreadRadius = 3f;
+    private float minDurationBeforeStop = .5f;
+    private float maxDurationBeforeStop = 2f;
+    private int minFirePrefabs = 4;
+    private int maxFirePrefabs = 10;
+    private float spreadRadius = 3f;
+    private float randomDuration;
 
     private void Start()
     {
@@ -22,14 +23,13 @@ public class NapalmBomb : MonoBehaviour
         {
             Vector2 direction = (player.transform.position - transform.position).normalized;
             rb.velocity = direction * moveSpeed;
-            StartCoroutine(StopMovementAndExplode());
         }
         else
         {
             Debug.LogWarning("Player not found in the scene!");
             Destroy(gameObject);
         }
-        float randomDuration = Random.Range(minDurationBeforeStop, maxDurationBeforeStop);
+        randomDuration = Random.Range(minDurationBeforeStop, maxDurationBeforeStop);
     }
 
     void Update()

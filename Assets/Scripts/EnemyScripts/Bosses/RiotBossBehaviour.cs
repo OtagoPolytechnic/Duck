@@ -9,19 +9,19 @@ public class RiotBossBehaviour : EnemyBase
     private float distance;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletPosition;
-    [SerializeField] private float attackRange;
-    [SerializeField] private float attackInterval; 
     [SerializeField] private GameObject napalmBombPrefab;
-    [SerializeField] private float minNapalmInterval;
-    [SerializeField] private float maxNapalmInterval;
-
- 
     [SerializeField] private GameObject shieldPrefab;  
-    private GameObject shieldInstance;                 
-    [SerializeField] private float minShieldInterval = 5f;
-    [SerializeField] private float maxShieldInterval = 15f;
     [SerializeField] private Transform shotPoint;    
-    [SerializeField] private float shieldOffset = 0.5f;
+
+    private float attackRange = 10f;
+    private float attackInterval = 30f; 
+    private float minNapalmInterval = 1f;
+    private float maxNapalmInterval = 4f;
+ 
+    private GameObject shieldInstance;                 
+    private float minShieldInterval = 7f;
+    private float maxShieldInterval = 15f;
+    private float shieldOffset = 5f;
 
     private float attackCooldown;
 
