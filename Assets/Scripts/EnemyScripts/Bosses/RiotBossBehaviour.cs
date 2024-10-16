@@ -14,7 +14,7 @@ public class RiotBossBehaviour : EnemyBase
     [SerializeField] private Transform shotPoint;    
 
     private float attackRange = 10f;
-    private float attackInterval = 30f; 
+    private float attackInterval = 1.5f; 
     private float minNapalmInterval = 1f;
     private float maxNapalmInterval = 4f;
  

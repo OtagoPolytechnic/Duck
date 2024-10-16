@@ -55,9 +55,7 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Shield"))
         {
             Destroy(gameObject);
-            Debug.Log("Destroyed" + gameObject) ;
-            other.gameObject.GetComponent<RiotShield>().shieldHealth--;
-    
+            other.gameObject.GetComponent<RiotShield>().TakeDamage();
         }
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Enemy"))
