@@ -144,7 +144,7 @@ public class ShotgunBossBehaviour : EnemyBase
     // Initiates a jump attack by creating a shadow attack and disabling the boss's collider.
     private void JumpAttack()
     {
-        if (!shadowPrefab)
+        if (!shadowPrefab && Health <= 0)
         {
             Debug.LogError("Shadow prefab is not assigned.");
             return;

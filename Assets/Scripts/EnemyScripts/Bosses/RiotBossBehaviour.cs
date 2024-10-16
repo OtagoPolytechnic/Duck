@@ -102,6 +102,7 @@ public class RiotBossBehaviour : EnemyBase
         attackCooldown = attackInterval; 
     }
 
+    //Spawns napalm bomb at random intervals between set times
     private IEnumerator SpawnNapalmBomb()
     {
         while (true)
@@ -111,7 +112,7 @@ public class RiotBossBehaviour : EnemyBase
             GameObject napalmBomb = Instantiate(napalmBombPrefab, bulletPosition.position, bulletPosition.rotation);
         }
     }
-
+    //Spawns shield at random intervals between set times
     private IEnumerator SpawnShield()
     {
         while (true)

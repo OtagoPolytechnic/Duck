@@ -31,6 +31,7 @@ public class NapalmBomb : MonoBehaviour
         }
     }
 
+    //Adjustable time for napalm bomb to explode
     private IEnumerator StopMovementAndExplode()
     {
         float randomDuration = Random.Range(minDurationBeforeStop, maxDurationBeforeStop);
@@ -47,6 +48,7 @@ public class NapalmBomb : MonoBehaviour
         }
     }
 
+    //Instantiates a random amount of fire prefabs apon destruction
     private void Explode()
     {
         int fireCount = Random.Range(minFirePrefabs, maxFirePrefabs + 1);
