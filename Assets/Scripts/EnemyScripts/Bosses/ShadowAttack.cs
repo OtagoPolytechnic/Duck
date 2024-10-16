@@ -17,6 +17,8 @@ public class ShadowAttack : MonoBehaviour
     private float scaleUpTimer;
     private float scaleUpRate;
 
+    private float duration = 3.3f;
+
     // Sets the shadow size and updates its scale accordingly.
     public int ShadowSize
     {
@@ -33,38 +35,6 @@ public class ShadowAttack : MonoBehaviour
         initialScale = transform.localScale;
         transform.localScale = Vector3.one * shadowSize;
         scaleUpRate = (20 - shadowSize) / scaleUpDuration; // Calculate the scaling rate per second
-        StartCoroutine(ShadowLifetime(3.3f));
-    }
-
-    // Coroutine to manage the shadow's lifetime. Handles waiting, creating a shockwave effect, enabling the boss's sprite renderer, updating the boss's position, and destroying the shadow.
-    private IEnumerator ShadowLifetime(float duration)
-    {
-        float elapsedTime = 0;
-        while (elapsedTime < duration)
-        {
-            elapsedTime += .1f;
-            yield return new WaitForSeconds(.1f);
-            while (GameSettings.gameState != GameState.InGame)
-            {
-                yield return null;
-            }
-        }
-
-        if (shadowShockwavePrefab)
-        {
-            Instantiate(shadowShockwavePrefab, transform.position, Quaternion.identity);
-        }
-        if (bossSpriteRenderer)
-        { 
-             bossSpriteRenderer.enabled = true;
-        }
-        if (shotgunBossBehaviour)
-        {
-            shotgunBossBehaviour.transform.position = transform.position;
-        }
-
-        Destroy(gameObject);
-        shotgunBossBehaviour?.ResetJumpState();
     }
 
     // Sets the reference to the ShotgunBossBehaviour component.
@@ -88,18 +58,31 @@ public class ShadowAttack : MonoBehaviour
     // Updates the shadow's position to follow the player and scales the shadow up gradually over time.
     private void Update()
     {
-        while (GameSettings.gameState != GameState.InGame)
+        if (GameSettings.gameState != GameState.InGame)
         {
             return;
         }
-        if (player == null) return;
 
-        // Dynamically calculate the follow speed based on the player's move speed
-        float playerSpeed = TopDownMovement.Instance.MoveSpeed;
-        followSpeed = playerSpeed * followSpeedModifier;
+        duration -= Time.deltaTime;
 
-        // Smoothly move the shadow towards the player's position
-        transform.position = Vector3.Lerp(transform.position, player.transform.position, followSpeed * Time.deltaTime);
+        if (duration <= 0)
+        {
+            Instantiate(shadowShockwavePrefab, transform.position, Quaternion.identity);
+            bossSpriteRenderer.enabled = true;
+            shotgunBossBehaviour.transform.position = transform.position;
+            shotgunBossBehaviour?.ResetJumpState();
+            Destroy(gameObject);
+        }
+
+        if (duration <= .5)
+        {
+            // Dynamically calculate the follow speed based on the player's move speed
+            float playerSpeed = TopDownMovement.Instance.MoveSpeed;
+            followSpeed = playerSpeed * followSpeedModifier;
+
+            // Smoothly move the shadow towards the player's position
+            transform.position = Vector3.Lerp(transform.position, player.transform.position, followSpeed * Time.deltaTime);
+        }
 
         // Gradually increase the shadow's size
         if (scaleUpTimer < scaleUpDuration)
