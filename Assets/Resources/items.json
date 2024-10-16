@@ -134,7 +134,7 @@
       {
         "id": 18,
         "name": "Sword",
-        "desc": "Melee range with high damage (Partially implemented)",
+        "desc": "Melee range with high damage",
         "rarity": 4,
         "stacks": 0
       },
