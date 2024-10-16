@@ -10,17 +10,17 @@ public class PlayerStats : MonoBehaviour
     public static PlayerStats Instance;
     //Health
     private const int BASE_MAX_HEALTH = 100;
-    private bool midasTouch = false;
-    public bool MidasTouch
+    private bool spinePlate = false;
+    public bool SpinePlate
     {
-        get {return midasTouch;}
-        set {midasTouch = value;}
+        get {return spinePlate;}
+        set {spinePlate = value;}
     }
-    private int midasPercent = 0; //Percentage of damage taken to deal to the enemy
-    public int MidasPercent
+    private int spinePercent = 0; //Percentage of damage taken to deal to the enemy
+    public int SpinePercent
     {
-        get {return midasPercent;}
-        set {midasPercent = value;}
+        get {return spinePercent;}
+        set {spinePercent = value;}
     }
     private int flatBonusHealth = 0;
     public int FlatBonusHealth
@@ -213,15 +213,13 @@ public class PlayerStats : MonoBehaviour
         Physics2D.IgnoreLayerCollision(7, 9, false);
     }
 
-    public void ReceiveDamage(int damageTaken, EnemyHealth enemyHealth = null)
+    public void ReceiveDamage(int damageTaken, EnemyBase enemyHealth = null)
     {
-        if (midasTouch)
+        if (SpinePlate && enemyHealth != null)
         {
-            //TODO: Make sure the enemyHealth is added when merged
-            //If the player has the Midas Touch, deal damage to the enemy as well
-            enemyHealth?.ReceiveDamage(damageTaken * midasPercent / 100, false);
+            enemyHealth?.ReceiveDamage((damageTaken * SpinePercent) / 100, false);
         }
-        //TODO: Multiple instances of damage shouldn't totally overlap. Maybe randomly offset them a bit?
+        //TODO: Multiple instances of damage shouldn't totally overlap. Randomly offset them a bit!
         GameObject damageTextInst = Instantiate(damageText, gameObject.transform);
         damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
         currentHealth -= damageTaken;

@@ -60,7 +60,7 @@ public class EnemyBullet : MonoBehaviour
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Player") )
         {
-            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(damage);
+            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(damage, originEnemy);
             Destroy(gameObject);
         }
         else if (other.gameObject.CompareTag("Edges") || other.gameObject.CompareTag("Decoy"))

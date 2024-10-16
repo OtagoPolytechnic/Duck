@@ -164,8 +164,8 @@
       },
       {
         "id": 22,
-        "name": "Midas Touch",
-        "desc": "Enemies take high damage when they damage you, but you are slowed by 50%",
+        "name": "Spine Plate",
+        "desc": "You reflect 2x enemy damage when they damage you, but you are slowed by 25%",
         "rarity": 6,
         "stacks": 0
       },

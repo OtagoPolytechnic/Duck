@@ -6,6 +6,7 @@ public class BossBullet : MonoBehaviour
 {
     public GameObject player;
     private Rigidbody2D rb;
+    public EnemyBase originEnemy;
     public float bulletSpeed;
     private float range;
     private Vector3 startPos;
@@ -86,7 +87,7 @@ public class BossBullet : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") )
         {
-            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(bulletDamage);
+            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(bulletDamage, originEnemy);
             Destroy(gameObject);
         }
         else if (other.gameObject.CompareTag("Edges") || other.gameObject.CompareTag("Decoy"))
