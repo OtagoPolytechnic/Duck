@@ -8,43 +8,43 @@ public class Napalm : MonoBehaviour
     public float damageInterval = 2f;
     private PlayerStats playerStats;
     private Coroutine damageCoroutine;
-
+    private float damageTick;
+  
     void Start()
     {
-        napalmDamage = 1 + GameSettings.waveNumber;
+        napalmDamage = 1;
         playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
-        StartCoroutine(DestroyNapalm());
+     
     }
-
-    private IEnumerator DestroyNapalm()
+ void Update()
     {
-        yield return new WaitForSeconds(duration);
-        Destroy(gameObject);
-    }
+        if (GameSettings.gameState != GameState.InGame) { return; }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player") && damageCoroutine == null)
+        damageTick -= Time.deltaTime;
+        if (damageTick <= 0)
         {
-            damageCoroutine = StartCoroutine(DealDamage());
+            DealDamage();
+            damageTick = damageInterval;
+        }
+
+        duration -= Time.deltaTime;
+        if (duration <= 0) { Destroy(gameObject); }
+
+    }
+  
+
+    private void DealDamage()
+    {
+        Collider2D[] overlaps = Physics2D.OverlapCircleAll(transform.position, transform.localScale.x / 2);
+        foreach (Collider2D c in overlaps)
+        {
+            if (c.CompareTag("Player"))
+            {
+                 playerStats.ReceiveDamage(napalmDamage);
+            }
+        }
+
+            
         }
     }
 
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player") && damageCoroutine != null)
-        {
-            StopCoroutine(damageCoroutine);
-            damageCoroutine = null;
-        }
-    }
-
-    private IEnumerator DealDamage()
-    {
-        while (true)
-        {
-            playerStats.ReceiveDamage(napalmDamage);
-            yield return new WaitForSeconds(damageInterval);
-        }
-    }
-}

@@ -68,7 +68,7 @@ public class RiotBossBehaviour : EnemyBase
         {
             Move();
         }
-        else
+         else if (GameSettings.gameState ==GameState.InGame) 
         {
            
             if (shieldInstance == null)
@@ -109,8 +109,12 @@ public class RiotBossBehaviour : EnemyBase
         {
             float randomInterval = Random.Range(minNapalmInterval, maxNapalmInterval);
             yield return new WaitForSeconds(randomInterval);
-            GameObject napalmBomb = Instantiate(napalmBombPrefab, bulletPosition.position, bulletPosition.rotation);
+            if (GameSettings.gameState == GameState.InGame)
+            {
+                 GameObject napalmBomb = Instantiate(napalmBombPrefab, bulletPosition.position, bulletPosition.rotation);
+            }
         }
+
     }
     //Spawns shield at random intervals between set times
     private IEnumerator SpawnShield()
@@ -121,7 +125,7 @@ public class RiotBossBehaviour : EnemyBase
             float randomInterval = Random.Range(minShieldInterval, maxShieldInterval);
             yield return new WaitForSeconds(randomInterval); 
 
-            if (shieldInstance == null)
+            if (shieldInstance == null && GameSettings.gameState == GameState.InGame)
             {
               
                 Vector2 shieldPosition = (Vector2)shotPoint.position + (Vector2)(shotPoint.right * shieldOffset);     

@@ -272,7 +272,7 @@ MonoBehaviour:
   bullet: {fileID: 5418265743146168994, guid: 80580cccf9c60b14e9c7630a88835b6e, type: 3}
   bulletPosition: {fileID: 5656455699881316956}
   attackRange: 10
-  attackInterval: 1
+  attackInterval: 30
   napalmBombPrefab: {fileID: 306907954499577549, guid: 7703864db70ecc949a317c5fe84d10e5, type: 3}
   minNapalmInterval: 1
   maxNapalmInterval: 4
