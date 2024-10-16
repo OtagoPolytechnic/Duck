@@ -14,9 +14,9 @@ public class Napalm : MonoBehaviour
     {
         napalmDamage = 1;
         playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
-     
     }
- void Update()
+
+    void Update()
     {
         if (GameSettings.gameState != GameState.InGame) { return; }
 
@@ -26,10 +26,11 @@ public class Napalm : MonoBehaviour
             DealDamage();
             damageTick = damageInterval;
         }
-
         duration -= Time.deltaTime;
-        if (duration <= 0) { Destroy(gameObject); }
-
+        if (duration <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
   
 
@@ -40,11 +41,8 @@ public class Napalm : MonoBehaviour
         {
             if (c.CompareTag("Player"))
             {
-                 playerStats.ReceiveDamage(napalmDamage);
+                playerStats.ReceiveDamage(napalmDamage);
             }
-        }
-
-            
-        }
+        }   
     }
-
+}
