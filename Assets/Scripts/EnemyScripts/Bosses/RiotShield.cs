@@ -4,7 +4,21 @@ using UnityEngine;
 
 public class RiotShield : MonoBehaviour
 {
-    private int shieldHealth = 5;
+    public int maxShieldHealth = 5;
+    public int shieldHealth = 5;
+    public static RiotShield Instance;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public void TakeDamage()
     {

@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713b339a815478c4ca7485460f7be23f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shieldHealth: 0
-  maxShieldHealth: 10
+  maxShieldHealth: 5
+  shieldHealth: 5
 --- !u!61 &-8006567097689919295
 BoxCollider2D:
   m_ObjectHideFlags: 0
