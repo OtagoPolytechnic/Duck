@@ -55,6 +55,11 @@ public class Shooting : MonoBehaviour
             lastShot = Time.time;
             Shoot();
         }
+
+        if (reflectCooldown > 0)
+        {
+            reflectCooldown -= Time.deltaTime;
+        }
     }
 
     public void OnLook(InputAction.CallbackContext context)
