@@ -101,12 +101,5 @@ public class EnemyRanged : EnemyBase
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (Speed * tileSpeedModifier) * Time.deltaTime);
     }
-    
-    // public override void Die()
-    // {
-    //     SFXManager.Instance.PlaySFX("EnemyDie");
-    //     ScoreManager.Instance.IncreasePoints(Points);
-    //     EnemySpawner.Instance.currentEnemies.Remove(gameObject);
-    //     Destroy(gameObject);
-    // }
+
 }
