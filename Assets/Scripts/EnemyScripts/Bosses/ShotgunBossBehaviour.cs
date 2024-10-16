@@ -48,13 +48,8 @@ public class ShotgunBossBehaviour : EnemyBase
 
     private void Update()
     {
-        if (Health <= 0)
-        {
-            StartCoroutine(Timeout.Instance.TimeoutEnemy(gameObject, 5f));
-            return;
-        }
 
-        if (GameSettings.gameState != GameState.InGame) return;
+        if (GameSettings.gameState != GameState.InGame || Dying) return;
         if (SkillEffects.Instance.decoyActive)
         {
             player = GameObject.FindGameObjectWithTag("Decoy");

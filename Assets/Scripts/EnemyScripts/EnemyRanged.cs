@@ -26,9 +26,9 @@ public class EnemyRanged : EnemyBase
         
         if (GameSettings.gameState != GameState.InGame || Dying) {return;}
 
-        if (Health <= 0)
-        {
-            StartCoroutine(Timeout.Instance.TimeoutEnemy(gameObject, 1f));
+        if (Health <= 0) 
+        { 
+            StartCoroutine(Die());
             Dying = true;
         }
         Bleed();

@@ -26,11 +26,6 @@ public class BombBossBehaviour : EnemyBase
 
         if (GameSettings.gameState != GameState.InGame || Dying) { return; }
 
-        if (Health <= 0)
-        {
-            StartCoroutine(Timeout.Instance.TimeoutEnemy(gameObject, 5f));
-            Dying = true;
-        }
         if (SkillEffects.Instance.decoyActive && !stopCheck)
         {
             player = GameObject.FindGameObjectWithTag("Decoy");

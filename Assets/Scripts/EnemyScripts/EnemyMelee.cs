@@ -23,12 +23,6 @@ public class EnemyMelee : EnemyBase
     void Update()
     {
         if (GameSettings.gameState != GameState.InGame || Dying) {return;}
-
-        if (Health <= 0)
-        {
-            StartCoroutine(Timeout.Instance.TimeoutEnemy(gameObject, 1f));
-            Dying = true;
-        }
         Bleed();
 
         if (SkillEffects.Instance.decoyActive && !stopCheck)
