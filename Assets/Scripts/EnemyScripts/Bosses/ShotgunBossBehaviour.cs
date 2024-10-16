@@ -65,8 +65,11 @@ public class ShotgunBossBehaviour : EnemyBase
             player = GameObject.FindGameObjectWithTag("Player");
 
         }
-
-        HandleMovement();  // Movement-related updates
+        if (!isJumping)
+        {
+        HandleMovement();
+        }
+        // Movement-related updates
         HandleAttack();    // Attack-related updates
         UpdateBossVisibility();
         Bleed();
@@ -144,7 +147,7 @@ public class ShotgunBossBehaviour : EnemyBase
     // Initiates a jump attack by creating a shadow attack and disabling the boss's collider.
     private void JumpAttack()
     {
-        if (!shadowPrefab && Health <= 0)
+        if (!shadowPrefab)
         {
             Debug.LogError("Shadow prefab is not assigned.");
             return;
@@ -157,6 +160,7 @@ public class ShotgunBossBehaviour : EnemyBase
 
         isJumping = true;
         currentShadow = Instantiate(shadowPrefab, transform.position, Quaternion.identity);
+        currentShadow.transform.SetParent(gameObject.transform);
         ShadowAttack shadowAttack = currentShadow.GetComponent<ShadowAttack>();
 
         if (shadowAttack)
