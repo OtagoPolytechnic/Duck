@@ -3,15 +3,15 @@ using UnityEngine;
 
 public class NapalmBomb : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    public float moveSpeed = 8f;
     private Rigidbody2D rb;
     private GameObject player;
-    public float minDurationBeforeStop = 1f;
-    public float maxDurationBeforeStop = 4f;
+    public float minDurationBeforeStop = .5f;
+    public float maxDurationBeforeStop = 2f;
     public GameObject napalmFirePrefab;
     public int minFirePrefabs = 4;
     public int maxFirePrefabs = 10;
-    public float spreadRadius = 1f;
+    public float spreadRadius = 3f;
 
     private void Start()
     {
@@ -29,17 +29,18 @@ public class NapalmBomb : MonoBehaviour
             Debug.LogWarning("Player not found in the scene!");
             Destroy(gameObject);
         }
-    }
-
-    //Adjustable time for napalm bomb to explode
-    private IEnumerator StopMovementAndExplode()
-    {
         float randomDuration = Random.Range(minDurationBeforeStop, maxDurationBeforeStop);
-        yield return new WaitForSeconds(randomDuration);
-        rb.velocity = Vector2.zero;
-        Explode();
     }
 
+    void Update()
+    {
+        randomDuration -= Time.deltaTime;
+        if (randomDuration <= 0)
+        {
+            rb.velocity = Vector2.zero;
+            Explode();
+        }
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Edges") || other.CompareTag("Decoy"))
@@ -48,7 +49,7 @@ public class NapalmBomb : MonoBehaviour
         }
     }
 
-    //Instantiates a random amount of fire prefabs apon destruction
+    //Instantiates a random amount of fire prefabs upon destruction
     private void Explode()
     {
         int fireCount = Random.Range(minFirePrefabs, maxFirePrefabs + 1);

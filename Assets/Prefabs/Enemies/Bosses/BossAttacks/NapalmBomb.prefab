@@ -114,8 +114,8 @@ MonoBehaviour:
   minDurationBeforeStop: 0.5
   maxDurationBeforeStop: 2
   napalmFirePrefab: {fileID: 2638239130088948200, guid: 307c06e76884f4d40aa2c11c75031c90, type: 3}
-  minFirePrefabs: 10
-  maxFirePrefabs: 20
+  minFirePrefabs: 4
+  maxFirePrefabs: 10
   spreadRadius: 3
 --- !u!1 &406538139990204445
 GameObject:
