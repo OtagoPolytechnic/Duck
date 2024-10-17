@@ -10,7 +10,12 @@ public abstract class EnemyBase : MonoBehaviour
     public const float BLEED_INTERVAL = 1f;
     public GameObject damageText;
     public GameObject critText;
-    private int maxHealth;
+    private int maxHealth; 
+    public int MaxHealth
+    {
+        get { return maxHealth; }
+        set { maxHealth = value; }
+    }
     [SerializeField] private int baseHealth;
     public int BaseHealth
     {
@@ -22,6 +27,7 @@ public abstract class EnemyBase : MonoBehaviour
         get {return health;}
         set {health = value;}
     }
+   
     [SerializeField] private int damage;
     public int Damage
     {
@@ -37,12 +43,21 @@ public abstract class EnemyBase : MonoBehaviour
     {
         get {return points;}
     }
+    private bool dying;
+    public bool Dying
+    {
+        get {return dying;}
+        set {dying = value;}
+    }
     public MapManager mapManager;
     public float bleedTick = 1f;
     public float bleedInterval = 1f;
     public bool bleeding;
     public static int bleedAmount = 0;
     public static float endlessScalar = 1f;
+    public const float DEATHTIMEOUT = 0.5f;
+    public const float BOSSDEATHTIMEOUT = 2f;
+    public const float FINALBOSSDEATHTIMEOUT = 3f;
 
     public void Bleed() //this function needs to be reworked to be able to stack bleed on the target
     {
@@ -74,13 +89,49 @@ public abstract class EnemyBase : MonoBehaviour
             damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
             health -= damageTaken;
         }
+        //Lifesteal by percentage of damage dealt
+        if (PlayerStats.Instance.LifestealPercentage > 0 && damageTaken > 5)
+        {
+            PlayerStats.Instance.CurrentHealth += Math.Max((damageTaken * PlayerStats.Instance.LifestealPercentage) / 100, 1); //Heals at least 1 health
+        }
+        if (health <= 0)
+        {
+            StartCoroutine(Die());
+            Dying = true;
+        }
         
     }
     public abstract void Move();
-    public virtual void Die()
+    public virtual IEnumerator Die()
     {
+        SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
+        GetComponent<Collider2D>().enabled = false;
+
         SFXManager.Instance.PlaySFX("EnemyDie");
         ScoreManager.Instance.IncreasePoints(Points);
+        
+        if (sprite != null)
+        {
+            sprite.color = new Color32(255, 0, 0, 128);
+        }
+        else
+        {
+            Debug.LogError("Did not get sprite, make sure enemy hierarchy has a sprite render");
+        }
+
+        if (GameSettings.waveNumber % 5 == 0) //if we ever add a boss that spawns minions. This code needs a change.
+        {
+            yield return new WaitForSeconds(BOSSDEATHTIMEOUT);
+        }
+        else if(GameSettings.waveNumber % 25 == 0)
+        {
+            yield return new WaitForSeconds(FINALBOSSDEATHTIMEOUT);
+        }
+        else
+        {
+            yield return new WaitForSeconds(DEATHTIMEOUT);
+        }
+
         EnemySpawner.Instance.currentEnemies.Remove(gameObject);
         Destroy(gameObject);
     }

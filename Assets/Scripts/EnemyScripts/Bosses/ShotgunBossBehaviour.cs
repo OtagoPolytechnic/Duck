@@ -8,17 +8,15 @@ public class ShotgunBossBehaviour : EnemyBase
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject shadowPrefab;
     [SerializeField] private Transform bulletPosition;
-    [SerializeField] private float attackRange;
-    [SerializeField] private float attackInterval;
-    [SerializeField] private float minJumpAttackInterval = 1f;
-    [SerializeField] private float maxJumpAttackInterval = 3f;
-    [SerializeField] private float jumpAttackCooldown = 2f;
-    [SerializeField] private float attackResumptionDelay = 2f; // New variable for delay after shadow attack
-    [SerializeField] private float initialShootingDelay = 2f; // New variable for initial delay
+    private float attackRange = 10;
+    private float attackInterval = 1.5f;
+    private float minJumpAttackInterval = 7f;
+    private float maxJumpAttackInterval = 12f;
+    private float attackResumptionDelay = 2f; // New variable for delay after shadow attack
+    private float initialShootingDelay = 2f; // New variable for initial delay
 
     private float attackCooldown;
     private float jumpAttackTimer;
-    private float jumpAttackCooldownTimer;
     private float resumptionDelayTimer; // New timer for delay
     private float initialShootingDelayTimer; // New timer for initial shooting delay
     private bool isJumping;
@@ -48,13 +46,8 @@ public class ShotgunBossBehaviour : EnemyBase
 
     private void Update()
     {
-        if (Health <= 0)
-        {
-            Die();
-            return;
-        }
 
-        if (GameSettings.gameState != GameState.InGame) return;
+        if (GameSettings.gameState != GameState.InGame || Dying) return;
         if (SkillEffects.Instance.decoyActive)
         {
             player = GameObject.FindGameObjectWithTag("Decoy");
@@ -65,11 +58,25 @@ public class ShotgunBossBehaviour : EnemyBase
             player = GameObject.FindGameObjectWithTag("Player");
 
         }
-
-        HandleMovement();  // Movement-related updates
+        if (!isJumping)
+        {
+        HandleMovement();
+        }
+        // Movement-related updates
         HandleAttack();    // Attack-related updates
         UpdateBossVisibility();
         Bleed();
+        // Manage the resumption delay timer
+        if (resumptionDelayTimer > 0)
+        {
+            resumptionDelayTimer -= Time.deltaTime;
+        }
+
+        // Manage the initial shooting delay timer
+        if (initialShootingDelayTimer > 0)
+        {
+            initialShootingDelayTimer -= Time.deltaTime;
+        }
     }
 
     private void HandleMovement()
@@ -100,20 +107,12 @@ public class ShotgunBossBehaviour : EnemyBase
     private void HandleAttack()
     {
         // Handle jump attack
-        if (jumpAttackCooldownTimer <= 0)
+        jumpAttackTimer -= Time.deltaTime;
+        if (jumpAttackTimer <= 0 && !isJumping)
         {
-            jumpAttackTimer -= Time.deltaTime;
-            if (jumpAttackTimer <= 0 && !isJumping)
-            {
-                if (SkillEffects.Instance.vanishActive) { return; }
-                JumpAttack();
-                jumpAttackCooldownTimer = jumpAttackCooldown;
-                jumpAttackTimer = Random.Range(minJumpAttackInterval, maxJumpAttackInterval);
-            }
-        }
-        else
-        {
-            jumpAttackCooldownTimer -= Time.deltaTime;
+            if (SkillEffects.Instance.vanishActive) { return; }
+            JumpAttack();
+            jumpAttackTimer = Random.Range(minJumpAttackInterval, maxJumpAttackInterval);
         }
 
         // Handle shooting if cooldown allows and there's no delay
@@ -157,7 +156,9 @@ public class ShotgunBossBehaviour : EnemyBase
 
         isJumping = true;
         currentShadow = Instantiate(shadowPrefab, transform.position, Quaternion.identity);
+        currentShadow.transform.SetParent(gameObject.transform);
         ShadowAttack shadowAttack = currentShadow.GetComponent<ShadowAttack>();
+        shadowAttack.GetComponent<ShadowAttack>().originBoss = this;
 
         if (shadowAttack)
         {
@@ -194,24 +195,9 @@ public class ShotgunBossBehaviour : EnemyBase
             GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
             float angleOffset = 10f * (i - 1);
             newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, true, angleOffset);
+            newBullet.GetComponent<BossBullet>().originEnemy = this;
         }
         SFXManager.Instance.PlaySFX("EnemyShoot");
         attackCooldown = attackInterval;
-    }
-
-    // Manages the timers for resumption delay and initial shooting delay.
-    private void LateUpdate()
-    {
-        // Manage the resumption delay timer
-        if (resumptionDelayTimer > 0)
-        {
-            resumptionDelayTimer -= Time.deltaTime;
-        }
-
-        // Manage the initial shooting delay timer
-        if (initialShootingDelayTimer > 0)
-        {
-            initialShootingDelayTimer -= Time.deltaTime;
-        }
     }
 }

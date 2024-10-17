@@ -16,6 +16,7 @@ TagManager:
   - Decoy
   - BossPointer
   - Target
+  - Shield
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - EnemyBullet
   - MapBorder
   - Shadow
-  - 
+  - Shield
   - 
   - 
   - 

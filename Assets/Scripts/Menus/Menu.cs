@@ -22,7 +22,7 @@ public class Menu : MonoBehaviour
     void Awake()
     {
         VisualElement document = GetComponent<UIDocument>().rootVisualElement;
-        playButton = document.Q<Button>("SkillMenu");
+        playButton = document.Q<Button>("ModeSelect");
 
 
         highscoreButton = document.Q<Button>("Highscores");
@@ -33,31 +33,39 @@ public class Menu : MonoBehaviour
         quitButton.RegisterCallback<ClickEvent>(Quit);
 
         versionNumber = document.Q<Label>("VersionNumber");
-        versionNumber.text = "Alpha V" + Application.version;
+        versionNumber.text = "ALPHA V" + Application.version;
 
     }
 
     private void Start()
     {
         Application.targetFrameRate = 60;
-        StartCoroutine(LoadBackgroundScene("SkillMenu", playButton));
+        StartCoroutine(LoadBackgroundScene("ModeSelect", playButton));
+        StartCoroutine(LoadBackgroundScene("SkillMenu")); //Null button as you can't open this screen from the main menu
         StartCoroutine(LoadBackgroundScene("Highscores", highscoreButton));
         StartCoroutine(LoadBackgroundScene("Settings", settingsButton));
         StartCoroutine(LoadBackgroundScene("Credits", creditsButton));
     }
 
-    IEnumerator LoadBackgroundScene(string sceneName, Button button)
+    IEnumerator LoadBackgroundScene(string sceneName, Button button = null)
     {
-        Color originalColour = button.resolvedStyle.backgroundColor; //Record original colour
-        button.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f)); //Turn gray while loading
+        Color originalColour = new Color(0, 0, 0, 0); //Needs to be assigned to not cause an error
+        if (button != null)
+        {
+            originalColour = button.resolvedStyle.backgroundColor; //Record original colour
+            button.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f)); //Turn gray while loading
+        }
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
-        //When the scene is loaded add the click event
-        button.RegisterCallback<ClickEvent>(SubMenuButton);
-        button.style.backgroundColor = new StyleColor(originalColour); //Return to original colour
+        if (button != null)
+        {
+            //When the scene is loaded add the click event
+            button.RegisterCallback<ClickEvent>(SubMenuButton);
+            button.style.backgroundColor = new StyleColor(originalColour); //Return to original colour
+        }
 
         //Following code was based off of a request to copilot on how to access the UI doc of the scene loaded
         //Code was non functional to start and heavily modified but suggestion of using linq queries is the same
@@ -80,23 +88,6 @@ public class Menu : MonoBehaviour
             }
         }
 
-    }
-
-    public void Play(ClickEvent click)
-    {
-        GameSettings.gameState = GameState.InGame;
-        StartCoroutine(LoadScene("MainScene"));
-    }
-
-    IEnumerator LoadScene(string sceneName)
-    {
-        //TODO: Add loading screen if the load times start to get longer
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
-        playButton.text = "Loading";
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
     }
 
     public void Quit(ClickEvent click)

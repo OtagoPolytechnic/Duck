@@ -77,13 +77,15 @@ public class BossSpawner : MonoBehaviour
             currentEnemies.Add(bossInstance);
             Debug.Log("SpawnBoss called. Boss spawned at: " + spawnPosition);
             bossInstance.GetComponent<EnemyBase>().Health = bossHealth;
+            bossInstance.GetComponent<EnemyBase>().MaxHealth = bossHealth;
+            Debug.Log(bossInstance.GetComponent<EnemyBase>().MaxHealth);
 
             // Setup boss health UI
             document = bossHealthBar.GetComponent<UIDocument>().rootVisualElement;
             container = document.Q<VisualElement>("BossHealthContainer");
             container.visible = true;
-            BossHealth.Instance.boss = bossInstance.GetComponent<EnemyBase>();
-            BossHealth.Instance.BossMaxHealth = bossHealth;
+            BossHealthBar.Instance.boss = bossInstance.GetComponent<EnemyBase>();
+            BossHealthBar.Instance.BossMaxHealth = bossHealth;
 
             // Activate TargetIndicator if assigned
             if (targetIndicator != null)

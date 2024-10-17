@@ -7,6 +7,7 @@ public class Shockwave : MonoBehaviour
     public GameObject player;
     private int shockwaveDamage;
     public bool playerHit;
+    public EnemyBase originEnemy;
       public int ShockwaveDamage
     {
         get { return shockwaveDamage; }
@@ -48,7 +49,7 @@ public class Shockwave : MonoBehaviour
         {
 
             //DestroyExplosion();
-            player.GetComponent<PlayerStats>().ReceiveDamage(shockwaveDamage);
+            player.GetComponent<PlayerStats>().ReceiveDamage(shockwaveDamage, originEnemy);
 
 
         }

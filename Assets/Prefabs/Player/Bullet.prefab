@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExplosionPrefab: {fileID: 1970858085864543839, guid: 9786c8500801a3b4fb993680f0f45a3b, type: 3}
+  riotShield: {fileID: -2571636290970246214, guid: 0b1ced2139a6acc40985ea6936d67508, type: 3}
 --- !u!1 &5946124033726285108
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RadiusAttack : MonoBehaviour
+public class BombThrow : MonoBehaviour
 {
     public GameObject player;
     public float speed;
@@ -23,7 +23,7 @@ public class RadiusAttack : MonoBehaviour
     }
     void Update()
     {
-        if (GameSettings.gameState != GameState.InGame){return;}
+        if (GameSettings.gameState != GameState.InGame || GetComponent<EnemyBase>().Dying){return;}
 
             if (attackCooldown <= 0)
             {

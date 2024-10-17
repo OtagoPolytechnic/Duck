@@ -1,5 +1,5 @@
 .text {
-    -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/ARCADE_N.TTF?fileID=12800000&guid=f08ae915995c0db4f9feee7e49baaec2&type=3#ARCADE_N");
+    -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/PublicPixel.ttf?fileID=12800000&guid=9cdf889b2baddf840996f4d8b05c1651&type=3#PublicPixel");
     -unity-font-definition: initial;
     font-size: 50px;
     color: rgb(255, 255, 255);

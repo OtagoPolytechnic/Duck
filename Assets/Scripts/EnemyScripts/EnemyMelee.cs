@@ -22,12 +22,7 @@ public class EnemyMelee : EnemyBase
 
     void Update()
     {
-        if (GameSettings.gameState != GameState.InGame) {return;}
-
-        if (Health <= 0)
-        {
-            Die();
-        }
+        if (GameSettings.gameState != GameState.InGame || Dying) {return;}
         Bleed();
 
         if (SkillEffects.Instance.decoyActive && !stopCheck)
@@ -57,7 +52,7 @@ public class EnemyMelee : EnemyBase
         attacking = true;
         attack.SetActive(true); //show the attack
         attack.GetComponent<BoxCollider2D>().enabled = true; //enable the collider
-                                                             // Play the enemy bite sound
+        attack.GetComponent<EnemyMeleeAttack>().originEnemy = this;
         if (SFXManager.Instance != null)
         {
             SFXManager.Instance.PlaySFX("Bite");
@@ -87,12 +82,5 @@ public class EnemyMelee : EnemyBase
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, Speed * tileSpeedModifier * Time.deltaTime);
         transform.GetChild(0).rotation = Quaternion.Euler(Vector3.forward * angle);
-    }
-    public override void Die()
-    {
-        SFXManager.Instance.PlaySFX("EnemyDie");
-        ScoreManager.Instance.IncreasePoints(Points);
-        EnemySpawner.Instance.currentEnemies.Remove(gameObject);
-        Destroy(gameObject);
     }
 }

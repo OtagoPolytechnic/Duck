@@ -2,16 +2,16 @@
     <Style src="project://database/Assets/UI%20Toolkit/HighscoreStyle.uss?fileID=7433441132597879392&amp;guid=ea3e33529cbeebc40bf06b5e8e1fedf8&amp;type=3#HighscoreStyle" />
     <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgb(80, 80, 80); visibility: visible; display: flex; overflow: visible; align-items: center; justify-content: space-around;">
         <ui:VisualElement name="Selection" style="flex-grow: 0; flex-direction: row; flex-shrink: 0;">
-            <ui:Button text="Boss" display-tooltip-when-elided="true" name="Boss" class="text buttonText button" style="overflow: hidden; height: 100px; background-color: rgb(80, 231, 167);" />
-            <ui:Button text="Endless" display-tooltip-when-elided="true" name="Endless" class="text buttonText button" style="overflow: hidden; height: 100px; background-color: rgb(172, 135, 201);" />
+            <ui:Button text="BOSS" display-tooltip-when-elided="true" name="Boss" class="text buttonText button" style="overflow: hidden; height: 100px; background-color: rgb(80, 231, 167);" />
+            <ui:Button text="ENDLESS" display-tooltip-when-elided="true" name="Endless" class="text buttonText button" style="overflow: hidden; height: 100px; background-color: rgb(172, 135, 201);" />
         </ui:VisualElement>
         <ui:VisualElement name="ScoreDisplay" width="75%" style="flex-grow: 1; flex-direction: row;">
             <ui:MultiColumnListView fixed-item-height="100" show-border="true" name="MultiColumnListView" show-alternating-row-backgrounds="ContentOnly" class="text" style="color: rgb(0, 0, 0); background-color: rgba(173, 173, 173, 0.56); align-self: stretch; flex-grow: 1; flex-direction: column; flex-wrap: nowrap; align-items: stretch; width: 100%; justify-content: flex-start; font-size: 25px; -unity-text-align: upper-center; border-right-width: 0; margin-right: 5px; margin-left: 5px;">
                 <ui:Columns>
-                    <ui:Column name="date" title="Date" width="25%" />
-                    <ui:Column name="name" title="Name" width="25%" />
-                    <ui:Column name="score" title="Score" width="25%" />
-                    <ui:Column name="weapon" title="Weapon" width="25%" />
+                    <ui:Column name="date" title="DATE" width="25%" />
+                    <ui:Column name="name" title="NAME" width="25%" />
+                    <ui:Column name="score" title="SCORE" width="15%" />
+                    <ui:Column name="weapon" title="WEAPON" width="35%" />
                 </ui:Columns>
             </ui:MultiColumnListView>
             <ui:VisualElement style="flex-grow: 1; width: 75%; justify-content: flex-start; margin-left: 5px; margin-top: 0; margin-right: 5px;">
@@ -19,6 +19,6 @@
                 <ui:ListView show-alternating-row-backgrounds="ContentOnly" name="MoreInfoList" virtualization-method="FixedHeight" fixed-item-height="100" class="text" style="width: 100%; background-color: rgb(132, 132, 132); font-size: 40px; align-items: flex-start; justify-content: space-between; -unity-text-align: middle-left; margin-left: 0; padding-left: 10px;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Button text="Return" display-tooltip-when-elided="true" name="MainMenu" class="text buttonText button" style="overflow: hidden;" />
+        <ui:Button text="RETURN" display-tooltip-when-elided="true" name="MainMenu" class="text buttonText button" style="overflow: hidden;" />
     </ui:VisualElement>
 </ui:UXML>

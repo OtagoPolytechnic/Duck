@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Runtime.CompilerServices;
 
 public class Bullet : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Bullet : MonoBehaviour
     public GameObject ExplosionPrefab;
     private GameObject Explosion;
     private int ricochetCount;
+    public RiotShield riotShield;
 
     void Start()
     {
@@ -49,10 +51,16 @@ public class Bullet : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D other)
-    {
+    { 
+        if (other.gameObject.CompareTag("Shield"))
+        {
+            Destroy(gameObject);
+            other.gameObject.GetComponent<RiotShield>().TakeDamage();
+        }
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Enemy"))
         {
+
             if (WeaponStats.Instance.ExplosiveBullets)
             {
                 Explosion = Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
@@ -63,6 +71,7 @@ public class Bullet : MonoBehaviour
                 {
                     explosionScript.ExplosionDamage = (WeaponStats.Instance.ExplosionDamage * WeaponStats.Instance.CritDamage) / 100;
                 }
+               
                 else
                 {
                     explosionScript.ExplosionDamage = WeaponStats.Instance.ExplosionDamage;
@@ -71,32 +80,13 @@ public class Bullet : MonoBehaviour
             //Making the rocket launcher not deal base bullet damage, only explosion damage
             if (WeaponStats.Instance.CurrentWeapon != WeaponType.RocketLauncher)
             {
-                //Lifesteal by percentage of damage dealt
-                if (PlayerStats.Instance.LifestealPercentage > 0)
-                {
-                    PlayerStats.Instance.CurrentHealth += Math.Max((WeaponStats.Instance.Damage * PlayerStats.Instance.LifestealPercentage) / 100, 1); //Heals at least 1 health
-                }
                 if (crit)
                 {
-                    if (other.gameObject.GetComponent<EnemyBase>())
-                    {
-                        other.gameObject.GetComponent<EnemyBase>().ReceiveDamage((WeaponStats.Instance.Damage * WeaponStats.Instance.CritDamage) / 100, true);
-                    }
-                    else
-                    {
-                        other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage((WeaponStats.Instance.Damage * WeaponStats.Instance.CritDamage) / 100, true);
-                    }
+                    other.gameObject.GetComponent<EnemyBase>().ReceiveDamage((WeaponStats.Instance.Damage * WeaponStats.Instance.CritDamage) / 100, true);
                 }
                 else
                 {
-                    if (other.gameObject.GetComponent<EnemyBase>())
-                    {
-                        other.gameObject.GetComponent<EnemyBase>().ReceiveDamage(WeaponStats.Instance.Damage, false);
-                    }
-                    else
-                    {
-                        other.gameObject.GetComponent<EnemyHealth>().ReceiveDamage(WeaponStats.Instance.Damage, false);
-                    }
+                    other.gameObject.GetComponent<EnemyBase>().ReceiveDamage(WeaponStats.Instance.Damage, false);
                 }
                 //If the piercing isn't infinite, check if it should pierce
                 if (pierceCount != -1)

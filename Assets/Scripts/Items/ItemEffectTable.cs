@@ -38,7 +38,7 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}");
                 break;
             case 05:
-                WeaponStats.Instance.ItemBleedDamage += 2; //2% max health bleed per second
+                WeaponStats.Instance.ItemBleedDamage += 1; //2% max health bleed per second
                 Debug.Log($"Bleed amount: {WeaponStats.Instance.BleedDamage}");
                 break;
             case 06:
@@ -143,9 +143,9 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Extra bullets: {WeaponStats.Instance.ExtraBullets}");
                 break;
             case 22:
-                TopDownMovement.Instance.PercentBonusSpeed /= 2; //Half the speed
-                PlayerStats.Instance.MidasTouch = true;
-                PlayerStats.Instance.MidasPercent += 50; //50% of damage taken is dealt to the enemy per stack
+                TopDownMovement.Instance.PercentBonusSpeed *= 0.75f; //3/4 the speed
+                PlayerStats.Instance.SpinePlate = true;
+                PlayerStats.Instance.SpinePercent += 200; //200% of damage taken is dealt to the enemy per stack
                 Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                 break;
             case 23:
@@ -213,6 +213,22 @@ public class ItemEffectTable : MonoBehaviour
             case 34:
                 WeaponStats.Instance.FlatDamage += 30;
                 Debug.Log($"Damage: {WeaponStats.Instance.Damage}");
+                break;
+            case 35:
+                if (!WeaponStats.Instance.HasReflector)
+                {
+                    Debug.Log($"Gained reflector");
+                    WeaponStats.Instance.HasReflector = true;
+                }
+                else
+                {
+                    WeaponStats.Instance.ReflectCooldown -= 0.5f;
+                    Debug.Log($"Reflector cooldown reduced to {WeaponStats.Instance.ReflectCooldown}");
+                }
+                break;
+            case 36:
+                WeaponStats.Instance.PercentageDamage *= 4;
+                WeaponStats.Instance.WeaponFireDelay *= 3;
                 break;
             default:
                 Debug.Log($"The ID: {itemID} has not been given a case in the item effect table.");

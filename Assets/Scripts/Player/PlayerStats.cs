@@ -10,17 +10,17 @@ public class PlayerStats : MonoBehaviour
     public static PlayerStats Instance;
     //Health
     private const int BASE_MAX_HEALTH = 100;
-    private bool midasTouch = false;
-    public bool MidasTouch
+    private bool spinePlate = false;
+    public bool SpinePlate
     {
-        get {return midasTouch;}
-        set {midasTouch = value;}
+        get {return spinePlate;}
+        set {spinePlate = value;}
     }
-    private int midasPercent = 0; //Percentage of damage taken to deal to the enemy
-    public int MidasPercent
+    private int spinePercent = 0; //Percentage of damage taken to deal to the enemy
+    public int SpinePercent
     {
-        get {return midasPercent;}
-        set {midasPercent = value;}
+        get {return spinePercent;}
+        set {spinePercent = value;}
     }
     private int flatBonusHealth = 0;
     public int FlatBonusHealth
@@ -57,8 +57,9 @@ public class PlayerStats : MonoBehaviour
         get {return currentHealth;}
         set
         {
-            currentHealth = Math.Min(value, MaxHealth);
+            currentHealth = Math.Min(Math.Max(0, value), MaxHealth);
             //Locks the current health to the max health
+            HealthBar.Instance.UpdateHealthBar(CurrentHealth, MaxHealth);
         }
     }
 
@@ -137,6 +138,9 @@ public class PlayerStats : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+    void Start()
+    {
         CurrentHealth = MaxHealth;
     }
 
@@ -152,16 +156,10 @@ public class PlayerStats : MonoBehaviour
             CheckDot();
         }
 
-        if (currentHealth <= 0) //if the player dies
+        if (CurrentHealth <= 0) //if the player dies
         {
-            if (lifeEggs.Count > 0)
-            {
-                Respawn();
-            }
-            else
-            {
-                FindObjectOfType<GameManager>().GameOver();
-            }
+            GameSettings.gameState = GameState.Dead;
+            StartCoroutine(Timeout.Instance.TimeoutPlayer(gameObject, 1f));
         }
     }
 
@@ -182,10 +180,10 @@ public class PlayerStats : MonoBehaviour
             nextDotTick = DotTick;
             CurrentHealth -= Math.Max(((MaxHealth * DotDamage) / 100), 1); //Deal the % of max health per tick. Minimum 1
         }
-        nextDotTick -= Time.fixedDeltaTime;
+        nextDotTick -= Time.deltaTime;
     }
 
-    void Respawn()
+    public void Respawn()
     {
         //This event currently has no listeners, it is here for future use 
         onPlayerRespawn?.Invoke();
@@ -196,7 +194,7 @@ public class PlayerStats : MonoBehaviour
             Destroy(lifeEggs[lifeEggs.Count - 1]);
             lifeEggs.Remove(lifeEggs[lifeEggs.Count - 1]);
         }
-        //Debug.Log("Player health before collisions turned off: " + currentHealth);
+        //Debug.Log("Player health before collisions turned off: " + CurrentHealth);
         CurrentHealth = MaxHealth;
         StartCoroutine(DisableCollisionForDuration(2f));
     }
@@ -213,17 +211,15 @@ public class PlayerStats : MonoBehaviour
         Physics2D.IgnoreLayerCollision(7, 9, false);
     }
 
-    public void ReceiveDamage(int damageTaken, EnemyHealth enemyHealth = null)
+    public void ReceiveDamage(int damageTaken, EnemyBase enemyHealth = null)
     {
-        if (midasTouch)
+        if (SpinePlate && enemyHealth != null)
         {
-            //TODO: Make sure the enemyHealth is added when merged
-            //If the player has the Midas Touch, deal damage to the enemy as well
-            enemyHealth?.ReceiveDamage(damageTaken * midasPercent / 100, false);
+            enemyHealth?.ReceiveDamage((damageTaken * SpinePercent) / 100, false);
         }
-        //TODO: Multiple instances of damage shouldn't totally overlap. Maybe randomly offset them a bit?
-        GameObject damageTextInst = Instantiate(damageText, gameObject.transform);
+        float randomOffset = UnityEngine.Random.Range(-0.3f, 0.3f);
+        GameObject damageTextInst = Instantiate(damageText, new Vector3(transform.position.x + randomOffset, transform.position.y + 1 + randomOffset, transform.position.z), Quaternion.identity);
         damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
-        currentHealth -= damageTaken;
+        CurrentHealth -= damageTaken;
     }
 }

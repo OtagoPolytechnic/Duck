@@ -19,16 +19,12 @@ public class BombBossBehaviour : EnemyBase
     {
         mapManager = FindObjectOfType<MapManager>();
         player = GameObject.FindGameObjectWithTag("Player");
-        attackCooldown = 0;
+        attackCooldown = attackInterval;
     }
     void Update()
     {
-        if (Health <= 0)
-        {
 
-            Die();
-        }
-        if (GameSettings.gameState != GameState.InGame) { return; }
+        if (GameSettings.gameState != GameState.InGame || Dying) { return; }
 
         if (SkillEffects.Instance.decoyActive && !stopCheck)
         {
@@ -84,6 +80,7 @@ public class BombBossBehaviour : EnemyBase
         // Normal boss shooting
         GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
         newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, false); // Pass false for shotgun
+        newBullet.GetComponent<BossBullet>().originEnemy = this;
         SFXManager.Instance.PlaySFX("EnemyShoot");
         attackCooldown = attackInterval;
     }

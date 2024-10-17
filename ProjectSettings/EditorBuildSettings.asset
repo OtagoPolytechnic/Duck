@@ -18,9 +18,12 @@ EditorBuildSettings:
     path: Assets/Scenes/HighScores.unity
     guid: e36b234ece0896c4d8b0d6b1a98510a4
   - enabled: 1
-    path: Assets/Scenes/MainScene.unity
-    guid: b6c49af7b3c420e428aa70f11871ee72
+    path: Assets/Scenes/ModeSelect.unity
+    guid: 4761b4ac4c13e9946bafcd53c406f9f0
   - enabled: 1
     path: Assets/Scenes/SkillMenu.unity
     guid: 30ae7b2f4c3bc324696e01bb1764fa5e
+  - enabled: 1
+    path: Assets/Scenes/MainScene.unity
+    guid: b6c49af7b3c420e428aa70f11871ee72
   m_configObjects: {}

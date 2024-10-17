@@ -17,7 +17,7 @@ public class EnemyMeleeAttack : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            player.GetComponent<PlayerStats>().ReceiveDamage(damage);
+            player.GetComponent<PlayerStats>().ReceiveDamage(damage, originEnemy);
             gameObject.GetComponent<BoxCollider2D>().enabled = false; //Disable collider after dealing damage, so that each attack can only damage once
         }
     }
