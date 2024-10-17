@@ -27,7 +27,6 @@ public class NapalmBomb : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Player not found in the scene!");
             Destroy(gameObject);
         }
         randomDuration = Random.Range(minDurationBeforeStop, maxDurationBeforeStop);
@@ -70,13 +69,7 @@ public class NapalmBomb : MonoBehaviour
             {
                 Instantiate(napalmFirePrefab, randomPosition, Quaternion.identity);
             }
-            else
-            {
-                Debug.LogWarning("Napalm fire prefab is not assigned!");
-            }
         }
-
-        Debug.Log("Napalm Bomb exploded!");
         Destroy(gameObject);
     }
 }
