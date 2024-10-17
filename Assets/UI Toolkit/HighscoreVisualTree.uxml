@@ -10,8 +10,8 @@
                 <ui:Columns>
                     <ui:Column name="date" title="Date" width="25%" />
                     <ui:Column name="name" title="Name" width="25%" />
-                    <ui:Column name="score" title="Score" width="25%" />
-                    <ui:Column name="weapon" title="Weapon" width="25%" />
+                    <ui:Column name="score" title="Score" width="15%" />
+                    <ui:Column name="weapon" title="Weapon" width="35%" />
                 </ui:Columns>
             </ui:MultiColumnListView>
             <ui:VisualElement style="flex-grow: 1; width: 75%; justify-content: flex-start; margin-left: 5px; margin-top: 0; margin-right: 5px;">

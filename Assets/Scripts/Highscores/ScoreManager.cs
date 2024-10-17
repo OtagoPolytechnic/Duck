@@ -70,64 +70,32 @@ public class ScoreManager : MonoBehaviour
         playerName.style.display = DisplayStyle.Flex;
         enterName.style.display = DisplayStyle.Flex;
         gameOverDoc.style.display = DisplayStyle.Flex;
-        if (GameSettings.waveNumber <= 25) //If wave 25 then submit a boss score. Otherwise submit an endless score. Need to check if the player is alive to know if they won the fight
+
+        if (Scoreboard.Instance.CheckTopScore(score, GameSettings.gameMode)) //If the player got the top score
         {
-            if (Scoreboard.Instance.CheckTopScore(score, false)) //If the player got the top score
-            {
-                highscoreNotif.text = "TOP BOSS SCORE!";
-            }
-            else if (Scoreboard.Instance.CheckHighScore(score, false)) //If the player got a high score
-            {
-                highscoreNotif.text = "New boss high score!";
-            }
-            else
-            {
-                if (PlayerStats.Instance.CurrentHealth > 0) //If wave 25 then submit a boss score. Otherwise submit an endless score. Need to check if the player is alive to know if they won the fight
-                {
-                    highscoreNotif.text = "Continue?";
-                }
-                else
-                {
-                    highscoreNotif.text = "Game over";
-                }
-                //Hide the submit button and text field
-                submitButton.style.display = DisplayStyle.None;
-                playerName.style.display = DisplayStyle.None;
-                enterName.style.display = DisplayStyle.None;
-            }
-            submitButton.RegisterCallback<ClickEvent>(SubmitBossScore);
-            if (PlayerStats.Instance.CurrentHealth > 0)
-            {
-                replay.UnregisterCallback<ClickEvent>(GameManager.Instance.Restart);
-                replay.text = "Continue";
-                GameOverText.text = "BOSS KILLED!";
-                replay.RegisterCallback<ClickEvent>(Continue);
-            }
+            highscoreNotif.text = "TOP SCORE!";
+        }
+        else if (Scoreboard.Instance.CheckHighScore(score, GameSettings.gameMode)) //If the player got a high score
+        {
+            highscoreNotif.text = "New high score!";
         }
         else
         {
-            if (Scoreboard.Instance.CheckTopScore(score, false)) //If the player got the top score
-            {
-                highscoreNotif.text = "TOP ENDLESS SCORE!";
-            }
-            else if (Scoreboard.Instance.CheckHighScore(score, false)) //If the player got a high score
-            {
-                highscoreNotif.text = "New endless high score!";
-            }
-            else
-            {
-                highscoreNotif.text = "Game over";
-                //Hide the submit button and text field
-                submitButton.style.display = DisplayStyle.None;
-                playerName.style.display = DisplayStyle.None;
-                enterName.style.display = DisplayStyle.None;
-            }
-            submitButton.RegisterCallback<ClickEvent>(SubmitEndlessScore);
+            highscoreNotif.text = "Game over";
+            //Hide the submit button and text field
+            submitButton.style.display = DisplayStyle.None;
+            playerName.style.display = DisplayStyle.None;
+            enterName.style.display = DisplayStyle.None;
         }
+        submitButton.RegisterCallback<ClickEvent>(SubmitScore);
         finalscoreText.text = "Score: " + score.ToString();
+        if (GameSettings.gameState == GameState.BossVictory)
+        {
+            GameOverText.text = "BOSS KILLED!";
+        }
     }
 
-    public void SubmitEndlessScore(ClickEvent click)
+    public void SubmitScore(ClickEvent click)
     {
         if (playerName.value == "") //If the player didn't enter a name then default to "Player"
         {
@@ -136,37 +104,18 @@ public class ScoreManager : MonoBehaviour
         EntryData playerScoreInfo = new EntryData(
             playerName.value,
             score,
-            WeaponStats.Instance.CurrentWeapon, //Dynamic weapon type when weapon update is merged
+            WeaponStats.Instance.CurrentWeapon,
             GameSettings.waveNumber,
-            ItemPanel.Instance.heldItems,
-            enemiesKilled);
-        SubmitHighScore(playerScoreInfo, SubmitEndlessScore, true);
-    }
+            ItemPanel.Instance.HighscoreItems(),
+            enemiesKilled,
+            GameSettings.gameState == GameState.BossVictory, //Returns true if the final boss was killed
+            GameSettings.gameMode,
+            GameSettings.activeSkill);
+        
+        submitButton.text = "Submitted!";
+        submitButton.UnregisterCallback<ClickEvent>(SubmitScore); //So the player can't submit multiple times
 
-    public void SubmitBossScore(ClickEvent click)
-    {
-        if (playerName.value == "") //If the player didn't enter a name then default to "Player"
-        {
-            playerName.value = "Player";
-        }
-        EntryData playerScoreInfo = new EntryData(
-            playerName.value,
-            score,
-            WeaponStats.Instance.CurrentWeapon, 
-            GameSettings.waveNumber,
-            ItemPanel.Instance.heldItems,
-            enemiesKilled);
-        SubmitHighScore(playerScoreInfo, SubmitBossScore, false);
-
-    }
-
-
-    public void SubmitHighScore(EntryData entry, EventCallback<ClickEvent> click, bool isEndless) //Click needs to be passed in because it can be an endless or boss click event
-    {
-        submitButton.UnregisterCallback<ClickEvent>(click); //So the player can't submit multiple times
-        submitButton.text = "Submitted!"; //Will only be seen when highscores unloaded
-        //Following code is modified from the Menu.cs script. It is used to get the UI document of the scene loaded
-        Scene loadedScene = SceneManager.GetSceneByName("HighScores"); //Getting the scene I just loaded
+        Scene loadedScene = SceneManager.GetSceneByName("HighScores");
         if (loadedScene.IsValid())
         {
             GameObject[] rootObjects = loadedScene.GetRootGameObjects(); // Gets an array of all the objects in the scene that aren't inside other objects
@@ -178,31 +127,16 @@ public class ScoreManager : MonoBehaviour
                 VisualElement rootElement = uiDocument.rootVisualElement; // Getting the root visual element of the UI document
                 rootElement.style.display = DisplayStyle.Flex;
             }
+            Scoreboard scoreboard = FindObjectOfType<Scoreboard>();
+            scoreboard.AddEntry(playerScoreInfo);
+            if (GameSettings.gameMode == GameMode.Boss) 
+            {
+                HighscoreUI.Instance.DisplayBossHighscores();
+            }
+            else
+            {
+                HighscoreUI.Instance.DisplayEndlessHighscores();
+            }
         }
-        Scoreboard scoreboard = FindObjectOfType<Scoreboard>();
-        scoreboard.AddEntry(entry, isEndless);
-    }
-
-    public void Continue(ClickEvent click)
-    {
-        StartCoroutine(continueGame());
-    }
-
-    IEnumerator continueGame()
-    {
-        submitButton.text = "Submit";
-        replay.UnregisterCallback<ClickEvent>(Continue);
-        replay.RegisterCallback<ClickEvent>(GameManager.Instance.Restart);
-        GameOverText.text = "GAME OVER";
-        gameOverDoc.style.display = DisplayStyle.None;
-        //It has an error if I don't do this even though the scene is loaded
-        if (SceneManager.GetSceneByName("HighScores").isLoaded)
-        {
-            SceneManager.UnloadSceneAsync("HighScores");
-        }
-        yield return new WaitUntil(() => !SceneManager.GetSceneByName("HighScores").isLoaded);
-        //Resetting everything that might have changed
-        //Unload the highscores scene
-        Timer.Instance.EndWave();
     }
 }
