@@ -1,8 +1,8 @@
-<h1 align="center"> Duck </h1>
+<h1 align="center"> Duck-struction </h1>
 <!-- ![Title_Background]() -->
 <!-- TODO: Header image -->
 
-Duck (Working title) is a roguelike top-down wave shooter where you, as a determined duck, must defend your nest from relentless hunters. Arm yourself with powerful weapons, unlock upgrades, and prepare to face the final boss!
+Duck-struction is a roguelike top-down wave shooter where you, as a determined duck, must defend your nest from relentless hunters. Arm yourself with powerful weapons, unlock upgrades, and prepare to face the final boss!
 
 
 <!-- ## Features 
@@ -24,7 +24,7 @@ We are the Studio 5+6 Games Team! We are a team in our third year at the Bachelo
 
 ## How to play
 
-You can install the game from our [releases page](https://github.com/OtagoPolytechnic/Duck/releases/latest). To play, download the DuckGame.zip file, unzip it, and run DuckGame.exe.
+You can install the game from our [releases page](https://github.com/OtagoPolytechnic/Duck/releases/latest). To play, download the Duckstruction.zip file, unzip it, and run Duckstruction.exe.
 
 The game is currently available only for Windows, with an arcade machine version and potential support for mobile devices in the future.
 
@@ -33,6 +33,7 @@ The game is currently available only for Windows, with an arcade machine version
 | Movement | WASD | 
 | Shooting | Left click |
 | Aiming | Mouse movement | 
+| Skill | Shift |
 
 ## Get Involved
 
