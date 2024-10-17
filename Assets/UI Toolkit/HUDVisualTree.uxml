@@ -5,7 +5,7 @@
         <ui:IMGUIContainer name="HealthBar" style="background-image: url(&quot;project://database/Assets/Scripts/HealthBar/HP_MP_Bar%20(1).png?fileID=-2002936986&amp;guid=3245bd78fbd9e8949b410b9f27e116de&amp;type=3#HP_MP_Bar (1)_0&quot;); height: 70px; width: 600px; margin-top: 0; flex-direction: column; align-items: stretch; justify-content: center;">
             <ui:IMGUIContainer name="HealthContainer" style="background-image: none; flex-direction: column; align-items: stretch; justify-content: center; width: 588px; height: 46px; margin-left: 0; min-width: auto; position: absolute; margin-right: 0; left: 6px; top: 12px;">
                 <ui:IMGUIContainer name="Health" style="background-image: url(&quot;project://database/Assets/Scripts/HealthBar/HP_MP_Bar%20(1).png?fileID=-47574867&amp;guid=3245bd78fbd9e8949b410b9f27e116de&amp;type=3#HP_MP_Bar (1)_1&quot;); flex-direction: column; align-items: center; justify-content: center; width: 589px; height: 46px; margin-left: 0; min-width: auto; position: absolute; margin-right: 0;" />
-                <ui:Label text="0" display-tooltip-when-elided="true" name="HealthNumber" class="text" style="-unity-text-align: middle-center;" />
+                <ui:Label text="0" display-tooltip-when-elided="true" name="HealthNumber" class="text" style="-unity-text-align: middle-center; margin-top: -2px; margin-bottom: 6px;" />
             </ui:IMGUIContainer>
         </ui:IMGUIContainer>
         <ui:Label text="POINTS: 0" display-tooltip-when-elided="true" name="Points" class="header text" style="margin-right: 40px; white-space: normal; margin-top: 0; margin-left: 0; flex-basis: auto; flex-wrap: wrap; flex-direction: column;" />
