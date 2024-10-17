@@ -63,6 +63,7 @@ public class BossHealthBar : MonoBehaviour
         if (boss.Health <= 0)
         {
             healthContainer.visible = false; // Hide the container holding the health bar
+            shieldBar.visible = false;
         }
     }
 }
