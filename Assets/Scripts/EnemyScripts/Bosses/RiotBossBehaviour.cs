@@ -29,7 +29,7 @@ public class RiotBossBehaviour : EnemyBase
     {
         mapManager = FindObjectOfType<MapManager>();
         player = GameObject.FindGameObjectWithTag("Player");
-        attackCooldown = 0;
+        attackCooldown = attackInterval;
         StartCoroutine(SpawnNapalmBomb());
         StartCoroutine(SpawnShield());  
     }
@@ -68,7 +68,7 @@ public class RiotBossBehaviour : EnemyBase
         {
             Move();
         }
-         else if (GameSettings.gameState ==GameState.InGame) 
+        else if (GameSettings.gameState ==GameState.InGame) 
         {
            
             if (shieldInstance == null)

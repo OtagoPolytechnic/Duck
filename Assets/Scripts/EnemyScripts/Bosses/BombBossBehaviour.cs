@@ -19,7 +19,7 @@ public class BombBossBehaviour : EnemyBase
     {
         mapManager = FindObjectOfType<MapManager>();
         player = GameObject.FindGameObjectWithTag("Player");
-        attackCooldown = 0;
+        attackCooldown = attachInterval;
     }
     void Update()
     {

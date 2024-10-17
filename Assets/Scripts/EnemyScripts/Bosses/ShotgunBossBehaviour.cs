@@ -8,17 +8,15 @@ public class ShotgunBossBehaviour : EnemyBase
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject shadowPrefab;
     [SerializeField] private Transform bulletPosition;
-    [SerializeField] private float attackRange;
-    [SerializeField] private float attackInterval;
-    [SerializeField] private float minJumpAttackInterval = 1f;
-    [SerializeField] private float maxJumpAttackInterval = 3f;
-    [SerializeField] private float jumpAttackCooldown = 2f;
-    [SerializeField] private float attackResumptionDelay = 2f; // New variable for delay after shadow attack
-    [SerializeField] private float initialShootingDelay = 2f; // New variable for initial delay
+    private float attackRange = 10;
+    private float attackInterval = 1.5f;
+    private float minJumpAttackInterval = 10f;
+    private float maxJumpAttackInterval = 15f;
+    private float attackResumptionDelay = 2f; // New variable for delay after shadow attack
+    private float initialShootingDelay = 2f; // New variable for initial delay
 
     private float attackCooldown;
     private float jumpAttackTimer;
-    private float jumpAttackCooldownTimer;
     private float resumptionDelayTimer; // New timer for delay
     private float initialShootingDelayTimer; // New timer for initial shooting delay
     private bool isJumping;
@@ -98,20 +96,12 @@ public class ShotgunBossBehaviour : EnemyBase
     private void HandleAttack()
     {
         // Handle jump attack
-        if (jumpAttackCooldownTimer <= 0)
+        jumpAttackTimer -= Time.deltaTime;
+        if (jumpAttackTimer <= 0 && !isJumping)
         {
-            jumpAttackTimer -= Time.deltaTime;
-            if (jumpAttackTimer <= 0 && !isJumping)
-            {
-                if (SkillEffects.Instance.vanishActive) { return; }
-                JumpAttack();
-                jumpAttackCooldownTimer = jumpAttackCooldown;
-                jumpAttackTimer = Random.Range(minJumpAttackInterval, maxJumpAttackInterval);
-            }
-        }
-        else
-        {
-            jumpAttackCooldownTimer -= Time.deltaTime;
+            if (SkillEffects.Instance.vanishActive) { return; }
+            JumpAttack();
+            jumpAttackTimer = Random.Range(minJumpAttackInterval, maxJumpAttackInterval);
         }
 
         // Handle shooting if cooldown allows and there's no delay
