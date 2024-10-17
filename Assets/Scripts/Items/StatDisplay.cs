@@ -84,14 +84,15 @@ public class StatDisplay : MonoBehaviour
         //Check each stat and if its changed from the current value make the text green if its increased and red if its decreased
         VisualElement statsPanel = document.Q<VisualElement>("Stats");
 
-        int oldHealth = int.Parse(statsPanel.Q<Label>("Health").text.Split('/')[1]);
-        if (PlayerStats.Instance.MaxHealth > oldHealth)
-        {
-            statsPanel.Q<Label>("Health").style.color = red;
-        }
-        else if (PlayerStats.Instance.MaxHealth < oldHealth)
+        int oldCurrentHealth = int.Parse(statsPanel.Q<Label>("Health").text.Split('/')[0]);
+        int oldMaxHealth = int.Parse(statsPanel.Q<Label>("Health").text.Split('/')[1]);
+        if (PlayerStats.Instance.MaxHealth > oldMaxHealth || PlayerStats.Instance.CurrentHealth > oldCurrentHealth)
         {
             statsPanel.Q<Label>("Health").style.color = green;
+        }
+        else if (PlayerStats.Instance.MaxHealth < oldMaxHealth || PlayerStats.Instance.CurrentHealth < oldCurrentHealth)
+        {
+            statsPanel.Q<Label>("Health").style.color = red;
         }
 
         int oldDamage = int.Parse(statsPanel.Q<Label>("Damage").text);
