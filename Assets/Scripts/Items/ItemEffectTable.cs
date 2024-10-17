@@ -38,7 +38,7 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}");
                 break;
             case 05:
-                WeaponStats.Instance.ItemBleedDamage += 2; //2% max health bleed per second
+                WeaponStats.Instance.ItemBleedDamage += 1; //2% max health bleed per second
                 Debug.Log($"Bleed amount: {WeaponStats.Instance.BleedDamage}");
                 break;
             case 06:

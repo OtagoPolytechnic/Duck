@@ -42,7 +42,7 @@
       {
         "id": 5,
         "name": "Chompers",
-        "desc": "Your hits bleed enemies for 2% max health every second.\nPicking up another chomper increases the bleed damage",
+        "desc": "Your hits bleed enemies for 1% max health every second.\nPicking up another chomper increases the bleed damage",
         "rarity": 2,
         "stacks": 0
       },
