@@ -6,6 +6,9 @@
                 <ui:IMGUIContainer name="Health" style="background-image: url(&quot;project://database/Assets/Scripts/HealthBar/HP_MP_Bar%20(1).png?fileID=-47574867&amp;guid=3245bd78fbd9e8949b410b9f27e116de&amp;type=3#HP_MP_Bar (1)_1&quot;); flex-direction: column; align-items: center; justify-content: center; width: 1370px; height: 46px; margin-left: 0; min-width: auto; position: absolute; margin-right: 0; left: 9px;" />
                 <ui:Label text="0" display-tooltip-when-elided="true" name="HealthNumber" class="text" style="-unity-text-align: middle-center;" />
             </ui:IMGUIContainer>
+            <ui:IMGUIContainer name="ShieldContainer" style="background-image: none; flex-direction: column; align-items: stretch; justify-content: center; width: 1380px; height: 46px; margin-left: 0; min-width: auto; position: absolute; margin-right: 0; left: 6px; top: 12px; padding-top: 0; padding-bottom: 0;">
+                <ui:IMGUIContainer name="Shield" style="background-image: url(&quot;project://database/Assets/Scripts/HealthBar/HP_MP_Bar%20(1).png?fileID=-1189521174&amp;guid=3245bd78fbd9e8949b410b9f27e116de&amp;type=3#HP_MP_Bar (1)_2&quot;); flex-direction: column; align-items: center; justify-content: center; width: 1370px; height: 46px; margin-left: 0; min-width: auto; position: absolute; margin-right: 0; left: 9px; -unity-background-image-tint-color: rgb(255, 255, 255); padding-top: 10px; padding-bottom: 10px;" />
+            </ui:IMGUIContainer>
         </ui:IMGUIContainer>
     </ui:VisualElement>
 </ui:UXML>

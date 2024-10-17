@@ -55,6 +55,7 @@ public class BossBullet : MonoBehaviour
         }
 
         rb.velocity = new Vector2(direction.x, direction.y).normalized * bulletSpeed;
+        heldVelocity = rb.velocity;
     }
 
     public void InitializeBullet(GameObject player, int damage, bool isShotgun, float angleOffset = 0f)
@@ -77,6 +78,7 @@ public class BossBullet : MonoBehaviour
         }
         // Destroys bullet after range
         float distTravelled = Vector3.Distance(startPos, transform.position);
+
         if (distTravelled > range)
         {
             Destroy(gameObject);

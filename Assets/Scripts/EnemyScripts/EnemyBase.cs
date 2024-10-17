@@ -10,7 +10,12 @@ public abstract class EnemyBase : MonoBehaviour
     public const float BLEED_INTERVAL = 1f;
     public GameObject damageText;
     public GameObject critText;
-    private int maxHealth;
+    private int maxHealth; 
+    public int MaxHealth
+    {
+        get { return maxHealth; }
+        set { maxHealth = value; }
+    }
     [SerializeField] private int baseHealth;
     public int BaseHealth
     {
@@ -22,6 +27,7 @@ public abstract class EnemyBase : MonoBehaviour
         get {return health;}
         set {health = value;}
     }
+   
     [SerializeField] private int damage;
     public int Damage
     {

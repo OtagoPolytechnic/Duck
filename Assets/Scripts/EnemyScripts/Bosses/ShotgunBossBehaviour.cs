@@ -60,8 +60,11 @@ public class ShotgunBossBehaviour : EnemyBase
             player = GameObject.FindGameObjectWithTag("Player");
 
         }
-
-        HandleMovement();  // Movement-related updates
+        if (!isJumping)
+        {
+        HandleMovement();
+        }
+        // Movement-related updates
         HandleAttack();    // Attack-related updates
         UpdateBossVisibility();
         Bleed();
@@ -152,6 +155,7 @@ public class ShotgunBossBehaviour : EnemyBase
 
         isJumping = true;
         currentShadow = Instantiate(shadowPrefab, transform.position, Quaternion.identity);
+        currentShadow.transform.SetParent(gameObject.transform);
         ShadowAttack shadowAttack = currentShadow.GetComponent<ShadowAttack>();
         shadowAttack.GetComponent<ShadowAttack>().originBoss = this;
 
