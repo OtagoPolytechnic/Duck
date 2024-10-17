@@ -77,6 +77,8 @@ public class BossSpawner : MonoBehaviour
             currentEnemies.Add(bossInstance);
             Debug.Log("SpawnBoss called. Boss spawned at: " + spawnPosition);
             bossInstance.GetComponent<EnemyBase>().Health = bossHealth;
+            bossInstance.GetComponent<EnemyBase>().MaxHealth = bossHealth;
+            Debug.Log(bossInstance.GetComponent<EnemyBase>().MaxHealth);
 
             // Setup boss health UI
             document = bossHealthBar.GetComponent<UIDocument>().rootVisualElement;
