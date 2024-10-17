@@ -134,7 +134,7 @@
       {
         "id": 18,
         "name": "Sword",
-        "desc": "Melee range with high damage (Partially implemented)",
+        "desc": "Melee range with high damage",
         "rarity": 4,
         "stacks": 0
       },
@@ -172,7 +172,7 @@
       {
         "id": 23,
         "name": "Glass Cannon",
-        "desc": "You gain double damage but lose half your health",
+        "desc": "Increase your damage by 100% but reduce your health by 50%",
         "rarity": 6,
         "stacks": 0
       },
@@ -259,16 +259,16 @@
       },
       {
         "id": 35,
-        "name": "Epic",
-        "desc": "Sword epic to fill space (NOT IMPLEMENTED)",
+        "name": "Deflector",
+        "desc": "Allows your sword to deflect enemy bullets every 3 seconds.\n\nReduces cool down by 0.5 seconds per stack",
         "rarity": 3,
         "weapons": ["Sword"],
         "stacks": 0
       },
       {
         "id": 36,
-        "name": "Epic",
-        "desc": "Sword epic to fill space (NOT IMPLEMENTED)",
+        "name": "Claymore",
+        "desc": "Increase your weapon damage by 400%, but reduce attack speed to 33%",
         "rarity": 3,
         "weapons": ["Sword"],
         "stacks": 0
