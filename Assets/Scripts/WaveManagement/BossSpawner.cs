@@ -84,8 +84,8 @@ public class BossSpawner : MonoBehaviour
             document = bossHealthBar.GetComponent<UIDocument>().rootVisualElement;
             container = document.Q<VisualElement>("BossHealthContainer");
             container.visible = true;
-            BossHealth.Instance.boss = bossInstance.GetComponent<EnemyBase>();
-            BossHealth.Instance.BossMaxHealth = bossHealth;
+            BossHealthBar.Instance.boss = bossInstance.GetComponent<EnemyBase>();
+            BossHealthBar.Instance.BossMaxHealth = bossHealth;
 
             // Activate TargetIndicator if assigned
             if (targetIndicator != null)

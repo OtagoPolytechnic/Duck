@@ -64,7 +64,7 @@ public class Timer : MonoBehaviour
             }
         }
 
-        if (currentTime <= 0 || (waveNumber % 5 == 0 && BossHealth.Instance.boss == null))
+        if (currentTime <= 0 || (waveNumber % 5 == 0 && BossHealthBar.Instance.boss == null))
         {
             if (waveNumber == 25 && GameSettings.gameState == GameState.InGame)
             {

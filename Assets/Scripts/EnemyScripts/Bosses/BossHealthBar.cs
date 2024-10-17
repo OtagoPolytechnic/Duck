@@ -5,9 +5,9 @@ using UnityEngine.Events;
 using TMPro;
 using UnityEngine.UIElements;
 
-public class BossHealth : MonoBehaviour
+public class BossHealthBar : MonoBehaviour
 {
-    public static BossHealth Instance;
+    public static BossHealthBar Instance;
     private Label healthText;
     private IMGUIContainer healthBar;
     private VisualElement healthContainer; //Reference to the container holding the health bar
