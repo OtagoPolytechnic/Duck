@@ -5,7 +5,7 @@ public class Napalm : MonoBehaviour
 {
     public int napalmDamage;
     public float duration = 20f;
-    public float damageInterval = 2f;
+    public float damageInterval = 0.25f;
     private PlayerStats playerStats;
     private Coroutine damageCoroutine;
     private float damageTick;

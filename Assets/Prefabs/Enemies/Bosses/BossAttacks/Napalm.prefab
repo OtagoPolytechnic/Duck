@@ -153,4 +153,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   napalmDamage: 1
   duration: 10
-  damageInterval: 2
+  damageInterval: 0.25
