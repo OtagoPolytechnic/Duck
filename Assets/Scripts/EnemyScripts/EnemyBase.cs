@@ -89,6 +89,11 @@ public abstract class EnemyBase : MonoBehaviour
             damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
             health -= damageTaken;
         }
+        //Lifesteal by percentage of damage dealt
+        if (PlayerStats.Instance.LifestealPercentage > 0 && damageTaken > 5)
+        {
+            PlayerStats.Instance.CurrentHealth += Math.Max((damageTaken * PlayerStats.Instance.LifestealPercentage) / 100, 1); //Heals at least 1 health
+        }
         if (health <= 0)
         {
             StartCoroutine(Die());

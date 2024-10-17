@@ -60,11 +60,7 @@ public class Bullet : MonoBehaviour
         //destroys bullet on hit with player and lowers health
         if (other.gameObject.CompareTag("Enemy"))
         {
-            //Lifesteal by percentage of damage dealt
-            if (PlayerStats.Instance.LifestealPercentage > 0)
-            {
-                PlayerStats.Instance.CurrentHealth += Math.Max((WeaponStats.Instance.Damage * PlayerStats.Instance.LifestealPercentage) / 100, 1); //Heals at least 1 health
-            }
+
             if (WeaponStats.Instance.ExplosiveBullets)
             {
                 Explosion = Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);

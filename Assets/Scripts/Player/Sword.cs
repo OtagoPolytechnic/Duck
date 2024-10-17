@@ -23,10 +23,6 @@ public class Sword : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {            
-            if (PlayerStats.Instance.LifestealPercentage > 0)
-            {
-                PlayerStats.Instance.CurrentHealth += Math.Max((WeaponStats.Instance.Damage * PlayerStats.Instance.LifestealPercentage) / 100, 1); //Heals at least 1 health
-            }
             if (crit)
             {
                 other.gameObject.GetComponent<EnemyBase>().ReceiveDamage(WeaponStats.Instance.CritDamage, true);
