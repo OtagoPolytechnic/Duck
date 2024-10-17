@@ -66,6 +66,17 @@ public class ShotgunBossBehaviour : EnemyBase
         HandleAttack();    // Attack-related updates
         UpdateBossVisibility();
         Bleed();
+        // Manage the resumption delay timer
+        if (resumptionDelayTimer > 0)
+        {
+            resumptionDelayTimer -= Time.deltaTime;
+        }
+
+        // Manage the initial shooting delay timer
+        if (initialShootingDelayTimer > 0)
+        {
+            initialShootingDelayTimer -= Time.deltaTime;
+        }
     }
 
     private void HandleMovement()
@@ -188,21 +199,5 @@ public class ShotgunBossBehaviour : EnemyBase
         }
         SFXManager.Instance.PlaySFX("EnemyShoot");
         attackCooldown = attackInterval;
-    }
-
-    // Manages the timers for resumption delay and initial shooting delay.
-    private void LateUpdate()
-    {
-        // Manage the resumption delay timer
-        if (resumptionDelayTimer > 0)
-        {
-            resumptionDelayTimer -= Time.deltaTime;
-        }
-
-        // Manage the initial shooting delay timer
-        if (initialShootingDelayTimer > 0)
-        {
-            initialShootingDelayTimer -= Time.deltaTime;
-        }
     }
 }

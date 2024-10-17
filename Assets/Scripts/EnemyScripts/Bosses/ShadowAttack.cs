@@ -59,7 +59,7 @@ public class ShadowAttack : MonoBehaviour
     // Updates the shadow's position to follow the player and scales the shadow up gradually over time.
     private void Update()
     {
-        if (GameSettings.gameState != GameState.InGame)
+        if (GameSettings.gameState != GameState.InGame || originBoss.Dying)
         {
             return;
         }
