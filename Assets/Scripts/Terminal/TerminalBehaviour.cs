@@ -260,7 +260,6 @@ public class TerminalBehaviour : MonoBehaviour
             break;
             default:
                 output.text += "\nStat given is not a valid enterable stat\n\n";
-                return;
             break;
         }
         output.text += $"\nSet {stat} to {value}\n\n";             

@@ -214,6 +214,22 @@ public class ItemEffectTable : MonoBehaviour
                 WeaponStats.Instance.FlatDamage += 30;
                 Debug.Log($"Damage: {WeaponStats.Instance.Damage}");
                 break;
+            case 35:
+                if (!WeaponStats.Instance.HasReflector)
+                {
+                    Debug.Log($"Gained reflector");
+                    WeaponStats.Instance.HasReflector = true;
+                }
+                else
+                {
+                    WeaponStats.Instance.ReflectCooldown -= 0.5f;
+                    Debug.Log($"Reflector cooldown reduced to {WeaponStats.Instance.ReflectCooldown}");
+                }
+                break;
+            case 36:
+                WeaponStats.Instance.PercentageDamage *= 4;
+                WeaponStats.Instance.WeaponFireDelay *= 3;
+                break;
             default:
                 Debug.Log($"The ID: {itemID} has not been given a case in the item effect table.");
             break;
