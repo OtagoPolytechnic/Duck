@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RadiusAttack : MonoBehaviour
+public class BombThrow : MonoBehaviour
 {
     public GameObject player;
     public float speed;
