@@ -217,8 +217,8 @@ public class PlayerStats : MonoBehaviour
         {
             enemyHealth?.ReceiveDamage((damageTaken * SpinePercent) / 100, false);
         }
-        //TODO: Multiple instances of damage shouldn't totally overlap. Randomly offset them a bit!
-        GameObject damageTextInst = Instantiate(damageText, gameObject.transform);
+        float randomOffset = UnityEngine.Random.Range(-0.3f, 0.3f);
+        GameObject damageTextInst = Instantiate(damageText, new Vector3(transform.position.x + randomOffset, transform.position.y + 1 + randomOffset, transform.position.z), Quaternion.identity);
         damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
         CurrentHealth -= damageTaken;
     }
