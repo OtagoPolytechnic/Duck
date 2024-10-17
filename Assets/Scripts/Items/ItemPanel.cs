@@ -237,7 +237,7 @@ public class ItemPanel : MonoBehaviour
     {
         if (selectedIndex == -1)
         {
-            PlayerStats.Instance.CurrentHealth += 5;
+            PlayerStats.Instance.CurrentHealth += PlayerStats.Instance.MaxHealth / 2;
             itemController.ItemPicked(-1);
         }
         else
