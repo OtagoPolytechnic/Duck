@@ -10,8 +10,8 @@ public class ShotgunBossBehaviour : EnemyBase
     [SerializeField] private Transform bulletPosition;
     private float attackRange = 10;
     private float attackInterval = 1.5f;
-    private float minJumpAttackInterval = 10f;
-    private float maxJumpAttackInterval = 15f;
+    private float minJumpAttackInterval = 7f;
+    private float maxJumpAttackInterval = 12f;
     private float attackResumptionDelay = 2f; // New variable for delay after shadow attack
     private float initialShootingDelay = 2f; // New variable for initial delay
 
