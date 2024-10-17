@@ -5,6 +5,7 @@ using UnityEngine;
 public enum GameState
 {
     InGame,
+    Dead,
     Paused,
     EndGame,
     ItemSelect,

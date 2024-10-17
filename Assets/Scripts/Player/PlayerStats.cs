@@ -57,8 +57,9 @@ public class PlayerStats : MonoBehaviour
         get {return currentHealth;}
         set
         {
-            currentHealth = Math.Min(value, MaxHealth);
+            currentHealth = Math.Min(Math.Max(0, value), MaxHealth);
             //Locks the current health to the max health
+            HealthBar.Instance.UpdateHealthBar(CurrentHealth, MaxHealth);
         }
     }
 
@@ -137,6 +138,9 @@ public class PlayerStats : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+    void Start()
+    {
         CurrentHealth = MaxHealth;
     }
 
@@ -152,16 +156,10 @@ public class PlayerStats : MonoBehaviour
             CheckDot();
         }
 
-        if (currentHealth <= 0) //if the player dies
+        if (CurrentHealth <= 0) //if the player dies
         {
-            if (lifeEggs.Count > 0)
-            {
-                Respawn();
-            }
-            else
-            {
-                FindObjectOfType<GameManager>().GameOver();
-            }
+            GameSettings.gameState = GameState.Dead;
+            StartCoroutine(Timeout.Instance.TimeoutPlayer(gameObject, 1f));
         }
     }
 
@@ -185,7 +183,7 @@ public class PlayerStats : MonoBehaviour
         nextDotTick -= Time.fixedDeltaTime;
     }
 
-    void Respawn()
+    public void Respawn()
     {
         //This event currently has no listeners, it is here for future use 
         onPlayerRespawn?.Invoke();
@@ -196,7 +194,7 @@ public class PlayerStats : MonoBehaviour
             Destroy(lifeEggs[lifeEggs.Count - 1]);
             lifeEggs.Remove(lifeEggs[lifeEggs.Count - 1]);
         }
-        //Debug.Log("Player health before collisions turned off: " + currentHealth);
+        //Debug.Log("Player health before collisions turned off: " + CurrentHealth);
         CurrentHealth = MaxHealth;
         StartCoroutine(DisableCollisionForDuration(2f));
     }
@@ -224,6 +222,6 @@ public class PlayerStats : MonoBehaviour
         //TODO: Multiple instances of damage shouldn't totally overlap. Maybe randomly offset them a bit?
         GameObject damageTextInst = Instantiate(damageText, gameObject.transform);
         damageTextInst.GetComponent<TextMeshPro>().text = damageTaken.ToString();
-        currentHealth -= damageTaken;
+        CurrentHealth -= damageTaken;
     }
 }

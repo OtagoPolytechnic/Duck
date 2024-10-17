@@ -23,12 +23,8 @@ public class BombBossBehaviour : EnemyBase
     }
     void Update()
     {
-        if (Health <= 0)
-        {
 
-            Die();
-        }
-        if (GameSettings.gameState != GameState.InGame) { return; }
+        if (GameSettings.gameState != GameState.InGame || Dying) { return; }
 
         if (SkillEffects.Instance.decoyActive && !stopCheck)
         {
