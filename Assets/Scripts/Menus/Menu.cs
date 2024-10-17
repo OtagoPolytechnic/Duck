@@ -33,7 +33,7 @@ public class Menu : MonoBehaviour
         quitButton.RegisterCallback<ClickEvent>(Quit);
 
         versionNumber = document.Q<Label>("VersionNumber");
-        versionNumber.text = "Alpha V" + Application.version;
+        versionNumber.text = "ALPHA V" + Application.version;
 
     }
 

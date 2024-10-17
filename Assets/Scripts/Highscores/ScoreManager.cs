@@ -56,7 +56,7 @@ public class ScoreManager : MonoBehaviour
     {
         enemiesKilled++;
         score += amount;
-        pointsText.text = "Points: " + score.ToString();
+        pointsText.text = "POINTS: " + score.ToString();
     }
 
     public IEnumerator FinalScore()

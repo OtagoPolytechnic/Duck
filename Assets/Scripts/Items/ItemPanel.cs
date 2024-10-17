@@ -192,8 +192,8 @@ public class ItemPanel : MonoBehaviour
             Button button = currentItem.Q<Button>("Button");
 
             currentItem.style.backgroundColor = selectedItems[i].rarityColor;
-            name.text = selectedItems[i].name;
-            rarity.text = selectedItems[i].rarity.ToString();
+            name.text = selectedItems[i].name.ToUpper();
+            rarity.text = selectedItems[i].rarity.ToString().ToUpper();
             desc.text = selectedItems[i].desc;
             itemButtons.Add(button);
         }
@@ -230,25 +230,25 @@ public class ItemPanel : MonoBehaviour
     private void RegisterItem1Click(ClickEvent click)
     {
         selectedIndex = 0;
-        selectedItemLabel.text = selectedItems[0].name;
+        selectedItemLabel.text = selectedItems[0].name.ToUpper();
         confirmPanel.style.display = DisplayStyle.Flex;
     }
     private void RegisterItem2Click(ClickEvent click)
     {
         selectedIndex = 1;
-        selectedItemLabel.text = selectedItems[1].name;
+        selectedItemLabel.text = selectedItems[1].name.ToUpper();
         confirmPanel.style.display = DisplayStyle.Flex;
     }
     private void RegisterItem3Click(ClickEvent click)
     {
         selectedIndex = 2;
-        selectedItemLabel.text = selectedItems[2].name;
+        selectedItemLabel.text = selectedItems[2].name.ToUpper();
         confirmPanel.style.display = DisplayStyle.Flex;
     }
     private void RegisterSkipClick(ClickEvent click)
     {
         selectedIndex = -1;
-        selectedItemLabel.text = "Skip";
+        selectedItemLabel.text = "SKIP";
         confirmPanel.style.display = DisplayStyle.Flex;
     }
 

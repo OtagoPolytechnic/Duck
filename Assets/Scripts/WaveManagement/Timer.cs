@@ -41,7 +41,7 @@ public class Timer : MonoBehaviour
     {
         GameSettings.waveNumber = waveNumber;
         currentTime = waveLength;
-        waveNumberText.text = "Wave: " + waveNumber.ToString();
+        waveNumberText.text = "WAVE: " + waveNumber.ToString();
         GameSettings.waveNumber = waveNumber;
     }
 
@@ -105,7 +105,7 @@ public class Timer : MonoBehaviour
         waveNumber += 1;
         GameSettings.waveNumber = waveNumber;
         currentTime = waveLength;
-        waveNumberText.text = "Wave: " + waveNumber.ToString();
+        waveNumberText.text = "WAVE: " + waveNumber.ToString();
 
         if (waveNumber % 5 == 0 && !TerminalBehaviour.Instance.stopBoss)
         {

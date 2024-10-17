@@ -15,7 +15,6 @@ public class Scoreboard : MonoBehaviour
     private string gameName => Application.productName;
 
     //Generates path based on user system0
-    //Windows path: AppData/LocalLow/DuckCompany/DuckGame
     //Adding all old save paths to convert them to the new format
     //Every time we change the save format, company name, or game name we need to add a new path so no users lose their highscores
     //This needs to be a returning method not a list so the dynamic companyName and gameName update properly
@@ -26,7 +25,8 @@ public class Scoreboard : MonoBehaviour
             $"{Application.persistentDataPath.Replace(companyName, "DefaultCompany").Replace(gameName, "DuckGame")}/endlessHighscores.json", //The replacing is so it will work no matter what the name currently is
             $"{Application.persistentDataPath.Replace(companyName, "DefaultCompany").Replace(gameName, "DuckGame")}/finalBossHighscores.json",
             $"{Application.persistentDataPath.Replace(companyName, "DuckCompany").Replace(gameName, "Duck")}/endlessHighscores.json",
-            $"{Application.persistentDataPath.Replace(companyName, "DuckCompany").Replace(gameName, "Duck")}/finalBossHighscores.json"
+            $"{Application.persistentDataPath.Replace(companyName, "DuckCompany").Replace(gameName, "Duck")}/finalBossHighscores.json",
+            $"{Application.persistentDataPath.Replace(companyName, "DuckCompany").Replace(gameName, "Duck")}/highscores.json"
         };
     }
     private string savePath => $"{Application.persistentDataPath}/highscores.json";
