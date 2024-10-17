@@ -143,9 +143,9 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Extra bullets: {WeaponStats.Instance.ExtraBullets}");
                 break;
             case 22:
-                TopDownMovement.Instance.PercentBonusSpeed /= 2; //Half the speed
-                PlayerStats.Instance.MidasTouch = true;
-                PlayerStats.Instance.MidasPercent += 50; //50% of damage taken is dealt to the enemy per stack
+                TopDownMovement.Instance.PercentBonusSpeed *= 0.75f; //3/4 the speed
+                PlayerStats.Instance.SpinePlate = true;
+                PlayerStats.Instance.SpinePercent += 200; //200% of damage taken is dealt to the enemy per stack
                 Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                 break;
             case 23:

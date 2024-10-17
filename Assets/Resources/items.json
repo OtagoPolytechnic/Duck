@@ -56,7 +56,7 @@
       {
         "id": 7,
         "name": "Explosive Bullets",
-        "desc": "Your bullets explode on impact\n\nDeal 50% damage to nearby enemies per item stack",
+        "desc": "Your bullets explode on impact\nDeal 50% damage to nearby enemies per item stack",
         "weapons": ["MachineGun", "Sniper", "DualPistol", "Pistol", "Shotgun", "RocketLauncher"],
         "rarity": 3,
         "stacks": 0
@@ -71,7 +71,7 @@
       {
         "id": 9,
         "name": "Lucky Feather",
-        "desc": "Gain 8% crit strike chance\n\nExcess crit chance is converted to crit damage at a 2:1 ratio",
+        "desc": "Gain 8% crit strike chance\nExcess crit chance is converted to crit damage at a 2:1 ratio",
         "rarity": 1,
         "stacks": 0
       },
@@ -85,14 +85,14 @@
       {
         "id": 11,
         "name": "Eye of the Eagle",
-        "desc": "Gain 24% crit strike chance\n\nExcess crit chance is converted to crit damage at a 2:1 ratio",
+        "desc": "Gain 24% crit strike chance\nExcess crit chance is converted to crit damage at a 2:1 ratio",
         "rarity": 5,
         "stacks": 0
       },
       {
         "id": 12,
         "name": "Lucky Dive",
-        "desc": "Gain two stats at reduced strength from this list:\nDamage, Health, Speed, Fire rate, Crit Chance, Crit Damage",
+        "desc": "Gain two stats at reduced strength from this list:\nDamage, Health, Speed, Attack Speed, Crit Chance, Crit Damage",
         "rarity": 1,
         "stacks": 0
       },
@@ -164,8 +164,8 @@
       },
       {
         "id": 22,
-        "name": "Midas Touch",
-        "desc": "Enemies take high damage when they damage you, but you are slowed by 50%",
+        "name": "Spine Plate",
+        "desc": "You reflect 2x enemy damage when they damage you, but you are slowed by 25%",
         "rarity": 6,
         "stacks": 0
       },
@@ -178,8 +178,8 @@
       },
       {
         "id": 24,
-        "name": "Blood letter's Curse",
-        "desc": "Gain 60% lifesteal and double the effectiveness of all future lifesteal items\n\nYour health rapidly drains",
+        "name": "Bloodletter's Curse",
+        "desc": "Gain 60% lifesteal and double the effectiveness of all future lifesteal items.\nYour health rapidly drains",
         "rarity": 6,
         "stacks": 0
       },
@@ -216,7 +216,7 @@
       {
         "id": 29,
         "name": "Sword of the Master",
-        "desc": "Fire a sword projectile forward if you attack with full health\n\nProjectile does 50% damage",
+        "desc": "Fire a sword projectile forward if you attack with full health.\nProjectile does 50% damage",
         "rarity": 3,
         "weapons": ["Sword"],
         "stacks": 0

@@ -52,7 +52,7 @@ public class EnemyMelee : EnemyBase
         attacking = true;
         attack.SetActive(true); //show the attack
         attack.GetComponent<BoxCollider2D>().enabled = true; //enable the collider
-                                                             // Play the enemy bite sound
+        attack.GetComponent<EnemyMeleeAttack>().originEnemy = this;
         if (SFXManager.Instance != null)
         {
             SFXManager.Instance.PlaySFX("Bite");

@@ -34,5 +34,6 @@ public static class GameSettings
     public static int waveNumber;
     public static SkillEnum activeSkill = SkillEnum.dash;
     public static controlType controlType;
+    public static int MaxRerollCharges = 2; //Starting this at 2 for the moment
     public static GameMode gameMode = GameMode.Boss; //Boss mode by default if you start the game from the main scene
 }

@@ -26,7 +26,6 @@ public class WeaponStats : MonoBehaviour
 {
     public static WeaponStats Instance;
     private WeaponType currentWeapon;
-
     [SerializeField] private Weapons[] weapons;
 
     public WeaponType CurrentWeapon
@@ -155,7 +154,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponBulletSpeed = 10; //Speed for the sword beam item
 
                     //Other stats set to base values
-                    weaponCritChancePercentage = 100; //Possible extra crit chance or damage? Could be too powerful
+                    weaponCritChancePercentage = 100;
                     WeaponCritChanceFlat = 0;
                     WeaponCritDamage = 100;
                     WeaponBleedDamage = 0;
@@ -173,7 +172,6 @@ public class WeaponStats : MonoBehaviour
                     break;
 
                 case WeaponType.RocketLauncher: //Placeholder for the rocket launcher
-                    //Testing values for the Rocket Launcher. Focussing on getting it implemented. Can balance it later
                     WeaponExplosiveBullets = true; //Rocket launcher has explosive bullets
                     WeaponExplosionSize = 5; //Explosion size is 10
                     WeaponExplosionDamage = 100; //100% of the weapon's damage is dealt as explosion damage
@@ -336,8 +334,14 @@ public class WeaponStats : MonoBehaviour
     }
     public float FireDelay
     {
-        get { return Math.Max(((BASE_FIRE_DELAY + FlatFireDelay) * PercentageFireDelay * WeaponFireDelay) / 10000, 0.1f); }
-        //This isn't allowed to be any quicker than 0.1 seconds per shot. Can change value?
+        get { return Math.Max(((BASE_FIRE_DELAY + FlatFireDelay) * PercentageFireDelay * WeaponFireDelay) / 10000, 0.01f); }
+        //This isn't allowed to be any quicker than 0.01 seconds per shot. Can change value?
+    }
+
+    //Attack speed to show to user. Amount of times per second you can attack
+    public float AttackSpeed
+    {
+        get { return 1 / FireDelay; }
     }
 
     //Bullet speed
@@ -644,5 +648,28 @@ public class WeaponStats : MonoBehaviour
             yield return null;
         }
         Camera.main.orthographicSize = newSize;
+    }
+
+    public string WeaponNameFormatted()
+    {
+        switch (CurrentWeapon)
+        {
+            case WeaponType.Pistol:
+                return "Pistol";
+            case WeaponType.Shotgun:
+                return "Shotgun";
+            case WeaponType.Sniper:
+                return "Sniper Rifle";
+            case WeaponType.MachineGun:
+                return "Machine Gun";
+            case WeaponType.DualPistol:
+                return "Dual Pistol";
+            case WeaponType.Sword:
+                return "Sword";
+            case WeaponType.RocketLauncher:
+                return "Rocket Launcher";
+            default:
+                return "Weapon";
+        }
     }
 }

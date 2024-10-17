@@ -7,6 +7,7 @@ public class ShadowAttack : MonoBehaviour
     public float followSpeedModifier = 0.7f; // A modifier to adjust follow speed relative to player speed
     public float scaleUpDuration = 3.0f; // Duration over which the shadow will scale up
     public GameObject shadowShockwavePrefab; // Reference to the ShadowShockwave prefab
+    public EnemyBase originBoss;
 
     private float followSpeed;
     private int shadowSize = 6; // Default size

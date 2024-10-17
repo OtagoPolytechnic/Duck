@@ -157,6 +157,7 @@ public class ShotgunBossBehaviour : EnemyBase
         currentShadow = Instantiate(shadowPrefab, transform.position, Quaternion.identity);
         currentShadow.transform.SetParent(gameObject.transform);
         ShadowAttack shadowAttack = currentShadow.GetComponent<ShadowAttack>();
+        shadowAttack.GetComponent<ShadowAttack>().originBoss = this;
 
         if (shadowAttack)
         {
@@ -193,6 +194,7 @@ public class ShotgunBossBehaviour : EnemyBase
             GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
             float angleOffset = 10f * (i - 1);
             newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, true, angleOffset);
+            newBullet.GetComponent<BossBullet>().originEnemy = this;
         }
         SFXManager.Instance.PlaySFX("EnemyShoot");
         attackCooldown = attackInterval;
