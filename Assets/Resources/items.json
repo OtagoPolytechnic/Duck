@@ -193,7 +193,7 @@
       {
         "id": 26,
         "name": "Stone Wall",
-        "desc": "You gain double health but lose half your damage",
+        "desc": "Increase your health by 100% but reduce your damage by 50%",
         "rarity": 6,
         "stacks": 0
       },
