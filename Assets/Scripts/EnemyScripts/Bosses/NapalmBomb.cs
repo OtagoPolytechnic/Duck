@@ -13,6 +13,7 @@ public class NapalmBomb : MonoBehaviour
     private int maxFirePrefabs = 10;
     private float spreadRadius = 3f;
     private float randomDuration;
+    private Vector2 heldVelocity;
 
     private void Start()
     {
@@ -30,10 +31,19 @@ public class NapalmBomb : MonoBehaviour
             Destroy(gameObject);
         }
         randomDuration = Random.Range(minDurationBeforeStop, maxDurationBeforeStop);
+        heldVelocity = rb.velocity;
     }
 
     void Update()
     {
+        if (GameSettings.gameState != GameState.InGame && rb.velocity != Vector2.zero)
+        {
+            rb.velocity = Vector2.zero;
+        }
+        else if (GameSettings.gameState == GameState.InGame && rb.velocity == Vector2.zero)
+        {
+            rb.velocity = heldVelocity;
+        }
         randomDuration -= Time.deltaTime;
         if (randomDuration <= 0)
         {
