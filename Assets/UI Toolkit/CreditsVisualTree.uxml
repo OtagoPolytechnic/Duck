@@ -8,7 +8,7 @@
             <ui:Label display-tooltip-when-elided="true" name="Paragraph" class="text" style="-unity-text-align: upper-center; height: 650px; width: 75%; font-size: 20px; white-space: normal;" />
         </ui:VisualElement>
         <ui:VisualElement name="ButtonContainer" style="justify-content: space-between; align-items: stretch; flex-direction: column; margin-left: 100px;">
-            <ui:Button text="◄ RETURN" display-tooltip-when-elided="true" name="Return" class="text" style="width: 400px; height: 100px; font-size: 30px; background-color: rgb(0, 0, 0); border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-left-width: 10px; border-right-width: 10px; border-top-width: 10px; border-bottom-width: 10px; border-left-color: rgb(250, 255, 0); border-right-color: rgb(250, 255, 0); border-top-color: rgb(250, 255, 0); border-bottom-color: rgb(250, 255, 0);" />
+            <ui:Button text="RETURN" display-tooltip-when-elided="true" name="Return" class="text" style="width: 400px; height: 100px; font-size: 30px; background-color: rgb(0, 0, 0); border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-left-width: 10px; border-right-width: 10px; border-top-width: 10px; border-bottom-width: 10px; border-left-color: rgb(250, 255, 0); border-right-color: rgb(250, 255, 0); border-top-color: rgb(250, 255, 0); border-bottom-color: rgb(250, 255, 0);" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
