@@ -50,6 +50,7 @@ public class SkillMenu : MonoBehaviour
 
     public void PlayGame(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         GameSettings.gameState = GameState.InGame;
         StartCoroutine(LoadScene("MainScene")); //change to main scene
     }
@@ -66,6 +67,7 @@ public class SkillMenu : MonoBehaviour
     }
     public void SkillClick(ClickEvent click, SkillEnum skillEnum)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         foreach (Skill s in skillList)
         {
             if (s.id == skillEnum)
@@ -84,6 +86,7 @@ public class SkillMenu : MonoBehaviour
 
     private void ReturnToModeMenu(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         GameSettings.activeSkill = SkillEnum.dash;
         playButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
         playButton.UnregisterCallback<ClickEvent>(PlayGame);

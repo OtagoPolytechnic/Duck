@@ -63,6 +63,7 @@ public class SettingsMenu : MonoBehaviour
     }
     private void Return(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         PlayerPrefs.Save(); // Save the playerprefs on menu close. They save automatically when application exits as well
         //if MainScene is loaded
         if (SceneManager.GetSceneByName("MainScene").isLoaded)

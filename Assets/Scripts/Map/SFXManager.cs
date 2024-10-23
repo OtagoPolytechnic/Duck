@@ -57,7 +57,9 @@ public class SFXManager : MonoBehaviour
             { "EnemyDie", Resources.Load<AudioClip>(AUDIO_PATH + "EnemyDie") },
             { "GameOver", Resources.Load<AudioClip>(AUDIO_PATH + "GameOver") },
             { "TitleMusic", Resources.Load<AudioClip>(AUDIO_PATH + "TitleMusic") },
-            { "WaveMusic", Resources.Load<AudioClip>(AUDIO_PATH + "WaveMusic") }
+            { "WaveMusic", Resources.Load<AudioClip>(AUDIO_PATH + "WaveMusic") },
+            { "Explosion1", Resources.Load<AudioClip>(AUDIO_PATH + "Explosion1") },
+            { "ButtonPress", Resources.Load<AudioClip>(AUDIO_PATH + "ButtonPress") },
         };
     }
 

@@ -229,24 +229,28 @@ public class ItemPanel : MonoBehaviour
 
     private void RegisterItem1Click(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         selectedIndex = 0;
         selectedItemLabel.text = selectedItems[0].name.ToUpper();
         confirmPanel.style.display = DisplayStyle.Flex;
     }
     private void RegisterItem2Click(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         selectedIndex = 1;
         selectedItemLabel.text = selectedItems[1].name.ToUpper();
         confirmPanel.style.display = DisplayStyle.Flex;
     }
     private void RegisterItem3Click(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         selectedIndex = 2;
         selectedItemLabel.text = selectedItems[2].name.ToUpper();
         confirmPanel.style.display = DisplayStyle.Flex;
     }
     private void RegisterSkipClick(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         selectedIndex = -1;
         selectedItemLabel.text = "SKIP";
         confirmPanel.style.display = DisplayStyle.Flex;
@@ -254,6 +258,7 @@ public class ItemPanel : MonoBehaviour
 
     private void ConfirmSelection(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         if (selectedIndex == -1)
         {
             PlayerStats.Instance.CurrentHealth += PlayerStats.Instance.MaxHealth / 2;
@@ -275,6 +280,7 @@ public class ItemPanel : MonoBehaviour
 
     private void Continue(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         continuePanel.style.display = DisplayStyle.None;
         selectionContainer.style.display = DisplayStyle.Flex;
         resetColour();
@@ -305,11 +311,13 @@ public class ItemPanel : MonoBehaviour
 
     private void CancelSelection(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         confirmPanel.style.display = DisplayStyle.None;
     }
 
     private void RegisterRerollClick(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");//change to DiceRoll
         if (rerollCharges > 0)
         {
             rerollCharges--;
