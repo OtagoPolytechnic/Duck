@@ -80,7 +80,7 @@ public class PlayerStats : MonoBehaviour
     private float nextDotTick = 0; //Time of the next damage over time tick
 
     //Regeneration
-    private float healTick = 3; //Time between healing ticks
+    private float healTick = 2; //Time between healing ticks
     public float HealTick
     {
         get {return healTick;}

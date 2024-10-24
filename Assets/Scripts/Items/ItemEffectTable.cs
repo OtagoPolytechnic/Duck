@@ -17,59 +17,59 @@ public class ItemEffectTable : MonoBehaviour
             case -1:
                 Debug.Log("Item choice skipped");
                 break;
-            case 0:
+            case 0: //Sharpened Talons
                 WeaponStats.Instance.FlatDamage += 10;
                 Debug.Log($"Damage: {WeaponStats.Instance.Damage}");
                 break;
-            case 01:
+            case 01: //Oats
                 PlayerStats.Instance.PercentBonusHealth += 10;
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}");
                 break;
-            case 02:
+            case 02: //Boots
                 TopDownMovement.Instance.PercentBonusSpeed += 5;
                 Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                 break;
-            case 03:
-                PlayerStats.Instance.FlatRegenerationPercentage += 1;
+            case 03: //Band-Aid
+                PlayerStats.Instance.FlatRegenerationPercentage += 2;
                 Debug.Log($"Regeneration Percentage: {PlayerStats.Instance.RegenerationPercentage}");
                 break;
-            case 04:
+            case 04: //Illegal Trigger
                 WeaponStats.Instance.PercentageFireDelay -= 10; //This makes it shoot 10% faster
                 Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}");
                 break;
-            case 05:
+            case 05: //Chompers
                 WeaponStats.Instance.ItemBleedDamage += 1; //2% max health bleed per second
                 Debug.Log($"Bleed amount: {WeaponStats.Instance.BleedDamage}");
                 break;
-            case 06:
+            case 06: //Leech
                 PlayerStats.Instance.FlatLifestealPercentage += 1;
                 Debug.Log($"Lifesteal percentage: {PlayerStats.Instance.LifestealPercentage}");
                 break;
-            case 07:
+            case 07: //Explosive Bullets
                 WeaponStats.Instance.ItemExplosiveBullets = true;
                 WeaponStats.Instance.ItemExplosionSize += 2;
                 WeaponStats.Instance.ItemExplosionDamage += 50; //50% of the weapon damage as an explosion. Unsure about the balance 
                 Debug.Log($"Explosion size: {WeaponStats.Instance.ExplosionSize}");
                 Debug.Log($"Explosion damage: {WeaponStats.Instance.ExplosionDamage}");
                 break;
-            case 08:
+            case 08: //Egg
                 //This is going to be changed to not being actual items on the ground
                 GameObject newEgg = Instantiate(eggPrefab,  new Vector3(0,0,0), Quaternion.identity, GameObject.Find("Nest").transform);
                 newEgg.transform.localScale = new Vector3(1f/3f, 1f/3f, 1f/3f); //Properly setting the scale to one third
                 break;
-            case 09:
+            case 09: //Lucky Feather
                 WeaponStats.Instance.FlatCritChance += 8; //8% crit chance
                 Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                 break;
-            case 10:
+            case 10: //Super Charger
                 WeaponStats.Instance.PercentageFireDelay -= 30; //This makes it shoot 30% faster
                 Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}");
                 break;
-            case 11:
+            case 11: //Eye of the Eagle
                 WeaponStats.Instance.FlatCritChance += 24; //24% crit chance
                 Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                 break;
-            case 12:
+            case 12: //Lucky Dive
                 List<int> randomStats = new List<int> {0, 1, 2, 3, 4, 5};
                 // Shuffle the list using LINQ
                 randomStats = randomStats.OrderBy(x => UnityEngine.Random.value).ToList();
@@ -105,35 +105,35 @@ public class ItemEffectTable : MonoBehaviour
                     }
                 }
                 break;
-            case 13:
+            case 13: //Shotgun
                 WeaponStats.Instance.CurrentWeapon = WeaponType.Shotgun;
                 Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
-            case 14:
+            case 14://Sniper
                 WeaponStats.Instance.CurrentWeapon = WeaponType.Sniper;
                 Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
-            case 15:
+            case 15: //Machine Gun
                 WeaponStats.Instance.CurrentWeapon = WeaponType.MachineGun;
                 Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
-            case 16:
+            case 16: //Dual Pistol
                 WeaponStats.Instance.CurrentWeapon = WeaponType.DualPistol;
                 Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
-            case 17:
+            case 17: //Rocket Launcher
                 WeaponStats.Instance.CurrentWeapon = WeaponType.RocketLauncher;
                 Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
-            case 18:
+            case 18: //Sword
                 WeaponStats.Instance.CurrentWeapon = WeaponType.Sword;
                 Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
-            case 19:
+            case 19: //Ricochet
                 WeaponStats.Instance.RicochetCount += 1;
                 Debug.Log($"Ricochet count: {WeaponStats.Instance.RicochetCount}");
                 break;
-            case 20:
+            case 20: //Piercing Bullets
                 WeaponStats.Instance.ItemPiercing = true;
                 WeaponStats.Instance.ItemPierceAmount += 1;
                 Debug.Log($"Piercing: {WeaponStats.Instance.PierceAmount}");

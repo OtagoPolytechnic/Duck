@@ -27,7 +27,7 @@
       {
         "id": 3,
         "name": "Band-Aid",
-        "desc": "Gain 1% max health regeneration per 3 seconds",
+        "desc": "Gain 2% max health regeneration per 2 seconds",
         "rarity": 2,
         "stacks": 0
       },
