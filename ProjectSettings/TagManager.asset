@@ -17,6 +17,8 @@ TagManager:
   - BossPointer
   - Target
   - Shield
+  - BladesCenter
+  - Blades
   layers:
   - Default
   - TransparentFX
