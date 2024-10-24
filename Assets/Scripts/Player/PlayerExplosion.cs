@@ -46,5 +46,9 @@ public class PlayerExplosion : MonoBehaviour
         {
             other.gameObject.GetComponent<EnemyBase>().ReceiveDamage(explosionDamage, crit);
         }
+        else if (other.gameObject.CompareTag("Shield"))
+        {
+            other.gameObject.GetComponent<RiotShield>().TakeDamage();
+        }
     }
 }
