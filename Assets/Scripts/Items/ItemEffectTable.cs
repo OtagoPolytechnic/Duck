@@ -138,22 +138,22 @@ public class ItemEffectTable : MonoBehaviour
                 WeaponStats.Instance.ItemPierceAmount += 1;
                 Debug.Log($"Piercing: {WeaponStats.Instance.PierceAmount}");
                 break;
-            case 21:
-                WeaponStats.Instance.ItemExtraBullets += 6;
+            case 21: //Bigger Barrel
+                WeaponStats.Instance.ItemExtraBullets += 4;
                 Debug.Log($"Extra bullets: {WeaponStats.Instance.ExtraBullets}");
                 break;
-            case 22:
+            case 22: //Spine Plate
                 TopDownMovement.Instance.PercentBonusSpeed *= 0.75f; //3/4 the speed
                 PlayerStats.Instance.SpinePlate = true;
                 PlayerStats.Instance.SpinePercent += 200; //200% of damage taken is dealt to the enemy per stack
                 Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                 break;
-            case 23:
+            case 23: //Glass Cannon
                 PlayerStats.Instance.PercentBonusHealth /= 2; //Half the current max health. If this is picked multiple times it will keep halving the max health
                 WeaponStats.Instance.PercentageDamage *= 2; //Double the damage. If this is picked multiple times it will keep doubling the damage 
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}. Damage: {WeaponStats.Instance.Damage}");
                 break;
-            case 24:
+            case 24: //Bloodletter's Curse
                 //This gives 30% of your damage as lifesteal and then doubles all your lifesteal
                 //This means it gives 60% total and doubles the effectiveness of all other lifesteal
                 PlayerStats.Instance.FlatLifestealPercentage += 30;
@@ -163,16 +163,16 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Lifesteal percentage: {PlayerStats.Instance.LifestealPercentage}");
                 Debug.Log($"Dot tick: {PlayerStats.Instance.DotDamage}");
                 break;
-            case 25:
+            case 25: //Weak Spots
                 WeaponStats.Instance.FlatCritDamage += 8; //48% crit damage
                 Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
                 break;
-            case 26:
+            case 26: //Stone Wall
                 PlayerStats.Instance.PercentBonusHealth *= 2; //Double the current max health
                 WeaponStats.Instance.PercentageDamage /= 2; //Half the damage
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}. Damage: {WeaponStats.Instance.Damage}");
                 break;
-            case 27:
+            case 27: //Radiating Bombs
                 WeaponStats.Instance.ItemRadioactive = true;
                 WeaponStats.Instance.RadiationDamagePercentage += 10;
                 Debug.Log($"Radiation damage: {WeaponStats.Instance.RadiationDamage}");
