@@ -177,12 +177,13 @@ public class ItemEffectTable : MonoBehaviour
                 WeaponStats.Instance.RadiationDamagePercentage += 10;
                 Debug.Log($"Radiation damage: {WeaponStats.Instance.RadiationDamage}");
                 break;
-            case 28:
-                WeaponStats.Instance.SelfDamageExplosions = true;
+            case 28: //MOAB
                 WeaponStats.Instance.PercentageExplosionSize += 100;
-                Debug.Log($"Self damage {WeaponStats.Instance.SelfDamageExplosions}");
+                WeaponStats.Instance.ItemExplosionDamage += 50;
+                Debug.Log($"Explosion size: {WeaponStats.Instance.ExplosionSize}");
+                Debug.Log($"Explosion damage: {WeaponStats.Instance.ExplosionDamage}");
                 break;
-            case 29:
+            case 29: //Sword of the Master
                 if (!WeaponStats.Instance.HasSwordBeam)
                 {
                     WeaponStats.Instance.HasSwordBeam = true;
@@ -195,26 +196,26 @@ public class ItemEffectTable : MonoBehaviour
                     Debug.Log($"Player already has sword beam");
                 }
                 break;
-            case 30:
+            case 30: //Overheat - UNIMPLEMENTED
                 Debug.Log("Unimplemented Overheating item");
                 break;
-            case 31:
+            case 31: //Rocket boots
                 TopDownMovement.Instance.PercentBonusSpeed += 15;
                 Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                 break;
-            case 32:
+            case 32: //Full Breakfast
                 PlayerStats.Instance.PercentBonusHealth += 30;
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}");
                 break;
-            case 33:
+            case 33: //Expert Aim
                 WeaponStats.Instance.FlatCritDamage += 24; //24% crit damage
                 Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
                 break;
-            case 34:
+            case 34: //Hollow-point bullets
                 WeaponStats.Instance.FlatDamage += 30;
                 Debug.Log($"Damage: {WeaponStats.Instance.Damage}");
                 break;
-            case 35:
+            case 35: //Reflector
                 if (!WeaponStats.Instance.HasReflector)
                 {
                     Debug.Log($"Gained reflector");
@@ -226,7 +227,7 @@ public class ItemEffectTable : MonoBehaviour
                     Debug.Log($"Reflector cooldown reduced to {WeaponStats.Instance.ReflectCooldown}");
                 }
                 break;
-            case 36:
+            case 36: //Claymore
                 WeaponStats.Instance.PercentageDamage *= 4;
                 WeaponStats.Instance.WeaponFireDelay *= 3;
                 break;

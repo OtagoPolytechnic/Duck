@@ -46,9 +46,5 @@ public class PlayerExplosion : MonoBehaviour
         {
             other.gameObject.GetComponent<EnemyBase>().ReceiveDamage(explosionDamage, crit);
         }
-        if (WeaponStats.Instance.SelfDamageExplosions && other.gameObject.CompareTag("Player"))
-        {
-            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(explosionDamage/2);
-        }
     }
 }

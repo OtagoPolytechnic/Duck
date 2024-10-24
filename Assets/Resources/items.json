@@ -208,7 +208,7 @@
       {
         "id": 28,
         "name": "MOAB",
-        "desc": "Your explosions double in size, but they also do half damage to you",
+        "desc": "Your explosions double in size and deal 50% more damage",
         "rarity": 3,
         "weapons": ["RocketLauncher"],
         "stacks": 0
