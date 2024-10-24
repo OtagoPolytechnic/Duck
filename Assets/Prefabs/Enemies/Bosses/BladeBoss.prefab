@@ -30,6 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1073879214094550531}
   - {fileID: 5656455699881316956}
   m_Father: {fileID: 5656455698361903578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -260,15 +261,14 @@ MonoBehaviour:
   damageText: {fileID: 391528759432483411, guid: aa150d6d100764d45af1b8790d3f8c9c, type: 3}
   critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
   baseHealth: 0
-  damage: 0
+  damage: 10
   speed: 3
-  points: 0
+  points: 100
   mapManager: {fileID: 0}
   bleedTick: 1
   bleedInterval: 1
   bleeding: 0
-  player: {fileID: 0}
-  bullet: {fileID: 5418265743146168994, guid: 80580cccf9c60b14e9c7630a88835b6e, type: 3}
+  player: {fileID: 4316639253410503294, guid: 729bc25e53437c74b90fcef0935225ac, type: 3}
   bulletPosition: {fileID: 5656455699881316956}
   bladePrefab: {fileID: 7225180713624352441, guid: 99cd81d29cfd5c242b91a30a3668f8e6, type: 3}
   shotPoint: {fileID: 0}
@@ -307,3 +307,95 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5575887171487423865}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8277000783530034265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1073879214094550531}
+  - component: {fileID: 5831401358032128191}
+  - component: {fileID: 3637145353103832701}
+  m_Layer: 9
+  m_Name: Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1073879214094550531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8277000783530034265}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.18, y: 0, z: 0}
+  m_LocalScale: {x: 1.54, y: 2.06, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5575887171487423865}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &5831401358032128191
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8277000783530034265}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &3637145353103832701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8277000783530034265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 317488f9cb98c584198b05fbb00b13c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 4316639253410503294, guid: 729bc25e53437c74b90fcef0935225ac, type: 3}
+  originEnemy: {fileID: 1332807489363491242}

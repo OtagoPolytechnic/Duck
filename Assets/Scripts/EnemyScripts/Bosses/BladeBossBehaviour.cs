@@ -1,44 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static PlasticPipe.Server.MonitorStats;
 
 public class BladeBossBehaviour : EnemyBase
 {
     public GameObject player;
     private bool stopCheck;
     private float distance;
-    [SerializeField] private GameObject bullet;
+
     [SerializeField] private Transform bulletPosition;
     [SerializeField] private GameObject bladePrefab;
     [SerializeField] private Transform shotPoint;
     [SerializeField] private GameObject bladeCenterPrefab;
-
-    private float attackRange = 50f;
-    private float attackInterval = 1.5f;
-    private float attackCooldown;
-
     [SerializeField] private int numberOfBlades = 30;
     [SerializeField] private float radius = 1f;
     [SerializeField] private float spacing = 0.5f;
 
     private bool isCharging = false;
     private float chargeDuration = 1f;
-    private float chargeTimer = 0f; 
-
-    private float chargeCooldown; 
-    private float chargeCooldownMin = 1f; 
-    private float chargeCooldownMax = 2f; 
-
-    private Vector2 targetPosition; 
+    private float chargeTimer = 0f;
+    private float chargeCooldown;
+    private float chargeCooldownMin = 1f;
+    private float chargeCooldownMax = 2f;
+    private Vector2 targetPosition;
+    private bool attacking = false;
+    private GameObject attack;
 
     private void Awake()
     {
+        ScaleStats();
         mapManager = FindObjectOfType<MapManager>();
         player = GameObject.FindGameObjectWithTag("Player");
-        attackCooldown = attackInterval;
-        chargeCooldown = Random.Range(chargeCooldownMin, chargeCooldownMax); 
+        chargeCooldown = Random.Range(chargeCooldownMin, chargeCooldownMax);
+        attack = gameObject.transform.GetChild(0).GetChild(0).gameObject;
         SpawnBlades();
     }
+
 
     private void SpawnBlades()
     {
@@ -85,37 +83,18 @@ public class BladeBossBehaviour : EnemyBase
             transform.GetChild(0).rotation = Quaternion.Euler(Vector3.forward * angle);
         }
 
- 
         if (isCharging)
         {
             Charge();
         }
-        else
+        else if (GameSettings.gameState == GameState.InGame)
         {
-            if (distance >= attackRange)
-            {
-                Move(); 
-            }
-            else if (GameSettings.gameState == GameState.InGame)
-            {
-          
-                chargeCooldown -= Time.deltaTime;
+            chargeCooldown -= Time.deltaTime;
 
-                // Check if it's time to charge
-                if (chargeCooldown <= 0)
-                {
-                    StartCharging();
-                    chargeCooldown = Random.Range(chargeCooldownMin, chargeCooldownMax); 
-                }
-                else if (attackCooldown <= 0)
-                {
-                    Shoot();
-                    attackCooldown = attackInterval; 
-                }
-                else
-                {
-                    attackCooldown -= Time.deltaTime; 
-                }
+            if (chargeCooldown <= 0)
+            {
+                StartCharging();
+                chargeCooldown = Random.Range(chargeCooldownMin, chargeCooldownMax);
             }
         }
 
@@ -125,27 +104,33 @@ public class BladeBossBehaviour : EnemyBase
     private void StartCharging()
     {
         isCharging = true;
-        chargeTimer = 0f; 
-        targetPosition = player.transform.position; 
+        chargeTimer = 0f;
+        Vector2 direction = (player.transform.position - transform.position).normalized;
+        float extraDistance = 4f; 
+        targetPosition = (Vector2)player.transform.position + direction * extraDistance;
+        attack.GetComponent<BoxCollider2D>().enabled = true; //enable the collider
+        attack.GetComponent<ChargeAttack>().originEnemy = this;  
+        attacking = true;
+        attack.SetActive(true); //show the attack
         Debug.Log("BladeBoss is charging towards position: " + targetPosition);
     }
 
     private void Charge()
     {
-      
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, Speed * 10 * Time.deltaTime);
-
-      
-        chargeTimer += Time.deltaTime;
-
      
-        if (chargeTimer >= chargeDuration)
+      
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, Speed * 9 * Time.deltaTime);
+        chargeTimer += Time.deltaTime;
+        if (Vector2.Distance(transform.position, targetPosition) < 0.1f)
         {
             Debug.Log("BladeBoss has finished charging.");
-            isCharging = false;
-            attackCooldown = attackInterval; 
+            isCharging = false;  
+            attack.SetActive(false);
+            attacking = false;
         }
+      
     }
+
 
     public override void Move()
     {
@@ -154,10 +139,4 @@ public class BladeBossBehaviour : EnemyBase
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (Speed * tileSpeedModifier) * Time.deltaTime);
     }
 
-    void Shoot()
-    {
-        GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
-        newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, false);
-        SFXManager.Instance.PlaySFX("EnemyShoot");
-    }
 }
