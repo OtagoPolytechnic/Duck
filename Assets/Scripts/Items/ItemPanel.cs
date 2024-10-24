@@ -90,7 +90,7 @@ public class ItemPanel : MonoBehaviour
         confirmPanel.style.display = DisplayStyle.None;
         continuePanel.style.display = DisplayStyle.None;
 
-        rerollCharges = GameSettings.MaxRerollCharges;
+        rerollCharges = GameSettings.StartingRerollCharges;
         rand = new System.Random();
         LoadItems();
         
@@ -150,6 +150,10 @@ public class ItemPanel : MonoBehaviour
 
     public void InitializeItemPanel(int waveNumber) //this is called every time the inventory ui pops up
     {
+        if (waveNumber % 5 == 0) //Add one reroll charge after boss kills
+        {
+            rerollCharges++;
+        }
         statDisplay.UpdateStats();
         GetItems(3, waveNumber);
         VisualElement rerollCount = reroll.Q<VisualElement>("RerollCount");

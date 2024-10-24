@@ -40,7 +40,7 @@ public class BossBullet : MonoBehaviour
 
         // Set bullet damage based on current wave
         bulletDamage = 30 + (GameSettings.waveNumber / 5) * 5;
-        bulletSpeed = 5 + (GameSettings.waveNumber / 5) * 3;
+        bulletSpeed = 5 + (GameSettings.waveNumber / 5);
         range = 20f + (GameSettings.waveNumber / 5) * 20;
 
         // Calculate direction based on whether it's a shotgun bullet

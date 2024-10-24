@@ -75,7 +75,7 @@ public class ShadowAttack : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (duration >= .5)
+        if (duration > .2)
         {
             // Dynamically calculate the follow speed based on the player's move speed
             float playerSpeed = TopDownMovement.Instance.MoveSpeed;
