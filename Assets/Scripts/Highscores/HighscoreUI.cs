@@ -46,6 +46,7 @@ public class HighscoreUI : MonoBehaviour
 
     private void Menu(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         if (document != null)
         {
             if (SceneManager.GetSceneByName("Titlescreen").isLoaded) //If coming from the main menu
@@ -61,6 +62,7 @@ public class HighscoreUI : MonoBehaviour
 
     public void DisplayEndlessHighscores(ClickEvent click = null) //Nullable so I can call it manually as well
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         //Turn endless button grey and boss button to original colour. We need a better and more unified solution for selected buttons
         bossButton.style.backgroundColor = bossColour;
         endlessButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
@@ -76,6 +78,7 @@ public class HighscoreUI : MonoBehaviour
 
     public void DisplayBossHighscores(ClickEvent click = null) //Nullable so I can call it manually as well
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         //Turn boss button grey and endless button to original colour. We need a better and more unified solution for selected buttons
         bossButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
         endlessButton.style.backgroundColor = endlessColour;

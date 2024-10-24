@@ -48,17 +48,20 @@ public class PauseMenu : MonoBehaviour
     }
     private void Resume(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         GameSettings.gameState = heldState;
         background.visible = false;
     }
 
     private void Settings(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
     }
 
     private void Quit(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         GameSettings.gameState = GameState.InGame;
         StartCoroutine(LoadScene("Titlescreen"));
     }

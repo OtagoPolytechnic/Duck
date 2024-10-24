@@ -28,6 +28,7 @@ public class PlayerExplosion : MonoBehaviour
     void Start()
     {
         StartCoroutine(DestroyExplosion());
+        SFXManager.Instance.PlaySFX("Explosion1");
     }
     private IEnumerator DestroyExplosion()
     {

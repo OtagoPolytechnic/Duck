@@ -47,16 +47,19 @@ public class KeybindsDisplay : MonoBehaviour
     {
         if (evt.newValue == 0)
         {
+            SFXManager.Instance.PlaySFX("ButtonPress");
             GameSettings.controlType = controlType.Keyboard;
             displayKeyboardControls();
         }
         else if (evt.newValue == 1)
         {
+            SFXManager.Instance.PlaySFX("ButtonPress");
             GameSettings.controlType = controlType.Controller;
             displayControllerControls();
         }
         else if (evt.newValue == 2)
         {
+            SFXManager.Instance.PlaySFX("ButtonPress");
             GameSettings.controlType = controlType.Arcade;
             displayArcadeControls();
         }

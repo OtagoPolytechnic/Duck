@@ -18,6 +18,7 @@ public class Credits : MonoBehaviour
     }
     private void ReturnToMainMenu(ClickEvent click)
     {
+        SFXManager.Instance.PlaySFX("ButtonPress");
         if (document != null)
         {
             document.style.display = DisplayStyle.None;
