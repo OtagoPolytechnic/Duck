@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 265837185}
   - component: {fileID: 265837187}
   m_Layer: 5
-  m_Name: MainMenu
+  m_Name: ModeSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
