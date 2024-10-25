@@ -109,7 +109,7 @@ public class TerminalBehaviour : MonoBehaviour
             }   
             input.value = "";
             input.Focus();
-            output.text += new string('-', 108);
+            output.text += new string('-', 106);
         }
     }
 
