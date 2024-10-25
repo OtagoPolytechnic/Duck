@@ -26,10 +26,32 @@ public class Bullet : MonoBehaviour
         if (UnityEngine.Random.Range(0, 100) < WeaponStats.Instance.CritChance)
         {
             crit = true;
-            //Change to critical sprite
-            transform.GetChild(0).gameObject.SetActive(false);
-            transform.GetChild(1).gameObject.SetActive(true);
         }
+
+        //Set sprite
+        if (crit)
+        {
+            if (WeaponStats.Instance.CurrentWeapon == WeaponType.RocketLauncher)
+            {
+                transform.GetChild(3).gameObject.SetActive(true);
+            }
+            else
+            {
+                transform.GetChild(1).gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            if (WeaponStats.Instance.CurrentWeapon == WeaponType.RocketLauncher)
+            {
+                transform.GetChild(2).gameObject.SetActive(true);
+            }
+            else
+            {
+                transform.GetChild(0).gameObject.SetActive(true);
+            }
+        }
+
         if (WeaponStats.Instance.Piercing)
         {
             pierceCount = WeaponStats.Instance.PierceAmount; //NOTE: If this is -1, it will pierce infinitely. Otherwise, it will pierce the number of times specified
