@@ -10,20 +10,24 @@ public class CameraLoading : MonoBehaviour
     public bool isMainCamera = false; //This is to make sure that the main camera is kept instead of a menu one
     void Awake()
     {
-        if (isMainCamera && instance != null) //If this is the main camera and there is already another camera, destroy it
+        if (isMainCamera) //If this is the main camera and there is already another camera, destroy it
         {
-            Destroy(instance.gameObject);
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            if (instance != null)
+            {
+                Destroy(instance.gameObject);
+            }
         }
         else
         {
-            Destroy(gameObject);
+            if (instance == null)
+            {
+                instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
