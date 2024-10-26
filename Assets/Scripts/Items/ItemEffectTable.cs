@@ -34,7 +34,7 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Regeneration Percentage: {PlayerStats.Instance.RegenerationPercentage}");
                 break;
             case 04:
-                WeaponStats.Instance.PercentageFireDelay -= 10; //This makes it shoot 10% faster
+                WeaponStats.Instance.PercentageFireDelay *= .9f; //This makes it shoot 10% faster
                 Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}");
                 break;
             case 05:
@@ -62,7 +62,7 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                 break;
             case 10:
-                WeaponStats.Instance.PercentageFireDelay -= 30; //This makes it shoot 30% faster
+                WeaponStats.Instance.PercentageFireDelay *= .7f; //This makes it shoot 30% faster
                 Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}");
                 break;
             case 11:
@@ -91,7 +91,7 @@ public class ItemEffectTable : MonoBehaviour
                             Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                             break;
                         case 3:
-                            WeaponStats.Instance.PercentageFireDelay -= 6;
+                            WeaponStats.Instance.PercentageFireDelay *= .94f;
                             Debug.Log($"Fire Delay: {WeaponStats.Instance.FireDelay}");
                             break;
                         case 4:
@@ -228,7 +228,7 @@ public class ItemEffectTable : MonoBehaviour
                 break;
             case 36:
                 WeaponStats.Instance.PercentageDamage *= 4;
-                WeaponStats.Instance.WeaponFireDelay *= 3;
+                WeaponStats.Instance.PercentageFireDelay *= 3f;
                 break;
             default:
                 Debug.Log($"The ID: {itemID} has not been given a case in the item effect table.");

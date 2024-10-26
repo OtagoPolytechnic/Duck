@@ -46,7 +46,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponSpread = 30; //30 flat spread
                     WeaponExtraBullets = 6; //6 extra bullets
                     WeaponBulletSpeed = 150; //150% bullet speed
-                    WeaponFireDelay = 150; //150% fire delay
+                    WeaponFireDelay = 1.33f; //This is a 75% fire delay. Math.
 
                     //Other stats set to base values
                     weaponCritChancePercentage = 100;
@@ -68,7 +68,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponCritChanceFlat = 5; //5% extra starting crit chance. This is added to the base crit chance of 1% and doubled by the sniper scaling. The sniper starts with 12% crit chance total
                     WeaponCritDamage = 200; //200% crit damage
                     WeaponRange = 200; //200% range
-                    WeaponFireDelay = 200; //200% fire delay
+                    WeaponFireDelay = 2f; //200% fire delay
                     WeaponBulletSpeed = 300; //300% bullet speed
                     WeaponCameraSize = 3; //3 extra camera size
 
@@ -86,7 +86,7 @@ public class WeaponStats : MonoBehaviour
                 case WeaponType.MachineGun:
                     //Machine gun values
                     WeaponDamage = 33; //33% damage
-                    WeaponFireDelay = 20; //20% fire delay
+                    WeaponFireDelay = .2f; //20% fire delay
                     WeaponBulletSpeed = 300; //300% bullet speed
 
                     //Other stats set to base values
@@ -107,7 +107,7 @@ public class WeaponStats : MonoBehaviour
 
                 case WeaponType.DualPistol:
                     //Dual pistol values
-                    WeaponFireDelay = 50; //50% fire delay
+                    WeaponFireDelay = .5f; //50% fire delay
 
                     //Other stats set to base values
                     WeaponDamage = 100;
@@ -134,7 +134,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponCritChanceFlat = 0;
                     WeaponCritDamage = 100;
                     WeaponRange = 100;
-                    WeaponFireDelay = 100;
+                    WeaponFireDelay = 1f;
                     WeaponBulletSpeed = 100;
                     WeaponExplosiveBullets = false;
                     WeaponExplosionSize = 0;
@@ -150,7 +150,7 @@ public class WeaponStats : MonoBehaviour
                 case WeaponType.Sword:
                     //Sword Values
                     WeaponDamage = 150; //200% damage
-                    WeaponFireDelay = 50; //50% fire delay
+                    WeaponFireDelay = .5f; //50% fire delay
                     WeaponBulletSpeed = 10; //Speed for the sword beam item
 
                     //Other stats set to base values
@@ -175,7 +175,7 @@ public class WeaponStats : MonoBehaviour
                     WeaponExplosiveBullets = true; //Rocket launcher has explosive bullets
                     WeaponExplosionSize = 5; //Explosion size is 10
                     WeaponExplosionDamage = 100; //100% of the weapon's damage is dealt as explosion damage
-                    WeaponFireDelay = 300; //300% fire delay
+                    WeaponFireDelay = 3f; //300% fire delay
                     WeaponRange = 150; //150% range
 
                     //Other stats set to base values
@@ -320,13 +320,13 @@ public class WeaponStats : MonoBehaviour
         get { return flatFireDelay; }
         set { flatFireDelay = value; }
     }
-    private float percentageFireDelay = 100f;
+    private float percentageFireDelay = 1f;
     public float PercentageFireDelay
     {
         get { return percentageFireDelay; }
         set { percentageFireDelay = value; }
     }
-    private float weaponFireDelay = 100f;
+    private float weaponFireDelay = 1f;
     public float WeaponFireDelay
     {
         get { return weaponFireDelay; }
@@ -334,8 +334,8 @@ public class WeaponStats : MonoBehaviour
     }
     public float FireDelay
     {
-        get { return Math.Max(((BASE_FIRE_DELAY + FlatFireDelay) * PercentageFireDelay * WeaponFireDelay) / 10000, 0.01f); }
-        //This isn't allowed to be any quicker than 0.01 seconds per shot. Can change value?
+        get { return Math.Min(Math.Max((BASE_FIRE_DELAY + FlatFireDelay) * PercentageFireDelay * WeaponFireDelay, 0.01f), 10); }
+        //This isn't allowed to be any quicker than 0.01 seconds per shot or slower than 10 seconds per shot. Just in case someone stacks a LOT of claymores
     }
 
     //Attack speed to show to user. Amount of times per second you can attack
