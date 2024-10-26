@@ -3,9 +3,9 @@
     <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.84); align-items: center; justify-content: center; flex-direction: row; align-self: stretch; visibility: visible; -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/PublicPixel.ttf?fileID=12800000&amp;guid=9cdf889b2baddf840996f4d8b05c1651&amp;type=3#PublicPixel&quot;); -unity-font-definition: initial;">
         <ui:VisualElement name="PauseMenu" style="flex-grow: 1; background-color: rgb(75, 75, 75); max-width: none; max-height: 75%; justify-content: flex-start; align-self: center; align-items: center; min-width: 75%; min-height: 75%; flex-direction: column;">
             <ui:Label tabindex="-1" text="PAUSED" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Header" class="text header" />
-            <ui:Button text="RESUME" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Resume" class="text button" />
-            <ui:Button text="SETTINGS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Settings" class="text button" />
-            <ui:Button text="MENU" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Quit" class="text button" />
+            <ui:Button text="RESUME" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Resume" class="text button menuButton buttonText" />
+            <ui:Button text="SETTINGS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Settings" class="text button menuButton buttonText" />
+            <ui:Button text="MENU" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Quit" class="text button menuButton buttonText" />
         </ui:VisualElement>
         <ui:VisualElement name="StatContainer" style="flex-grow: 0; width: 30%; margin-top: 10px; margin-bottom: 10px; justify-content: center; padding-left: 10px; padding-right: 10px; position: absolute; left: 0; align-self: auto; top: 10px; bottom: 10px;">
             <ui:VisualElement name="Stats" style="flex-grow: 0; height: 709px; margin-top: 0; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; background-color: rgb(229, 229, 229); flex-direction: row; justify-content: space-between; padding-top: 10px; padding-bottom: 10px; align-self: center;">

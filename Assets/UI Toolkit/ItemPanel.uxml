@@ -68,7 +68,7 @@
                     <ui:Label tabindex="-1" text="Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Name" style="-unity-font-style: bold; font-size: 28px; -unity-text-align: middle-center; margin-bottom: 10px;" />
                     <ui:Label tabindex="-1" text="Description" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Description" style="-unity-text-align: middle-center; height: 79px; font-size: 20px; white-space: normal;" />
                 </ui:VisualElement>
-                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Button" style="position: absolute; width: 100%; height: 100%; background-color: rgba(188, 188, 188, 0);" />
+                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Button" class="menuButton" style="position: absolute; width: 100%; height: 100%; background-color: rgba(188, 188, 188, 0);" />
             </ui:VisualElement>
             <ui:VisualElement name="Item2" style="flex-grow: 0; background-color: rgb(0, 0, 0); width: 75%; height: 220px; flex-direction: row; justify-content: center;">
                 <ui:VisualElement name="ItemInfo" style="flex-grow: 0; margin-top: 10px; margin-left: 10px; margin-bottom: 10px; margin-right: 10px; background-color: rgb(229, 229, 229); width: 85%;">
@@ -76,7 +76,7 @@
                     <ui:Label tabindex="-1" text="Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Name" style="-unity-font-style: bold; font-size: 28px; -unity-text-align: middle-center; margin-bottom: 10px;" />
                     <ui:Label tabindex="-1" text="Description" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Description" style="-unity-text-align: middle-center; height: 79px; font-size: 20px; white-space: normal;" />
                 </ui:VisualElement>
-                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Button" style="position: absolute; width: 100%; height: 100%; background-color: rgba(188, 188, 188, 0);" />
+                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Button" class="menuButton" style="position: absolute; width: 100%; height: 100%; background-color: rgba(188, 188, 188, 0);" />
             </ui:VisualElement>
             <ui:VisualElement name="Item3" style="flex-grow: 0; background-color: rgb(0, 0, 0); width: 75%; height: 220px; flex-direction: row; justify-content: center;">
                 <ui:VisualElement name="ItemInfo" style="flex-grow: 0; margin-top: 10px; margin-left: 10px; margin-bottom: 10px; margin-right: 10px; background-color: rgb(229, 229, 229); width: 85%;">
@@ -84,10 +84,10 @@
                     <ui:Label tabindex="-1" text="Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Name" style="-unity-font-style: bold; font-size: 28px; -unity-text-align: middle-center; margin-bottom: 10px;" />
                     <ui:Label tabindex="-1" text="Description" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Description" style="-unity-text-align: middle-center; height: 79px; font-size: 20px; white-space: normal;" />
                 </ui:VisualElement>
-                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Button" style="position: absolute; width: 100%; height: 100%; background-color: rgba(188, 188, 188, 0);" />
+                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Button" class="menuButton" style="position: absolute; width: 100%; height: 100%; background-color: rgba(188, 188, 188, 0);" />
             </ui:VisualElement>
             <ui:VisualElement name="RerollAndSkip" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); width: 75%; height: 200px; flex-direction: row; justify-content: space-between;">
-                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Reroll" style="width: 25%; border-left-color: rgb(27, 27, 27); border-right-color: rgb(27, 27, 27); border-top-color: rgb(27, 27, 27); border-bottom-color: rgb(27, 27, 27); border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; padding-top: 2px; padding-bottom: 5px; padding-right: 6px; padding-left: 3px;">
+                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Reroll" class="menuButton" style="width: 25%; border-left-color: rgb(27, 27, 27); border-right-color: rgb(27, 27, 27); border-top-color: rgb(27, 27, 27); border-bottom-color: rgb(27, 27, 27); border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; padding-top: 2px; padding-bottom: 5px; padding-right: 6px; padding-left: 3px;">
                     <ui:VisualElement name="RerollImage" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/reroll_icon.png?fileID=2800000&amp;guid=7a85ebed537a29241ac532af41cd08ae&amp;type=3#reroll_icon&quot;); width: 170px; height: 166px; flex-shrink: 0; -unity-font-style: normal; position: absolute;" />
                     <ui:VisualElement name="RerollCount" style="flex-grow: 1; position: absolute; align-self: flex-end; width: 55px; height: 55px; right: 0; bottom: 0; border-top-width: 2px; border-right-width: 0; border-bottom-width: 0; border-left-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
                         <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RerollCountText" style="flex-grow: 1; -unity-text-align: middle-center; font-size: 50px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
@@ -101,14 +101,14 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="ContinueBox" style="flex-grow: 1; width: 60%; position: absolute; right: 0; height: 100%; justify-content: center; visibility: visible;">
-            <ui:Button text="CONTINUE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Continue" enable-rich-text="true" style="width: 50%; align-self: center; height: 10%; margin-top: 10px; margin-bottom: 10px; font-size: 28px;" />
+            <ui:Button text="CONTINUE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Continue" enable-rich-text="true" class="menuButton" style="width: 50%; align-self: center; height: 10%; margin-top: 10px; margin-bottom: 10px; font-size: 28px;" />
         </ui:VisualElement>
         <ui:VisualElement name="PopupBackground" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.29); align-items: center; justify-content: center; visibility: visible; color: rgb(28, 28, 28);">
             <ui:VisualElement name="Popup" style="flex-grow: 0; position: relative; width: 50%; height: 30%; background-color: rgb(229, 229, 255);">
                 <ui:Label tabindex="-1" text="CONFIRM ITEM:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ConfirmText" style="height: 35%; -unity-text-align: lower-center; font-size: 32px;" />
                 <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SelectedItem" style="height: 28%; font-size: 32px; -unity-text-align: upper-center;" />
-                <ui:Button text="CONFIRM" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Confirm" style="width: 50%; align-self: center; height: 26%; margin-top: 10px; margin-bottom: 10px; font-size: 28px;" />
-                <ui:Button text="CANCEL" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Cancel" style="position: absolute; top: auto; left: 20px; bottom: 12px; height: 60px; width: 160px;" />
+                <ui:Button text="CONFIRM" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Confirm" class="menuButton" style="width: 50%; align-self: center; height: 26%; margin-top: 10px; margin-bottom: 10px; font-size: 28px;" />
+                <ui:Button text="CANCEL" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Cancel" class="menuButton" style="position: absolute; top: auto; left: 20px; bottom: 12px; height: 60px; width: 160px; font-size: 22px;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
