@@ -5,9 +5,12 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 public class Menu : MonoBehaviour
 {
+
+    public InputActionAsset inputActions;
 
     private Button playButton;
     private Button highscoreButton;
@@ -31,15 +34,17 @@ public class Menu : MonoBehaviour
 
         quitButton = document.Q<Button>("Quit");
         quitButton.RegisterCallback<ClickEvent>(Quit);
+        quitButton.RegisterCallback<KeyDownEvent>(Quit);
 
         versionNumber = document.Q<Label>("VersionNumber");
         versionNumber.text = Application.version;
-
+        playButton.Focus();
     }
 
     private void Start()
     {
         Application.targetFrameRate = 60;
+
         StartCoroutine(LoadBackgroundScene("ModeSelect", playButton));
         StartCoroutine(LoadBackgroundScene("SkillMenu")); //Null button as you can't open this screen from the main menu
         StartCoroutine(LoadBackgroundScene("Highscores", highscoreButton));
@@ -64,6 +69,7 @@ public class Menu : MonoBehaviour
         {
             //When the scene is loaded add the click event
             button.RegisterCallback<ClickEvent>(SubMenuButton);
+            button.RegisterCallback<KeyDownEvent>(SubMenuButton);
             button.style.backgroundColor = new StyleColor(originalColour); //Return to original colour
         }
 
@@ -90,19 +96,25 @@ public class Menu : MonoBehaviour
 
     }
 
-    public void Quit(ClickEvent click)
+    public void Quit(EventBase evt)
     {
-        Application.Quit();
+        if (SubmitCheck.Submit(evt, inputActions))
+        {
+            Application.Quit();
+        }
     }
 
     //Two button click methods turned into one. The button that was clicked is turned into a visual element and the name is used to find the correct dictionary entry
-    public void SubMenuButton(ClickEvent click)
+    public void SubMenuButton(EventBase evt)
     {
-        VisualElement targetElement = click.target as VisualElement;
-        if (targetElement != null)
+        if (SubmitCheck.Submit(evt, inputActions))
         {
-            sceneRootElements.TryGetValue(targetElement.name, out VisualElement rootElement);
-            rootElement.style.display = DisplayStyle.Flex; // Set to visible
+            VisualElement targetElement = evt.target as VisualElement;
+            if (targetElement != null)
+            {
+                sceneRootElements.TryGetValue(targetElement.name, out VisualElement rootElement);
+                rootElement.style.display = DisplayStyle.Flex; // Set to visible
+            }
         }
     }
 }

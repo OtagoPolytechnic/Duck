@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour
 {
+    public InputActionAsset inputActions;
     private Button resumeButton;
     private Button settingsButton;
     private Button quitButton;
@@ -21,12 +22,15 @@ public class PauseMenu : MonoBehaviour
 
         resumeButton = document.Q<Button>("Resume");
         resumeButton.RegisterCallback<ClickEvent>(Resume);
+        resumeButton.RegisterCallback<KeyDownEvent>(Resume);
 
         settingsButton = document.Q<Button>("Settings");
         settingsButton.RegisterCallback<ClickEvent>(Settings);
+        settingsButton.RegisterCallback<KeyDownEvent>(Settings);
 
         quitButton = document.Q<Button>("Quit");
         quitButton.RegisterCallback<ClickEvent>(Quit);
+        quitButton.RegisterCallback<KeyDownEvent>(Quit);
     }
     public void ActivateWindow(InputAction.CallbackContext context)
     {
@@ -46,21 +50,30 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
-    private void Resume(ClickEvent click)
+    private void Resume(EventBase evt)
     {
-        GameSettings.gameState = heldState;
-        background.visible = false;
+        if (SubmitCheck.Submit(evt, inputActions))
+        {
+            GameSettings.gameState = heldState;
+            background.visible = false;
+        }
     }
 
-    private void Settings(ClickEvent click)
+    private void Settings(EventBase evt)
     {
-        SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
+        if (SubmitCheck.Submit(evt, inputActions))
+        {
+            SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
+        }
     }
 
-    private void Quit(ClickEvent click)
+    private void Quit(EventBase evt)
     {
-        GameSettings.gameState = GameState.InGame;
-        StartCoroutine(LoadScene("Titlescreen"));
+        if (SubmitCheck.Submit(evt, inputActions))
+        {
+            GameSettings.gameState = GameState.InGame;
+            StartCoroutine(LoadScene("Titlescreen"));
+        }
     }
 
     IEnumerator LoadScene(string sceneName)

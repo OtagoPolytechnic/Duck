@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UIElements.Experimental;
 using System;
+using UnityEngine.InputSystem;
 
 public class HighscoreUI : MonoBehaviour
 {
+    public InputActionAsset inputActions;
     private VisualElement document;
     private MultiColumnListView highscores;
     public static HighscoreUI Instance; //Singleton pattern
@@ -35,8 +37,11 @@ public class HighscoreUI : MonoBehaviour
         bossColour = bossButton.resolvedStyle.backgroundColor;
         endlessColour = endlessButton.resolvedStyle.backgroundColor;
         menuButton.RegisterCallback<ClickEvent>(Menu);
+        menuButton.RegisterCallback<KeyDownEvent>(Menu);
         bossButton.RegisterCallback<ClickEvent>(DisplayBossHighscores);
+        bossButton.RegisterCallback<KeyDownEvent>(DisplayBossHighscores);
         endlessButton.RegisterCallback<ClickEvent>(DisplayEndlessHighscores);
+        endlessButton.RegisterCallback<KeyDownEvent>(DisplayEndlessHighscores);
         //Get the highscores list view
         highscores = document.Q<MultiColumnListView>("MultiColumnListView");
         moreInfoList = document.Q<ListView>("MoreInfoList");
@@ -44,49 +49,62 @@ public class HighscoreUI : MonoBehaviour
         document.style.display = DisplayStyle.None;
     }
 
-    private void Menu(ClickEvent click)
+    private void Menu(EventBase evt)
     {
-        if (document != null)
+        if (SubmitCheck.Submit(evt, inputActions))
         {
-            if (SceneManager.GetSceneByName("Titlescreen").isLoaded) //If coming from the main menu
+            if (document != null)
             {
-                document.style.display = DisplayStyle.None;
-            }
-            else //If coming from in game
-            {
-                SceneManager.UnloadSceneAsync("Highscores");
+                if (SceneManager.GetSceneByName("Titlescreen").isLoaded) //If coming from the main menu
+                {
+                    document.style.display = DisplayStyle.None;
+                }
+                else //If coming from in game
+                {
+                    SceneManager.UnloadSceneAsync("Highscores");
+                }
             }
         }
     }
 
-    public void DisplayEndlessHighscores(ClickEvent click = null) //Nullable so I can call it manually as well
+    public void DisplayEndlessHighscores(EventBase evt = null) //Nullable so I can call it manually as well
     {
-        //Turn endless button grey and boss button to original colour. We need a better and more unified solution for selected buttons
-        bossButton.style.backgroundColor = bossColour;
-        endlessButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
-        //Remove endless click event and add boss click event
-        endlessButton.UnregisterCallback<ClickEvent>(DisplayEndlessHighscores);
-        bossButton.RegisterCallback<ClickEvent>(DisplayBossHighscores);
-        displayedHighscores = GameMode.Endless;
-        //Clear selected items
-        highscores.ClearSelection();
-        clearMoreInfoList();
-        DisplayHighscores(Scoreboard.Instance.savedScores.highscores);
+        if (evt == null || SubmitCheck.Submit(evt, inputActions))
+        {
+            //Turn endless button grey and boss button to original colour. We need a better and more unified solution for selected buttons
+            bossButton.style.backgroundColor = bossColour;
+            endlessButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
+            //Remove endless click event and add boss click event
+            endlessButton.UnregisterCallback<ClickEvent>(DisplayEndlessHighscores);
+            endlessButton.UnregisterCallback<KeyDownEvent>(DisplayEndlessHighscores);
+            bossButton.RegisterCallback<ClickEvent>(DisplayBossHighscores);
+            bossButton.RegisterCallback<KeyDownEvent>(DisplayBossHighscores);
+            displayedHighscores = GameMode.Endless;
+            //Clear selected items
+            highscores.ClearSelection();
+            clearMoreInfoList();
+            DisplayHighscores(Scoreboard.Instance.savedScores.highscores);
+        }
     }
 
-    public void DisplayBossHighscores(ClickEvent click = null) //Nullable so I can call it manually as well
+    public void DisplayBossHighscores(EventBase evt = null) //Nullable so I can call it manually as well
     {
-        //Turn boss button grey and endless button to original colour. We need a better and more unified solution for selected buttons
-        bossButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
-        endlessButton.style.backgroundColor = endlessColour;
-        //Remove boss click event and add endless click event
-        bossButton.UnregisterCallback<ClickEvent>(DisplayBossHighscores);
-        endlessButton.RegisterCallback<ClickEvent>(DisplayEndlessHighscores);
-        displayedHighscores = GameMode.Boss;
-        //Clear selected items
-        highscores.ClearSelection();
-        clearMoreInfoList();
-        DisplayHighscores(Scoreboard.Instance.savedScores.highscores);
+        if (evt == null || SubmitCheck.Submit(evt, inputActions))
+        {
+            //Turn boss button grey and endless button to original colour. We need a better and more unified solution for selected buttons
+            bossButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
+            endlessButton.style.backgroundColor = endlessColour;
+            //Remove boss click event and add endless click event
+            bossButton.UnregisterCallback<ClickEvent>(DisplayBossHighscores);
+            bossButton.UnregisterCallback<KeyDownEvent>(DisplayBossHighscores);
+            endlessButton.RegisterCallback<ClickEvent>(DisplayEndlessHighscores);
+            endlessButton.RegisterCallback<KeyDownEvent>(DisplayEndlessHighscores);
+            displayedHighscores = GameMode.Boss;
+            //Clear selected items
+            highscores.ClearSelection();
+            clearMoreInfoList();
+            DisplayHighscores(Scoreboard.Instance.savedScores.highscores);
+        }
     }
 
     //Making MultiColumnListViews are really confusing. This is the result of several hours of trial and error.

@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class Credits : MonoBehaviour
 {
     public VisualElement document;
+    public InputActionAsset inputActions;
     void Awake()
     {
         document = GetComponent<UIDocument>().rootVisualElement;
         Button goBack = document.Q<Button>("Return");
         goBack.RegisterCallback<ClickEvent>(ReturnToMainMenu);
+        goBack.RegisterCallback<KeyDownEvent>(ReturnToMainMenu);
 
         Label paragraph = document.Q<Label>("Paragraph");
         paragraph.text = "Developers:\n\nAlex Reid\nKyle Black\nRohan Anakin\nPalin Wiseman\n\n" +
@@ -16,11 +19,14 @@ public class Credits : MonoBehaviour
         "Music:\n\n \"8Bit Music - 062022\"  -  GWriterStudio" +
         "Reroll icon by Stephen Kerr from Noun Project (CC BY 3.0) https://thenounproject.com/browse/icons/term/reroll/ ";
     }
-    private void ReturnToMainMenu(ClickEvent click)
+    private void ReturnToMainMenu(EventBase evt)
     {
-        if (document != null)
+        if (SubmitCheck.Submit(evt, inputActions))
         {
-            document.style.display = DisplayStyle.None;
+            if (document != null)
+            {
+                document.style.display = DisplayStyle.None;
+            }
         }
     }
 }

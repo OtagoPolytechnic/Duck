@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    public InputActionAsset inputActions;
     private VisualElement gameOverUI;
     private VisualElement container;
     public static GameManager Instance;
@@ -23,8 +25,10 @@ public class GameManager : MonoBehaviour
         container = gameOverUI.Q<VisualElement>("Container");
         Button replay = gameOverUI.Q<Button>("Replay");
         replay.RegisterCallback<ClickEvent>(Restart);
+        replay.RegisterCallback<KeyDownEvent>(Restart);
         Button quit = gameOverUI.Q<Button>("Quit");
         quit.RegisterCallback<ClickEvent>(MainMenu);
+        quit.RegisterCallback<KeyDownEvent>(MainMenu);
     }
 
     public void GameOver()
@@ -50,17 +54,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Restart(ClickEvent click)
+    public void Restart(EventBase evt)
     {
-        ResetVariables();
-        GameSettings.gameState = GameState.InGame;
-        SceneManager.LoadScene("MainScene");
+        if (SubmitCheck.Submit(evt, inputActions))
+        {
+            ResetVariables();
+            GameSettings.gameState = GameState.InGame;
+            SceneManager.LoadScene("MainScene");
+        }
     }
 
-    private void MainMenu(ClickEvent click)
+    private void MainMenu(EventBase evt)
     {
-        ResetVariables();
-        SceneManager.LoadScene("Titlescreen");
+        if (SubmitCheck.Submit(evt, inputActions))
+        {
+            ResetVariables();
+            SceneManager.LoadScene("Titlescreen");
+        }
     }
 
     private void ResetVariables() //Any static variables that need to be reset on game start should be added to this method

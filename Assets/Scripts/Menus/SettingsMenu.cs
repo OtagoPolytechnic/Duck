@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 
 public class SettingsMenu : MonoBehaviour
 {
+    public InputActionAsset inputActions;
     private VisualElement document;
     public AudioMixer audioMixer;
     private Slider mainVolume;
@@ -27,6 +29,7 @@ public class SettingsMenu : MonoBehaviour
         document = GetComponent<UIDocument>().rootVisualElement;
         Button goBack = document.Q<Button>("Return");
         goBack.RegisterCallback<ClickEvent>(Return);
+        goBack.RegisterCallback<KeyDownEvent>(Return);
 
         mainVolume = document.Q<Slider>("MainVolume");
         musicVolume = document.Q<Slider>("MusicVolume");
@@ -61,20 +64,23 @@ public class SettingsMenu : MonoBehaviour
             SFXManager.Instance.PlayBackgroundMusic("TitleMusic");
         }
     }
-    private void Return(ClickEvent click)
+    private void Return(EventBase evt)
     {
-        PlayerPrefs.Save(); // Save the playerprefs on menu close. They save automatically when application exits as well
-        //if MainScene is loaded
-        if (SceneManager.GetSceneByName("MainScene").isLoaded)
+        if (SubmitCheck.Submit(evt, inputActions))
         {
-            //If in game, unload the settings scene
-            SceneManager.UnloadSceneAsync("Settings");
-        }
-        else //This means that the user is in the main menu
-        {
-            if (document != null)
+            PlayerPrefs.Save(); // Save the playerprefs on menu close. They save automatically when application exits as well
+            //if MainScene is loaded
+            if (SceneManager.GetSceneByName("MainScene").isLoaded)
             {
-                document.style.display = DisplayStyle.None;
+                //If in game, unload the settings scene
+                SceneManager.UnloadSceneAsync("Settings");
+            }
+            else //This means that the user is in the main menu
+            {
+                if (document != null)
+                {
+                    document.style.display = DisplayStyle.None;
+                }
             }
         }
     }
