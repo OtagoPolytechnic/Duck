@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour
 {
-    public InputActionAsset inputActions;
     private Button resumeButton;
     private Button settingsButton;
     private Button quitButton;
@@ -22,18 +21,23 @@ public class PauseMenu : MonoBehaviour
 
         resumeButton = document.Q<Button>("Resume");
         resumeButton.RegisterCallback<ClickEvent>(Resume);
-        resumeButton.RegisterCallback<KeyDownEvent>(Resume);
+        resumeButton.RegisterCallback<NavigationSubmitEvent>(Resume);
 
         settingsButton = document.Q<Button>("Settings");
         settingsButton.RegisterCallback<ClickEvent>(Settings);
-        settingsButton.RegisterCallback<KeyDownEvent>(Settings);
+        settingsButton.RegisterCallback<NavigationSubmitEvent>(Settings);
 
         quitButton = document.Q<Button>("Quit");
         quitButton.RegisterCallback<ClickEvent>(Quit);
-        quitButton.RegisterCallback<KeyDownEvent>(Quit);
+        quitButton.RegisterCallback<NavigationSubmitEvent>(Quit);
     }
     public void ActivateWindow(InputAction.CallbackContext context)
     {
+        //If the settings scene is open, don't allow the pause menu to close
+        if (SceneManager.GetSceneByName("Settings").isLoaded)
+        {
+            return;
+        }
         if (context.performed)
         {
             if (GameSettings.gameState == GameState.Paused)
@@ -52,28 +56,19 @@ public class PauseMenu : MonoBehaviour
     }
     private void Resume(EventBase evt)
     {
-        if (SubmitCheck.Submit(evt, inputActions))
-        {
-            GameSettings.gameState = heldState;
-            background.visible = false;
-        }
+        GameSettings.gameState = heldState;
+        background.visible = false;
     }
 
     private void Settings(EventBase evt)
     {
-        if (SubmitCheck.Submit(evt, inputActions))
-        {
-            SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
-        }
+        SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
     }
 
     private void Quit(EventBase evt)
     {
-        if (SubmitCheck.Submit(evt, inputActions))
-        {
-            GameSettings.gameState = GameState.InGame;
-            StartCoroutine(LoadScene("Titlescreen"));
-        }
+        GameSettings.gameState = GameState.InGame;
+        StartCoroutine(LoadScene("Titlescreen"));
     }
 
     IEnumerator LoadScene(string sceneName)

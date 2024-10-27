@@ -22,8 +22,6 @@ public class SkillMenu : MonoBehaviour
     private List<Skill> skillList = new List<Skill>();
     private VisualElement document;
 
-    public InputActionAsset inputActions;
-
     void Awake()
     {
         document = GetComponent<UIDocument>().rootVisualElement;
@@ -36,16 +34,16 @@ public class SkillMenu : MonoBehaviour
         playButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f)); //Turn gray while loading
         Button skill1Button = document.Q<Button>("Skill1");
         skill1Button.RegisterCallback<ClickEvent, SkillEnum>(SkillClick, SkillEnum.dash);
-        skill1Button.RegisterCallback<KeyDownEvent, SkillEnum>(SkillClick, SkillEnum.dash);
+        skill1Button.RegisterCallback<NavigationSubmitEvent, SkillEnum>(SkillClick, SkillEnum.dash);
         Button skill2Button = document.Q<Button>("Skill2");
         skill2Button.RegisterCallback<ClickEvent, SkillEnum>(SkillClick, SkillEnum.vanish);
-        skill2Button.RegisterCallback<KeyDownEvent, SkillEnum>(SkillClick, SkillEnum.vanish);
+        skill2Button.RegisterCallback<NavigationSubmitEvent, SkillEnum>(SkillClick, SkillEnum.vanish);
         Button skill3Button = document.Q<Button>("Skill3");
         skill3Button.RegisterCallback<ClickEvent, SkillEnum>(SkillClick, SkillEnum.decoy);
-        skill3Button.RegisterCallback<KeyDownEvent, SkillEnum>(SkillClick, SkillEnum.decoy);
+        skill3Button.RegisterCallback<NavigationSubmitEvent, SkillEnum>(SkillClick, SkillEnum.decoy);
         Button backButton = document.Q<Button>("Return");
         backButton.RegisterCallback<ClickEvent>(ReturnToModeMenu);
-        backButton.RegisterCallback<KeyDownEvent>(ReturnToModeMenu);
+        backButton.RegisterCallback<NavigationSubmitEvent>(ReturnToModeMenu);
         Load();
     }
 
@@ -58,11 +56,8 @@ public class SkillMenu : MonoBehaviour
 
     public void PlayGame(EventBase evt)
     {
-        if (SubmitCheck.Submit(evt, inputActions))
-        {
-            GameSettings.gameState = GameState.InGame;
-            StartCoroutine(LoadScene("MainScene"));
-        }
+        GameSettings.gameState = GameState.InGame;
+        StartCoroutine(LoadScene("MainScene"));
     }
 
     IEnumerator LoadScene(string sceneName)
@@ -77,40 +72,34 @@ public class SkillMenu : MonoBehaviour
     }
     public void SkillClick(EventBase evt, SkillEnum skillEnum)
     {
-        if (SubmitCheck.Submit(evt, inputActions))
+        foreach (Skill s in skillList)
         {
-            foreach (Skill s in skillList)
+            if (s.id == skillEnum)
             {
-                if (s.id == skillEnum)
-                {
-                    skillLabel.text = s.name;
-                    skillDesc.text = s.desc;
-                    skillTimers.text = $"Cooldown: {s.cooldown} seconds. Duration: {s.duration} seconds.";
-                }
+                skillLabel.text = s.name;
+                skillDesc.text = s.desc;
+                skillTimers.text = $"Cooldown: {s.cooldown} seconds. Duration: {s.duration} seconds.";
             }
-
-            playButton.RegisterCallback<ClickEvent>(PlayGame);
-            playButton.RegisterCallback<KeyDownEvent>(PlayGame);
-            playButton.style.backgroundColor = new StyleColor(new Color(88, 255, 88, 255));
-            GameSettings.activeSkill = skillEnum;
-            Debug.Log(GameSettings.activeSkill);
         }
+
+        playButton.RegisterCallback<ClickEvent>(PlayGame);
+        playButton.RegisterCallback<NavigationSubmitEvent>(PlayGame);
+        playButton.style.backgroundColor = new StyleColor(new Color(88, 255, 88, 255));
+        GameSettings.activeSkill = skillEnum;
+        Debug.Log(GameSettings.activeSkill);
     }
 
     private void ReturnToModeMenu(EventBase evt)
     {
-        if (SubmitCheck.Submit(evt, inputActions))
-        {            
-            GameSettings.activeSkill = SkillEnum.dash;
-            playButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
-            playButton.UnregisterCallback<ClickEvent>(PlayGame);
-            playButton.UnregisterCallback<KeyDownEvent>(PlayGame);
-            if (document != null)
-            {
-                document.style.display = DisplayStyle.None;
-            }
-            showModeMenu();
+        GameSettings.activeSkill = SkillEnum.dash;
+        playButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
+        playButton.UnregisterCallback<ClickEvent>(PlayGame);
+        playButton.UnregisterCallback<NavigationSubmitEvent>(PlayGame);
+        if (document != null)
+        {
+            document.style.display = DisplayStyle.None;
         }
+        showModeMenu();
     }
 
     private void showModeMenu()

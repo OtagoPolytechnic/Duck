@@ -9,7 +9,6 @@ using UnityEngine.InputSystem;
 
 public class SettingsMenu : MonoBehaviour
 {
-    public InputActionAsset inputActions;
     private VisualElement document;
     public AudioMixer audioMixer;
     private Slider mainVolume;
@@ -29,7 +28,7 @@ public class SettingsMenu : MonoBehaviour
         document = GetComponent<UIDocument>().rootVisualElement;
         Button goBack = document.Q<Button>("Return");
         goBack.RegisterCallback<ClickEvent>(Return);
-        goBack.RegisterCallback<KeyDownEvent>(Return);
+        goBack.RegisterCallback<NavigationSubmitEvent>(Return);
 
         mainVolume = document.Q<Slider>("MainVolume");
         musicVolume = document.Q<Slider>("MusicVolume");
@@ -66,21 +65,18 @@ public class SettingsMenu : MonoBehaviour
     }
     private void Return(EventBase evt)
     {
-        if (SubmitCheck.Submit(evt, inputActions))
+        PlayerPrefs.Save(); // Save the playerprefs on menu close. They save automatically when application exits as well
+        //if MainScene is loaded
+        if (!SceneManager.GetSceneByName("Titlescreen").isLoaded)
         {
-            PlayerPrefs.Save(); // Save the playerprefs on menu close. They save automatically when application exits as well
-            //if MainScene is loaded
-            if (SceneManager.GetSceneByName("MainScene").isLoaded)
+            //If in game, unload the settings scene
+            SceneManager.UnloadSceneAsync("Settings");
+        }
+        else //This means that the user is in the main menu
+        {
+            if (document != null)
             {
-                //If in game, unload the settings scene
-                SceneManager.UnloadSceneAsync("Settings");
-            }
-            else //This means that the user is in the main menu
-            {
-                if (document != null)
-                {
-                    document.style.display = DisplayStyle.None;
-                }
+                document.style.display = DisplayStyle.None;
             }
         }
     }

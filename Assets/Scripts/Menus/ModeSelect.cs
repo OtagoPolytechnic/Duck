@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 
 public class ModeSelect : MonoBehaviour
 {
-    public InputActionAsset inputActions;
     private Button bossPlayButton;
     private Button endlessPlayButton;
     private Button backButton;
@@ -21,37 +20,31 @@ public class ModeSelect : MonoBehaviour
         endlessPlayButton = document.Q<Button>("EndlessPlayGame");
         backButton = document.Q<Button>("Return");
         bossPlayButton.RegisterCallback<ClickEvent>(BossPlayGame);
-        bossPlayButton.RegisterCallback<KeyDownEvent>(BossPlayGame);
+        bossPlayButton.RegisterCallback<NavigationSubmitEvent>(BossPlayGame);
         endlessPlayButton.RegisterCallback<ClickEvent>(EndlessPlayGame);
-        endlessPlayButton.RegisterCallback<KeyDownEvent>(EndlessPlayGame);
+        endlessPlayButton.RegisterCallback<NavigationSubmitEvent>(EndlessPlayGame);
         backButton.RegisterCallback<ClickEvent>(ReturnToMainMenu);
-        backButton.RegisterCallback<KeyDownEvent>(ReturnToMainMenu);
+        backButton.RegisterCallback<NavigationSubmitEvent>(ReturnToMainMenu);
     }
 
     private void BossPlayGame(EventBase evt)
     {
-        if (SubmitCheck.Submit(evt, inputActions))
+        GameSettings.gameMode = GameMode.Boss;
+        if (document != null)
         {
-            GameSettings.gameMode = GameMode.Boss;
-            if (document != null)
-            {
-                document.style.display = DisplayStyle.None;
-            }
-            showSkillMenu();
+            document.style.display = DisplayStyle.None;
         }
+        showSkillMenu();
     }
 
     private void EndlessPlayGame(EventBase evt)
     {
-        if (SubmitCheck.Submit(evt, inputActions))
+        GameSettings.gameMode = GameMode.Endless;
+        if (document != null)
         {
-            GameSettings.gameMode = GameMode.Endless;
-            if (document != null)
-            {
-                document.style.display = DisplayStyle.None;
-            }
-            showSkillMenu();
+            document.style.display = DisplayStyle.None;
         }
+        showSkillMenu();
     }
 
     //Copying from Menu.cs
@@ -75,12 +68,9 @@ public class ModeSelect : MonoBehaviour
 
     private void ReturnToMainMenu(EventBase evt)
     {
-        if (SubmitCheck.Submit(evt, inputActions))
+        if (document != null)
         {
-            if (document != null)
-            {
-                document.style.display = DisplayStyle.None;
-            }
+            document.style.display = DisplayStyle.None;
         }
     }
 }

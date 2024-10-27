@@ -10,7 +10,6 @@ using UnityEngine.InputSystem;
 public class Menu : MonoBehaviour
 {
 
-    public InputActionAsset inputActions;
 
     private Button playButton;
     private Button highscoreButton;
@@ -34,7 +33,7 @@ public class Menu : MonoBehaviour
 
         quitButton = document.Q<Button>("Quit");
         quitButton.RegisterCallback<ClickEvent>(Quit);
-        quitButton.RegisterCallback<KeyDownEvent>(Quit);
+        quitButton.RegisterCallback<NavigationSubmitEvent>(Quit);
 
         versionNumber = document.Q<Label>("VersionNumber");
         versionNumber.text = Application.version;
@@ -69,7 +68,7 @@ public class Menu : MonoBehaviour
         {
             //When the scene is loaded add the click event
             button.RegisterCallback<ClickEvent>(SubMenuButton);
-            button.RegisterCallback<KeyDownEvent>(SubMenuButton);
+            button.RegisterCallback<NavigationSubmitEvent>(SubMenuButton);
             button.style.backgroundColor = new StyleColor(originalColour); //Return to original colour
         }
 
@@ -98,23 +97,17 @@ public class Menu : MonoBehaviour
 
     public void Quit(EventBase evt)
     {
-        if (SubmitCheck.Submit(evt, inputActions))
-        {
-            Application.Quit();
-        }
+        Application.Quit();
     }
 
     //Two button click methods turned into one. The button that was clicked is turned into a visual element and the name is used to find the correct dictionary entry
     public void SubMenuButton(EventBase evt)
     {
-        if (SubmitCheck.Submit(evt, inputActions))
+        VisualElement targetElement = evt.target as VisualElement;
+        if (targetElement != null)
         {
-            VisualElement targetElement = evt.target as VisualElement;
-            if (targetElement != null)
-            {
-                sceneRootElements.TryGetValue(targetElement.name, out VisualElement rootElement);
-                rootElement.style.display = DisplayStyle.Flex; // Set to visible
-            }
+            sceneRootElements.TryGetValue(targetElement.name, out VisualElement rootElement);
+            rootElement.style.display = DisplayStyle.Flex; // Set to visible
         }
     }
 }

@@ -5,13 +5,12 @@ using UnityEngine.InputSystem;
 public class Credits : MonoBehaviour
 {
     public VisualElement document;
-    public InputActionAsset inputActions;
     void Awake()
     {
         document = GetComponent<UIDocument>().rootVisualElement;
         Button goBack = document.Q<Button>("Return");
         goBack.RegisterCallback<ClickEvent>(ReturnToMainMenu);
-        goBack.RegisterCallback<KeyDownEvent>(ReturnToMainMenu);
+        goBack.RegisterCallback<NavigationSubmitEvent>(ReturnToMainMenu);
 
         Label paragraph = document.Q<Label>("Paragraph");
         paragraph.text = "Developers:\n\nAlex Reid\nKyle Black\nRohan Anakin\nPalin Wiseman\n\n" +
@@ -21,12 +20,9 @@ public class Credits : MonoBehaviour
     }
     private void ReturnToMainMenu(EventBase evt)
     {
-        if (SubmitCheck.Submit(evt, inputActions))
+        if (document != null)
         {
-            if (document != null)
-            {
-                document.style.display = DisplayStyle.None;
-            }
+            document.style.display = DisplayStyle.None;
         }
     }
 }
