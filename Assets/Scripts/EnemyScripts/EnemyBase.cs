@@ -7,6 +7,7 @@ using System;
 
 public abstract class EnemyBase : MonoBehaviour
 {
+    private Sprite graveSprite;
     public const float BLEED_INTERVAL = 1f;
     public GameObject damageText;
     public GameObject critText;
@@ -58,6 +59,12 @@ public abstract class EnemyBase : MonoBehaviour
     public const float DEATHTIMEOUT = 0.5f;
     public const float BOSSDEATHTIMEOUT = 2f;
     public const float FINALBOSSDEATHTIMEOUT = 3f;
+
+
+    void Start()
+    {
+        graveSprite = Resources.Load<Sprite>("Grave");
+    }
 
     public void Bleed() //this function needs to be reworked to be able to stack bleed on the target
     {
@@ -112,7 +119,11 @@ public abstract class EnemyBase : MonoBehaviour
         
         if (sprite != null)
         {
-            sprite.color = new Color32(255, 0, 0, 128);
+            sprite.color = new Color32(255, 255, 255, 225);
+            sprite.transform.rotation = Quaternion.identity;
+            transform.localScale = new Vector3(1,1,0);
+            sprite.transform.localScale = new Vector3(1.5f,1.5f,0);
+            sprite.sprite = graveSprite;
         }
         else
         {
