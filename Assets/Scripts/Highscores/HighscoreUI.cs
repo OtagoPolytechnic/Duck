@@ -18,6 +18,7 @@ public class HighscoreUI : MonoBehaviour
     private ListView moreInfoList;
     private Color bossColour;
     private Color endlessColour;
+    private Button menuButton;
 
     void Awake()
     {
@@ -30,7 +31,7 @@ public class HighscoreUI : MonoBehaviour
             Destroy(gameObject);
         }
         document = GetComponent<UIDocument>().rootVisualElement;
-        Button menuButton = document.Q<Button>("MainMenu");
+        menuButton = document.Q<Button>("MainMenu");
         bossButton = document.Q<Button>("Boss");
         endlessButton = document.Q<Button>("Endless");
         bossColour = bossButton.resolvedStyle.backgroundColor;
@@ -46,6 +47,90 @@ public class HighscoreUI : MonoBehaviour
         moreInfoList = document.Q<ListView>("MoreInfoList");
         //Set to be invisible by default
         document.style.display = DisplayStyle.None;
+        navigationSetting();
+    }
+
+    private void navigationSetting()
+    {
+        bossButton.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch (e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: menuButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down:
+                    highscores.Focus();
+                    highscores.selectedIndex = 0;
+                    highscores.ScrollToItem(highscores.selectedIndex);
+                    break;
+                case NavigationMoveEvent.Direction.Left: endlessButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: endlessButton.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        endlessButton.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch (e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: menuButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down:
+                    highscores.Focus();
+                    highscores.selectedIndex = 0;
+                    highscores.ScrollToItem(highscores.selectedIndex);
+                    break;
+                case NavigationMoveEvent.Direction.Left: bossButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: bossButton.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        menuButton.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch (e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up:
+                    highscores.Focus();
+                    highscores.selectedIndex = 0;
+                    highscores.ScrollToItem(highscores.selectedIndex);
+                    break;
+                case NavigationMoveEvent.Direction.Down: bossButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: menuButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: menuButton.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        highscores.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch (e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: bossButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: menuButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left:
+                case NavigationMoveEvent.Direction.Right:
+                    moreInfoList.Focus();
+                    moreInfoList.selectedIndex = 0;
+                    moreInfoList.ScrollToItem(moreInfoList.selectedIndex);
+                    break;
+            }
+            e.PreventDefault();
+        });
+
+        moreInfoList.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch (e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: bossButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: menuButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left:
+                case NavigationMoveEvent.Direction.Right:
+                    highscores.Focus();
+                    highscores.selectedIndex = 0;
+                    highscores.ScrollToItem(highscores.selectedIndex);
+                    break;
+            }
+            e.PreventDefault();
+        });
     }
 
     private void Menu(EventBase evt)
@@ -55,6 +140,24 @@ public class HighscoreUI : MonoBehaviour
             if (SceneManager.GetSceneByName("Titlescreen").isLoaded) //If coming from the main menu
             {
                 document.style.display = DisplayStyle.None;
+                Scene Titlescreen = SceneManager.GetSceneByName("Titlescreen");
+                //Makes sure the return button is focused when the settings scene is opened
+                if (evt is NavigationSubmitEvent)
+                {
+                    GameObject[] rootObjects = Titlescreen.GetRootGameObjects();
+                    UIDocument uiDocument = rootObjects
+                        .Select(obj => obj.GetComponent<UIDocument>())
+                        .FirstOrDefault(doc => doc != null);
+                    if (uiDocument != null)
+                    {
+                        VisualElement rootElement = uiDocument.rootVisualElement;
+                        Button buttonToFocus = rootElement.Query<Button>(className: "focus-button").First();
+                        if (buttonToFocus != null)
+                        {
+                            buttonToFocus.Focus();
+                        }
+                    }
+                }
             }
             else //If coming from in game
             {

@@ -2,8 +2,8 @@
     <Style src="project://database/Assets/UI%20Toolkit/HighscoreStyle.uss?fileID=7433441132597879392&amp;guid=ea3e33529cbeebc40bf06b5e8e1fedf8&amp;type=3#HighscoreStyle" />
     <ui:VisualElement name="Background" class="menuButton" style="flex-grow: 1; background-color: rgb(80, 80, 80); visibility: visible; display: flex; overflow: visible; align-items: center; justify-content: space-around;">
         <ui:VisualElement name="Selection" style="flex-grow: 0; flex-direction: row; flex-shrink: 0; align-items: center;">
-            <ui:Button text="BOSS" display-tooltip-when-elided="true" name="Boss" class="text buttonText button menuButton" style="overflow: hidden; height: 100px; margin-right: 139px;" />
-            <ui:Button text="ENDLESS" display-tooltip-when-elided="true" name="Endless" class="text buttonText button menuButton" style="overflow: hidden; height: 100px;" />
+            <ui:Button text="BOSS" display-tooltip-when-elided="true" name="Boss" class="text buttonText button menuButton" style="overflow: hidden; height: 100px; margin-right: 139px; background-color: rgb(188, 188, 188);" />
+            <ui:Button text="ENDLESS" display-tooltip-when-elided="true" name="Endless" class="text buttonText button menuButton" style="overflow: hidden; height: 100px; background-color: rgb(188, 188, 188);" />
         </ui:VisualElement>
         <ui:VisualElement name="ScoreDisplay" width="75%" style="flex-grow: 1; flex-direction: row;">
             <ui:MultiColumnListView fixed-item-height="100" show-border="true" name="MultiColumnListView" show-alternating-row-backgrounds="ContentOnly" class="text buttonText" style="color: rgb(0, 0, 0); background-color: rgba(173, 173, 173, 0.56); align-self: stretch; flex-grow: 1; flex-direction: column; flex-wrap: nowrap; align-items: stretch; width: 100%; justify-content: flex-start; font-size: 25px; -unity-text-align: upper-center; border-right-width: 0; margin-right: 5px; margin-left: 5px;">
@@ -14,7 +14,7 @@
                     <ui:Column name="weapon" title="WEAPON" width="35%" />
                 </ui:Columns>
             </ui:MultiColumnListView>
-            <ui:VisualElement style="flex-grow: 1; width: 75%; justify-content: flex-start; margin-left: 5px; margin-top: 0; margin-right: 5px;">
+            <ui:VisualElement class="text" style="flex-grow: 1; width: 75%; justify-content: flex-start; margin-left: 5px; margin-top: 0; margin-right: 5px;">
                 <ui:Label tabindex="-1" text="SCORE INFO" parse-escape-sequences="true" display-tooltip-when-elided="true" class="text buttonText" style="font-size: 25px; background-color: rgb(188, 188, 188); -unity-text-align: upper-center; margin-top: 2px; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 8px; padding-bottom: 8px; border-left-color: rgba(188, 188, 188, 0); border-right-color: rgba(188, 188, 188, 0); border-top-color: rgba(188, 188, 188, 0); border-bottom-color: rgba(188, 188, 188, 0); border-top-width: 0; color: rgb(0, 0, 0);" />
                 <ui:ListView show-alternating-row-backgrounds="ContentOnly" name="MoreInfoList" virtualization-method="FixedHeight" fixed-item-height="100" class="text" style="width: 100%; background-color: rgb(132, 132, 132); font-size: 40px; align-items: flex-start; justify-content: space-between; -unity-text-align: middle-left; margin-left: 0; padding-left: 10px;" />
             </ui:VisualElement>
