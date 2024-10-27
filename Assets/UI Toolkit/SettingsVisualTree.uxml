@@ -23,7 +23,7 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="KeybindsContainer" style="justify-content: center; align-items: center; flex-direction: row;">
-            <ui:RadioButtonGroup label="Control Type&#10;" value="-1" choices="Keyboard,Twin Stick,Single Stick" name="RadioButtonGroup" class="text unity-radio-button" style="flex-direction: column; align-items: center; font-size: 30px; justify-content: flex-start; align-self: auto; flex-basis: 50%;" />
+            <ui:RadioButtonGroup label="Control Type&#10;" value="-1" choices="Keyboard,Controller" name="RadioButtonGroup" class="text unity-radio-button" style="flex-direction: column; align-items: center; font-size: 30px; justify-content: flex-start; align-self: auto; flex-basis: 50%;" />
             <ui:VisualElement name="VisualElement" style="flex-grow: 0; flex-shrink: 0; font-size: 25px; flex-basis: 50%;">
                 <ui:VisualElement name="Movement" style="flex-grow: 0; flex-direction: row; justify-content: space-around; align-items: center; width: 600px; -unity-background-image-tint-color: rgba(255, 255, 255, 0); align-self: center; height: 75px;">
                     <ui:Label tabindex="-1" text="Movement:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MoveText" class="text" style="flex-grow: 1; flex-basis: 50%;" />
