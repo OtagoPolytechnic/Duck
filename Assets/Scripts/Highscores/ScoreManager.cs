@@ -21,7 +21,6 @@ public class ScoreManager : MonoBehaviour
     private Button submitButton;
     private TextField playerName;
     private Label enterName;
-    private Button replay;
     private VisualElement gameOverDoc;
     private Label GameOverText;
 
@@ -48,7 +47,6 @@ public class ScoreManager : MonoBehaviour
         submitButton = gameOverDoc.Q<Button>("SubmitScore");
         playerName = gameOverDoc.Q<TextField>("PlayerName");
         enterName = gameOverDoc.Q<Label>("EnterName");
-        replay = gameOverDoc.Q<Button>("Replay");
         GameOverText = gameOverDoc.Q<Label>("Title");
         
     }
@@ -91,6 +89,7 @@ public class ScoreManager : MonoBehaviour
         submitButton.RegisterCallback<ClickEvent>(SubmitScore);
         submitButton.RegisterCallback<NavigationSubmitEvent>(SubmitScore);
         finalscoreText.text = "Score: " + score.ToString();
+        submitButton.Focus();
         if (GameSettings.gameState == GameState.BossVictory)
         {
             GameOverText.text = "BOSS KILLED!";

@@ -10,6 +10,10 @@ public class GameManager : MonoBehaviour
     private VisualElement gameOverUI;
     private VisualElement container;
     public static GameManager Instance;
+    private Button replay;
+    private Button quit;
+    private Button submit;
+    private TextField playerName;
     void Awake()
     {
         if (Instance == null)
@@ -22,12 +26,67 @@ public class GameManager : MonoBehaviour
         }
         gameOverUI = GetComponent<UIDocument>().rootVisualElement;
         container = gameOverUI.Q<VisualElement>("Container");
-        Button replay = gameOverUI.Q<Button>("Replay");
+        replay = gameOverUI.Q<Button>("Replay");
         replay.RegisterCallback<ClickEvent>(Restart);
         replay.RegisterCallback<NavigationSubmitEvent>(Restart);
-        Button quit = gameOverUI.Q<Button>("Quit");
+        quit = gameOverUI.Q<Button>("Quit");
         quit.RegisterCallback<ClickEvent>(MainMenu);
         quit.RegisterCallback<NavigationSubmitEvent>(MainMenu);
+        submit = gameOverUI.Q<Button>("SubmitScore");
+        playerName = gameOverUI.Q<TextField>("PlayerName");
+        navigationSetting();
+    }
+
+    
+    private void navigationSetting()
+    {
+        replay.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: submit.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: quit.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: replay.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: replay.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        quit.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: replay.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: playerName.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: quit.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: quit.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        submit.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: playerName.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: replay.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: submit.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: submit.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        playerName.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: quit.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: submit.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: playerName.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: playerName.Focus(); break;
+            }
+            e.PreventDefault();
+        });
     }
 
     public void GameOver()
