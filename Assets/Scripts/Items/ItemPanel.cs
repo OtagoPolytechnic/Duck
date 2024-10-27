@@ -242,7 +242,6 @@ public class ItemPanel : MonoBehaviour
 
     private void RegisterItem1Click(EventBase evt)
     {
-        Debug.Log(SubmitCheck.Submit(evt, inputActions));
         if (SubmitCheck.Submit(evt, inputActions))
         {
             selectedIndex = 0;
