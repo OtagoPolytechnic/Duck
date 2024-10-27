@@ -41,6 +41,7 @@ public class ItemPanel : MonoBehaviour
     [SerializeField]
     private List<Item> selectedItems = new List<Item>();
     private List<Button> itemButtons = new List<Button>();
+    private VisualElement rerollOuter;
     private Button skip;
     private Button reroll;
     private Button confirmButton;
@@ -73,8 +74,10 @@ public class ItemPanel : MonoBehaviour
         container = document.Q<VisualElement>("Background");
         selectionContainer = container.Q<VisualElement>("Selection");
         VisualElement rerollAndSkip = container.Q<VisualElement>("RerollAndSkip");
-        skip = rerollAndSkip.Q<Button>("Skip");
-        reroll = rerollAndSkip.Q<Button>("Reroll");
+        rerollOuter = rerollAndSkip.Q<VisualElement>("RerollOuter");
+        VisualElement skipOuter = rerollAndSkip.Q<VisualElement>("SkipOuter");
+        skip = skipOuter.Q<Button>("Skip");
+        reroll = rerollOuter.Q<Button>("Reroll");
 
         confirmPanel = container.Q<VisualElement>("PopupBackground");
         VisualElement innerConfirmPanel = confirmPanel.Q<VisualElement>("Popup");
@@ -157,7 +160,7 @@ public class ItemPanel : MonoBehaviour
     {
         statDisplay.UpdateStats();
         GetItems(3, waveNumber);
-        VisualElement rerollCount = reroll.Q<VisualElement>("RerollCount");
+        VisualElement rerollCount = rerollOuter.Q<VisualElement>("RerollCount");
         rerollCount.Q<Label>("RerollCountText").text = $"{rerollCharges}";
         activateButtons();
     }
@@ -239,6 +242,7 @@ public class ItemPanel : MonoBehaviour
 
     private void RegisterItem1Click(EventBase evt)
     {
+        Debug.Log(SubmitCheck.Submit(evt, inputActions));
         if (SubmitCheck.Submit(evt, inputActions))
         {
             selectedIndex = 0;
@@ -294,7 +298,7 @@ public class ItemPanel : MonoBehaviour
             selectionContainer.style.display = DisplayStyle.None;
             continuePanel.style.display = DisplayStyle.Flex;
             statDisplay.StatsChanged();
-            VisualElement rerollCount = reroll.Q<VisualElement>("RerollCount");
+            VisualElement rerollCount = rerollOuter.Q<VisualElement>("RerollCount");
             rerollCount.Q<Label>("RerollCountText").text = $"{rerollCharges}";
         }
     }
@@ -348,7 +352,7 @@ public class ItemPanel : MonoBehaviour
             {
                 rerollCharges--;
                 //Change the reroll count
-                VisualElement rerollCount = reroll.Q<VisualElement>("RerollCount");
+                VisualElement rerollCount = rerollOuter.Q<VisualElement>("RerollCount");
                 rerollCount.Q<Label>("RerollCountText").text = $"{rerollCharges}";
                 //Deregister the buttons
                 itemButtons[0].UnregisterCallback<ClickEvent>(RegisterItem1Click);
