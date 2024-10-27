@@ -52,6 +52,7 @@ public class PauseMenu : MonoBehaviour
                 heldState = GameSettings.gameState;
                 GameSettings.gameState = GameState.Paused;
                 background.visible = !background.visible; 
+                resumeButton.Focus();
             }
         }
     }
@@ -63,11 +64,21 @@ public class PauseMenu : MonoBehaviour
 
     private void Settings(EventBase evt)
     {
-        SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
-        //Get the root element of the settings scene
-        Scene settingsScene = SceneManager.GetSceneByName("Settings");
+        StartCoroutine(LoadSettingsScene(evt));
+    }
 
-        //Makes sure the return button is focused when the settings scene is opened
+    //This needs to be in a coroutine or the button to focus hasn't loaded yet
+    private IEnumerator LoadSettingsScene(EventBase evt)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Settings", LoadSceneMode.Additive);
+
+        //Wait for loading
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        Scene settingsScene = SceneManager.GetSceneByName("Settings");
         if (evt is NavigationSubmitEvent)
         {
             GameObject[] rootObjects = settingsScene.GetRootGameObjects();
@@ -85,6 +96,8 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
+
+
 
     private void Quit(EventBase evt)
     {

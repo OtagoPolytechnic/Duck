@@ -24,6 +24,10 @@
 }
 
 .unity-base-field:focus > .unity-base-field__label {
+    color: rgb(255, 255, 255);
+}
+
+.unity-radio-button__checkmark-background {
     color: rgb(250, 255, 0);
 }
 
@@ -51,4 +55,33 @@
 }
 
 .focus-button {
+}
+
+Slider:focus {
+    border-left-color: rgb(0, 255, 3);
+    border-right-color: rgb(0, 255, 3);
+    border-top-color: rgb(0, 255, 3);
+    border-bottom-color: rgb(0, 255, 3);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+}
+
+DropdownField:focus {
+    border-left-color: rgb(0, 255, 3);
+    border-right-color: rgb(0, 255, 3);
+    border-top-color: rgb(0, 255, 3);
+    border-bottom-color: rgb(0, 255, 3);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+}
+
+.unity-radio-button__input:focus {
+    border-left-color: rgb(0, 255, 3);
+    border-right-color: rgb(0, 255, 3);
+    border-top-color: rgb(0, 255, 3);
+    border-bottom-color: rgb(0, 255, 3);
 }

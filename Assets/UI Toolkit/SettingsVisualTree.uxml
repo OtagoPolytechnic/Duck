@@ -17,13 +17,13 @@
                 <ui:Label tabindex="-1" text="Sound Effects" parse-escape-sequences="true" display-tooltip-when-elided="true" class="text" style="font-size: 22px;" />
                 <ui:Slider high-value="1" name="SFXVolume" style="width: 300px;" />
             </ui:VisualElement>
-            <ui:VisualElement name="Resolution" style="flex-grow: 0; flex-direction: row; width: 500px; justify-content: flex-end; -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
-                <ui:Label tabindex="-1" text="Resolution" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="text" style="font-size: 22px;" />
-                <ui:DropdownField name="ResolutionDropdown" class="text" style="flex-grow: 0; width: 300px; color: rgb(0, 0, 0);" />
+            <ui:VisualElement name="Resolution" style="flex-grow: 0; flex-direction: row; width: 500px; justify-content: flex-end; -unity-background-image-tint-color: rgba(255, 255, 255, 0); height: 55px;">
+                <ui:Label tabindex="-1" text="Resolution" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="text" style="font-size: 22px; -unity-text-align: middle-left;" />
+                <ui:DropdownField name="ResolutionDropdown" class="text" style="flex-grow: 0; width: 300px; color: rgb(0, 0, 0); height: 45px; align-self: center;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="KeybindsContainer" style="justify-content: center; align-items: center; flex-direction: row;">
-            <ui:RadioButtonGroup label="Control Type&#10;" value="-1" choices="Keyboard,Twin Stick,Single Stick" name="RadioButtonGroup" class="text" style="flex-direction: column; align-items: center; font-size: 30px; justify-content: flex-start; align-self: auto; flex-basis: 50%;" />
+            <ui:RadioButtonGroup label="Control Type&#10;" value="-1" choices="Keyboard,Twin Stick,Single Stick" name="RadioButtonGroup" class="text unity-radio-button" style="flex-direction: column; align-items: center; font-size: 30px; justify-content: flex-start; align-self: auto; flex-basis: 50%;" />
             <ui:VisualElement name="VisualElement" style="flex-grow: 0; flex-shrink: 0; font-size: 25px; flex-basis: 50%;">
                 <ui:VisualElement name="Movement" style="flex-grow: 0; flex-direction: row; justify-content: space-around; align-items: center; width: 600px; -unity-background-image-tint-color: rgba(255, 255, 255, 0); align-self: center; height: 75px;">
                     <ui:Label tabindex="-1" text="Movement:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MoveText" class="text" style="flex-grow: 1; flex-basis: 50%;" />
