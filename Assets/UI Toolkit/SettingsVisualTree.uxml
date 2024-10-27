@@ -44,7 +44,7 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="ButtonContainer" style="justify-content: space-between; align-items: stretch; flex-direction: row; margin-left: 100px; padding-bottom: 20px;">
-            <ui:Button text="Return" display-tooltip-when-elided="true" name="Return" class="text menuButton buttonText" style="color: rgb(0, 0, 0);" />
+            <ui:Button text="Return" display-tooltip-when-elided="true" name="Return" class="text menuButton buttonText focus-button" style="color: rgb(0, 0, 0);" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

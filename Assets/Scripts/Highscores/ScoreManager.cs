@@ -128,6 +128,11 @@ public class ScoreManager : MonoBehaviour
             {
                 VisualElement rootElement = uiDocument.rootVisualElement; // Getting the root visual element of the UI document
                 rootElement.style.display = DisplayStyle.Flex;
+                Button buttonToFocus = rootElement.Query<Button>(className: "focus-button").First();
+                if (buttonToFocus != null)
+                {
+                    buttonToFocus.Focus();
+                }
             }
             Scoreboard scoreboard = FindObjectOfType<Scoreboard>();
             scoreboard.AddEntry(playerScoreInfo);

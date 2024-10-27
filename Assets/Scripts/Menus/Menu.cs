@@ -108,6 +108,14 @@ public class Menu : MonoBehaviour
         {
             sceneRootElements.TryGetValue(targetElement.name, out VisualElement rootElement);
             rootElement.style.display = DisplayStyle.Flex; // Set to visible
+            if (evt is NavigationSubmitEvent)
+            {
+                Button buttonToFocus = rootElement.Query<Button>(className: "focus-button").First();
+                if (buttonToFocus != null)
+                {
+                    buttonToFocus.Focus();
+                }
+            }
         }
     }
 }

@@ -19,6 +19,10 @@ public class SkillMenu : MonoBehaviour
     private Label skillLabel;
     private Label skillDesc;
     private Label skillTimers;
+    private Button skill1Button;
+    private Button skill2Button;
+    private Button skill3Button;
+    private Button backButton;
     private List<Skill> skillList = new List<Skill>();
     private VisualElement document;
 
@@ -32,19 +36,20 @@ public class SkillMenu : MonoBehaviour
         skillTimers = document.Q<Label>("SkillTimers");
 
         playButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f)); //Turn gray while loading
-        Button skill1Button = document.Q<Button>("Skill1");
+        skill1Button = document.Q<Button>("Skill1");
         skill1Button.RegisterCallback<ClickEvent, SkillEnum>(SkillClick, SkillEnum.dash);
         skill1Button.RegisterCallback<NavigationSubmitEvent, SkillEnum>(SkillClick, SkillEnum.dash);
-        Button skill2Button = document.Q<Button>("Skill2");
+        skill2Button = document.Q<Button>("Skill2");
         skill2Button.RegisterCallback<ClickEvent, SkillEnum>(SkillClick, SkillEnum.vanish);
         skill2Button.RegisterCallback<NavigationSubmitEvent, SkillEnum>(SkillClick, SkillEnum.vanish);
-        Button skill3Button = document.Q<Button>("Skill3");
+        skill3Button = document.Q<Button>("Skill3");
         skill3Button.RegisterCallback<ClickEvent, SkillEnum>(SkillClick, SkillEnum.decoy);
         skill3Button.RegisterCallback<NavigationSubmitEvent, SkillEnum>(SkillClick, SkillEnum.decoy);
-        Button backButton = document.Q<Button>("Return");
+        backButton = document.Q<Button>("Return");
         backButton.RegisterCallback<ClickEvent>(ReturnToModeMenu);
         backButton.RegisterCallback<NavigationSubmitEvent>(ReturnToModeMenu);
         Load();
+        navigationSetting();
     }
 
     private void Load()
@@ -70,6 +75,70 @@ public class SkillMenu : MonoBehaviour
             yield return null;
         }
     }
+
+    private void navigationSetting()
+    {
+        skill1Button.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: backButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: playButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: skill3Button.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: skill2Button.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        skill2Button.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: backButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: playButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: skill1Button.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: skill3Button.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        skill3Button.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: backButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: playButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: skill2Button.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: skill1Button.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        playButton.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: skill2Button.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: skill2Button.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: backButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: backButton.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        backButton.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: skill1Button.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: skill1Button.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: playButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: playButton.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+    }
+    
     public void SkillClick(EventBase evt, SkillEnum skillEnum)
     {
         foreach (Skill s in skillList)
@@ -99,10 +168,10 @@ public class SkillMenu : MonoBehaviour
         {
             document.style.display = DisplayStyle.None;
         }
-        showModeMenu();
+        showModeMenu(evt);
     }
 
-    private void showModeMenu()
+    private void showModeMenu(EventBase evt)
     {
         Scene modeScene = SceneManager.GetSceneByName("ModeSelect");
         if (modeScene.IsValid())
@@ -116,6 +185,14 @@ public class SkillMenu : MonoBehaviour
             {
                 VisualElement rootElement = uiDocument.rootVisualElement; // Getting the root visual element of the UI document
                 rootElement.style.display = DisplayStyle.Flex;
+                if (evt is NavigationSubmitEvent)
+                {
+                    Button buttonToFocus = rootElement.Query<Button>(className: "focus-button").First();
+                    if (buttonToFocus != null)
+                    {
+                        buttonToFocus.Focus();
+                    }
+                }
             }
         }
     }

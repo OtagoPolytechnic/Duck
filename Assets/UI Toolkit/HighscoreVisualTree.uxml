@@ -19,6 +19,6 @@
                 <ui:ListView show-alternating-row-backgrounds="ContentOnly" name="MoreInfoList" virtualization-method="FixedHeight" fixed-item-height="100" class="text" style="width: 100%; background-color: rgb(132, 132, 132); font-size: 40px; align-items: flex-start; justify-content: space-between; -unity-text-align: middle-left; margin-left: 0; padding-left: 10px;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Button text="RETURN" display-tooltip-when-elided="true" name="MainMenu" class="text buttonText button menuButton" style="overflow: hidden; margin-top: 10px;" />
+        <ui:Button text="RETURN" display-tooltip-when-elided="true" name="MainMenu" class="text buttonText button menuButton focus-button" style="overflow: hidden; margin-top: 10px;" />
     </ui:VisualElement>
 </ui:UXML>

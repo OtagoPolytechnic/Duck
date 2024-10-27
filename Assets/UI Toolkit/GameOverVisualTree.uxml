@@ -9,7 +9,7 @@
             <ui:Label display-tooltip-when-elided="true" name="HighscoreNotif" text="New Score" class="text" style="width: auto; height: 40px; margin-top: 25px; color: rgb(255, 255, 255); font-size: 30px; margin-bottom: 8px;" />
             <ui:Label display-tooltip-when-elided="true" name="EnterName" text="Enter Name&#10;" class="text" style="width: auto; height: 40px; margin-top: 25px; color: rgb(255, 255, 255); font-size: 30px; margin-bottom: 8px;" />
             <ui:TextField picking-mode="Ignore" max-length="8" name="PlayerName" style="width: 600px; height: 84px; font-size: 28px; -unity-text-align: upper-left; margin-top: 8px; justify-content: space-between; align-items: stretch; flex-direction: column; align-self: stretch;" />
-            <ui:Button text="SUBMIT" display-tooltip-when-elided="true" name="SubmitScore" class="text menuButton" style="margin-top: 50px; width: 500px; height: 70px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 15px; border-bottom-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; font-size: 40px;" />
+            <ui:Button text="SUBMIT" display-tooltip-when-elided="true" name="SubmitScore" class="text menuButton focus-button" style="margin-top: 50px; width: 500px; height: 70px; font-size: 40px;" />
         </ui:VisualElement>
         <ui:VisualElement name="ButtonConatiner" style="margin-top: 30px; align-items: stretch; justify-content: flex-start;">
             <ui:Button text="REPLAY" display-tooltip-when-elided="true" name="Replay" class="text button menuButton" />

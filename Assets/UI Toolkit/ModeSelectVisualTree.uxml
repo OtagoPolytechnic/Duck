@@ -17,6 +17,6 @@
                 <ui:Button text="PLAY" parse-escape-sequences="true" display-tooltip-when-elided="true" name="EndlessPlayGame" class="buttonText menuButton" style="max-width: none; min-width: 40%; min-height: 10%; font-size: 40px; bottom: 10px; align-self: auto; -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/PublicPixel.ttf?fileID=12800000&amp;guid=9cdf889b2baddf840996f4d8b05c1651&amp;type=3#PublicPixel&quot;);" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Button text="RETURN" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Return" class="buttonText menuButton" style="min-width: 20%; min-height: 10%; font-size: 40px; bottom: 10px; align-self: auto; position: absolute; left: 20px; height: 10%; width: 20%; -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/PublicPixel.ttf?fileID=12800000&amp;guid=9cdf889b2baddf840996f4d8b05c1651&amp;type=3#PublicPixel&quot;);" />
+        <ui:Button text="RETURN" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Return" class="buttonText menuButton focus-button" style="min-width: 20%; min-height: 10%; font-size: 40px; bottom: 10px; align-self: auto; position: absolute; left: 20px; height: 10%; width: 20%; -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/PublicPixel.ttf?fileID=12800000&amp;guid=9cdf889b2baddf840996f4d8b05c1651&amp;type=3#PublicPixel&quot;);" />
     </ui:VisualElement>
 </ui:UXML>

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -63,6 +64,26 @@ public class PauseMenu : MonoBehaviour
     private void Settings(EventBase evt)
     {
         SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
+        //Get the root element of the settings scene
+        Scene settingsScene = SceneManager.GetSceneByName("Settings");
+
+        //Makes sure the return button is focused when the settings scene is opened
+        if (evt is NavigationSubmitEvent)
+        {
+            GameObject[] rootObjects = settingsScene.GetRootGameObjects();
+            UIDocument uiDocument = rootObjects
+                .Select(obj => obj.GetComponent<UIDocument>())
+                .FirstOrDefault(doc => doc != null);
+            if (uiDocument != null)
+            {
+                VisualElement rootElement = uiDocument.rootVisualElement;
+                Button buttonToFocus = rootElement.Query<Button>(className: "focus-button").First();
+                if (buttonToFocus != null)
+                {
+                    buttonToFocus.Focus();
+                }
+            }
+        }
     }
 
     private void Quit(EventBase evt)

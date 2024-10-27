@@ -63,3 +63,6 @@
     border-bottom-width: 10px;
     border-left-width: 10px;
 }
+
+.focus-button {
+}

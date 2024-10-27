@@ -25,6 +25,7 @@ public class ModeSelect : MonoBehaviour
         endlessPlayButton.RegisterCallback<NavigationSubmitEvent>(EndlessPlayGame);
         backButton.RegisterCallback<ClickEvent>(ReturnToMainMenu);
         backButton.RegisterCallback<NavigationSubmitEvent>(ReturnToMainMenu);
+        navigationSetting();
     }
 
     private void BossPlayGame(EventBase evt)
@@ -47,6 +48,45 @@ public class ModeSelect : MonoBehaviour
         showSkillMenu();
     }
 
+    private void navigationSetting()
+    {
+        bossPlayButton.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: backButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: backButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: endlessPlayButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: endlessPlayButton.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        endlessPlayButton.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: backButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: backButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: bossPlayButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: bossPlayButton.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        backButton.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: bossPlayButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: bossPlayButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: endlessPlayButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: bossPlayButton.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+    }
+
     //Copying from Menu.cs
     private void showSkillMenu()
     {
@@ -62,6 +102,11 @@ public class ModeSelect : MonoBehaviour
             {
                 VisualElement rootElement = uiDocument.rootVisualElement; //Getting the root visual element of the UI document
                 rootElement.style.display = DisplayStyle.Flex;
+                Button buttonToFocus = rootElement.Query<Button>(className: "focus-button").First();
+                if (buttonToFocus != null)
+                {
+                    buttonToFocus.Focus();
+                }
             }
         }
     }
@@ -72,5 +117,24 @@ public class ModeSelect : MonoBehaviour
         {
             document.style.display = DisplayStyle.None;
         }
+        Scene Titlescreen = SceneManager.GetSceneByName("Titlescreen");
+        //Makes sure the return button is focused when the settings scene is opened
+        if (evt is NavigationSubmitEvent)
+        {
+            GameObject[] rootObjects = Titlescreen.GetRootGameObjects();
+            UIDocument uiDocument = rootObjects
+                .Select(obj => obj.GetComponent<UIDocument>())
+                .FirstOrDefault(doc => doc != null);
+            if (uiDocument != null)
+            {
+                VisualElement rootElement = uiDocument.rootVisualElement;
+                Button buttonToFocus = rootElement.Query<Button>(className: "focus-button").First();
+                if (buttonToFocus != null)
+                {
+                    buttonToFocus.Focus();
+                }
+            }
+        }
+
     }
 }
