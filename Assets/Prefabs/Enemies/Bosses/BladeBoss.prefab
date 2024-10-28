@@ -276,6 +276,7 @@ MonoBehaviour:
   numberOfBlades: 50
   radius: 2
   spacing: 5
+  resetDistanceThreshold: 50
 --- !u!1 &5656455699881316957
 GameObject:
   m_ObjectHideFlags: 0

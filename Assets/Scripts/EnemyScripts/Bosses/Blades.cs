@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class Blades : MonoBehaviour
@@ -29,6 +30,8 @@ public class Blades : MonoBehaviour
 
     void Update()
     {
+        if (GameSettings.gameState != GameState.InGame) { return; }
+        bladesCenter = GameObject.FindWithTag("BladesCenter");
         if (isMovingIn && bladesCenter != null)
         {
           
@@ -54,6 +57,7 @@ public class Blades : MonoBehaviour
         }
     }
 
+    //Timing for when the blades move in and out
     private IEnumerator MoveBlades()
     {
         while (true)

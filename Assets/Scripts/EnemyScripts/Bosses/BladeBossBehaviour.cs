@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static PlasticPipe.Server.MonitorStats;
 
 public class BladeBossBehaviour : EnemyBase
 {
@@ -27,6 +26,9 @@ public class BladeBossBehaviour : EnemyBase
     private bool attacking = false;
     private GameObject attack;
 
+    private List<GameObject> blades = new List<GameObject>(); 
+    private GameObject currentBladeCenter; 
+
     private void Awake()
     {
         ScaleStats();
@@ -37,9 +39,10 @@ public class BladeBossBehaviour : EnemyBase
         SpawnBlades();
     }
 
-
+    //This spawns blades around the player and an empty blade center object to aid with blade movement
     private void SpawnBlades()
     {
+        ClearExistingBlades(); 
         float angleIncrement = 360f / numberOfBlades;
         float adjustedRadius = radius + (spacing * 5.5f);
         Vector2 centerPosition = Vector2.zero;
@@ -49,12 +52,31 @@ public class BladeBossBehaviour : EnemyBase
             float angle = i * angleIncrement * Mathf.Deg2Rad;
             Vector2 bladePosition = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * adjustedRadius + (Vector2)player.transform.position;
 
-            Instantiate(bladePrefab, bladePosition, Quaternion.identity);
+            GameObject blade = Instantiate(bladePrefab, bladePosition, Quaternion.identity);
+            blades.Add(blade); 
             centerPosition += bladePosition;
         }
 
         centerPosition /= numberOfBlades;
-        Instantiate(bladeCenterPrefab, centerPosition, Quaternion.identity);
+        currentBladeCenter = Instantiate(bladeCenterPrefab, centerPosition, Quaternion.identity);
+    }
+
+    //clears old blades and blade center so new ones can spawn
+    private void ClearExistingBlades()
+    {
+        foreach (var blade in blades)
+        {
+            if (blade != null)
+            {
+                Destroy(blade); 
+            }
+        }
+        blades.Clear(); 
+        if (currentBladeCenter != null)
+        {
+            Destroy(currentBladeCenter); 
+            currentBladeCenter = null;
+        }
     }
 
     void Update()
@@ -74,6 +96,16 @@ public class BladeBossBehaviour : EnemyBase
 
         distance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;
+
+      //This is how far away from the blade center before it destroys and spawns new blades etc
+        if (currentBladeCenter != null)
+        {
+            float centerDistance = Vector2.Distance(player.transform.position, currentBladeCenter.transform.position);
+            if (centerDistance > 30f)
+            {
+                SpawnBlades(); 
+            }
+        }
 
         if (SkillEffects.Instance.vanishActive) { return; }
         else
@@ -100,43 +132,41 @@ public class BladeBossBehaviour : EnemyBase
 
         Bleed();
     }
-
+    //basic charge attack at intervals that make the enemy run through and damage player if they dont move out of the way
     private void StartCharging()
     {
         isCharging = true;
         chargeTimer = 0f;
         Vector2 direction = (player.transform.position - transform.position).normalized;
-        float extraDistance = 4f; 
+        float extraDistance = 4f;
         targetPosition = (Vector2)player.transform.position + direction * extraDistance;
-        attack.GetComponent<BoxCollider2D>().enabled = true; //enable the collider
-        attack.GetComponent<ChargeAttack>().originEnemy = this;  
+        attack.GetComponent<BoxCollider2D>().enabled = true; 
+        attack.GetComponent<ChargeAttack>().originEnemy = this;
         attacking = true;
-        attack.SetActive(true); //show the attack
+        attack.SetActive(true); 
         Debug.Log("BladeBoss is charging towards position: " + targetPosition);
     }
 
     private void Charge()
     {
-     
-      
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, Speed * 9 * Time.deltaTime);
         chargeTimer += Time.deltaTime;
         if (Vector2.Distance(transform.position, targetPosition) < 0.1f)
         {
             Debug.Log("BladeBoss has finished charging.");
-            isCharging = false;  
+            isCharging = false;
             attack.SetActive(false);
             attacking = false;
         }
-      
     }
-
-
+    private void OnDestroy()
+    {
+        ClearExistingBlades();
+    }
     public override void Move()
     {
         if (SkillEffects.Instance.vanishActive || isCharging) { return; }
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (Speed * tileSpeedModifier) * Time.deltaTime);
     }
-
 }
