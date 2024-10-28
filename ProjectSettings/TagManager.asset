@@ -17,6 +17,7 @@ TagManager:
   - BossPointer
   - Target
   - Shield
+  - BossShield
   layers:
   - Default
   - TransparentFX

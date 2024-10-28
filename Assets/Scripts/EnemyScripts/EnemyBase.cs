@@ -58,6 +58,7 @@ public abstract class EnemyBase : MonoBehaviour
     public const float DEATHTIMEOUT = 0.5f;
     public const float BOSSDEATHTIMEOUT = 2f;
     public const float FINALBOSSDEATHTIMEOUT = 3f;
+    protected bool isImmune = false;
 
     public void Bleed() //this function needs to be reworked to be able to stack bleed on the target
     {
@@ -71,6 +72,10 @@ public abstract class EnemyBase : MonoBehaviour
     }
     public void ReceiveDamage(int damageTaken, bool critTrue)
     {
+        if (isImmune)
+        {
+            return;
+        }
         //Add a small random offset to the damage text number position so they don't all stack on top of each other
         float randomOffset = UnityEngine.Random.Range(-0.3f, 0.3f);
         if (!bleeding && WeaponStats.Instance.BleedDamage > 0)
