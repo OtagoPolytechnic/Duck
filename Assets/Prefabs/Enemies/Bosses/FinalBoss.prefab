@@ -261,7 +261,7 @@ MonoBehaviour:
   critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
   baseHealth: 0
   damage: 0
-  speed: 3
+  speed: 5
   points: 100
   mapManager: {fileID: 0}
   bleedTick: 1
@@ -270,15 +270,15 @@ MonoBehaviour:
   player: {fileID: 0}
   bullet: {fileID: 5418265743146168994, guid: 80580cccf9c60b14e9c7630a88835b6e, type: 3}
   bulletPosition: {fileID: 5656455699881316956}
-  attackRange: 15
+  attackRange: 20
   attackInterval: 1
   enemyPrefabs:
-  - {fileID: 5656455698361903583, guid: 8706ab13d9d71794593b43187a8a3537, type: 3}
-  - {fileID: 5656455698361903583, guid: d2a0d50ffed1ad34fb8e39b1880daac5, type: 3}
-  - {fileID: 5656455698361903583, guid: 28a22cfcb2f31504780bfc520165dc89, type: 3}
-  - {fileID: 5656455698361903583, guid: 1c05568241c47a541b25a818c021438f, type: 3}
+  - {fileID: 5656455698361903583, guid: 980030a52f3410942961b5b65cab304c, type: 3}
+  - {fileID: 5656455698361903583, guid: 89cf6ce5061806d459c67f6abed42a2c, type: 3}
+  - {fileID: 5656455698361903583, guid: 655d05248ad59fd4082bcd2e6ebfdb06, type: 3}
+  - {fileID: 5656455698361903583, guid: 9a374ca1f9af1714baed0cd00ee39b01, type: 3}
   enemiesToSpawn: 12
-  spawnRadius: 10
+  spawnRadius: 15
   minSpawnDistance: 10
   respawnDelay: 5
   bossShieldPrefab: {fileID: 6665001260212449872, guid: 79a0aea8b575f6844be8d856052c5a28, type: 3}
