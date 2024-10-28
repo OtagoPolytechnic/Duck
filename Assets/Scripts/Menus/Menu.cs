@@ -37,7 +37,6 @@ public class Menu : MonoBehaviour
 
         versionNumber = document.Q<Label>("VersionNumber");
         versionNumber.text = Application.version;
-        playButton.Focus();
     }
 
     private void Start()
