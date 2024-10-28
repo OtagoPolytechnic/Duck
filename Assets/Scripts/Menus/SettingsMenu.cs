@@ -15,6 +15,7 @@ public class SettingsMenu : MonoBehaviour
     private Slider mainVolume;
     private Slider musicVolume;
     private Slider sfxVolume;
+    private Toggle toggleShoot;
     private RadioButton Keyboard;
     private RadioButton Controller;
     private Button goBack;
@@ -26,6 +27,7 @@ public class SettingsMenu : MonoBehaviour
     private const string SFX_VOL_PREF = "SFXVolume";
     private const string RESOLUTION_X_PREF = "ResolutionX";
     private const string RESOLUTION_Y_PREF = "ResolutionY";
+    private const string SHOOT_TOGGLE_PREF = "ShootToggle";
 
     void Awake()
     {
@@ -43,6 +45,7 @@ public class SettingsMenu : MonoBehaviour
         musicVolume = document.Q<Slider>("MusicVolume");
         sfxVolume = document.Q<Slider>("SFXVolume");
         resolutionDropdown = document.Q<DropdownField>("ResolutionDropdown");
+        toggleShoot = document.Q<Toggle>("ShootToggle");
     }
 
     // Start is called before the first frame update
@@ -53,15 +56,23 @@ public class SettingsMenu : MonoBehaviour
         musicVolume.value = PlayerPrefs.GetFloat(MUSIC_VOL_PREF, 0.75f);
         sfxVolume.value = PlayerPrefs.GetFloat(SFX_VOL_PREF, 0.75f);
 
+        toggleShoot.value = PlayerPrefs.GetInt(SHOOT_TOGGLE_PREF, 0) == 1;
+
         //Setting the audio mixer to the playerprefs values
         SetMainVolume(mainVolume.value);
         SetMusicVolume(musicVolume.value);
         SetSFXVolume(sfxVolume.value);
+        
+        //Setting the shoot toggle to the playerprefs value
+        SetShootToggle(toggleShoot.value);
 
         // Attach listeners to sliders
         mainVolume.RegisterValueChangedCallback(evt => SetMainVolume(evt.newValue));
         musicVolume.RegisterValueChangedCallback(evt => SetMusicVolume(evt.newValue));
         sfxVolume.RegisterValueChangedCallback(evt => SetSFXVolume(evt.newValue));
+
+        // Attach listener to toggle
+        toggleShoot.RegisterValueChangedCallback(evt => SetShootToggle(evt.newValue));
 
         PopulateResolutions();
 
@@ -133,7 +144,7 @@ public class SettingsMenu : MonoBehaviour
         {
             switch (e.direction)
             {
-                case NavigationMoveEvent.Direction.Up: sfxVolume.Focus(); break;
+                case NavigationMoveEvent.Direction.Up: toggleShoot.Focus(); break;
                 case NavigationMoveEvent.Direction.Down:
                     Keyboard.Focus();
                     Keyboard.style.color = new StyleColor(new Color(0, 1, 0));
@@ -144,12 +155,24 @@ public class SettingsMenu : MonoBehaviour
             e.PreventDefault();
         });
 
+        toggleShoot.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch (e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: sfxVolume.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: resolutionDropdown.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: toggleShoot.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: toggleShoot.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
         sfxVolume.RegisterCallback<NavigationMoveEvent>(e =>
         {
             switch (e.direction)
             {
                 case NavigationMoveEvent.Direction.Up: musicVolume.Focus(); break;
-                case NavigationMoveEvent.Direction.Down: resolutionDropdown.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: toggleShoot.Focus(); break;
                 case NavigationMoveEvent.Direction.Left: sfxVolume.Focus(); break;
                 case NavigationMoveEvent.Direction.Right: sfxVolume.Focus(); break;
             }
@@ -245,6 +268,12 @@ public class SettingsMenu : MonoBehaviour
             audioMixer.SetFloat("SFXVolume", -80);
         }
         PlayerPrefs.SetFloat(SFX_VOL_PREF, volume);
+    }
+
+    public void SetShootToggle(bool toggle)
+    {
+        GameSettings.toggleShoot = toggle;
+        PlayerPrefs.SetInt(SHOOT_TOGGLE_PREF, toggle ? 1 : 0);
     }
 
     public void PopulateResolutions()

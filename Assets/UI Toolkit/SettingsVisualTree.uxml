@@ -17,6 +17,10 @@
                 <ui:Label tabindex="-1" text="Sound Effects" parse-escape-sequences="true" display-tooltip-when-elided="true" class="text" style="font-size: 22px;" />
                 <ui:Slider high-value="1" name="SFXVolume" style="width: 300px;" />
             </ui:VisualElement>
+            <ui:VisualElement name="ToggleShoot" style="flex-grow: 0; flex-direction: row; width: 500px; justify-content: flex-end; -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
+                <ui:Label tabindex="-1" text="Toggle shoot" parse-escape-sequences="true" display-tooltip-when-elided="true" class="text" style="font-size: 22px; left: auto;" />
+                <ui:Toggle name="ShootToggle" style="width: 300px;" />
+            </ui:VisualElement>
             <ui:VisualElement name="Resolution" style="flex-grow: 0; flex-direction: row; width: 500px; justify-content: flex-end; -unity-background-image-tint-color: rgba(255, 255, 255, 0); height: 55px;">
                 <ui:Label tabindex="-1" text="Resolution" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="text" style="font-size: 22px; -unity-text-align: middle-left;" />
                 <ui:DropdownField name="ResolutionDropdown" class="text" style="flex-grow: 0; width: 300px; color: rgb(0, 0, 0); height: 45px; align-self: center;" />

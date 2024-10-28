@@ -85,3 +85,14 @@ DropdownField:focus {
     border-top-color: rgb(0, 255, 3);
     border-bottom-color: rgb(0, 255, 3);
 }
+
+Toggle:focus {
+    border-left-color: rgb(0, 255, 3);
+    border-right-color: rgb(0, 255, 3);
+    border-top-color: rgb(0, 255, 3);
+    border-bottom-color: rgb(0, 255, 3);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+}
