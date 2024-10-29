@@ -24,7 +24,7 @@ public class SkillEffects : MonoBehaviour
     private VisualElement hud;
     private VisualElement cooldownBG;
     private Label cooldownTimer;
-    private VisualElement activeSkillIcon;
+    public VisualElement activeSkillIcon;
     private IMGUIContainer durationBar;
     private IMGUIContainer durationContainer;
     [Header("Cooldowns")]
@@ -40,10 +40,13 @@ public class SkillEffects : MonoBehaviour
     private float dashForce;
     public bool moveMode;
     private Vector3 dashVector;
+    public bool cursedDash;
 
     [Header("Vanish")]
     public bool vanishActive;
+    public bool cursedVanish;
     [Header("Decoy")]
+    public bool cursedDecoy;
 
     [SerializeField]
     private GameObject decoy;
