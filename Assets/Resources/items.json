@@ -272,6 +272,20 @@
         "rarity": 3,
         "weapons": ["Sword"],
         "stacks": 0
+      },
+      {
+        "id": 37,
+        "name": "Cooldown Reduction",
+        "desc": "Decrease your skill cooldown by 10%",
+        "rarity": 1,
+        "stacks": 0
+      },
+      {
+        "id": 38,
+        "name": "Duration Increase",
+        "desc": "Increase your skill duration by 10%",
+        "rarity": 1,
+        "stacks": 0
       }
     ]
   }

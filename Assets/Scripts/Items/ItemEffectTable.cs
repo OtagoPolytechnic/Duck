@@ -230,6 +230,12 @@ public class ItemEffectTable : MonoBehaviour
                 WeaponStats.Instance.PercentageDamage *= 4;
                 WeaponStats.Instance.WeaponFireDelay *= 3;
                 break;
+            case 37:
+                SkillEffects.Instance.cooldownModifier += 0.9f;
+            break;
+            case 38:
+                SkillEffects.Instance.durationModifier += 0.1f;
+            break;
             default:
                 Debug.Log($"The ID: {itemID} has not been given a case in the item effect table.");
             break;

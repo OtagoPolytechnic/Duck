@@ -30,8 +30,11 @@ public class SkillEffects : MonoBehaviour
     [Header("Cooldowns")]
     public bool cooldownActive;
     private float cooldownRemaining;
+    public float cooldownModifier = 1.0f;
+
     public bool durationActive;
     private float durationRemaining;
+    public float durationModifier = 1.0f;
     [Header("Dash")]
     [SerializeField]
     private float dashForce;
@@ -188,14 +191,18 @@ public class SkillEffects : MonoBehaviour
     private void StartCooldown()
     {
         cooldownRemaining = skillList[(int)GameSettings.activeSkill].cooldown;//this restricts the ability to make one conjoined method of StartCooldown, StartDuration, etc. etc.
+        cooldownRemaining *= cooldownModifier;
         cooldownActive = true;
+        Debug.Log(cooldownRemaining);
     }
 
     private void StartDuration()
     {
         durationRemaining = skillList[(int)GameSettings.activeSkill].duration;
+        durationRemaining *= durationModifier;
         durationActive = true;
         cooldownBG.visible = true;
+        Debug.Log(durationRemaining);
     }
 
     private void CheckDuration()
@@ -203,7 +210,7 @@ public class SkillEffects : MonoBehaviour
         if (durationRemaining > 0)
         {
             durationRemaining -= Time.deltaTime;
-            float durationFraction = durationRemaining / skillList[(int)GameSettings.activeSkill].duration;
+            float durationFraction = durationRemaining / (skillList[(int)GameSettings.activeSkill].duration * durationModifier);
             durationBar.style.width = Length.Percent(durationFraction * 100);
         }
         else
