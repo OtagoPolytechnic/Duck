@@ -10,10 +10,17 @@ public class ItemEffectTable : MonoBehaviour
     private GameObject eggPrefab;
     public void ItemPicked(Item item)
     {
-        Debug.Log(item.id);
-        if (item == null) { item.id = -1; }
-
-        switch(item.id) 
+        int id;
+        if (item == null)
+        {
+            id = -1;
+        }
+        else
+        {
+            id = item.id;
+        }        
+        Debug.Log(id);
+        switch(id) 
         {
             case -1:
                 Debug.Log("Item choice skipped");
@@ -240,16 +247,20 @@ public class ItemEffectTable : MonoBehaviour
             case 39:
                 SkillEffects.Instance.activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Dash-Corrupted");
                 SkillEffects.Instance.cursedDash = true;
+                SkillEffects.Instance.cooldownModifier -= 0.5f;
                 item.single = true;
             break;
             case 40:
                 SkillEffects.Instance.activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Vanish-Corrupted");
                 SkillEffects.Instance.cursedVanish = true;
+                SkillEffects.Instance.cooldownModifier += SkillEffects.Instance.cooldownModifier;
+                SkillEffects.Instance.durationModifier -= 0.5f;
                 item.single = true;
             break;
             case 41:
                 SkillEffects.Instance.activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Decoy-Corrupted");
                 SkillEffects.Instance.cursedDecoy = true;
+                SkillEffects.Instance.cooldownModifier += 0.25f;
                 item.single = true;
             break;
             default:
