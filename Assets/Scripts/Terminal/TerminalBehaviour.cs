@@ -216,9 +216,16 @@ public class TerminalBehaviour : MonoBehaviour
             output.text += "\nAmount given is not a valid number\n\n";
             return;
         }
-        for (int i = 0; i < amount; i++)
+        foreach (Item item in ItemPanel.itemList)
         {
-            effectTable.ItemPicked(id); //activate the item selected's code
+            if (item.id == id)
+            {
+                for (int i = 0; i < amount; i++)
+                {
+
+                    effectTable.ItemPicked(item); //activate the item selected's code
+                }
+            }
         }
         try
         {

@@ -8,11 +8,12 @@ public class ItemEffectTable : MonoBehaviour
     //If you add a new item in the items.json file you need to add the functionality in here
     [SerializeField]
     private GameObject eggPrefab;
-    public void ItemPicked(int itemID)
+    public void ItemPicked(Item item)
     {
-        Debug.Log(itemID);
+        Debug.Log(item.id);
+        if (item == null) { item.id = -1; }
 
-        switch(itemID) 
+        switch(item.id) 
         {
             case -1:
                 Debug.Log("Item choice skipped");
@@ -231,13 +232,28 @@ public class ItemEffectTable : MonoBehaviour
                 WeaponStats.Instance.WeaponFireDelay *= 3;
                 break;
             case 37:
-                SkillEffects.Instance.cooldownModifier += 0.9f;
+                SkillEffects.Instance.cooldownModifier -= 0.1f;
             break;
             case 38:
                 SkillEffects.Instance.durationModifier += 0.1f;
             break;
+            case 39:
+                SkillEffects.Instance.activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Dash-Corrupted");
+                SkillEffects.Instance.cursedDash = true;
+                item.single = true;
+            break;
+            case 40:
+                SkillEffects.Instance.activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Vanish-Corrupted");
+                SkillEffects.Instance.cursedVanish = true;
+                item.single = true;
+            break;
+            case 41:
+                SkillEffects.Instance.activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Decoy-Corrupted");
+                SkillEffects.Instance.cursedDecoy = true;
+                item.single = true;
+            break;
             default:
-                Debug.Log($"The ID: {itemID} has not been given a case in the item effect table.");
+                Debug.Log($"The ID: {item.id} has not been given a case in the item effect table.");
             break;
         }
     }

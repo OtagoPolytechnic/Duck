@@ -30,7 +30,7 @@ public class Item
         {rarity.Legendary, new StyleColor(new Color32(179, 109, 28, 255))},
         {rarity.Cursed, new StyleColor(new Color32(108, 21, 13, 255))},
     };
-
+    public bool single;
 }
 [Serializable]
 public class ItemList
