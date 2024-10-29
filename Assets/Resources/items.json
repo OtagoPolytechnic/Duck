@@ -299,7 +299,7 @@
       {
         "id": 40,
         "name": "Cursed Vanish",
-        "desc": "Your next shot after or during vanish is 300% damage, but vanish cooldown is increased by 100% and duration is reduced by 50%",
+        "desc": "Your shots during vanish deal 300% damage, but vanish cooldown is increased by 100% and duration is reduced by 50%",
         "rarity": 6,
         "skills": ["vanish"],
         "single": false,
@@ -308,7 +308,7 @@
       {
         "id": 41,
         "name": "Cursed Decoy",
-        "desc": "Decoy explodes at the end of its duration for 500% player damage, but decoy cooldown is increased by 25%",
+        "desc": "Decoy explodes at the end of its duration for 100 times player damage, but decoy cooldown is increased by 25%",
         "rarity": 6,
         "skills": ["decoy"],
         "single": false,

@@ -18,6 +18,7 @@ public class SkillEffects : MonoBehaviour
     public static SkillEffects Instance;
     private SkillState state;
     private Rigidbody2D rb;
+    public GameObject ExplosionPrefab;
     [Header("UI")]
     [SerializeField]
     private GameObject document;
@@ -53,6 +54,9 @@ public class SkillEffects : MonoBehaviour
     private GameObject spawnedDecoy;
     public bool decoyActive;
 
+    private int storedVanishBonus;
+    private bool single;
+
 
     void Awake()
     {
@@ -77,7 +81,7 @@ public class SkillEffects : MonoBehaviour
         {
             activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("DashV2");
         }
-        else if (GameSettings.activeSkill == SkillEnum.vanish)
+        else if (GameSettings.activeSkill == SkillEnum.vanish) 
         {
             activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("VanishV2");
         }
@@ -159,7 +163,7 @@ public class SkillEffects : MonoBehaviour
             CheckCooldown();
         }
     }
-
+    
     void LateUpdate()
     {
         if (GameSettings.gameState != GameState.InGame) { return; }
@@ -167,25 +171,52 @@ public class SkillEffects : MonoBehaviour
         {
             //add some velocity to the player and push them some distance towards that direction
             rb.AddForce(dashVector * dashForce, ForceMode2D.Impulse);
-            PlayerStats.Instance.StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(durationRemaining));
+            if(!cursedDash)
+            {
+                PlayerStats.Instance.StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(durationRemaining));
+            }
         }
         if (state == SkillState.vanished && durationActive)
         {   
-            //disable the players collision for the duration
-            PlayerStats.Instance.StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(durationRemaining));
-            //add a darkness to the player or screen
-            GetComponentInChildren<SpriteRenderer>().color = new Color(255,255,255,0.5f);
-            //stop all enemy movement towards the player
-            vanishActive = true;
+            if (!single)
+            {
+                if (cursedVanish)
+                {
+                    storedVanishBonus = WeaponStats.Instance.PercentageDamage;
+                    WeaponStats.Instance.PercentageDamage *= 3;  
+                }
+                single = true;
+                //disable the players collision for the duration
+                PlayerStats.Instance.StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(durationRemaining));
+                //add a darkness to the player or screen
+                GetComponentInChildren<SpriteRenderer>().color = new Color(255,255,255,0.5f);
+                //stop all enemy movement towards the player
+                vanishActive = true;
+            }
         }
         else
         {
-            GetComponentInChildren<SpriteRenderer>().color = new Color(255,255,255,1f);
-            vanishActive = false;
+            if (single)
+            {
+                if (cursedVanish)
+                {
+                    WeaponStats.Instance.PercentageDamage = storedVanishBonus;
+                }
+                single = false;
+                GetComponentInChildren<SpriteRenderer>().color = new Color(255,255,255,1f);
+                vanishActive = false;
+            } 
         }
         if (decoyActive && !durationActive)
         {
             decoyActive = false;
+            if (cursedDecoy)
+            {
+                GameObject Explosion = Instantiate(ExplosionPrefab, spawnedDecoy.transform.position, Quaternion.identity);
+                PlayerExplosion explosionScript = Explosion.GetComponent<PlayerExplosion>();
+                explosionScript.ExplosionSize = 10;
+                explosionScript.ExplosionDamage = WeaponStats.Instance.Damage * 100;
+            }
             Destroy(spawnedDecoy);
         }
 
