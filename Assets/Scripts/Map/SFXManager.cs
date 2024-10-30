@@ -66,6 +66,9 @@ public class SFXManager : MonoBehaviour
             { "Button-Press3", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press3") },
             { "Button-Press4", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press4") },
             { "ItemPanelOpen", Resources.Load<AudioClip>(AUDIO_PATH + "BookClosing2") },
+            { "ReadyWeapon", Resources.Load<AudioClip>(AUDIO_PATH + "ReloadRecon1") },
+            { "EquipWeapon", Resources.Load<AudioClip>(AUDIO_PATH + "ReloadCyclone1") },
+            { "", Resources.Load<AudioClip>(AUDIO_PATH + "BookClosing2") },
         };
     }
 

@@ -196,6 +196,7 @@ public class WeaponStats : MonoBehaviour
                     Debug.Log("Weapon Type does not exist");
                     break;
             }
+            SFXManager.Instance.PlaySFX("EquipWeapon");
         }
     }
 

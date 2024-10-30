@@ -17,6 +17,7 @@ public class Shooting : MonoBehaviour
     private float lastShot = 0;
     private float reflectCooldown;
     private bool held = false;
+    private bool ready;
     Vector2 lookDirection;
     float lookAngle;
 
@@ -50,6 +51,11 @@ public class Shooting : MonoBehaviour
 
         sprite.rotation = Quaternion.Euler(0, 0, lookAngle);
 
+        if (!ready && Time.time - lastShot > WeaponStats.Instance.FireDelay && WeaponStats.Instance.FireDelay >= 1.5) //this will need to be changed if firespeed is changed in anyway
+        {
+            SFXManager.Instance.PlaySFX("ReadyWeapon");
+            ready = true;
+        }
         if (held && Time.time - lastShot > WeaponStats.Instance.FireDelay)
         {
             lastShot = Time.time;
@@ -108,6 +114,7 @@ public class Shooting : MonoBehaviour
 
     private void Shoot()
     {
+        ready = false;
         if (WeaponStats.Instance.CurrentWeapon == WeaponType.Sword)
         {
             if (WeaponStats.Instance.HasSwordBeam && PlayerStats.Instance.CurrentHealth == PlayerStats.Instance.MaxHealth)
