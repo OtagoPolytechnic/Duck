@@ -15,4 +15,6 @@ MonoBehaviour:
   tiles:
   - {fileID: 11400000, guid: 7a55615ade76191428c050250674a14e, type: 2}
   - {fileID: 11400000, guid: bcf50e6148aa4794c884346bf4bb36cd, type: 2}
-  moveSpeedModifier: 0.75
+  tileType: Water
+  enemyMoveSpeedModifier: 0.75
+  playerMoveSpeedModifier: 1.25
