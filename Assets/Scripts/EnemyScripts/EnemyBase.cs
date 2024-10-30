@@ -59,8 +59,12 @@ public abstract class EnemyBase : MonoBehaviour
     public const float DEATHTIMEOUT = 0.5f;
     public const float BOSSDEATHTIMEOUT = 2f;
     public const float FINALBOSSDEATHTIMEOUT = 3f;
-
-
+    private bool isBoss = false;
+    public bool IsBoss
+    {
+        get {return isBoss;}
+        set {isBoss = value;}
+    }
     void Start()
     {
         graveSprite = Resources.Load<Sprite>("Grave");
@@ -122,19 +126,31 @@ public abstract class EnemyBase : MonoBehaviour
             sprite.color = new Color32(255, 255, 255, 225);
             sprite.transform.rotation = Quaternion.identity;
             transform.localScale = new Vector3(1,1,0);
-            sprite.transform.localScale = new Vector3(1.5f,1.5f,0);
+            if (isBoss)
+            {
+                sprite.transform.localScale = new Vector3(5f,5f,0);
+            }
+            else
+            {
+                sprite.transform.localScale = new Vector3(1.5f,1.5f,0);
+            }
             sprite.sprite = graveSprite;
+
+            for (int i=0; i < sprite.gameObject.transform.childCount; i++)
+            {
+                Destroy(sprite.gameObject.transform.GetChild(i).gameObject);
+            }
         }
         else
         {
             Debug.LogError("Did not get sprite, make sure enemy hierarchy has a sprite render");
         }
 
-        if (GameSettings.waveNumber % 5 == 0) //if we ever add a boss that spawns minions. This code needs a change.
+        if (isBoss) //if we ever add a boss that spawns minions. This code needs a change.
         {
             yield return new WaitForSeconds(BOSSDEATHTIMEOUT);
         }
-        else if(GameSettings.waveNumber % 25 == 0)
+        else if(GameSettings.waveNumber % 25 == 0 && isBoss)
         {
             yield return new WaitForSeconds(FINALBOSSDEATHTIMEOUT);
         }

@@ -744,6 +744,15 @@ MonoBehaviour:
   dashForce: 0
   moveMode: 0
   vanishActive: 0
+  weaponSprites:
+  - {fileID: 7897961501898986312}
+  - {fileID: 6523341934108276036}
+  - {fileID: 1320991628717513609}
+  - {fileID: 334957569910644002}
+  - {fileID: 5159262888738818787}
+  - {fileID: 2235390028589668675}
+  - {fileID: 3827523153247475385}
+  - {fileID: 4843847020399068200}
   decoy: {fileID: 4316639253410503294, guid: 37f0d06452799e24290f7ef45d2a5ee3, type: 3}
   decoyActive: 0
 --- !u!1 &4580983964400766955
@@ -930,7 +939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5263342055336758535
 Transform:
   m_ObjectHideFlags: 0
@@ -1062,7 +1071,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2896830230470299075
 Transform:
   m_ObjectHideFlags: 0

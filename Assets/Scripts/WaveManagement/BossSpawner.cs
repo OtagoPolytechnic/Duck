@@ -79,6 +79,7 @@ public class BossSpawner : MonoBehaviour
             bossInstance.GetComponent<EnemyBase>().Health = bossHealth;
             bossInstance.GetComponent<EnemyBase>().MaxHealth = bossHealth;
             Debug.Log(bossInstance.GetComponent<EnemyBase>().MaxHealth);
+            bossInstance.GetComponent<EnemyBase>().IsBoss = true;
 
             // Setup boss health UI
             document = bossHealthBar.GetComponent<UIDocument>().rootVisualElement;
