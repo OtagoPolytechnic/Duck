@@ -92,14 +92,14 @@ public class Menu : MonoBehaviour
 
     public void Quit(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         Application.Quit();
     }
 
     //Two button click methods turned into one. The button that was clicked is turned into a visual element and the name is used to find the correct dictionary entry
     public void SubMenuButton(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         VisualElement targetElement = click.target as VisualElement;
         if (targetElement != null)
         {

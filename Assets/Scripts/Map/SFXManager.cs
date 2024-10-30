@@ -59,7 +59,11 @@ public class SFXManager : MonoBehaviour
             { "TitleMusic", Resources.Load<AudioClip>(AUDIO_PATH + "TitleMusic") },
             { "WaveMusic", Resources.Load<AudioClip>(AUDIO_PATH + "WaveMusic") },
             { "Explosion1", Resources.Load<AudioClip>(AUDIO_PATH + "Explosion1") },
-            { "ButtonPress", Resources.Load<AudioClip>(AUDIO_PATH + "ButtonPress") },
+            { "Button-Press", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press") },
+            { "Button-Press2", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press2") },
+            { "Button-Press3", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press3") },
+            { "Button-Press4", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press4") },
+            { "ItemPanelOpen", Resources.Load<AudioClip>(AUDIO_PATH + "BookClosing1") },
         };
     }
 
@@ -87,6 +91,19 @@ public class SFXManager : MonoBehaviour
         {
             Debug.LogError($"Clip '{name}' not found in dictionary!");
         }
+    }
+
+    public void PlayRandomSFX(string[] names)
+    {
+        int index = Random.Range(0, names.Length);
+        if (soundClips.TryGetValue(names[index], out AudioClip clip))
+            {
+                sfxAudioSource.PlayOneShot(clip);
+            }
+            else
+            {
+                Debug.LogError($"Clip '{name}' not found in dictionary!");
+            } 
     }
 
     public void PlayBackgroundMusic(string name)

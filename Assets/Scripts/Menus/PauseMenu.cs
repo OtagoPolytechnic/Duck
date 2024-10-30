@@ -48,20 +48,20 @@ public class PauseMenu : MonoBehaviour
     }
     private void Resume(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         GameSettings.gameState = heldState;
         background.visible = false;
     }
 
     private void Settings(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
     }
 
     private void Quit(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         GameSettings.gameState = GameState.InGame;
         StartCoroutine(LoadScene("Titlescreen"));
     }

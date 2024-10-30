@@ -25,7 +25,7 @@ public class ModeSelect : MonoBehaviour
 
     private void BossPlayGame(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         GameSettings.gameMode = GameMode.Boss;
         if (document != null)
         {
@@ -36,7 +36,7 @@ public class ModeSelect : MonoBehaviour
 
     private void EndlessPlayGame(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         GameSettings.gameMode = GameMode.Endless;
         if (document != null)
         {
@@ -66,7 +66,7 @@ public class ModeSelect : MonoBehaviour
 
     private void ReturnToMainMenu(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         if (document != null)
         {
             document.style.display = DisplayStyle.None;

@@ -229,28 +229,28 @@ public class ItemPanel : MonoBehaviour
 
     private void RegisterItem1Click(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         selectedIndex = 0;
         selectedItemLabel.text = selectedItems[0].name.ToUpper();
         confirmPanel.style.display = DisplayStyle.Flex;
     }
     private void RegisterItem2Click(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         selectedIndex = 1;
         selectedItemLabel.text = selectedItems[1].name.ToUpper();
         confirmPanel.style.display = DisplayStyle.Flex;
     }
     private void RegisterItem3Click(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         selectedIndex = 2;
         selectedItemLabel.text = selectedItems[2].name.ToUpper();
         confirmPanel.style.display = DisplayStyle.Flex;
     }
     private void RegisterSkipClick(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         selectedIndex = -1;
         selectedItemLabel.text = "SKIP";
         confirmPanel.style.display = DisplayStyle.Flex;
@@ -258,7 +258,7 @@ public class ItemPanel : MonoBehaviour
 
     private void ConfirmSelection(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         if (selectedIndex == -1)
         {
             PlayerStats.Instance.CurrentHealth += PlayerStats.Instance.MaxHealth / 2;
@@ -280,7 +280,7 @@ public class ItemPanel : MonoBehaviour
 
     private void Continue(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         continuePanel.style.display = DisplayStyle.None;
         selectionContainer.style.display = DisplayStyle.Flex;
         resetColour();
@@ -311,13 +311,13 @@ public class ItemPanel : MonoBehaviour
 
     private void CancelSelection(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         confirmPanel.style.display = DisplayStyle.None;
     }
 
     private void RegisterRerollClick(ClickEvent click)
     {
-        SFXManager.Instance.PlaySFX("ButtonPress");//change to DiceRoll
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});//change to DiceRoll
         if (rerollCharges > 0)
         {
             rerollCharges--;
@@ -339,6 +339,7 @@ public class ItemPanel : MonoBehaviour
     
     public void Show()
     {
+        
         container.visible = true;
     }
     public void Hide()
