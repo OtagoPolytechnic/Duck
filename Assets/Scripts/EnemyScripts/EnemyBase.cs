@@ -136,7 +136,7 @@ public abstract class EnemyBase : MonoBehaviour
             }
             sprite.sprite = graveSprite;
 
-            for (int i=0; i < sprite.gameObject.transform.childCount; i++)
+            for (int i=0; i < sprite.gameObject.transform.childCount; i++) //Destroy all children of sprite to prevent things such as childed attacks from appearing beside tombstone.
             {
                 Destroy(sprite.gameObject.transform.GetChild(i).gameObject);
             }
@@ -146,7 +146,7 @@ public abstract class EnemyBase : MonoBehaviour
             Debug.LogError("Did not get sprite, make sure enemy hierarchy has a sprite render");
         }
 
-        if (isBoss) //if we ever add a boss that spawns minions. This code needs a change.
+        if (isBoss)
         {
             yield return new WaitForSeconds(BOSSDEATHTIMEOUT);
         }
