@@ -40,7 +40,7 @@ public class StatDisplay : MonoBehaviour
         statsPanel.Q<Label>("Range").text = $"{WeaponStats.Instance.Range}";
         statsPanel.Q<Label>("CritChance").text = $"{Math.Min(WeaponStats.Instance.CritChance,100)}%";
         statsPanel.Q<Label>("CritDamage").text = $"{WeaponStats.Instance.CritDamage}%";
-        statsPanel.Q<Label>("MovementSpeed").text = $"{TopDownMovement.Instance.MoveSpeed:0.00}";
+        statsPanel.Q<Label>("MovementSpeed").text = $"{Math.Round(TopDownMovement.Instance.MoveSpeed, 2)}";
         statsPanel.Q<Label>("AttackSpeed").text = $"{WeaponStats.Instance.AttackSpeed:0.00}";
         statsPanel.Q<Label>("Regeneration").text = $"{PlayerStats.Instance.RegenerationPercentage}%";
         statsPanel.Q<Label>("ExplosionSize").text = $"{WeaponStats.Instance.ExplosionSize}";
