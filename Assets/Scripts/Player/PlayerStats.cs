@@ -129,6 +129,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private GameObject damageText;
     public List<GameObject> lifeEggs;
     public UnityEvent onPlayerRespawn = new UnityEvent();
+    public bool deathsDance;
     
     void Awake()
     {

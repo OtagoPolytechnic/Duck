@@ -255,9 +255,37 @@ public class WeaponStats : MonoBehaviour
         get { return weaponCritChancePercentage; }
         set { weaponCritChancePercentage = value; }
     }
+    public int DeathsDanceCritChance
+    {
+        get 
+        { 
+            if (PlayerStats.Instance.deathsDance)
+            {
+                float i = 100f * ((float)PlayerStats.Instance.CurrentHealth / PlayerStats.Instance.MaxHealth);
+                int final; 
+
+                if( i >= 80)
+                {
+                    final = 0;
+                }
+                else if (i <= 20)
+                {
+                    final = 80;
+
+                }
+                else 
+                {
+                    final = -(4/3) * (int)i + (320/3); //numbers helped by my friend Scott
+                    Debug.Log("Doing calc" + final);
+                }  
+                return final;
+            }
+            else return 0; 
+        }
+    }
     public int CritChance
     {
-        get { return ((BASE_CRIT_CHANCE + FlatCritChance + weaponCritChanceFlat) * PercentageCritChance * weaponCritChancePercentage) / 10000; }
+        get { return ((BASE_CRIT_CHANCE + FlatCritChance + weaponCritChanceFlat + DeathsDanceCritChance) * PercentageCritChance * weaponCritChancePercentage) / 10000; }
     }
 
     private int excessCritChance() => Math.Max(CritChance - 100, 0); //Returns the amount of crit chance over 100
@@ -282,9 +310,39 @@ public class WeaponStats : MonoBehaviour
         get { return weaponCritDamage; }
         set { weaponCritDamage = value; }
     }
+    public int DeathsDanceCritDamage
+    {
+        get 
+        { 
+            if (PlayerStats.Instance.deathsDance)
+            {
+                float i = 100f * ((float)PlayerStats.Instance.CurrentHealth / PlayerStats.Instance.MaxHealth);
+                int final; 
+
+                if( i >= 80)
+                {
+                    final = 0;
+                }
+                else if (i <= 20)
+                {
+                    final = 80;
+
+                }
+                else 
+                {
+                    
+                    final = -(4/3) * (int)i + (320/3); //numbers helped by my friend Scott
+                    Debug.Log("Doing calc" + final);
+                }  
+                return final;
+            }
+            else return 0; 
+        }
+    }
+
     public int CritDamage //Returns a percentage of the weapon's damage. 150 at base
     {
-        get { return ((BASE_CRIT_DAMAGE + flatCritDamage + (excessCritChance() / 2)) * PercentageCritDamage * WeaponCritDamage) / 10000; } //Adds half of the excess crit chance to the crit damage
+        get { return ((BASE_CRIT_DAMAGE + flatCritDamage + DeathsDanceCritDamage + (excessCritChance() / 2)) * PercentageCritDamage * WeaponCritDamage) / 10000; } //Adds half of the excess crit chance to the crit damage
     }
 
     //Range

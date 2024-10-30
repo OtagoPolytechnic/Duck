@@ -313,6 +313,14 @@
         "skills": ["decoy"],
         "single": false,
         "stacks": 0
+      },
+      {
+        "id": 42,
+        "name": "Death's Dance",
+        "desc": "Your Crit and Crit Damage scale based on missing health health up to 80%",
+        "rarity": 6,
+        "single": false,
+        "stacks": 0
       }
     ]
   }

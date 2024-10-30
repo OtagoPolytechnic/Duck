@@ -263,6 +263,10 @@ public class ItemEffectTable : MonoBehaviour
                 SkillEffects.Instance.cooldownModifier += 0.25f;
                 item.single = true;
             break;
+            case 42:
+                PlayerStats.Instance.deathsDance = true;
+                item.single = true;
+            break;
             default:
                 Debug.Log($"The ID: {item.id} has not been given a case in the item effect table.");
             break;
