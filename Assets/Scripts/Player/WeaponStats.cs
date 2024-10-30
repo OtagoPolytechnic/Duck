@@ -255,6 +255,9 @@ public class WeaponStats : MonoBehaviour
         get { return weaponCritChancePercentage; }
         set { weaponCritChancePercentage = value; }
     }
+    private const int DDCAP = 80;
+    private const int DDHEALTHCAP = 100; //can only be set between 100 and 20
+    private const int DDFLOOR = 20;//don't change this value
     public int DeathsDanceCritChance
     {
         get 
@@ -264,18 +267,17 @@ public class WeaponStats : MonoBehaviour
                 float i = 100f * ((float)PlayerStats.Instance.CurrentHealth / PlayerStats.Instance.MaxHealth);
                 int final; 
 
-                if( i >= 80)
+                if( i >= DDHEALTHCAP)
                 {
                     final = 0;
                 }
-                else if (i <= 20)
+                else if (i <= DDFLOOR) 
                 {
-                    final = 80;
-
+                    final = DDCAP;
                 }
                 else 
                 {
-                    final = -(4/3) * (int)i + (320/3); //numbers helped by my friend Scott
+                    final = (DDCAP/(DDHEALTHCAP - DDFLOOR)) * (-(int)i + DDHEALTHCAP); //calculation assited by Scott
                     Debug.Log("Doing calc" + final);
                 }  
                 return final;
@@ -319,19 +321,17 @@ public class WeaponStats : MonoBehaviour
                 float i = 100f * ((float)PlayerStats.Instance.CurrentHealth / PlayerStats.Instance.MaxHealth);
                 int final; 
 
-                if( i >= 80)
+                if( i >= DDHEALTHCAP)
                 {
                     final = 0;
                 }
-                else if (i <= 20)
+                else if (i <= DDFLOOR) 
                 {
-                    final = 80;
-
+                    final = DDCAP;
                 }
                 else 
                 {
-                    
-                    final = -(4/3) * (int)i + (320/3); //numbers helped by my friend Scott
+                    final = (DDCAP/(DDHEALTHCAP - DDFLOOR)) * (-(int)i + DDHEALTHCAP); //calculation assited by Scott
                     Debug.Log("Doing calc" + final);
                 }  
                 return final;
