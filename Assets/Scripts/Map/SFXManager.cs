@@ -50,11 +50,13 @@ public class SFXManager : MonoBehaviour
         //To add a new sound effect, add the AudioClip to the Resources/Audio folder, then add a new entry to the dictionary below
         soundClips = new Dictionary<string, AudioClip>
         {
-            { "DuckShooting", Resources.Load<AudioClip>(AUDIO_PATH + "DuckShooting") },
+            { "Gunshot1", Resources.Load<AudioClip>(AUDIO_PATH + "Gunshot1") },
+            { "Gunshot2", Resources.Load<AudioClip>(AUDIO_PATH + "Gunshot2") },
+            { "Gunshot3", Resources.Load<AudioClip>(AUDIO_PATH + "Gunshot3") },
             { "EnemyShoot", Resources.Load<AudioClip>(AUDIO_PATH + "EnemyShoot") },
-            { "Bite", Resources.Load<AudioClip>(AUDIO_PATH + "Bite") },
+            { "Bite", Resources.Load<AudioClip>(AUDIO_PATH + "Bite3") },
             { "DuckHit", Resources.Load<AudioClip>(AUDIO_PATH + "DuckHit") },
-            { "EnemyDie", Resources.Load<AudioClip>(AUDIO_PATH + "EnemyDie") },
+            { "EnemyDie", Resources.Load<AudioClip>(AUDIO_PATH + "PointGet2") },
             { "GameOver", Resources.Load<AudioClip>(AUDIO_PATH + "GameOver") },
             { "TitleMusic", Resources.Load<AudioClip>(AUDIO_PATH + "TitleMusic") },
             { "WaveMusic", Resources.Load<AudioClip>(AUDIO_PATH + "WaveMusic") },
@@ -63,7 +65,7 @@ public class SFXManager : MonoBehaviour
             { "Button-Press2", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press2") },
             { "Button-Press3", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press3") },
             { "Button-Press4", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press4") },
-            { "ItemPanelOpen", Resources.Load<AudioClip>(AUDIO_PATH + "BookClosing1") },
+            { "ItemPanelOpen", Resources.Load<AudioClip>(AUDIO_PATH + "BookClosing2") },
         };
     }
 

@@ -155,7 +155,7 @@ public class Shooting : MonoBehaviour
             FireBullet(firePoint);
         }
         // Play the duck shooting sound
-        SFXManager.Instance.PlaySFX("DuckShooting");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Gunshot1", "Gunshot2", "Gunshot3"});
     }
 
     private void FireBullet(Transform bulletFirePoint)
