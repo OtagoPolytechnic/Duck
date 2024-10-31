@@ -57,6 +57,10 @@ public class TerminalBehaviour : MonoBehaviour
 
     public void Enter(InputAction.CallbackContext context)
     {
+        if (!terminalWindow.visible) //I needed to add this to let the enter key work for selecting items or it gets overridden by the terminal
+        {
+            return;
+        }
         if (context.performed)
         {
             string[] commands = input.value.ToLower().Split(" ");
@@ -109,7 +113,7 @@ public class TerminalBehaviour : MonoBehaviour
             }   
             input.value = "";
             input.Focus();
-            output.text += new string('-', 108);
+            output.text += new string('-', 106);
         }
     }
 
@@ -216,9 +220,16 @@ public class TerminalBehaviour : MonoBehaviour
             output.text += "\nAmount given is not a valid number\n\n";
             return;
         }
-        for (int i = 0; i < amount; i++)
+        foreach (Item item in ItemPanel.itemList)
         {
-            effectTable.ItemPicked(id); //activate the item selected's code
+            if (item.id == id)
+            {
+                for (int i = 0; i < amount; i++)
+                {
+
+                    effectTable.ItemPicked(item); //activate the item selected's code
+                }
+            }
         }
         try
         {
@@ -326,6 +337,11 @@ public class TerminalBehaviour : MonoBehaviour
     {
         Timer.CullBullets();
         Timer.CullEnemies();
+        if (GameSettings.waveNumber % 5 == 0)
+        {
+            GameSettings.gameState = GameState.InGame;
+            terminalWindow.visible = !terminalWindow.visible; //terminal should be hidden on game start
+        }
         output.text += "\nAll enemies on screen culled\n\n";
     }
 

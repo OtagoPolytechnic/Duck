@@ -182,7 +182,7 @@ MonoBehaviour:
   critText: {fileID: 391528759432483411, guid: f288eb3865634874f8d46dff2686a205, type: 3}
   baseHealth: 50
   damage: 30
-  speed: 7
+  speed: 10
   points: 40
   mapManager: {fileID: 0}
   bleedTick: 1

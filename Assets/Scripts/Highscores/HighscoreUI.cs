@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UIElements.Experimental;
 using System;
+using UnityEngine.InputSystem;
 
 public class HighscoreUI : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class HighscoreUI : MonoBehaviour
     private ListView moreInfoList;
     private Color bossColour;
     private Color endlessColour;
+    private Button menuButton;
 
     void Awake()
     {
@@ -29,28 +31,133 @@ public class HighscoreUI : MonoBehaviour
             Destroy(gameObject);
         }
         document = GetComponent<UIDocument>().rootVisualElement;
-        Button menuButton = document.Q<Button>("MainMenu");
+        menuButton = document.Q<Button>("MainMenu");
         bossButton = document.Q<Button>("Boss");
         endlessButton = document.Q<Button>("Endless");
         bossColour = bossButton.resolvedStyle.backgroundColor;
         endlessColour = endlessButton.resolvedStyle.backgroundColor;
         menuButton.RegisterCallback<ClickEvent>(Menu);
+        menuButton.RegisterCallback<NavigationSubmitEvent>(Menu);
         bossButton.RegisterCallback<ClickEvent>(DisplayBossHighscores);
+        bossButton.RegisterCallback<NavigationSubmitEvent>(DisplayBossHighscores);
         endlessButton.RegisterCallback<ClickEvent>(DisplayEndlessHighscores);
+        endlessButton.RegisterCallback<NavigationSubmitEvent>(DisplayEndlessHighscores);
         //Get the highscores list view
         highscores = document.Q<MultiColumnListView>("MultiColumnListView");
         moreInfoList = document.Q<ListView>("MoreInfoList");
         //Set to be invisible by default
         document.style.display = DisplayStyle.None;
+        navigationSetting();
     }
 
-    private void Menu(ClickEvent click)
+    private void navigationSetting()
+    {
+        bossButton.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch (e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: menuButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down:
+                    highscores.Focus();
+                    highscores.selectedIndex = 0;
+                    highscores.ScrollToItem(highscores.selectedIndex);
+                    break;
+                case NavigationMoveEvent.Direction.Left: endlessButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: endlessButton.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        endlessButton.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch (e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: menuButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down:
+                    highscores.Focus();
+                    highscores.selectedIndex = 0;
+                    highscores.ScrollToItem(highscores.selectedIndex);
+                    break;
+                case NavigationMoveEvent.Direction.Left: bossButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: bossButton.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        menuButton.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch (e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up:
+                    highscores.Focus();
+                    highscores.selectedIndex = 0;
+                    highscores.ScrollToItem(highscores.selectedIndex);
+                    break;
+                case NavigationMoveEvent.Direction.Down: bossButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: menuButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: menuButton.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        highscores.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch (e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: bossButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: menuButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left:
+                case NavigationMoveEvent.Direction.Right:
+                    moreInfoList.Focus();
+                    moreInfoList.selectedIndex = 0;
+                    moreInfoList.ScrollToItem(moreInfoList.selectedIndex);
+                    break;
+            }
+            e.PreventDefault();
+        });
+
+        moreInfoList.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch (e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: bossButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: menuButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left:
+                case NavigationMoveEvent.Direction.Right:
+                    highscores.Focus();
+                    highscores.selectedIndex = 0;
+                    highscores.ScrollToItem(highscores.selectedIndex);
+                    break;
+            }
+            e.PreventDefault();
+        });
+    }
+
+    private void Menu(EventBase evt)
     {
         if (document != null)
         {
             if (SceneManager.GetSceneByName("Titlescreen").isLoaded) //If coming from the main menu
             {
                 document.style.display = DisplayStyle.None;
+                Scene Titlescreen = SceneManager.GetSceneByName("Titlescreen");
+                //Makes sure the return button is focused when the settings scene is opened
+                if (evt is NavigationSubmitEvent)
+                {
+                    GameObject[] rootObjects = Titlescreen.GetRootGameObjects();
+                    UIDocument uiDocument = rootObjects
+                        .Select(obj => obj.GetComponent<UIDocument>())
+                        .FirstOrDefault(doc => doc != null);
+                    if (uiDocument != null)
+                    {
+                        VisualElement rootElement = uiDocument.rootVisualElement;
+                        Button buttonToFocus = rootElement.Query<Button>(className: "focus-button").First();
+                        if (buttonToFocus != null)
+                        {
+                            buttonToFocus.Focus();
+                        }
+                    }
+                }
             }
             else //If coming from in game
             {
@@ -59,14 +166,16 @@ public class HighscoreUI : MonoBehaviour
         }
     }
 
-    public void DisplayEndlessHighscores(ClickEvent click = null) //Nullable so I can call it manually as well
+    public void DisplayEndlessHighscores(EventBase evt = null) //Nullable so I can call it manually as well
     {
         //Turn endless button grey and boss button to original colour. We need a better and more unified solution for selected buttons
         bossButton.style.backgroundColor = bossColour;
         endlessButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
         //Remove endless click event and add boss click event
         endlessButton.UnregisterCallback<ClickEvent>(DisplayEndlessHighscores);
+        endlessButton.UnregisterCallback<NavigationSubmitEvent>(DisplayEndlessHighscores);
         bossButton.RegisterCallback<ClickEvent>(DisplayBossHighscores);
+        bossButton.RegisterCallback<NavigationSubmitEvent>(DisplayBossHighscores);
         displayedHighscores = GameMode.Endless;
         //Clear selected items
         highscores.ClearSelection();
@@ -74,14 +183,16 @@ public class HighscoreUI : MonoBehaviour
         DisplayHighscores(Scoreboard.Instance.savedScores.highscores);
     }
 
-    public void DisplayBossHighscores(ClickEvent click = null) //Nullable so I can call it manually as well
+    public void DisplayBossHighscores(EventBase evt = null) //Nullable so I can call it manually as well
     {
         //Turn boss button grey and endless button to original colour. We need a better and more unified solution for selected buttons
         bossButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
         endlessButton.style.backgroundColor = endlessColour;
         //Remove boss click event and add endless click event
         bossButton.UnregisterCallback<ClickEvent>(DisplayBossHighscores);
+        bossButton.UnregisterCallback<NavigationSubmitEvent>(DisplayBossHighscores);
         endlessButton.RegisterCallback<ClickEvent>(DisplayEndlessHighscores);
+        endlessButton.RegisterCallback<NavigationSubmitEvent>(DisplayEndlessHighscores);
         displayedHighscores = GameMode.Boss;
         //Clear selected items
         highscores.ClearSelection();

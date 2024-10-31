@@ -10,7 +10,7 @@
       {
         "id" : 1,
         "name": "Dash",
-        "desc": "Dash forward to dodge enemies.",
+        "desc": "Dash to dodge enemies.",
         "cooldown": 3,
         "duration": 0.2
       },
@@ -19,7 +19,7 @@
         "name": "Vanish",
         "desc": "Cloak yourself and take no damage.",
         "cooldown": 15,
-        "duration": 5
+        "duration": 4
       },
       {
         "id" : 3,

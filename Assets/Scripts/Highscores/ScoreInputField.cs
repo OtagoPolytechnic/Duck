@@ -18,7 +18,7 @@ public class ScoreInputField : MonoBehaviour
             validationText.text = "Please enter a name";
             validationText.color = Color.red;
         }
-        else if (playerName.Length > 7)
+        else if (playerName.Length > 15)
         {
             validationText.text = "Name too long";
             validationText.color = Color.red;

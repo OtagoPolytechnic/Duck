@@ -101,7 +101,7 @@ public abstract class EnemyBase : MonoBehaviour
             health -= damageTaken;
         }
         //Lifesteal by percentage of damage dealt
-        if (PlayerStats.Instance.LifestealPercentage > 0 && damageTaken > 5)
+        if (PlayerStats.Instance.LifestealPercentage > 0 && damageTaken > 5 && GameSettings.gameState != GameState.Dead)
         {
             PlayerStats.Instance.CurrentHealth += Math.Max((damageTaken * PlayerStats.Instance.LifestealPercentage) / 100, 1); //Heals at least 1 health
         }

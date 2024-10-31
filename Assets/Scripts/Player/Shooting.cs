@@ -17,6 +17,7 @@ public class Shooting : MonoBehaviour
     private bool dualShot = false;
     private float lastShot = 0;
     private float reflectCooldown;
+    private bool toggled = false;
     private bool held = false;
     Vector2 lookDirection;
     float lookAngle;
@@ -50,11 +51,14 @@ public class Shooting : MonoBehaviour
         }
 
         sprite.rotation = Quaternion.Euler(0, 0, lookAngle);
-
-        if (held && Time.time - lastShot > WeaponStats.Instance.FireDelay)
+        if (Time.time - lastShot > WeaponStats.Instance.FireDelay)
         {
-            lastShot = Time.time;
-            Shoot();
+            if ((!GameSettings.toggleShoot && held) //If toggle shoot off and held is true
+                || (GameSettings.toggleShoot && toggled)) //If toggle shoot on and toggled is true
+            {
+                lastShot = Time.time;
+                Shoot();
+            }
         }
 
         if (reflectCooldown > 0)
@@ -97,6 +101,14 @@ public class Shooting : MonoBehaviour
 
     public void OnShoot(InputAction.CallbackContext context)
     {
+        if (GameSettings.toggleShoot)
+        {
+            if (context.performed)
+            {
+                toggled = !toggled;
+            }
+            return;
+        }
         if (context.performed)
         {
             held = true;
