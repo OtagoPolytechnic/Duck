@@ -275,14 +275,14 @@
       },
       {
         "id": 37,
-        "name": "Cooldown Reduction",
+        "name": "Second Wind",
         "desc": "Decrease your skill cooldown by 10%",
         "rarity": 1,
         "stacks": 0
       },
       {
         "id": 38,
-        "name": "Duration Increase",
+        "name": "Increased Focus",
         "desc": "Increase your skill duration by 10%",
         "rarity": 1,
         "stacks": 0
