@@ -10,6 +10,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject swordAttack;
     [SerializeField] private GameObject swordBeam;
+    [SerializeField] private GameObject swordInHand;
     [SerializeField] private Transform sprite;
     [SerializeField] private Transform firePoint;
     [SerializeField] private Transform dualFirePoint;
@@ -179,6 +180,13 @@ public class Shooting : MonoBehaviour
     IEnumerator SwordAttack()
     {
         swordAttack.SetActive(true);
+        swordInHand.SetActive(false);
+
+        foreach (SpriteRenderer sprite in swordAttack.GetComponentsInChildren<SpriteRenderer>(true))
+        {
+            sprite.flipX = !sprite.flipX;
+        }
+
         if (WeaponStats.Instance.HasReflector)
         {
             if (reflectCooldown <= 0)
@@ -187,7 +195,11 @@ public class Shooting : MonoBehaviour
             }
         }
 
-        if (swordAttack.GetComponent<Sword>().Crit) //Activate either crit or non crit sprite
+        if (swordAttack.GetComponent<Sword>().Reflecting) //Set sprite depending on the type of attack it is
+        {
+            swordAttack.transform.GetChild(2).gameObject.SetActive(true);
+        }
+        else if (swordAttack.GetComponent<Sword>().Crit)
         {
             swordAttack.transform.GetChild(1).gameObject.SetActive(true);
         }
@@ -199,9 +211,11 @@ public class Shooting : MonoBehaviour
         yield return new WaitForSeconds(WeaponStats.Instance.FireDelay/2);
 
         swordAttack.SetActive(false);
+        swordInHand.SetActive(true);
 
         swordAttack.transform.GetChild(0).gameObject.SetActive(false); //Set sprites not active
         swordAttack.transform.GetChild(1).gameObject.SetActive(false);
+        swordAttack.transform.GetChild(2).gameObject.SetActive(false);
 
 
         if (swordAttack.GetComponent<Sword>().Reflecting)

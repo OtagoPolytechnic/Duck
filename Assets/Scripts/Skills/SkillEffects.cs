@@ -45,6 +45,7 @@ public class SkillEffects : MonoBehaviour
 
     [Header("Vanish")]
     public bool vanishActive;
+    [SerializeField] private SpriteRenderer[] weaponSprites; //Needed so weapon sprite transparency can be set when vanished
     public bool cursedVanish;
     [Header("Decoy")]
     public bool cursedDecoy;
@@ -177,7 +178,7 @@ public class SkillEffects : MonoBehaviour
             }
         }
         if (state == SkillState.vanished && durationActive)
-        {   
+        {
             if (!single)
             {
                 if (cursedVanish)
@@ -190,6 +191,10 @@ public class SkillEffects : MonoBehaviour
                 PlayerStats.Instance.StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(durationRemaining));
                 //add a darkness to the player or screen
                 GetComponentInChildren<SpriteRenderer>().color = new Color(255,255,255,0.5f);
+                foreach (SpriteRenderer sprite in weaponSprites)
+                {
+                    sprite.color = new Color(255,255,255,0.5f);
+                }
                 //stop all enemy movement towards the player
                 vanishActive = true;
             }
@@ -204,8 +209,12 @@ public class SkillEffects : MonoBehaviour
                 }
                 single = false;
                 GetComponentInChildren<SpriteRenderer>().color = new Color(255,255,255,1f);
+                foreach (SpriteRenderer sprite in weaponSprites)
+                {
+                    sprite.color = new Color(255,255,255,1f);
+                }
                 vanishActive = false;
-            } 
+            }
         }
         if (decoyActive && !durationActive)
         {
