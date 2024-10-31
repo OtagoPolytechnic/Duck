@@ -58,6 +58,7 @@ public class PauseMenu : MonoBehaviour
     }
     private void Resume(EventBase evt)
     {
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         GameSettings.gameState = heldState;
         background.visible = false;
     }
@@ -70,6 +71,7 @@ public class PauseMenu : MonoBehaviour
     //This needs to be in a coroutine or the button to focus hasn't loaded yet
     private IEnumerator LoadSettingsScene(EventBase evt)
     {
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Settings", LoadSceneMode.Additive);
 
         //Wait for loading
@@ -101,6 +103,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Quit(EventBase evt)
     {
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         GameSettings.gameState = GameState.InGame;
         StartCoroutine(LoadScene("Titlescreen"));
     }

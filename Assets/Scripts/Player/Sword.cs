@@ -34,6 +34,7 @@ public class Sword : MonoBehaviour
         }
         else if (WeaponStats.Instance.HasReflector && reflecting && other.gameObject.CompareTag("Bullet") && other.gameObject.layer == 9)
         {
+            SFXManager.Instance.PlaySFX("Deflect");
             Debug.Log("Hit bullet");
             GameObject bulletInstance = Instantiate(reflectedBullet, other.gameObject.transform.position, Quaternion.identity);
             bulletInstance.GetComponent<Rigidbody2D>().velocity = -other.gameObject.GetComponent<Rigidbody2D>().velocity;

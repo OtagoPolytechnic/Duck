@@ -47,16 +47,19 @@ public class KeybindsDisplay : MonoBehaviour
     {
         if (evt.newValue == 0)
         {
+            SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
             GameSettings.controlType = controlType.Keyboard;
             displayKeyboardControls();
         }
         else if (evt.newValue == 1)
         {
+            SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
             GameSettings.controlType = controlType.Controller;
             displayControllerControls();
         }
         else if (evt.newValue == 2)
         {
+            SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
             GameSettings.controlType = controlType.Arcade;
             displayArcadeControls();
         }

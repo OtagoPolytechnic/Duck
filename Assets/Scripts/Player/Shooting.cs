@@ -19,6 +19,7 @@ public class Shooting : MonoBehaviour
     private float reflectCooldown;
     private bool toggled = false;
     private bool held = false;
+    private bool ready;
     Vector2 lookDirection;
     float lookAngle;
 
@@ -51,6 +52,11 @@ public class Shooting : MonoBehaviour
         }
 
         sprite.rotation = Quaternion.Euler(0, 0, lookAngle);
+        // if (!ready && Time.time - lastShot > WeaponStats.Instance.FireDelay && WeaponStats.Instance.FireDelay >= 1.5) //this will need to be changed if firespeed is changed in anyway
+        // {
+        //     SFXManager.Instance.PlaySFX("ReadyWeapon");
+        //     ready = true;
+        // }
         if (Time.time - lastShot > WeaponStats.Instance.FireDelay)
         {
             if ((!GameSettings.toggleShoot && held) //If toggle shoot off and held is true
@@ -121,6 +127,7 @@ public class Shooting : MonoBehaviour
 
     private void Shoot()
     {
+        ready = false;
         if (WeaponStats.Instance.CurrentWeapon == WeaponType.Sword)
         {
             if (WeaponStats.Instance.HasSwordBeam && PlayerStats.Instance.CurrentHealth == PlayerStats.Instance.MaxHealth)
@@ -168,7 +175,7 @@ public class Shooting : MonoBehaviour
             FireBullet(firePoint);
         }
         // Play the duck shooting sound
-        SFXManager.Instance.PlaySFX("DuckShooting");
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Gunshot1", "Gunshot2", "Gunshot3"});
     }
 
     private void FireBullet(Transform bulletFirePoint)

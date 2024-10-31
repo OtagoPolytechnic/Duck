@@ -50,14 +50,27 @@ public class SFXManager : MonoBehaviour
         //To add a new sound effect, add the AudioClip to the Resources/Audio folder, then add a new entry to the dictionary below
         soundClips = new Dictionary<string, AudioClip>
         {
-            { "DuckShooting", Resources.Load<AudioClip>(AUDIO_PATH + "DuckShooting") },
+            { "Gunshot1", Resources.Load<AudioClip>(AUDIO_PATH + "Gunshot1") },
+            { "Gunshot2", Resources.Load<AudioClip>(AUDIO_PATH + "Gunshot2") },
+            { "Gunshot3", Resources.Load<AudioClip>(AUDIO_PATH + "Gunshot3") },
             { "EnemyShoot", Resources.Load<AudioClip>(AUDIO_PATH + "EnemyShoot") },
-            { "Bite", Resources.Load<AudioClip>(AUDIO_PATH + "Bite") },
+            { "Bite", Resources.Load<AudioClip>(AUDIO_PATH + "Bite3") },
             { "DuckHit", Resources.Load<AudioClip>(AUDIO_PATH + "DuckHit") },
-            { "EnemyDie", Resources.Load<AudioClip>(AUDIO_PATH + "EnemyDie") },
+            { "EnemyDie", Resources.Load<AudioClip>(AUDIO_PATH + "PointGet2") },
             { "GameOver", Resources.Load<AudioClip>(AUDIO_PATH + "GameOver") },
             { "TitleMusic", Resources.Load<AudioClip>(AUDIO_PATH + "TitleMusic") },
-            { "WaveMusic", Resources.Load<AudioClip>(AUDIO_PATH + "WaveMusic") }
+            { "WaveMusic", Resources.Load<AudioClip>(AUDIO_PATH + "WaveMusic") },
+            { "Explosion", Resources.Load<AudioClip>(AUDIO_PATH + "Explosion2") },
+            { "Button-Press", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press") },
+            { "Button-Press2", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press2") },
+            { "Button-Press3", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press3") },
+            { "Button-Press4", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press4") },
+            { "ItemPanelOpen", Resources.Load<AudioClip>(AUDIO_PATH + "BookClosing2") },
+            { "ReadyWeapon", Resources.Load<AudioClip>(AUDIO_PATH + "ReloadRecon1") },
+            { "EquipWeapon", Resources.Load<AudioClip>(AUDIO_PATH + "ReloadCyclone1") },
+            { "Radiation", Resources.Load<AudioClip>(AUDIO_PATH + "Radiation2") },
+            { "Deflect", Resources.Load<AudioClip>(AUDIO_PATH + "Deflect") },
+            { "PlayerHurt", Resources.Load<AudioClip>(AUDIO_PATH + "PlayerHurt") },
         };
     }
 
@@ -85,6 +98,19 @@ public class SFXManager : MonoBehaviour
         {
             Debug.LogError($"Clip '{name}' not found in dictionary!");
         }
+    }
+
+    public void PlayRandomSFX(string[] names)
+    {
+        int index = Random.Range(0, names.Length);
+        if (soundClips.TryGetValue(names[index], out AudioClip clip))
+            {
+                sfxAudioSource.PlayOneShot(clip);
+            }
+            else
+            {
+                Debug.LogError($"Clip '{name}' not found in dictionary!");
+            } 
     }
 
     public void PlayBackgroundMusic(string name)

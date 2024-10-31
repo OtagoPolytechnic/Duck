@@ -206,6 +206,7 @@ public class SettingsMenu : MonoBehaviour
 
     private void Return(EventBase evt)
     {
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         PlayerPrefs.Save(); // Save the playerprefs on menu close. They save automatically when application exits as well
         //if MainScene is loaded
         if (!SceneManager.GetSceneByName("Titlescreen").isLoaded)

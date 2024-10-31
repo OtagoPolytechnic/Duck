@@ -22,6 +22,7 @@ public class EnemyExplosion : MonoBehaviour
      
     void Start()
     {
+        SFXManager.Instance.PlaySFX("Explosion");
         ExplosionSize = 6;
         StartCoroutine(DestroyExplosion());
     }

@@ -27,14 +27,12 @@ public class Shockwave : MonoBehaviour
     // Initializes the shockwave properties, including damage, size, and starts the destruction coroutine.
     void Start()
     {
-
         shockwaveDamage = 30 + GameSettings.waveNumber;
         player = GameObject.FindGameObjectWithTag("Player");
         ShockwaveSize = 16;
-
+        SFXManager.Instance.PlaySFX("Explosion");
         StartCoroutine(DestroyExplosion());
     }
-
 
     private IEnumerator DestroyExplosion()
     {

@@ -188,6 +188,7 @@ public class ItemPanel : MonoBehaviour
         {
             rerollCharges++;
         }
+        SFXManager.Instance.PlaySFX("ItemPanelOpen");
         statDisplay.UpdateStats();
         GetItems(3, waveNumber);
         VisualElement rerollCount = rerollOuter.Q<VisualElement>("RerollCount");
@@ -279,6 +280,7 @@ public class ItemPanel : MonoBehaviour
         {
             confirmButton.Focus();
         }
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         selectedIndex = 0;
         selectedItemLabel.text = selectedItems[0].name.ToUpper();
         confirmPanel.style.display = DisplayStyle.Flex;
@@ -289,6 +291,7 @@ public class ItemPanel : MonoBehaviour
         {
             confirmButton.Focus();
         }
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         selectedIndex = 1;
         selectedItemLabel.text = selectedItems[1].name.ToUpper();
         confirmPanel.style.display = DisplayStyle.Flex;
@@ -300,6 +303,7 @@ public class ItemPanel : MonoBehaviour
         {
             confirmButton.Focus();
         }
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         selectedIndex = 2;
         selectedItemLabel.text = selectedItems[2].name.ToUpper();
         confirmPanel.style.display = DisplayStyle.Flex;
@@ -310,6 +314,7 @@ public class ItemPanel : MonoBehaviour
         {
             confirmButton.Focus();
         }
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         selectedIndex = -1;
         selectedItemLabel.text = "SKIP";
         confirmPanel.style.display = DisplayStyle.Flex;
@@ -317,6 +322,7 @@ public class ItemPanel : MonoBehaviour
 
     private void ConfirmSelection(EventBase evt)
     {
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         if (selectedIndex == -1)
         {
             PlayerStats.Instance.CurrentHealth += PlayerStats.Instance.MaxHealth / 2;
@@ -342,6 +348,7 @@ public class ItemPanel : MonoBehaviour
 
     private void Continue(EventBase evt)
     {
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         continuePanel.style.display = DisplayStyle.None;
         selectionContainer.style.display = DisplayStyle.Flex;
         resetColour();
@@ -373,6 +380,7 @@ public class ItemPanel : MonoBehaviour
     private void CancelSelection(EventBase evt)
     {
         itemButtons[0].Focus();
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         confirmPanel.style.display = DisplayStyle.None;
         if (evt is NavigationSubmitEvent navigationSubmitEvent)
         {
@@ -382,6 +390,7 @@ public class ItemPanel : MonoBehaviour
 
     private void RegisterRerollClick(EventBase evt)
     {
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});//change to DiceRoll
         if (rerollCharges > 0)
         {
             rerollCharges--;
@@ -406,6 +415,7 @@ public class ItemPanel : MonoBehaviour
     
     public void Show()
     {
+        
         container.visible = true;
     }
     public void Hide()

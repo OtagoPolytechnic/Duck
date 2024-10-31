@@ -44,6 +44,7 @@ public class Credits : MonoBehaviour
 
     private void ReturnToMainMenu(EventBase evt)
     {
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         if (document != null)
         {
             document.style.display = DisplayStyle.None;
