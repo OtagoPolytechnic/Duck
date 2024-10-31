@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 2036640265563084974}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5656455699881316956}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: 8e4673c84c8ee8a4481576026d71429d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ca5b4001b6427b7428e3a8a1637f5d6e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -152,7 +152,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.1, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -163,7 +163,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.75, y: 1.75}
+  m_Size: {x: 3.25, y: 2.25}
   m_EdgeRadius: 0
 --- !u!50 &5279123959450887226
 Rigidbody2D:
@@ -218,13 +218,6 @@ MonoBehaviour:
   bullet: {fileID: 5418265743146168994, guid: 80580cccf9c60b14e9c7630a88835b6e, type: 3}
   shadowPrefab: {fileID: 5656455698361903583, guid: 6eb3f49fce118544da10f920001f0fad, type: 3}
   bulletPosition: {fileID: 5656455699881316956}
-  attackRange: 10
-  attackInterval: 1.5
-  minJumpAttackInterval: 2
-  maxJumpAttackInterval: 5
-  jumpAttackCooldown: 5
-  attackResumptionDelay: 2
-  initialShootingDelay: 2
 --- !u!1 &5656455699881316957
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,7 +24,6 @@ public class EnemyExplosion : MonoBehaviour
     {
         SFXManager.Instance.PlaySFX("Explosion");
         ExplosionSize = 6;
- 
         StartCoroutine(DestroyExplosion());
     }
     private IEnumerator DestroyExplosion()
@@ -37,11 +36,8 @@ public class EnemyExplosion : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-           
-           DestroyExplosion();
-            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(10);
-          
-           
+            DestroyExplosion();
+            other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(5 + GameSettings.waveNumber);
         }
     }
 }

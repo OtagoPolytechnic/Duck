@@ -18,34 +18,45 @@ public class SkillEffects : MonoBehaviour
     public static SkillEffects Instance;
     private SkillState state;
     private Rigidbody2D rb;
+    public GameObject ExplosionPrefab;
     [Header("UI")]
     [SerializeField]
     private GameObject document;
     private VisualElement hud;
     private VisualElement cooldownBG;
     private Label cooldownTimer;
-    private VisualElement activeSkillIcon;
+    public VisualElement activeSkillIcon;
     private IMGUIContainer durationBar;
     private IMGUIContainer durationContainer;
     [Header("Cooldowns")]
     public bool cooldownActive;
     private float cooldownRemaining;
+    public float cooldownModifier = 1.0f;
+
     public bool durationActive;
     private float durationRemaining;
+    public float durationModifier = 1.0f;
     [Header("Dash")]
     [SerializeField]
     private float dashForce;
     public bool moveMode;
     private Vector3 dashVector;
+    public bool cursedDash;
 
     [Header("Vanish")]
     public bool vanishActive;
+    [SerializeField] private SpriteRenderer[] weaponSprites; //Needed so weapon sprite transparency can be set when vanished
+    public bool cursedVanish;
     [Header("Decoy")]
+    public bool cursedDecoy;
 
     [SerializeField]
     private GameObject decoy;
     private GameObject spawnedDecoy;
     public bool decoyActive;
+
+    private int storedVanishBonus;
+    private bool single;
 
 
     void Awake()
@@ -71,7 +82,7 @@ public class SkillEffects : MonoBehaviour
         {
             activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("DashV2");
         }
-        else if (GameSettings.activeSkill == SkillEnum.vanish)
+        else if (GameSettings.activeSkill == SkillEnum.vanish) 
         {
             activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("VanishV2");
         }
@@ -153,7 +164,7 @@ public class SkillEffects : MonoBehaviour
             CheckCooldown();
         }
     }
-
+    
     void LateUpdate()
     {
         if (GameSettings.gameState != GameState.InGame) { return; }
@@ -161,25 +172,60 @@ public class SkillEffects : MonoBehaviour
         {
             //add some velocity to the player and push them some distance towards that direction
             rb.AddForce(dashVector * dashForce, ForceMode2D.Impulse);
-            PlayerStats.Instance.StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(durationRemaining));
+            if(!cursedDash)
+            {
+                PlayerStats.Instance.StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(durationRemaining));
+            }
         }
         if (state == SkillState.vanished && durationActive)
-        {   
-            //disable the players collision for the duration
-            PlayerStats.Instance.StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(durationRemaining));
-            //add a darkness to the player or screen
-            GetComponentInChildren<SpriteRenderer>().color = new Color(255,255,255,0.5f);
-            //stop all enemy movement towards the player
-            vanishActive = true;
+        {
+            if (!single)
+            {
+                if (cursedVanish)
+                {
+                    storedVanishBonus = WeaponStats.Instance.PercentageDamage;
+                    WeaponStats.Instance.PercentageDamage *= 3;  
+                }
+                single = true;
+                //disable the players collision for the duration
+                PlayerStats.Instance.StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(durationRemaining));
+                //add a darkness to the player or screen
+                GetComponentInChildren<SpriteRenderer>().color = new Color(255,255,255,0.5f);
+                foreach (SpriteRenderer sprite in weaponSprites)
+                {
+                    sprite.color = new Color(255,255,255,0.5f);
+                }
+                //stop all enemy movement towards the player
+                vanishActive = true;
+            }
         }
         else
         {
-            GetComponentInChildren<SpriteRenderer>().color = new Color(255,255,255,1f);
-            vanishActive = false;
+            if (single)
+            {
+                if (cursedVanish)
+                {
+                    WeaponStats.Instance.PercentageDamage = storedVanishBonus;
+                }
+                single = false;
+                GetComponentInChildren<SpriteRenderer>().color = new Color(255,255,255,1f);
+                foreach (SpriteRenderer sprite in weaponSprites)
+                {
+                    sprite.color = new Color(255,255,255,1f);
+                }
+                vanishActive = false;
+            }
         }
         if (decoyActive && !durationActive)
         {
             decoyActive = false;
+            if (cursedDecoy)
+            {
+                GameObject Explosion = Instantiate(ExplosionPrefab, spawnedDecoy.transform.position, Quaternion.identity);
+                PlayerExplosion explosionScript = Explosion.GetComponent<PlayerExplosion>();
+                explosionScript.ExplosionSize = 10;
+                explosionScript.ExplosionDamage = WeaponStats.Instance.Damage * 100;
+            }
             Destroy(spawnedDecoy);
         }
 
@@ -188,14 +234,18 @@ public class SkillEffects : MonoBehaviour
     private void StartCooldown()
     {
         cooldownRemaining = skillList[(int)GameSettings.activeSkill].cooldown;//this restricts the ability to make one conjoined method of StartCooldown, StartDuration, etc. etc.
+        cooldownRemaining *= cooldownModifier;
         cooldownActive = true;
+        Debug.Log(cooldownRemaining);
     }
 
     private void StartDuration()
     {
         durationRemaining = skillList[(int)GameSettings.activeSkill].duration;
+        durationRemaining *= durationModifier;
         durationActive = true;
         cooldownBG.visible = true;
+        Debug.Log(durationRemaining);
     }
 
     private void CheckDuration()
@@ -203,7 +253,7 @@ public class SkillEffects : MonoBehaviour
         if (durationRemaining > 0)
         {
             durationRemaining -= Time.deltaTime;
-            float durationFraction = durationRemaining / skillList[(int)GameSettings.activeSkill].duration;
+            float durationFraction = durationRemaining / (skillList[(int)GameSettings.activeSkill].duration * durationModifier);
             durationBar.style.width = Length.Percent(durationFraction * 100);
         }
         else
@@ -220,7 +270,7 @@ public class SkillEffects : MonoBehaviour
         if (cooldownRemaining > 0)
         {
             cooldownRemaining -= Time.deltaTime;
-            cooldownTimer.text = Mathf.Round(cooldownRemaining).ToString();
+            cooldownTimer.text = cooldownRemaining.ToString("0.0");
         }
         else
         {

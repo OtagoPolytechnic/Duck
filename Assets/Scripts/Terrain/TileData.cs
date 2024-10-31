@@ -8,6 +8,7 @@ public class TileData : ScriptableObject
 {
     public TileBase[] tiles;
 
-    public float moveSpeedModifier;
-
+    public string tileType;
+    public float enemyMoveSpeedModifier;
+    public float playerMoveSpeedModifier;
 }

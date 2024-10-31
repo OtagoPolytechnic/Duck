@@ -29,7 +29,7 @@ public class Shockwave : MonoBehaviour
     {
         shockwaveDamage = 30 + GameSettings.waveNumber;
         player = GameObject.FindGameObjectWithTag("Player");
-        ShockwaveSize = 12;
+        ShockwaveSize = 16;
         SFXManager.Instance.PlaySFX("Explosion");
         StartCoroutine(DestroyExplosion());
     }

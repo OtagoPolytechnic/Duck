@@ -26,10 +26,32 @@ public class Bullet : MonoBehaviour
         if (UnityEngine.Random.Range(0, 100) < WeaponStats.Instance.CritChance)
         {
             crit = true;
-            //Change to critical sprite
-            transform.GetChild(0).gameObject.SetActive(false);
-            transform.GetChild(1).gameObject.SetActive(true);
         }
+
+        //Set sprite
+        if (crit)
+        {
+            if (WeaponStats.Instance.CurrentWeapon == WeaponType.RocketLauncher)
+            {
+                transform.GetChild(3).gameObject.SetActive(true);
+            }
+            else
+            {
+                transform.GetChild(1).gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            if (WeaponStats.Instance.CurrentWeapon == WeaponType.RocketLauncher)
+            {
+                transform.GetChild(2).gameObject.SetActive(true);
+            }
+            else
+            {
+                transform.GetChild(0).gameObject.SetActive(true);
+            }
+        }
+
         if (WeaponStats.Instance.Piercing)
         {
             pierceCount = WeaponStats.Instance.PierceAmount; //NOTE: If this is -1, it will pierce infinitely. Otherwise, it will pierce the number of times specified
@@ -52,13 +74,8 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     { 
-        if (other.gameObject.CompareTag("Shield"))
-        {
-            Destroy(gameObject);
-            other.gameObject.GetComponent<RiotShield>().TakeDamage();
-        }
         //destroys bullet on hit with player and lowers health
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Shield"))
         {
 
             if (WeaponStats.Instance.ExplosiveBullets)
@@ -71,14 +88,18 @@ public class Bullet : MonoBehaviour
                 {
                     explosionScript.ExplosionDamage = (WeaponStats.Instance.ExplosionDamage * WeaponStats.Instance.CritDamage) / 100;
                 }
-               
                 else
                 {
                     explosionScript.ExplosionDamage = WeaponStats.Instance.ExplosionDamage;
                 }
             }
+            if (other.gameObject.CompareTag("Shield"))
+            {
+                other.gameObject.GetComponent<RiotShield>().TakeDamage();
+                Destroy(gameObject);
+            }
             //Making the rocket launcher not deal base bullet damage, only explosion damage
-            if (WeaponStats.Instance.CurrentWeapon != WeaponType.RocketLauncher)
+            else if (WeaponStats.Instance.CurrentWeapon != WeaponType.RocketLauncher)
             {
                 if (crit)
                 {

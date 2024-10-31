@@ -93,6 +93,8 @@ public class EnemySpawner : MonoBehaviour
             break;
         }
 
+        location.z = 0;
+
         GameObject enemy = Instantiate(availableEnemies[enemyNum], location, Quaternion.identity);
         currentEnemies.Add(enemy);
     }

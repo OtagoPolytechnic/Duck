@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles:
   - {fileID: 11400000, guid: 9a87c5cbe5fe2ca46909e9458b104949, type: 2}
-  moveSpeedModifier: 1
+  - {fileID: 11400000, guid: cd7e05f3701a1d24bb398ed51c08e2ef, type: 2}
+  tileType: Grass
+  enemyMoveSpeedModifier: 1
+  playerMoveSpeedModifier: 1
