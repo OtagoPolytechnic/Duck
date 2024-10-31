@@ -112,7 +112,7 @@ public class EntryData
         info.Add("Killed: " + enemiesKilled+ "\t");
         info.Add("Date: " + DateFormatted);
         info.Add("Time: " + TimeFormatted);
-        info.Add("Game Version: " + GameVersion);
+        info.Add("Version: " + GameVersion);
         return info;
     }
 }
