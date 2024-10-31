@@ -239,7 +239,7 @@ public class ItemEffectTable : MonoBehaviour
                 WeaponStats.Instance.WeaponFireDelay *= 3;
                 break;
             case 37:
-                SkillEffects.Instance.cooldownModifier -= 0.1f;
+                SkillEffects.Instance.cooldownModifier *= 0.9f;
             break;
             case 38:
                 SkillEffects.Instance.durationModifier += 0.1f;
