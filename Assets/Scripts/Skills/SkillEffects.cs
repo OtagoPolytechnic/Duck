@@ -261,7 +261,7 @@ public class SkillEffects : MonoBehaviour
         if (cooldownRemaining > 0)
         {
             cooldownRemaining -= Time.deltaTime;
-            cooldownTimer.text = Mathf.Round(cooldownRemaining).ToString();
+            cooldownTimer.text = cooldownRemaining.ToString("0.0");
         }
         else
         {
