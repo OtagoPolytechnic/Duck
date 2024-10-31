@@ -33,8 +33,8 @@ public class ItemEffectTable : MonoBehaviour
                 PlayerStats.Instance.FlatRegenerationPercentage += 2;
                 Debug.Log($"Regeneration Percentage: {PlayerStats.Instance.RegenerationPercentage}");
                 break;
-            case 04: //Illegal Trigger
-                WeaponStats.Instance.PercentageFireDelay -= 10; //This makes it shoot 10% faster
+            case 04:
+                WeaponStats.Instance.PercentageFireDelay *= .9f; //This makes it shoot 10% faster
                 Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}");
                 break;
             case 05: //Chompers
@@ -61,8 +61,8 @@ public class ItemEffectTable : MonoBehaviour
                 WeaponStats.Instance.FlatCritChance += 8; //8% crit chance
                 Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                 break;
-            case 10: //Super Charger
-                WeaponStats.Instance.PercentageFireDelay -= 30; //This makes it shoot 30% faster
+            case 10:
+                WeaponStats.Instance.PercentageFireDelay *= .7f; //This makes it shoot 30% faster
                 Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}");
                 break;
             case 11: //Eye of the Eagle
@@ -91,7 +91,7 @@ public class ItemEffectTable : MonoBehaviour
                             Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                             break;
                         case 3:
-                            WeaponStats.Instance.PercentageFireDelay -= 6;
+                            WeaponStats.Instance.PercentageFireDelay *= .94f;
                             Debug.Log($"Fire Delay: {WeaponStats.Instance.FireDelay}");
                             break;
                         case 4:
@@ -229,7 +229,7 @@ public class ItemEffectTable : MonoBehaviour
                 break;
             case 36: //Claymore
                 WeaponStats.Instance.PercentageDamage *= 4;
-                WeaponStats.Instance.WeaponFireDelay *= 3;
+                WeaponStats.Instance.PercentageFireDelay *= 3f;
                 break;
             default:
                 Debug.Log($"The ID: {itemID} has not been given a case in the item effect table.");

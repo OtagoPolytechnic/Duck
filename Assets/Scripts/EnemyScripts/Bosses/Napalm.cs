@@ -18,7 +18,11 @@ public class Napalm : MonoBehaviour
 
     void Update()
     {
-        if (GameSettings.gameState != GameState.InGame) { return; }
+        if (GameSettings.gameState == GameState.ItemSelect || GameSettings.gameState == GameState.BossVictory)
+        {
+            Destroy(gameObject);
+        }
+        else if (GameSettings.gameState != GameState.InGame) { return; }
 
         damageTick -= Time.deltaTime;
         if (damageTick <= 0)

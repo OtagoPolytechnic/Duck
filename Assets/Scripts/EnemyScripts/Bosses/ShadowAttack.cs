@@ -17,6 +17,7 @@ public class ShadowAttack : MonoBehaviour
     private Vector3 initialScale;
     private float scaleUpTimer;
     private float scaleUpRate;
+    private bool decoyTargeted = false;
 
     private float duration = 3.3f;
 
@@ -62,6 +63,17 @@ public class ShadowAttack : MonoBehaviour
         if (GameSettings.gameState != GameState.InGame || originBoss.Dying)
         {
             return;
+        }
+        //Switches targets to, and away from, the decoy. Only switches once per decoy so it doesn't do findobject every frame
+        if (SkillEffects.Instance.decoyActive && !decoyTargeted)
+        {
+            player = GameObject.FindGameObjectWithTag("Decoy");
+            decoyTargeted = true;
+        }
+        else if (!SkillEffects.Instance.decoyActive && decoyTargeted)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            decoyTargeted = false;
         }
 
         duration -= Time.deltaTime;

@@ -109,7 +109,7 @@ public class TerminalBehaviour : MonoBehaviour
             }   
             input.value = "";
             input.Focus();
-            output.text += new string('-', 108);
+            output.text += new string('-', 106);
         }
     }
 
@@ -326,6 +326,11 @@ public class TerminalBehaviour : MonoBehaviour
     {
         Timer.CullBullets();
         Timer.CullEnemies();
+        if (GameSettings.waveNumber % 5 == 0)
+        {
+            GameSettings.gameState = GameState.InGame;
+            terminalWindow.visible = !terminalWindow.visible; //terminal should be hidden on game start
+        }
         output.text += "\nAll enemies on screen culled\n\n";
     }
 
