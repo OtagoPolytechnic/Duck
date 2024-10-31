@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 public enum SkillEnum
 {
@@ -18,6 +19,10 @@ public class SkillMenu : MonoBehaviour
     private Label skillLabel;
     private Label skillDesc;
     private Label skillTimers;
+    private Button skill1Button;
+    private Button skill2Button;
+    private Button skill3Button;
+    private Button backButton;
     private List<Skill> skillList = new List<Skill>();
     private VisualElement document;
 
@@ -31,16 +36,22 @@ public class SkillMenu : MonoBehaviour
         skillTimers = document.Q<Label>("SkillTimers");
 
         playButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f)); //Turn gray while loading
-        Button skill1Button = document.Q<Button>("Skill1");
+        skill1Button = document.Q<Button>("Skill1");
         skill1Button.RegisterCallback<ClickEvent, SkillEnum>(SkillClick, SkillEnum.dash);
-        Button skill2Button = document.Q<Button>("Skill2");
+        skill1Button.RegisterCallback<NavigationSubmitEvent, SkillEnum>(SkillClick, SkillEnum.dash);
+        skill2Button = document.Q<Button>("Skill2");
         skill2Button.RegisterCallback<ClickEvent, SkillEnum>(SkillClick, SkillEnum.vanish);
-        Button skill3Button = document.Q<Button>("Skill3");
+        skill2Button.RegisterCallback<NavigationSubmitEvent, SkillEnum>(SkillClick, SkillEnum.vanish);
+        skill3Button = document.Q<Button>("Skill3");
         skill3Button.RegisterCallback<ClickEvent, SkillEnum>(SkillClick, SkillEnum.decoy);
-        Button backButton = document.Q<Button>("Return");
+        skill3Button.RegisterCallback<NavigationSubmitEvent, SkillEnum>(SkillClick, SkillEnum.decoy);
+        backButton = document.Q<Button>("Return");
         backButton.RegisterCallback<ClickEvent>(ReturnToModeMenu);
+        backButton.RegisterCallback<NavigationSubmitEvent>(ReturnToModeMenu);
         Load();
+        navigationSetting();
     }
+
     private void Load()
     {
         string json = Resources.Load<TextAsset>("skills").text;
@@ -48,10 +59,11 @@ public class SkillMenu : MonoBehaviour
         skillList = skillsJson.skills;
     }
 
-    public void PlayGame(ClickEvent click)
+    public void PlayGame(EventBase evt)
     {
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         GameSettings.gameState = GameState.InGame;
-        StartCoroutine(LoadScene("MainScene")); //change to main scene
+        StartCoroutine(LoadScene("MainScene"));
     }
 
     IEnumerator LoadScene(string sceneName)
@@ -64,8 +76,73 @@ public class SkillMenu : MonoBehaviour
             yield return null;
         }
     }
-    public void SkillClick(ClickEvent click, SkillEnum skillEnum)
+
+    private void navigationSetting()
     {
+        skill1Button.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: backButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: playButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: skill3Button.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: skill2Button.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        skill2Button.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: backButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: playButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: skill1Button.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: skill3Button.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        skill3Button.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: backButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: playButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: skill2Button.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: skill1Button.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        playButton.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: skill2Button.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: skill2Button.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: backButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: backButton.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+
+        backButton.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: skill1Button.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: skill1Button.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: playButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: playButton.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+    }
+    
+    public void SkillClick(EventBase evt, SkillEnum skillEnum)
+    {
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         foreach (Skill s in skillList)
         {
             if (s.id == skillEnum)
@@ -77,24 +154,27 @@ public class SkillMenu : MonoBehaviour
         }
 
         playButton.RegisterCallback<ClickEvent>(PlayGame);
+        playButton.RegisterCallback<NavigationSubmitEvent>(PlayGame);
         playButton.style.backgroundColor = new StyleColor(new Color(88, 255, 88, 255));
         GameSettings.activeSkill = skillEnum;
         Debug.Log(GameSettings.activeSkill);
     }
 
-    private void ReturnToModeMenu(ClickEvent click)
+    private void ReturnToModeMenu(EventBase evt)
     {
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         GameSettings.activeSkill = SkillEnum.dash;
         playButton.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
         playButton.UnregisterCallback<ClickEvent>(PlayGame);
+        playButton.UnregisterCallback<NavigationSubmitEvent>(PlayGame);
         if (document != null)
         {
             document.style.display = DisplayStyle.None;
         }
-        showModeMenu();
+        showModeMenu(evt);
     }
 
-    private void showModeMenu()
+    private void showModeMenu(EventBase evt)
     {
         Scene modeScene = SceneManager.GetSceneByName("ModeSelect");
         if (modeScene.IsValid())
@@ -108,6 +188,14 @@ public class SkillMenu : MonoBehaviour
             {
                 VisualElement rootElement = uiDocument.rootVisualElement; // Getting the root visual element of the UI document
                 rootElement.style.display = DisplayStyle.Flex;
+                if (evt is NavigationSubmitEvent)
+                {
+                    Button buttonToFocus = rootElement.Query<Button>(className: "focus-button").First();
+                    if (buttonToFocus != null)
+                    {
+                        buttonToFocus.Focus();
+                    }
+                }
             }
         }
     }

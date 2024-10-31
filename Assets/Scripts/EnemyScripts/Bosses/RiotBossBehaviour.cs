@@ -12,6 +12,7 @@ public class RiotBossBehaviour : EnemyBase
     [SerializeField] private GameObject napalmBombPrefab;
     [SerializeField] private GameObject shieldPrefab;  
     [SerializeField] private Transform shotPoint;    
+    [SerializeField] private Transform shieldPoint;    
 
     private float attackRange = 10f;
     private float attackInterval = 1.5f; 
@@ -21,7 +22,7 @@ public class RiotBossBehaviour : EnemyBase
     private GameObject shieldInstance;                 
     private float minShieldInterval = 7f;
     private float maxShieldInterval = 15f;
-    private float shieldOffset = 5f;
+    //private float shieldOffset = 5f;
 
     private float attackCooldown;
 
@@ -58,6 +59,7 @@ public class RiotBossBehaviour : EnemyBase
             direction.Normalize();
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             transform.GetChild(0).rotation = Quaternion.Euler(Vector3.forward * angle);
+            transform.GetChild(1).rotation = Quaternion.Euler(Vector3.forward * angle);
         }
 
         if (distance >= attackRange)
@@ -69,6 +71,14 @@ public class RiotBossBehaviour : EnemyBase
            
             if (shieldInstance == null)
             {
+
+                //ResetSprites
+                if(transform.GetChild(0).gameObject.activeSelf == false)
+                {
+                    transform.GetChild(0).gameObject.SetActive(true);
+                    transform.GetChild(1).gameObject.SetActive(false);
+                }
+
                 if (attackCooldown <= 0)
                 {
                     Shoot();
@@ -124,10 +134,14 @@ public class RiotBossBehaviour : EnemyBase
             if (shieldInstance == null && GameSettings.gameState == GameState.InGame)
             {
               
-                Vector2 shieldPosition = (Vector2)shotPoint.position + (Vector2)(shotPoint.right * shieldOffset);     
-                shieldInstance = Instantiate(shieldPrefab, shieldPosition, shotPoint.rotation);             
-                shieldInstance.transform.SetParent(shotPoint);
+                //Vector2 shieldPosition = (Vector2)shotPoint.position + (Vector2)(shotPoint.right * shieldOffset);     
+                shieldInstance = Instantiate(shieldPrefab, shieldPoint.position, shieldPoint.rotation);             
+                shieldInstance.transform.SetParent(shieldPoint);
                 shieldInstance.transform.localPosition = Vector3.zero;
+
+                //Activate shielding sprite
+                transform.GetChild(0).gameObject.SetActive(false);
+                transform.GetChild(1).gameObject.SetActive(true);
 
                 yield return new WaitUntil(() => shieldInstance == null);
             }

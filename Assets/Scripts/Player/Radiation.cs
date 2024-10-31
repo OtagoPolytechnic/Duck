@@ -11,6 +11,7 @@ public class Radiation : MonoBehaviour
     void Start()
     {
         damageTick = damageInterval;
+        //SFXManager.Instance.PlaySFX("Radiation");
     }
 
     // Update is called once per frame

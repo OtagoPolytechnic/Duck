@@ -2,17 +2,15 @@
     <Style src="project://database/Assets/UI%20Toolkit/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=54b9a6b1cdc53744c98b1d99e6f472a3&amp;type=3#MainMenuStyle" />
     <ui:VisualElement name="Background" style="background-color: rgb(80, 80, 80); flex-grow: 1; justify-content: space-between;">
         <ui:VisualElement name="HeaderContainer">
-            <ui:Label text="Duck-struction" display-tooltip-when-elided="true" name="Title" class="text header" style="color: rgb(255, 251, 0); -unity-text-align: middle-center; -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/PublicPixel.ttf?fileID=12800000&amp;guid=9cdf889b2baddf840996f4d8b05c1651&amp;type=3#PublicPixel&quot;);" />
+            <ui:Label text="Duck-struction" display-tooltip-when-elided="true" name="Title" class="text header" style="-unity-text-align: middle-center; -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/PublicPixel.ttf?fileID=12800000&amp;guid=9cdf889b2baddf840996f4d8b05c1651&amp;type=3#PublicPixel&quot;); color: rgb(255, 255, 0);" />
         </ui:VisualElement>
-        <ui:VisualElement name="ButtonContainer" style="flex-direction: column; justify-content: space-between; align-items: center; min-width: auto; height: 585px;">
-            <ui:Button text="PLAY" display-tooltip-when-elided="true" name="ModeSelect" class="text button buttonText" style="-unity-text-align: middle-center; white-space: normal; background-color: rgb(253, 255, 122);" />
-            <ui:Button text="HIGHSCORES" display-tooltip-when-elided="true" name="Highscores" class="text button buttonText" style="background-color: rgb(80, 231, 167);" />
-            <ui:Button text="SETTINGS" display-tooltip-when-elided="true" name="Settings" class="text button buttonText" style="background-color: rgb(172, 135, 201);" />
-            <ui:Button text="QUIT" display-tooltip-when-elided="true" name="Quit" class="text button buttonText" style="background-color: rgb(208, 50, 42);" />
-        </ui:VisualElement>
-        <ui:VisualElement name="FooterContainer" style="padding-bottom: 0; padding-top: 0; flex-direction: row-reverse; justify-content: space-between; border-left-width: 50px; border-right-width: 50px; border-bottom-width: 20px;">
-            <ui:Label text="Alpha v0.0.0" display-tooltip-when-elided="true" name="VersionNumber" class="text" style="-unity-text-align: lower-right; color: rgb(255, 255, 255); padding-right: 100px; margin-top: 0; height: 97px;" />
-            <ui:Button text="Credits" display-tooltip-when-elided="true" name="Credits" class="text button buttonText" style="background-color: rgb(255, 137, 0);" />
+        <ui:VisualElement name="ButtonContainer" style="flex-direction: column; justify-content: space-around; align-items: center; min-width: auto; height: 651px; padding-bottom: 50px;">
+            <ui:Button text="PLAY" display-tooltip-when-elided="true" name="ModeSelect" class="text button buttonText menuButton focus-button" style="-unity-text-align: middle-center; white-space: normal; font-size: 28px; background-color: rgb(188, 188, 188);" />
+            <ui:Button text="HIGHSCORES" display-tooltip-when-elided="true" name="Highscores" class="text button buttonText menuButton" style="font-size: 28px; background-color: rgb(188, 188, 188);" />
+            <ui:Button text="SETTINGS" display-tooltip-when-elided="true" name="Settings" class="text button buttonText menuButton" style="font-size: 28px; background-color: rgb(188, 188, 188);" />
+            <ui:Button text="CREDITS" display-tooltip-when-elided="true" name="Credits" class="text button buttonText menuButton" style="background-color: rgb(188, 188, 188); align-self: auto;" />
+            <ui:Button text="QUIT" display-tooltip-when-elided="true" name="Quit" class="text button buttonText menuButton" style="background-color: rgb(188, 188, 188);" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:Label text="Version Number" display-tooltip-when-elided="true" name="VersionNumber" class="text" style="-unity-text-align: lower-right; color: rgb(255, 255, 255); padding-right: 4px; margin-top: 0; height: 97px; font-size: 20px; position: absolute; right: 0; bottom: 0; margin-right: 100px; margin-bottom: 30px;" />
 </ui:UXML>

@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements.Experimental;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -20,7 +21,6 @@ public class ScoreManager : MonoBehaviour
     private Button submitButton;
     private TextField playerName;
     private Label enterName;
-    private Button replay;
     private VisualElement gameOverDoc;
     private Label GameOverText;
 
@@ -47,7 +47,6 @@ public class ScoreManager : MonoBehaviour
         submitButton = gameOverDoc.Q<Button>("SubmitScore");
         playerName = gameOverDoc.Q<TextField>("PlayerName");
         enterName = gameOverDoc.Q<Label>("EnterName");
-        replay = gameOverDoc.Q<Button>("Replay");
         GameOverText = gameOverDoc.Q<Label>("Title");
         
     }
@@ -88,14 +87,16 @@ public class ScoreManager : MonoBehaviour
             enterName.style.display = DisplayStyle.None;
         }
         submitButton.RegisterCallback<ClickEvent>(SubmitScore);
+        submitButton.RegisterCallback<NavigationSubmitEvent>(SubmitScore);
         finalscoreText.text = "Score: " + score.ToString();
+        submitButton.Focus();
         if (GameSettings.gameState == GameState.BossVictory)
         {
             GameOverText.text = "BOSS KILLED!";
         }
     }
 
-    public void SubmitScore(ClickEvent click)
+    public void SubmitScore(EventBase evt)
     {
         if (playerName.value == "") //If the player didn't enter a name then default to "Player"
         {
@@ -114,6 +115,7 @@ public class ScoreManager : MonoBehaviour
         
         submitButton.text = "Submitted!";
         submitButton.UnregisterCallback<ClickEvent>(SubmitScore); //So the player can't submit multiple times
+        submitButton.UnregisterCallback<NavigationSubmitEvent>(SubmitScore);
 
         Scene loadedScene = SceneManager.GetSceneByName("HighScores");
         if (loadedScene.IsValid())
@@ -126,6 +128,11 @@ public class ScoreManager : MonoBehaviour
             {
                 VisualElement rootElement = uiDocument.rootVisualElement; // Getting the root visual element of the UI document
                 rootElement.style.display = DisplayStyle.Flex;
+                Button buttonToFocus = rootElement.Query<Button>(className: "focus-button").First();
+                if (buttonToFocus != null)
+                {
+                    buttonToFocus.Focus();
+                }
             }
             Scoreboard scoreboard = FindObjectOfType<Scoreboard>();
             scoreboard.AddEntry(playerScoreInfo);

@@ -8,68 +8,76 @@ public class ItemEffectTable : MonoBehaviour
     //If you add a new item in the items.json file you need to add the functionality in here
     [SerializeField]
     private GameObject eggPrefab;
-    public void ItemPicked(int itemID)
+    public void ItemPicked(Item item)
     {
-        Debug.Log(itemID);
-
-        switch(itemID) 
+        int id;
+        if (item == null)
+        {
+            id = -1;
+        }
+        else
+        {
+            id = item.id;
+        }        
+        Debug.Log(id);
+        switch(id) 
         {
             case -1:
                 Debug.Log("Item choice skipped");
                 break;
-            case 0:
+            case 0: //Sharpened Talons
                 WeaponStats.Instance.FlatDamage += 10;
                 Debug.Log($"Damage: {WeaponStats.Instance.Damage}");
                 break;
-            case 01:
-                PlayerStats.Instance.PercentBonusHealth += 10;
+            case 01: //Oats
+                PlayerStats.Instance.PercentBonusHealth += PlayerStats.Instance.PercentBonusHealth / 10;
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}");
                 break;
-            case 02:
+            case 02: //Boots
                 TopDownMovement.Instance.PercentBonusSpeed += 5;
                 Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                 break;
-            case 03:
-                PlayerStats.Instance.FlatRegenerationPercentage += 1;
+            case 03: //Band-Aid
+                PlayerStats.Instance.FlatRegenerationPercentage += 2;
                 Debug.Log($"Regeneration Percentage: {PlayerStats.Instance.RegenerationPercentage}");
                 break;
             case 04:
-                WeaponStats.Instance.PercentageFireDelay -= 10; //This makes it shoot 10% faster
+                WeaponStats.Instance.PercentageFireDelay *= .9f; //This makes it shoot 10% faster
                 Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}");
                 break;
-            case 05:
+            case 05: //Chompers
                 WeaponStats.Instance.ItemBleedDamage += 1; //2% max health bleed per second
                 Debug.Log($"Bleed amount: {WeaponStats.Instance.BleedDamage}");
                 break;
-            case 06:
+            case 06: //Leech
                 PlayerStats.Instance.FlatLifestealPercentage += 1;
                 Debug.Log($"Lifesteal percentage: {PlayerStats.Instance.LifestealPercentage}");
                 break;
-            case 07:
+            case 07: //Explosive Bullets
                 WeaponStats.Instance.ItemExplosiveBullets = true;
                 WeaponStats.Instance.ItemExplosionSize += 2;
                 WeaponStats.Instance.ItemExplosionDamage += 50; //50% of the weapon damage as an explosion. Unsure about the balance 
                 Debug.Log($"Explosion size: {WeaponStats.Instance.ExplosionSize}");
                 Debug.Log($"Explosion damage: {WeaponStats.Instance.ExplosionDamage}");
                 break;
-            case 08:
+            case 08: //Egg
                 //This is going to be changed to not being actual items on the ground
                 GameObject newEgg = Instantiate(eggPrefab,  new Vector3(0,0,0), Quaternion.identity, GameObject.Find("Nest").transform);
                 newEgg.transform.localScale = new Vector3(1f/3f, 1f/3f, 1f/3f); //Properly setting the scale to one third
                 break;
-            case 09:
+            case 09: //Lucky Feather
                 WeaponStats.Instance.FlatCritChance += 8; //8% crit chance
                 Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                 break;
-            case 10:
-                WeaponStats.Instance.PercentageFireDelay -= 30; //This makes it shoot 30% faster
+            case 10: //Supercharger
+                WeaponStats.Instance.PercentageFireDelay *= .7f; //This makes it shoot 30% faster
                 Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}");
                 break;
-            case 11:
+            case 11: //Eye of the Eagle
                 WeaponStats.Instance.FlatCritChance += 24; //24% crit chance
                 Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                 break;
-            case 12:
+            case 12: //Lucky Dive
                 List<int> randomStats = new List<int> {0, 1, 2, 3, 4, 5};
                 // Shuffle the list using LINQ
                 randomStats = randomStats.OrderBy(x => UnityEngine.Random.value).ToList();
@@ -91,7 +99,7 @@ public class ItemEffectTable : MonoBehaviour
                             Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                             break;
                         case 3:
-                            WeaponStats.Instance.PercentageFireDelay -= 6;
+                            WeaponStats.Instance.PercentageFireDelay *= .94f;
                             Debug.Log($"Fire Delay: {WeaponStats.Instance.FireDelay}");
                             break;
                         case 4:
@@ -105,55 +113,55 @@ public class ItemEffectTable : MonoBehaviour
                     }
                 }
                 break;
-            case 13:
+            case 13: //Shotgun
                 WeaponStats.Instance.CurrentWeapon = WeaponType.Shotgun;
                 Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
-            case 14:
+            case 14://Sniper
                 WeaponStats.Instance.CurrentWeapon = WeaponType.Sniper;
                 Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
-            case 15:
+            case 15: //Machine Gun
                 WeaponStats.Instance.CurrentWeapon = WeaponType.MachineGun;
                 Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
-            case 16:
+            case 16: //Dual Pistol
                 WeaponStats.Instance.CurrentWeapon = WeaponType.DualPistol;
                 Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
-            case 17:
+            case 17: //Rocket Launcher
                 WeaponStats.Instance.CurrentWeapon = WeaponType.RocketLauncher;
                 Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
-            case 18:
+            case 18: //Sword
                 WeaponStats.Instance.CurrentWeapon = WeaponType.Sword;
                 Debug.Log($"Current Weapon: {WeaponStats.Instance.CurrentWeapon}");
                 break;
-            case 19:
+            case 19: //Ricochet
                 WeaponStats.Instance.RicochetCount += 1;
                 Debug.Log($"Ricochet count: {WeaponStats.Instance.RicochetCount}");
                 break;
-            case 20:
+            case 20: //Piercing Bullets
                 WeaponStats.Instance.ItemPiercing = true;
                 WeaponStats.Instance.ItemPierceAmount += 1;
                 Debug.Log($"Piercing: {WeaponStats.Instance.PierceAmount}");
                 break;
-            case 21:
-                WeaponStats.Instance.ItemExtraBullets += 6;
+            case 21: //Bigger Barrel
+                WeaponStats.Instance.ItemExtraBullets += 4;
                 Debug.Log($"Extra bullets: {WeaponStats.Instance.ExtraBullets}");
                 break;
-            case 22:
+            case 22: //Spine Plate
                 TopDownMovement.Instance.PercentBonusSpeed *= 0.75f; //3/4 the speed
                 PlayerStats.Instance.SpinePlate = true;
                 PlayerStats.Instance.SpinePercent += 200; //200% of damage taken is dealt to the enemy per stack
                 Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                 break;
-            case 23:
+            case 23: //Glass Cannon
                 PlayerStats.Instance.PercentBonusHealth /= 2; //Half the current max health. If this is picked multiple times it will keep halving the max health
                 WeaponStats.Instance.PercentageDamage *= 2; //Double the damage. If this is picked multiple times it will keep doubling the damage 
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}. Damage: {WeaponStats.Instance.Damage}");
                 break;
-            case 24:
+            case 24: //Bloodletter's Curse
                 //This gives 30% of your damage as lifesteal and then doubles all your lifesteal
                 //This means it gives 60% total and doubles the effectiveness of all other lifesteal
                 PlayerStats.Instance.FlatLifestealPercentage += 30;
@@ -163,26 +171,27 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Lifesteal percentage: {PlayerStats.Instance.LifestealPercentage}");
                 Debug.Log($"Dot tick: {PlayerStats.Instance.DotDamage}");
                 break;
-            case 25:
+            case 25: //Weak Spots
                 WeaponStats.Instance.FlatCritDamage += 8; //48% crit damage
                 Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
                 break;
-            case 26:
+            case 26: //Stone Wall
                 PlayerStats.Instance.PercentBonusHealth *= 2; //Double the current max health
                 WeaponStats.Instance.PercentageDamage /= 2; //Half the damage
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}. Damage: {WeaponStats.Instance.Damage}");
                 break;
-            case 27:
+            case 27: //Radiating Bombs
                 WeaponStats.Instance.ItemRadioactive = true;
                 WeaponStats.Instance.RadiationDamagePercentage += 10;
                 Debug.Log($"Radiation damage: {WeaponStats.Instance.RadiationDamage}");
                 break;
-            case 28:
-                WeaponStats.Instance.SelfDamageExplosions = true;
+            case 28: //MOAB
                 WeaponStats.Instance.PercentageExplosionSize += 100;
-                Debug.Log($"Self damage {WeaponStats.Instance.SelfDamageExplosions}");
+                WeaponStats.Instance.ItemExplosionDamage += 50;
+                Debug.Log($"Explosion size: {WeaponStats.Instance.ExplosionSize}");
+                Debug.Log($"Explosion damage: {WeaponStats.Instance.ExplosionDamage}");
                 break;
-            case 29:
+            case 29: //Sword of the Master
                 if (!WeaponStats.Instance.HasSwordBeam)
                 {
                     WeaponStats.Instance.HasSwordBeam = true;
@@ -195,26 +204,26 @@ public class ItemEffectTable : MonoBehaviour
                     Debug.Log($"Player already has sword beam");
                 }
                 break;
-            case 30:
+            case 30: //Overheat - UNIMPLEMENTED
                 Debug.Log("Unimplemented Overheating item");
                 break;
-            case 31:
+            case 31: //Rocket boots
                 TopDownMovement.Instance.PercentBonusSpeed += 15;
                 Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                 break;
-            case 32:
-                PlayerStats.Instance.PercentBonusHealth += 30;
+            case 32: //Full Breakfast
+                PlayerStats.Instance.PercentBonusHealth += PlayerStats.Instance.PercentBonusHealth / 30;
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}");
                 break;
-            case 33:
+            case 33: //Expert Aim
                 WeaponStats.Instance.FlatCritDamage += 24; //24% crit damage
                 Debug.Log($"Crit Damage: {WeaponStats.Instance.CritDamage}");
                 break;
-            case 34:
+            case 34: //Hollow-point bullets
                 WeaponStats.Instance.FlatDamage += 30;
                 Debug.Log($"Damage: {WeaponStats.Instance.Damage}");
                 break;
-            case 35:
+            case 35: //Reflector
                 if (!WeaponStats.Instance.HasReflector)
                 {
                     Debug.Log($"Gained reflector");
@@ -226,12 +235,47 @@ public class ItemEffectTable : MonoBehaviour
                     Debug.Log($"Reflector cooldown reduced to {WeaponStats.Instance.ReflectCooldown}");
                 }
                 break;
-            case 36:
+            case 36: //Claymore
                 WeaponStats.Instance.PercentageDamage *= 4;
-                WeaponStats.Instance.WeaponFireDelay *= 3;
+                WeaponStats.Instance.PercentageFireDelay *= 3f;
+                break;
+            case 37: //Second Wind
+                SkillEffects.Instance.cooldownModifier *= 0.9f;
+                break;
+            case 38: //Increased Focus
+                SkillEffects.Instance.durationModifier += 0.1f;
+                break;
+            case 39: //Corrupted Dash
+                SkillEffects.Instance.activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Dash-Corrupted");
+                SkillEffects.Instance.cursedDash = true;
+                SkillEffects.Instance.cooldownModifier -= 0.5f;
+                item.single = true;
+                break;
+            case 40: //Corrupted Vanish
+                SkillEffects.Instance.activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Vanish-Corrupted");
+                SkillEffects.Instance.cursedVanish = true;
+                SkillEffects.Instance.cooldownModifier += SkillEffects.Instance.cooldownModifier;
+                SkillEffects.Instance.durationModifier -= 0.5f;
+                item.single = true;
+                break;
+            case 41: //Corrupted Decoy
+                SkillEffects.Instance.activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Decoy-Corrupted");
+                SkillEffects.Instance.cursedDecoy = true;
+                SkillEffects.Instance.cooldownModifier += 0.25f;
+                item.single = true;
+                break;
+            case 42: //Death's Dance
+                PlayerStats.Instance.deathsDance = true;
+                item.single = true;
+                break;
+            case 43: //Direct Hit
+                WeaponStats.Instance.PercentageExplosionSize /= 2;
+                WeaponStats.Instance.ItemExplosionDamage += 100;
+                Debug.Log($"Explosion size: {WeaponStats.Instance.ExplosionSize}");
+                Debug.Log($"Explosion damage: {WeaponStats.Instance.ExplosionDamage}");
                 break;
             default:
-                Debug.Log($"The ID: {itemID} has not been given a case in the item effect table.");
+                Debug.Log($"The ID: {item.id} has not been given a case in the item effect table.");
             break;
         }
     }

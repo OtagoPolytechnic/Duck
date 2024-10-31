@@ -7,6 +7,7 @@ using System;
 
 public abstract class EnemyBase : MonoBehaviour
 {
+    private Sprite graveSprite;
     public const float BLEED_INTERVAL = 1f;
     public GameObject damageText;
     public GameObject critText;
@@ -58,6 +59,16 @@ public abstract class EnemyBase : MonoBehaviour
     public const float DEATHTIMEOUT = 0.5f;
     public const float BOSSDEATHTIMEOUT = 2f;
     public const float FINALBOSSDEATHTIMEOUT = 3f;
+    private bool isBoss = false;
+    public bool IsBoss
+    {
+        get {return isBoss;}
+        set {isBoss = value;}
+    }
+    void Start()
+    {
+        graveSprite = Resources.Load<Sprite>("Grave");
+    }
 
     public void Bleed() //this function needs to be reworked to be able to stack bleed on the target
     {
@@ -90,7 +101,7 @@ public abstract class EnemyBase : MonoBehaviour
             health -= damageTaken;
         }
         //Lifesteal by percentage of damage dealt
-        if (PlayerStats.Instance.LifestealPercentage > 0 && damageTaken > 5)
+        if (PlayerStats.Instance.LifestealPercentage > 0 && damageTaken > 5 && GameSettings.gameState != GameState.Dead)
         {
             PlayerStats.Instance.CurrentHealth += Math.Max((damageTaken * PlayerStats.Instance.LifestealPercentage) / 100, 1); //Heals at least 1 health
         }
@@ -112,18 +123,34 @@ public abstract class EnemyBase : MonoBehaviour
         
         if (sprite != null)
         {
-            sprite.color = new Color32(255, 0, 0, 128);
+            sprite.color = new Color32(255, 255, 255, 225);
+            sprite.transform.rotation = Quaternion.identity;
+            transform.localScale = new Vector3(1,1,0);
+            if (isBoss)
+            {
+                sprite.transform.localScale = new Vector3(5f,5f,0);
+            }
+            else
+            {
+                sprite.transform.localScale = new Vector3(1.5f,1.5f,0);
+            }
+            sprite.sprite = graveSprite;
+
+            for (int i=0; i < sprite.gameObject.transform.childCount; i++) //Destroy all children of sprite to prevent things such as childed attacks from appearing beside tombstone.
+            {
+                Destroy(sprite.gameObject.transform.GetChild(i).gameObject);
+            }
         }
         else
         {
             Debug.LogError("Did not get sprite, make sure enemy hierarchy has a sprite render");
         }
 
-        if (GameSettings.waveNumber % 5 == 0) //if we ever add a boss that spawns minions. This code needs a change.
+        if (isBoss)
         {
             yield return new WaitForSeconds(BOSSDEATHTIMEOUT);
         }
-        else if(GameSettings.waveNumber % 25 == 0)
+        else if(GameSettings.waveNumber % 25 == 0 && isBoss)
         {
             yield return new WaitForSeconds(FINALBOSSDEATHTIMEOUT);
         }

@@ -2,6 +2,6 @@
     <Style src="project://database/Assets/UI%20Toolkit/TerminalStyle.uss?fileID=7433441132597879392&amp;guid=6a954021587512c468aed45227ced02b&amp;type=3#TerminalStyle" />
     <ui:VisualElement name="TerminalWindow" style="flex-grow: 1; flex-direction: column-reverse; white-space: nowrap; visibility: visible; -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/PublicPixel.ttf?fileID=12800000&amp;guid=9cdf889b2baddf840996f4d8b05c1651&amp;type=3#PublicPixel&quot;); -unity-font-definition: initial;">
         <ui:TextField picking-mode="Ignore" name="Input" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;" />
-        <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Output" text="For dev usage only \n\nType &quot;help&quot; to see list of available commands\n\n" style="white-space: normal; -unity-text-align: lower-left; background-color: rgba(0, 0, 0, 0.76); color: rgb(255, 192, 112); -unity-paragraph-spacing: 4px; font-size: 18px;" />
+        <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Output" text="For dev usage only. Running dev commands can and will break the game. \n\nType &quot;help&quot; to see list of available commands\n\n" style="white-space: normal; -unity-text-align: lower-left; background-color: rgba(0, 0, 0, 0.76); color: rgb(255, 192, 112); -unity-paragraph-spacing: 4px; font-size: 18px;" />
     </ui:VisualElement>
 </ui:UXML>

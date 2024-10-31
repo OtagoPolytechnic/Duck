@@ -64,7 +64,10 @@ public class EnemyMelee : EnemyBase
 
         yield return new WaitForSeconds(1f); //Attack duration
 
-        attack.SetActive(false);
+        if (attack != null)
+        {
+            attack.SetActive(false);
+        }
         attacking = false;
         StopCoroutine(Attack());
     }

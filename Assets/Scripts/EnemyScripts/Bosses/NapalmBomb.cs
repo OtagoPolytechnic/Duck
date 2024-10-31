@@ -17,7 +17,15 @@ public class NapalmBomb : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        if (SkillEffects.Instance.decoyActive)
+        {
+            player = GameObject.FindGameObjectWithTag("Decoy");
+        }
+        else if (!SkillEffects.Instance.decoyActive)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+        
         rb = GetComponent<Rigidbody2D>();
 
         if (player != null)

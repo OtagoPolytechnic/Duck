@@ -56,7 +56,7 @@ public class TopDownMovement : MonoBehaviour
         
         if(mapManager != null)
         {
-            float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
+            float tileSpeedModifier = mapManager.GetPlayerTileSpeed(transform.position);
             hitBox.velocity = moveInput * (MoveSpeed * tileSpeedModifier);
         }
         else
