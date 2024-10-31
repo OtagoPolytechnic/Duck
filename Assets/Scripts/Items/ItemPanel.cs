@@ -56,6 +56,8 @@ public class ItemPanel : MonoBehaviour
     private int selectedIndex;
     private System.Random rand;
 
+    private bool rerollAdded = false;
+
     void Awake()
     {
         if(Instance == null)
@@ -184,9 +186,10 @@ public class ItemPanel : MonoBehaviour
 
     public void InitializeItemPanel(int waveNumber) //this is called every time the inventory ui pops up
     {
-        if (waveNumber % 5 == 0) //Add one reroll charge after boss kills
+        if (waveNumber % 5 == 0 && !rerollAdded) //Add one reroll charge after boss kills
         {
             rerollCharges++;
+            rerollAdded = true;
         }
         SFXManager.Instance.PlaySFX("ItemPanelOpen");
         statDisplay.UpdateStats();
@@ -340,6 +343,7 @@ public class ItemPanel : MonoBehaviour
         statDisplay.StatsChanged();
         VisualElement rerollCount = rerollOuter.Q<VisualElement>("RerollCount");
         rerollCount.Q<Label>("RerollCountText").text = $"{rerollCharges}";
+        rerollAdded = false;
         if(evt is NavigationSubmitEvent navigationSubmitEvent)
         {
             continueButton.Focus();
