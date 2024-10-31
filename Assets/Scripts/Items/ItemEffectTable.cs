@@ -239,35 +239,40 @@ public class ItemEffectTable : MonoBehaviour
                 WeaponStats.Instance.PercentageDamage *= 4;
                 WeaponStats.Instance.PercentageFireDelay *= 3f;
                 break;
-            case 37:
+            case 37: //Second Wind
                 SkillEffects.Instance.cooldownModifier *= 0.9f;
             break;
-            case 38:
+            case 38: //Increased Focus
                 SkillEffects.Instance.durationModifier += 0.1f;
             break;
-            case 39:
+            case 39: //Corrupted Dash
                 SkillEffects.Instance.activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Dash-Corrupted");
                 SkillEffects.Instance.cursedDash = true;
                 SkillEffects.Instance.cooldownModifier -= 0.5f;
                 item.single = true;
             break;
-            case 40:
+            case 40: //Corrupted Vanish
                 SkillEffects.Instance.activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Vanish-Corrupted");
                 SkillEffects.Instance.cursedVanish = true;
                 SkillEffects.Instance.cooldownModifier += SkillEffects.Instance.cooldownModifier;
                 SkillEffects.Instance.durationModifier -= 0.5f;
                 item.single = true;
             break;
-            case 41:
+            case 41: //Corrupted Decoy
                 SkillEffects.Instance.activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Decoy-Corrupted");
                 SkillEffects.Instance.cursedDecoy = true;
                 SkillEffects.Instance.cooldownModifier += 0.25f;
                 item.single = true;
             break;
-            case 42:
+            case 42: //Death's Dance
                 PlayerStats.Instance.deathsDance = true;
                 item.single = true;
             break;
+            case 43: //Direct Hit
+                WeaponStats.Instance.PercentageExplosionSize *= .5;
+                WeaponStats.Instance.ItemExplosionDamage += 100;
+                Debug.Log($"Explosion size: {WeaponStats.Instance.ExplosionSize}");
+                Debug.Log($"Explosion damage: {WeaponStats.Instance.ExplosionDamage}");
             default:
                 Debug.Log($"The ID: {item.id} has not been given a case in the item effect table.");
             break;

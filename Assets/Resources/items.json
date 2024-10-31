@@ -57,7 +57,7 @@
         "id": 7,
         "name": "Explosive Bullets",
         "desc": "Your bullets explode on impact\nDeal 50% damage to nearby enemies per item stack",
-        "weapons": ["MachineGun", "Sniper", "DualPistol", "Pistol", "Shotgun", "RocketLauncher"],
+        "weapons": ["MachineGun", "Sniper", "DualPistol", "Pistol", "Shotgun"],
         "rarity": 3,
         "stacks": 0
       },
@@ -320,6 +320,14 @@
         "desc": "Your Crit and Crit Damage scale based on missing health, down to 20% health",
         "rarity": 6,
         "single": false,
+        "stacks": 0
+      },
+      {
+        "id": 43,
+        "name": "Direct Hit",
+        "desc": "Your explosions are half the size and deal 100% more damage",
+        "rarity": 3,
+        "weapons": ["RocketLauncher"],
         "stacks": 0
       }
     ]
