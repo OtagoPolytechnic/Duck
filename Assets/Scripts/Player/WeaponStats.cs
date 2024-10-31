@@ -227,7 +227,7 @@ public class WeaponStats : MonoBehaviour
     }
     public int Damage //Damage is only a getter, as only the components should be set
     {
-        get { return ((BASE_DAMAGE + FlatDamage) * PercentageDamage * WeaponDamage) / 10000; } //Final damage calculation
+        get { return Math.Min(((BASE_DAMAGE + FlatDamage) * PercentageDamage * WeaponDamage) / 10000, 1); } //Final damage calculation
     }
 
     //Crit Chance
