@@ -36,4 +36,5 @@ public static class GameSettings
     public static controlType controlType;
     public static int StartingRerollCharges = 1;
     public static GameMode gameMode = GameMode.Boss; //Boss mode by default if you start the game from the main scene
+    public static bool toggleShoot = false;
 }

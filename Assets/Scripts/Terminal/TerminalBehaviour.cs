@@ -57,6 +57,10 @@ public class TerminalBehaviour : MonoBehaviour
 
     public void Enter(InputAction.CallbackContext context)
     {
+        if (!terminalWindow.visible) //I needed to add this to let the enter key work for selecting items or it gets overridden by the terminal
+        {
+            return;
+        }
         if (context.performed)
         {
             string[] commands = input.value.ToLower().Split(" ");

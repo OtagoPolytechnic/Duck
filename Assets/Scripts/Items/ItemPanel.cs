@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 using System.Collections;
 using System.Linq;
 using System;
+using UnityEngine.InputSystem;
 
 
 public enum rarity{
@@ -39,6 +40,7 @@ public class ItemPanel : MonoBehaviour
     [SerializeField]
     private List<Item> selectedItems = new List<Item>();
     private List<Button> itemButtons = new List<Button>();
+    private VisualElement rerollOuter;
     private Button skip;
     private Button reroll;
     private Button confirmButton;
@@ -71,8 +73,10 @@ public class ItemPanel : MonoBehaviour
         container = document.Q<VisualElement>("Background");
         selectionContainer = container.Q<VisualElement>("Selection");
         VisualElement rerollAndSkip = container.Q<VisualElement>("RerollAndSkip");
-        skip = rerollAndSkip.Q<Button>("Skip");
-        reroll = rerollAndSkip.Q<Button>("Reroll");
+        rerollOuter = rerollAndSkip.Q<VisualElement>("RerollOuter");
+        VisualElement skipOuter = rerollAndSkip.Q<VisualElement>("SkipOuter");
+        skip = skipOuter.Q<Button>("Skip");
+        reroll = rerollOuter.Q<Button>("Reroll");
 
         confirmPanel = container.Q<VisualElement>("PopupBackground");
         VisualElement innerConfirmPanel = confirmPanel.Q<VisualElement>("Popup");
@@ -84,8 +88,12 @@ public class ItemPanel : MonoBehaviour
         continueButton = continuePanel.Q<Button>("Continue");
 
         confirmButton.RegisterCallback<ClickEvent>(ConfirmSelection);
+        confirmButton.RegisterCallback<NavigationSubmitEvent>(ConfirmSelection);
         cancelButton.RegisterCallback<ClickEvent>(CancelSelection);
+        cancelButton.RegisterCallback<NavigationSubmitEvent>(CancelSelection);
         continueButton.RegisterCallback<ClickEvent>(Continue);
+        continueButton.RegisterCallback<NavigationSubmitEvent>(Continue);
+        SetConfirmNavigation();
 
         confirmPanel.style.display = DisplayStyle.None;
         continuePanel.style.display = DisplayStyle.None;
@@ -94,6 +102,32 @@ public class ItemPanel : MonoBehaviour
         rand = new System.Random();
         LoadItems();
         
+    }
+
+    private void SetConfirmNavigation()
+    {
+        confirmButton.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: confirmButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: confirmButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: cancelButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: cancelButton.Focus(); break;
+            }
+            e.PreventDefault();
+        });
+        cancelButton.RegisterCallback<NavigationMoveEvent>(e =>
+        {
+            switch(e.direction)
+            {
+                case NavigationMoveEvent.Direction.Up: cancelButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Down: cancelButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Left: confirmButton.Focus(); break;
+                case NavigationMoveEvent.Direction.Right: confirmButton.Focus(); break;
+            }
+            e.PreventDefault();
+        });
     }
 
     private void LoadItems()
@@ -156,7 +190,7 @@ public class ItemPanel : MonoBehaviour
         }
         statDisplay.UpdateStats();
         GetItems(3, waveNumber);
-        VisualElement rerollCount = reroll.Q<VisualElement>("RerollCount");
+        VisualElement rerollCount = rerollOuter.Q<VisualElement>("RerollCount");
         rerollCount.Q<Label>("RerollCountText").text = $"{rerollCharges}";
         activateButtons();
     }
@@ -164,10 +198,15 @@ public class ItemPanel : MonoBehaviour
     private void activateButtons()
     {
         itemButtons[0].RegisterCallback<ClickEvent>(RegisterItem1Click);
+        itemButtons[0].RegisterCallback<NavigationSubmitEvent>(RegisterItem1Click);
         itemButtons[1].RegisterCallback<ClickEvent>(RegisterItem2Click);
+        itemButtons[1].RegisterCallback<NavigationSubmitEvent>(RegisterItem2Click);
         itemButtons[2].RegisterCallback<ClickEvent>(RegisterItem3Click);
+        itemButtons[2].RegisterCallback<NavigationSubmitEvent>(RegisterItem3Click);
         skip.RegisterCallback<ClickEvent>(RegisterSkipClick);
+        skip.RegisterCallback<NavigationSubmitEvent>(RegisterSkipClick);
         reroll.RegisterCallback<ClickEvent>(RegisterRerollClick);
+        reroll.RegisterCallback<NavigationSubmitEvent>(RegisterRerollClick);
     }
 
     private void GetItems(int repetitions, int waveNumber)
@@ -234,32 +273,49 @@ public class ItemPanel : MonoBehaviour
         return highscoreItems;
     }
 
-    private void RegisterItem1Click(ClickEvent click)
+    private void RegisterItem1Click(EventBase evt)
     {
+        if (evt is NavigationSubmitEvent navigationSubmitEvent)
+        {
+            confirmButton.Focus();
+        }
         selectedIndex = 0;
         selectedItemLabel.text = selectedItems[0].name.ToUpper();
         confirmPanel.style.display = DisplayStyle.Flex;
     }
-    private void RegisterItem2Click(ClickEvent click)
+    private void RegisterItem2Click(EventBase evt)
     {
+        if (evt is NavigationSubmitEvent navigationSubmitEvent)
+        {
+            confirmButton.Focus();
+        }
         selectedIndex = 1;
         selectedItemLabel.text = selectedItems[1].name.ToUpper();
         confirmPanel.style.display = DisplayStyle.Flex;
     }
-    private void RegisterItem3Click(ClickEvent click)
+
+    private void RegisterItem3Click(EventBase evt)
     {
+        if (evt is NavigationSubmitEvent navigationSubmitEvent)
+        {
+            confirmButton.Focus();
+        }
         selectedIndex = 2;
         selectedItemLabel.text = selectedItems[2].name.ToUpper();
         confirmPanel.style.display = DisplayStyle.Flex;
     }
-    private void RegisterSkipClick(ClickEvent click)
+    private void RegisterSkipClick(EventBase evt)
     {
+        if (evt is NavigationSubmitEvent navigationSubmitEvent)
+        {
+            confirmButton.Focus();
+        }
         selectedIndex = -1;
         selectedItemLabel.text = "SKIP";
         confirmPanel.style.display = DisplayStyle.Flex;
     }
 
-    private void ConfirmSelection(ClickEvent click)
+    private void ConfirmSelection(EventBase evt)
     {
         if (selectedIndex == -1)
         {
@@ -276,11 +332,15 @@ public class ItemPanel : MonoBehaviour
         selectionContainer.style.display = DisplayStyle.None;
         continuePanel.style.display = DisplayStyle.Flex;
         statDisplay.StatsChanged();
-        VisualElement rerollCount = reroll.Q<VisualElement>("RerollCount");
+        VisualElement rerollCount = rerollOuter.Q<VisualElement>("RerollCount");
         rerollCount.Q<Label>("RerollCountText").text = $"{rerollCharges}";
+        if(evt is NavigationSubmitEvent navigationSubmitEvent)
+        {
+            continueButton.Focus();
+        }
     }
 
-    private void Continue(ClickEvent click)
+    private void Continue(EventBase evt)
     {
         continuePanel.style.display = DisplayStyle.None;
         selectionContainer.style.display = DisplayStyle.Flex;
@@ -310,23 +370,31 @@ public class ItemPanel : MonoBehaviour
         statsPanel.Q<Label>("Lifesteal").style.color = defaultColour;
     }
 
-    private void CancelSelection(ClickEvent click)
+    private void CancelSelection(EventBase evt)
     {
+        itemButtons[0].Focus();
         confirmPanel.style.display = DisplayStyle.None;
+        if (evt is NavigationSubmitEvent navigationSubmitEvent)
+        {
+            itemButtons[0].Focus();
+        }
     }
 
-    private void RegisterRerollClick(ClickEvent click)
+    private void RegisterRerollClick(EventBase evt)
     {
         if (rerollCharges > 0)
         {
             rerollCharges--;
             //Change the reroll count
-            VisualElement rerollCount = reroll.Q<VisualElement>("RerollCount");
+            VisualElement rerollCount = rerollOuter.Q<VisualElement>("RerollCount");
             rerollCount.Q<Label>("RerollCountText").text = $"{rerollCharges}";
             //Deregister the buttons
             itemButtons[0].UnregisterCallback<ClickEvent>(RegisterItem1Click);
+            itemButtons[0].UnregisterCallback<NavigationSubmitEvent>(RegisterItem2Click);
             itemButtons[1].UnregisterCallback<ClickEvent>(RegisterItem2Click);
+            itemButtons[1].UnregisterCallback<NavigationSubmitEvent>(RegisterItem2Click);
             itemButtons[2].UnregisterCallback<ClickEvent>(RegisterItem3Click);
+            itemButtons[2].UnregisterCallback<NavigationSubmitEvent>(RegisterItem3Click);
 
             //Clear the selected items
             selectedItems.Clear();
