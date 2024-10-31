@@ -138,16 +138,7 @@ public class BladeBossBehaviour : EnemyBase
     {
            
         sprite.color = new Color32(255, 0, 0, 255);
-        chargeTimer = 0f;
-        Vector2 direction = (player.transform.position - transform.position).normalized;
-        float extraDistance = 4f;
-        targetPosition = (Vector2)player.transform.position + direction * extraDistance;
-        attack.GetComponent<BoxCollider2D>().enabled = true; 
-        attack.GetComponent<ChargeAttack>().originEnemy = this;
-        attacking = true;
-        attack.SetActive(true); 
-        Debug.Log("BladeBoss is charging towards position: " + targetPosition);
-
+       
         float waitTime = 1f;
         float elapsedTime = 0f;
         while (elapsedTime < waitTime)
@@ -159,8 +150,19 @@ public class BladeBossBehaviour : EnemyBase
                 yield return null;
             }
         }
+ chargeTimer = 0f;
+        Vector2 direction = (player.transform.position - transform.position).normalized;
+        float extraDistance = 4f;
+        targetPosition = (Vector2)player.transform.position + direction * extraDistance;
+        attack.GetComponent<BoxCollider2D>().enabled = true; 
+        attack.GetComponent<ChargeAttack>().originEnemy = this;
+        attacking = true;
+        attack.SetActive(true); 
+        Debug.Log("BladeBoss is charging towards position: " + targetPosition);
 
         isCharging = true;
+
+
     }
 
     private void Charge()

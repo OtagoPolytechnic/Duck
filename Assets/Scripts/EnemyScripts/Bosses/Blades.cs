@@ -45,7 +45,10 @@ public class Blades : MonoBehaviour
             {
                 MoveTowards(initialPosition);
             }
-
+            if (bladesCenter == null)
+            {
+                bladesCenter = GameObject.FindWithTag("BladesCenter");
+            }
             if ((Vector3.Distance(transform.position, bladesCenter.transform.position) < 10f && moveDirection)|| (Vector3.Distance(transform.position, initialPosition) < 0.1f && !moveDirection))
             {
                 moveDirection = !moveDirection;
