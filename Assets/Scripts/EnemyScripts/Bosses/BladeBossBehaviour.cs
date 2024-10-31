@@ -25,7 +25,7 @@ public class BladeBossBehaviour : EnemyBase
     private Vector2 targetPosition;
     private bool attacking = false;
     private GameObject attack;
-
+    private SpriteRenderer sprite;
     private List<GameObject> blades = new List<GameObject>(); 
     private GameObject currentBladeCenter; 
 
@@ -37,6 +37,7 @@ public class BladeBossBehaviour : EnemyBase
         chargeCooldown = Random.Range(chargeCooldownMin, chargeCooldownMax);
         attack = gameObject.transform.GetChild(0).GetChild(0).gameObject;
         SpawnBlades();
+        sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     //This spawns blades around the player and an empty blade center object to aid with blade movement
@@ -125,7 +126,7 @@ public class BladeBossBehaviour : EnemyBase
 
             if (chargeCooldown <= 0)
             {
-                StartCharging();
+                StartCoroutine(StartCharging());
                 chargeCooldown = Random.Range(chargeCooldownMin, chargeCooldownMax);
             }
         }
@@ -133,9 +134,10 @@ public class BladeBossBehaviour : EnemyBase
         Bleed();
     }
     //basic charge attack at intervals that make the enemy run through and damage player if they dont move out of the way
-    private void StartCharging()
+    private IEnumerator StartCharging()
     {
-        isCharging = true;
+           
+        sprite.color = new Color32(255, 0, 0, 255);
         chargeTimer = 0f;
         Vector2 direction = (player.transform.position - transform.position).normalized;
         float extraDistance = 4f;
@@ -145,10 +147,24 @@ public class BladeBossBehaviour : EnemyBase
         attacking = true;
         attack.SetActive(true); 
         Debug.Log("BladeBoss is charging towards position: " + targetPosition);
+
+        float waitTime = 1f;
+        float elapsedTime = 0f;
+        while (elapsedTime < waitTime)
+        {
+            elapsedTime += .1f;
+            yield return new WaitForSeconds(.1f);
+            while (GameSettings.gameState != GameState.InGame)
+            {
+                yield return null;
+            }
+        }
+
+        isCharging = true;
     }
 
     private void Charge()
-    {
+    {      
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, Speed * 9 * Time.deltaTime);
         chargeTimer += Time.deltaTime;
         if (Vector2.Distance(transform.position, targetPosition) < 0.1f)
@@ -157,6 +173,7 @@ public class BladeBossBehaviour : EnemyBase
             isCharging = false;
             attack.SetActive(false);
             attacking = false;
+            sprite.color = Color.white;
         }
     }
     private void OnDestroy()

@@ -1,18 +1,21 @@
 using System.Collections;
-using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class Blades : MonoBehaviour
 {
     public GameObject player;
     private Vector3 initialPosition;
-    private float moveSpeed = 2.5f; 
-    private GameObject bladesCenter; 
-    private bool isMovingIn = false;
-    private bool isMovingOut = false;
-    private bool isCharging = false;
+    private float moveSpeed = 2.5f;
+    public GameObject bladesCenter;
+    private bool isMoving = false;
+    private bool moveDirection = false;
+    private float attackCooldown;
+    private float moveInDuration = 2f; 
+    private float moveOutDelay = 5f;   
+    private float moveOutDuration = 2f; 
     private int bladeDamage;
     public EnemyBase originEnemy;
+
     public int BladeDamage
     {
         get { return bladeDamage; }
@@ -23,65 +26,55 @@ public class Blades : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         initialPosition = transform.position;
-        bladesCenter = GameObject.FindWithTag("BladesCenter"); 
-        StartCoroutine(MoveBlades());
+        bladesCenter = GameObject.FindWithTag("BladesCenter");
+        attackCooldown = 0; 
         bladeDamage = 5 + (GameSettings.waveNumber / 5) * 5;
     }
 
     void Update()
     {
         if (GameSettings.gameState != GameState.InGame) { return; }
-        bladesCenter = GameObject.FindWithTag("BladesCenter");
-        if (isMovingIn && bladesCenter != null)
-        {
-          
-            transform.position = Vector3.MoveTowards(transform.position, bladesCenter.transform.position, moveSpeed * Time.deltaTime);
 
-         
-            if (Vector3.Distance(transform.position, bladesCenter.transform.position) < 0.1f)
+        if (isMoving)
+        {
+            if (moveDirection)
             {
-                isMovingIn = false;
-                StartCoroutine(WaitAndMoveOut());
+                MoveTowards(bladesCenter.transform.position);
+            }
+            else
+            {
+                MoveTowards(initialPosition);
+            }
+
+            if ((Vector3.Distance(transform.position, bladesCenter.transform.position) < 10f && moveDirection)|| (Vector3.Distance(transform.position, initialPosition) < 0.1f && !moveDirection))
+            {
+                moveDirection = !moveDirection;
+                isMoving = false;
+                attackCooldown = moveOutDelay;
             }
         }
-        else if (isMovingOut)
+        else
         {
-          
-            transform.position = Vector3.MoveTowards(transform.position, initialPosition, moveSpeed * Time.deltaTime);
-
-          
-            if (Vector3.Distance(transform.position, initialPosition) < 0.1f)
+            attackCooldown -= Time.deltaTime;
+            if (attackCooldown < 0)
             {
-                isMovingOut = false; 
+                isMoving = true;
             }
         }
     }
 
-    //Timing for when the blades move in and out
-    private IEnumerator MoveBlades()
+
+
+    private void MoveTowards(Vector3 targetPosition)
     {
-        while (true)
-        {        
-            yield return new WaitForSeconds(5f);
-            isMovingIn = true; 
-            yield return new WaitForSeconds(7f); 
-            isMovingIn = false; 
-            yield return new WaitForSeconds(5f);
-            isMovingOut = true; 
-        }
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
     }
 
-    private IEnumerator WaitAndMoveOut()
-    {
-        yield return new WaitForSeconds(5f);
-        isMovingOut = true; 
-    }
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(bladeDamage, originEnemy);
-           
         }
         else if (other.gameObject.CompareTag("Edges") || other.gameObject.CompareTag("Decoy"))
         {
