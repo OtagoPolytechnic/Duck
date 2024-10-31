@@ -60,7 +60,7 @@ public class SFXManager : MonoBehaviour
             { "GameOver", Resources.Load<AudioClip>(AUDIO_PATH + "GameOver") },
             { "TitleMusic", Resources.Load<AudioClip>(AUDIO_PATH + "TitleMusic") },
             { "WaveMusic", Resources.Load<AudioClip>(AUDIO_PATH + "WaveMusic") },
-            { "Explosion1", Resources.Load<AudioClip>(AUDIO_PATH + "Explosion1") },
+            { "Explosion1", Resources.Load<AudioClip>(AUDIO_PATH + "Explosion2") },
             { "Button-Press", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press") },
             { "Button-Press2", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press2") },
             { "Button-Press3", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press3") },
@@ -68,7 +68,8 @@ public class SFXManager : MonoBehaviour
             { "ItemPanelOpen", Resources.Load<AudioClip>(AUDIO_PATH + "BookClosing2") },
             { "ReadyWeapon", Resources.Load<AudioClip>(AUDIO_PATH + "ReloadRecon1") },
             { "EquipWeapon", Resources.Load<AudioClip>(AUDIO_PATH + "ReloadCyclone1") },
-            { "", Resources.Load<AudioClip>(AUDIO_PATH + "BookClosing2") },
+            { "Radiation", Resources.Load<AudioClip>(AUDIO_PATH + "Radiation2") },
+            { "Deflect", Resources.Load<AudioClip>(AUDIO_PATH + "Deflect") },
         };
     }
 
