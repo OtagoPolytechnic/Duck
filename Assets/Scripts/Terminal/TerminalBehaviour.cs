@@ -45,12 +45,12 @@ public class TerminalBehaviour : MonoBehaviour
             if (GameSettings.gameState == GameState.Paused)
             {
                 GameSettings.gameState = GameState.InGame;
-                terminalWindow.visible = !terminalWindow.visible; //terminal should be hidden on game start
+                terminalWindow.visible = false;
             }
             else 
             {
                 GameSettings.gameState = GameState.Paused;
-                terminalWindow.visible = !terminalWindow.visible; //terminal should be hidden on game start
+                terminalWindow.visible = true;
             }
         }
     }
