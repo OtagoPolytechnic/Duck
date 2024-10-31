@@ -19,7 +19,7 @@
         "name": "Vanish",
         "desc": "Cloak yourself and take no damage.",
         "cooldown": 15,
-        "duration": 5
+        "duration": 4
       },
       {
         "id" : 3,

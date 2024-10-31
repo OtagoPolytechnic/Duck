@@ -173,13 +173,13 @@ public class WeaponStats : MonoBehaviour
 
                 case WeaponType.RocketLauncher: //Placeholder for the rocket launcher
                     WeaponExplosiveBullets = true; //Rocket launcher has explosive bullets
-                    WeaponExplosionSize = 5; //Explosion size is 10
+                    WeaponExplosionSize = 5; //Explosion size is 5
                     WeaponExplosionDamage = 100; //100% of the weapon's damage is dealt as explosion damage
-                    WeaponFireDelay = 300; //300% fire delay
+                    WeaponFireDelay = 200; //300% fire delay
                     WeaponRange = 150; //150% range
+                    WeaponDamage = 125; //125% weapon damage
 
                     //Other stats set to base values
-                    WeaponDamage = 100;
                     weaponCritChancePercentage = 100;
                     WeaponCritChanceFlat = 0;
                     WeaponCritDamage = 100;
@@ -389,13 +389,7 @@ public class WeaponStats : MonoBehaviour
     {
         get { return ItemExplosiveBullets || WeaponExplosiveBullets; } //This will return true if either the weapon or an item has explosive bullets
     }
-    private bool selfDamageExplosions = false;
-    public bool SelfDamageExplosions
-    {
-        get {return selfDamageExplosions;}
-        set {selfDamageExplosions = value;}
-    }
-
+    
     //Explosion size
     private int itemExplosionSize = 0;
     public int ItemExplosionSize
