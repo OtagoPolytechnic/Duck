@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -21,15 +22,23 @@ public class PauseMenu : MonoBehaviour
 
         resumeButton = document.Q<Button>("Resume");
         resumeButton.RegisterCallback<ClickEvent>(Resume);
+        resumeButton.RegisterCallback<NavigationSubmitEvent>(Resume);
 
         settingsButton = document.Q<Button>("Settings");
         settingsButton.RegisterCallback<ClickEvent>(Settings);
+        settingsButton.RegisterCallback<NavigationSubmitEvent>(Settings);
 
         quitButton = document.Q<Button>("Quit");
         quitButton.RegisterCallback<ClickEvent>(Quit);
+        quitButton.RegisterCallback<NavigationSubmitEvent>(Quit);
     }
     public void ActivateWindow(InputAction.CallbackContext context)
     {
+        //If the settings scene is open, don't allow the pause menu to close
+        if (SceneManager.GetSceneByName("Settings").isLoaded)
+        {
+            return;
+        }
         if (context.performed)
         {
             if (GameSettings.gameState == GameState.Paused)
@@ -43,21 +52,54 @@ public class PauseMenu : MonoBehaviour
                 heldState = GameSettings.gameState;
                 GameSettings.gameState = GameState.Paused;
                 background.visible = !background.visible; 
+                resumeButton.Focus();
             }
         }
     }
-    private void Resume(ClickEvent click)
+    private void Resume(EventBase evt)
     {
         GameSettings.gameState = heldState;
         background.visible = false;
     }
 
-    private void Settings(ClickEvent click)
+    private void Settings(EventBase evt)
     {
-        SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
+        StartCoroutine(LoadSettingsScene(evt));
     }
 
-    private void Quit(ClickEvent click)
+    //This needs to be in a coroutine or the button to focus hasn't loaded yet
+    private IEnumerator LoadSettingsScene(EventBase evt)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Settings", LoadSceneMode.Additive);
+
+        //Wait for loading
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        Scene settingsScene = SceneManager.GetSceneByName("Settings");
+        if (evt is NavigationSubmitEvent)
+        {
+            GameObject[] rootObjects = settingsScene.GetRootGameObjects();
+            UIDocument uiDocument = rootObjects
+                .Select(obj => obj.GetComponent<UIDocument>())
+                .FirstOrDefault(doc => doc != null);
+            if (uiDocument != null)
+            {
+                VisualElement rootElement = uiDocument.rootVisualElement;
+                Button buttonToFocus = rootElement.Query<Button>(className: "focus-button").First();
+                if (buttonToFocus != null)
+                {
+                    buttonToFocus.Focus();
+                }
+            }
+        }
+    }
+
+
+
+    private void Quit(EventBase evt)
     {
         GameSettings.gameState = GameState.InGame;
         StartCoroutine(LoadScene("Titlescreen"));

@@ -27,3 +27,52 @@
     border-top-width: 0;
     border-bottom-width: 0;
 }
+
+.text {
+    -unity-font-definition: initial;
+    -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/PublicPixel.ttf?fileID=12800000&guid=9cdf889b2baddf840996f4d8b05c1651&type=3#PublicPixel");
+    color: rgb(255, 255, 255);
+}
+
+.buttonText {
+    -unity-font-definition: initial;
+    -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/PublicPixel.ttf?fileID=12800000&guid=9cdf889b2baddf840996f4d8b05c1651&type=3#PublicPixel");
+    font-size: 28px;
+}
+
+.menuButton {
+    max-width: none;
+    min-width: 20%;
+    min-height: 10%;
+    font-size: 40px;
+    bottom: 10px;
+    align-self: auto;
+    -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/PublicPixel.ttf?fileID=12800000&guid=9cdf889b2baddf840996f4d8b05c1651&type=3#PublicPixel");
+    color: rgb(27, 27, 27);
+    -unity-font-definition: initial;
+}
+
+.menuButton:focus {
+    border-left-color: rgb(0, 255, 3);
+    border-right-color: rgb(0, 255, 3);
+    border-top-color: rgb(0, 255, 3);
+    border-bottom-color: rgb(0, 255, 3);
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+}
+
+TextField:focus {
+    border-left-color: rgb(0, 255, 3);
+    border-right-color: rgb(0, 255, 3);
+    border-top-color: rgb(0, 255, 3);
+    border-bottom-color: rgb(0, 255, 3);
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+}
+
+.focus-button {
+}
