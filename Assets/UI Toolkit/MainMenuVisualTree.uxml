@@ -2,9 +2,9 @@
     <Style src="project://database/Assets/UI%20Toolkit/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=54b9a6b1cdc53744c98b1d99e6f472a3&amp;type=3#MainMenuStyle" />
     <ui:VisualElement name="Background" style="background-color: rgb(80, 80, 80); flex-grow: 1; justify-content: space-between;">
         <ui:VisualElement name="HeaderContainer">
-            <ui:Label text="Duck-struction" display-tooltip-when-elided="true" name="Title" class="text header" style="-unity-text-align: middle-center; -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/PublicPixel.ttf?fileID=12800000&amp;guid=9cdf889b2baddf840996f4d8b05c1651&amp;type=3#PublicPixel&quot;);" />
+            <ui:Label text="Duck-struction" display-tooltip-when-elided="true" name="Title" class="text header" style="-unity-text-align: middle-center; -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/PublicPixel.ttf?fileID=12800000&amp;guid=9cdf889b2baddf840996f4d8b05c1651&amp;type=3#PublicPixel&quot;); color: rgb(255, 255, 0);" />
         </ui:VisualElement>
-        <ui:VisualElement name="ButtonContainer" style="flex-direction: column; justify-content: space-between; align-items: center; min-width: auto; height: 585px;">
+        <ui:VisualElement name="ButtonContainer" style="flex-direction: column; justify-content: space-around; align-items: center; min-width: auto; height: 651px; padding-bottom: 50px;">
             <ui:Button text="PLAY" display-tooltip-when-elided="true" name="ModeSelect" class="text button buttonText menuButton focus-button" style="-unity-text-align: middle-center; white-space: normal; font-size: 28px; background-color: rgb(188, 188, 188);" />
             <ui:Button text="HIGHSCORES" display-tooltip-when-elided="true" name="Highscores" class="text button buttonText menuButton" style="font-size: 28px; background-color: rgb(188, 188, 188);" />
             <ui:Button text="SETTINGS" display-tooltip-when-elided="true" name="Settings" class="text button buttonText menuButton" style="font-size: 28px; background-color: rgb(188, 188, 188);" />
