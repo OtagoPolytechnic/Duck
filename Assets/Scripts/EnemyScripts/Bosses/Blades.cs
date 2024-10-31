@@ -28,7 +28,7 @@ public class Blades : MonoBehaviour
         initialPosition = transform.position;
         bladesCenter = GameObject.FindWithTag("BladesCenter");
         attackCooldown = 0; 
-        bladeDamage = 5 + (GameSettings.waveNumber / 5) * 5;
+        bladeDamage = 5 + GameSettings.waveNumber;
     }
 
     void Update()
