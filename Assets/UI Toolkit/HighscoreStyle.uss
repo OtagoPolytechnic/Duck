@@ -19,6 +19,7 @@
     -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/PublicPixel.ttf?fileID=12800000&guid=9cdf889b2baddf840996f4d8b05c1651&type=3#PublicPixel");
     color: rgb(27, 27, 27);
     -unity-font-definition: initial;
+    padding-top: 10px;
 }
 
 .menuButton:focus {
