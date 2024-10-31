@@ -213,6 +213,7 @@ public class PlayerStats : MonoBehaviour
 
     public void ReceiveDamage(int damageTaken, EnemyBase enemyHealth = null)
     {
+        SFXManager.Instance.PlaySFX("PlayerHurt");
         if (SpinePlate && enemyHealth != null)
         {
             enemyHealth?.ReceiveDamage((damageTaken * SpinePercent) / 100, false);
