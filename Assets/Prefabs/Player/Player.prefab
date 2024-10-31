@@ -931,7 +931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b35104fc55d430243b8e0ea44e6afa4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExplosionPrefab: {fileID: 0}
+  ExplosionPrefab: {fileID: 1970858085864543839, guid: 9786c8500801a3b4fb993680f0f45a3b, type: 3}
   document: {fileID: 0}
   cooldownActive: 0
   cooldownModifier: 1
