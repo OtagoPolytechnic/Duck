@@ -317,7 +317,7 @@
       {
         "id": 42,
         "name": "Death's Dance",
-        "desc": "Your Crit and Crit Damage scale based on missing health health up to 80%",
+        "desc": "Your Crit and Crit Damage scale based on missing health, down to 20% health",
         "rarity": 6,
         "single": false,
         "stacks": 0
