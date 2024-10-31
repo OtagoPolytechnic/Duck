@@ -30,7 +30,7 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Damage: {WeaponStats.Instance.Damage}");
                 break;
             case 01: //Oats
-                PlayerStats.Instance.PercentBonusHealth += 10;
+                PlayerStats.Instance.PercentBonusHealth += PlayerStats.Instance.PercentBonusHealth / 10;
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}");
                 break;
             case 02: //Boots
@@ -69,7 +69,7 @@ public class ItemEffectTable : MonoBehaviour
                 WeaponStats.Instance.FlatCritChance += 8; //8% crit chance
                 Debug.Log($"Crit Chance: {WeaponStats.Instance.CritChance}");
                 break;
-            case 10:
+            case 10: //Supercharger
                 WeaponStats.Instance.PercentageFireDelay *= .7f; //This makes it shoot 30% faster
                 Debug.Log($"Fire delay: {WeaponStats.Instance.FireDelay}");
                 break;
@@ -212,7 +212,7 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                 break;
             case 32: //Full Breakfast
-                PlayerStats.Instance.PercentBonusHealth += 30;
+                PlayerStats.Instance.PercentBonusHealth += PlayerStats.Instance.PercentBonusHealth / 30;
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}");
                 break;
             case 33: //Expert Aim
@@ -241,38 +241,39 @@ public class ItemEffectTable : MonoBehaviour
                 break;
             case 37: //Second Wind
                 SkillEffects.Instance.cooldownModifier *= 0.9f;
-            break;
+                break;
             case 38: //Increased Focus
                 SkillEffects.Instance.durationModifier += 0.1f;
-            break;
+                break;
             case 39: //Corrupted Dash
                 SkillEffects.Instance.activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Dash-Corrupted");
                 SkillEffects.Instance.cursedDash = true;
                 SkillEffects.Instance.cooldownModifier -= 0.5f;
                 item.single = true;
-            break;
+                break;
             case 40: //Corrupted Vanish
                 SkillEffects.Instance.activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Vanish-Corrupted");
                 SkillEffects.Instance.cursedVanish = true;
                 SkillEffects.Instance.cooldownModifier += SkillEffects.Instance.cooldownModifier;
                 SkillEffects.Instance.durationModifier -= 0.5f;
                 item.single = true;
-            break;
+                break;
             case 41: //Corrupted Decoy
                 SkillEffects.Instance.activeSkillIcon.style.backgroundImage = Resources.Load<Texture2D>("Decoy-Corrupted");
                 SkillEffects.Instance.cursedDecoy = true;
                 SkillEffects.Instance.cooldownModifier += 0.25f;
                 item.single = true;
-            break;
+                break;
             case 42: //Death's Dance
                 PlayerStats.Instance.deathsDance = true;
                 item.single = true;
-            break;
+                break;
             case 43: //Direct Hit
-                WeaponStats.Instance.PercentageExplosionSize *= .5;
+                WeaponStats.Instance.PercentageExplosionSize /= 2;
                 WeaponStats.Instance.ItemExplosionDamage += 100;
                 Debug.Log($"Explosion size: {WeaponStats.Instance.ExplosionSize}");
                 Debug.Log($"Explosion damage: {WeaponStats.Instance.ExplosionDamage}");
+                break;
             default:
                 Debug.Log($"The ID: {item.id} has not been given a case in the item effect table.");
             break;
