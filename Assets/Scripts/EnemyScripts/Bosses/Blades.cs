@@ -76,7 +76,7 @@ public class Blades : MonoBehaviour
         {
             other.gameObject.GetComponent<PlayerStats>().ReceiveDamage(bladeDamage, originEnemy);
         }
-        else if (other.gameObject.CompareTag("Edges") || other.gameObject.CompareTag("Decoy"))
+        else if (other.gameObject.CompareTag("Edges") )
         {
             Destroy(gameObject);
         }
