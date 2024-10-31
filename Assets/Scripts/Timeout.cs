@@ -35,6 +35,7 @@ public class Timeout : MonoBehaviour
         yield return new WaitForSeconds(duration);
         GameSettings.gameState = GameState.InGame;
 
+        sprite.color = new Color32(255, 255, 255, 255);
         if (PlayerStats.Instance.lifeEggs.Count > 0)
         {
             PlayerStats.Instance.Respawn();

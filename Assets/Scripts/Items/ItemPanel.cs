@@ -98,7 +98,7 @@ public class ItemPanel : MonoBehaviour
         confirmPanel.style.display = DisplayStyle.None;
         continuePanel.style.display = DisplayStyle.None;
 
-        rerollCharges = GameSettings.MaxRerollCharges;
+        rerollCharges = GameSettings.StartingRerollCharges;
         rand = new System.Random();
         LoadItems();
         
@@ -184,6 +184,10 @@ public class ItemPanel : MonoBehaviour
 
     public void InitializeItemPanel(int waveNumber) //this is called every time the inventory ui pops up
     {
+        if (waveNumber % 5 == 0) //Add one reroll charge after boss kills
+        {
+            rerollCharges++;
+        }
         statDisplay.UpdateStats();
         GetItems(3, waveNumber);
         VisualElement rerollCount = rerollOuter.Q<VisualElement>("RerollCount");
@@ -218,12 +222,15 @@ public class ItemPanel : MonoBehaviour
             {
                 if (rarities.Contains(j.rarity)
                 && (j.weapons.Contains(WeaponStats.Instance.CurrentWeapon.ToString()) || j.weapons.Count == 0) //If it has the right weapons or no weapons at all
+                && (j.skills.Contains(GameSettings.activeSkill.ToString()) || j.skills.Count == 0)
+                && !j.single
                 && !selectedItems.Contains(j)) //If it hasn't already been selected
                 {
                     generatedRarityList.Add(j);
                 }
             }
             int index = rand.Next(0, generatedRarityList.Count);
+            Debug.Log(index);
             selectedItems.Add(generatedRarityList[index]);
             Label name = currentItem.Q<Label>("Name");
             Label rarity = currentItem.Q<Label>("Rarity");
@@ -313,11 +320,11 @@ public class ItemPanel : MonoBehaviour
         if (selectedIndex == -1)
         {
             PlayerStats.Instance.CurrentHealth += PlayerStats.Instance.MaxHealth / 2;
-            itemController.ItemPicked(-1);
+            itemController.ItemPicked(null);
         }
         else
         {
-            itemController.ItemPicked(selectedItems[selectedIndex].id); //activate the item selected's code
+            itemController.ItemPicked(selectedItems[selectedIndex]); //activate the item selected's code
             addItemToList(selectedItems[selectedIndex]);
         }
         selectedItems.Clear();

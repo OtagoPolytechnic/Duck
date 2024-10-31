@@ -66,7 +66,7 @@ public class Timer : MonoBehaviour
 
         if (currentTime <= 0 || (waveNumber % 5 == 0 && BossHealthBar.Instance.boss == null))
         {
-            if (waveNumber == 25 && GameSettings.gameState == GameState.InGame)
+            if (waveNumber == 25 && GameSettings.gameState == GameState.InGame && GameSettings.gameMode == GameMode.Boss)
             {
                 GameManager.Instance.BossVictory();
             }
