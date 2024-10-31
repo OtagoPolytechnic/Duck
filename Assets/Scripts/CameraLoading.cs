@@ -16,6 +16,7 @@ public class CameraLoading : MonoBehaviour
             {
                 Destroy(instance.gameObject);
             }
+            instance = this;
         }
         else
         {
