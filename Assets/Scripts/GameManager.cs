@@ -78,6 +78,11 @@ public class GameManager : MonoBehaviour
 
         playerName.RegisterCallback<NavigationMoveEvent>(e =>
         {
+            //I want WASD to not trigger the navigation event so the player can type their name
+            if (Keyboard.current.wKey.isPressed || Keyboard.current.aKey.isPressed || Keyboard.current.sKey.isPressed || Keyboard.current.dKey.isPressed)
+            {
+                return;
+            }
             switch(e.direction)
             {
                 case NavigationMoveEvent.Direction.Up: quit.Focus(); break;
