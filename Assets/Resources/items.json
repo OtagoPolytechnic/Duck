@@ -27,7 +27,7 @@
       {
         "id": 3,
         "name": "Band-Aid",
-        "desc": "Gain 1% max health regeneration per 3 seconds",
+        "desc": "Gain 2% max health regeneration per 2 seconds",
         "rarity": 2,
         "stacks": 0
       },
@@ -157,7 +157,7 @@
       {
         "id": 21,
         "name": "Bigger Barrel",
-        "desc": "Add another 6 pellets to your shots",
+        "desc": "Add another 4 pellets to your shots",
         "rarity": 3,
         "weapons": ["Shotgun"],
         "stacks": 0
@@ -208,7 +208,7 @@
       {
         "id": 28,
         "name": "MOAB",
-        "desc": "Your explosions double in size, but they also do half damage to you",
+        "desc": "Your explosions double in size and deal 50% more damage",
         "rarity": 3,
         "weapons": ["RocketLauncher"],
         "stacks": 0

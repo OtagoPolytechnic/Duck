@@ -10,8 +10,10 @@ public class ShotgunBossBehaviour : EnemyBase
     [SerializeField] private Transform bulletPosition;
     private float attackRange = 10;
     private float attackInterval = 1.5f;
-    private float minJumpAttackInterval = 7f;
-    private float maxJumpAttackInterval = 12f;
+    private float[] minIntervalRange = { 10f, 8f, 7f, 6f };
+    private float minJumpAttackInterval = 10f;
+    private float[] maxIntervalRange = { 15f, 13f, 11f, 10f };
+    private float maxJumpAttackInterval = 15f;
     private float attackResumptionDelay = 2f; // New variable for delay after shadow attack
     private float initialShootingDelay = 2f; // New variable for initial delay
 
@@ -36,6 +38,25 @@ public class ShotgunBossBehaviour : EnemyBase
 
         Transform spriteChild = transform.Find("Sprite");
         bossSpriteRenderer = spriteChild ? spriteChild.GetComponent<SpriteRenderer>() : null;
+        switch (GameSettings.waveNumber)
+        {
+            case 5:
+                minJumpAttackInterval = minIntervalRange[0];
+                maxJumpAttackInterval = maxIntervalRange[0];
+                break;
+            case 10:
+                minJumpAttackInterval = minIntervalRange[1];
+                maxJumpAttackInterval = maxIntervalRange[1];
+                break;
+            case 15:
+                minJumpAttackInterval = minIntervalRange[2];
+                maxJumpAttackInterval = maxIntervalRange[2];
+                break;
+            default:
+                minJumpAttackInterval = minIntervalRange[3];
+                maxJumpAttackInterval = maxIntervalRange[3];
+                break;
+        }
 
         bossCollider = GetComponent<Collider2D>();
         if (bossCollider == null)
