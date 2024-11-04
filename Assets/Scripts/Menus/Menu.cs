@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 public class Menu : MonoBehaviour
 {
+
 
     private Button playButton;
     private Button highscoreButton;
@@ -31,15 +33,16 @@ public class Menu : MonoBehaviour
 
         quitButton = document.Q<Button>("Quit");
         quitButton.RegisterCallback<ClickEvent>(Quit);
+        quitButton.RegisterCallback<NavigationSubmitEvent>(Quit);
 
         versionNumber = document.Q<Label>("VersionNumber");
-        versionNumber.text = "ALPHA V" + Application.version;
-
+        versionNumber.text = Application.version;
     }
 
     private void Start()
     {
         Application.targetFrameRate = 60;
+
         StartCoroutine(LoadBackgroundScene("ModeSelect", playButton));
         StartCoroutine(LoadBackgroundScene("SkillMenu")); //Null button as you can't open this screen from the main menu
         StartCoroutine(LoadBackgroundScene("Highscores", highscoreButton));
@@ -64,6 +67,7 @@ public class Menu : MonoBehaviour
         {
             //When the scene is loaded add the click event
             button.RegisterCallback<ClickEvent>(SubMenuButton);
+            button.RegisterCallback<NavigationSubmitEvent>(SubMenuButton);
             button.style.backgroundColor = new StyleColor(originalColour); //Return to original colour
         }
 
@@ -90,19 +94,29 @@ public class Menu : MonoBehaviour
 
     }
 
-    public void Quit(ClickEvent click)
+    public void Quit(EventBase evt)
     {
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
         Application.Quit();
     }
 
     //Two button click methods turned into one. The button that was clicked is turned into a visual element and the name is used to find the correct dictionary entry
-    public void SubMenuButton(ClickEvent click)
+    public void SubMenuButton(EventBase evt)
     {
-        VisualElement targetElement = click.target as VisualElement;
+        SFXManager.Instance.PlayRandomSFX(new string[] {"Button-Press", "Button-Press2", "Button-Press3", "Button-Press4"});
+        VisualElement targetElement = evt.target as VisualElement;
         if (targetElement != null)
         {
             sceneRootElements.TryGetValue(targetElement.name, out VisualElement rootElement);
             rootElement.style.display = DisplayStyle.Flex; // Set to visible
+            if (evt is NavigationSubmitEvent)
+            {
+                Button buttonToFocus = rootElement.Query<Button>(className: "focus-button").First();
+                if (buttonToFocus != null)
+                {
+                    buttonToFocus.Focus();
+                }
+            }
         }
     }
 }

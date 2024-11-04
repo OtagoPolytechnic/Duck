@@ -80,7 +80,7 @@ public class PlayerStats : MonoBehaviour
     private float nextDotTick = 0; //Time of the next damage over time tick
 
     //Regeneration
-    private float healTick = 3; //Time between healing ticks
+    private float healTick = 2; //Time between healing ticks
     public float HealTick
     {
         get {return healTick;}
@@ -129,6 +129,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private GameObject damageText;
     public List<GameObject> lifeEggs;
     public UnityEvent onPlayerRespawn = new UnityEvent();
+    public bool deathsDance;
     
     void Awake()
     {
@@ -213,6 +214,7 @@ public class PlayerStats : MonoBehaviour
 
     public void ReceiveDamage(int damageTaken, EnemyBase enemyHealth = null)
     {
+        SFXManager.Instance.PlaySFX("PlayerHurt");
         if (SpinePlate && enemyHealth != null)
         {
             enemyHealth?.ReceiveDamage((damageTaken * SpinePercent) / 100, false);

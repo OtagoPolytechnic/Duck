@@ -27,7 +27,7 @@
       {
         "id": 3,
         "name": "Band-Aid",
-        "desc": "Gain 1% max health regeneration per 3 seconds",
+        "desc": "Gain 2% max health regeneration per 2 seconds",
         "rarity": 2,
         "stacks": 0
       },
@@ -57,7 +57,7 @@
         "id": 7,
         "name": "Explosive Bullets",
         "desc": "Your bullets explode on impact\nDeal 50% damage to nearby enemies per item stack",
-        "weapons": ["MachineGun", "Sniper", "DualPistol", "Pistol", "Shotgun", "RocketLauncher"],
+        "weapons": ["MachineGun", "Sniper", "DualPistol", "Pistol", "Shotgun"],
         "rarity": 3,
         "stacks": 0
       },
@@ -157,7 +157,7 @@
       {
         "id": 21,
         "name": "Bigger Barrel",
-        "desc": "Add another 6 pellets to your shots",
+        "desc": "Add another 4 pellets to your shots",
         "rarity": 3,
         "weapons": ["Shotgun"],
         "stacks": 0
@@ -208,7 +208,7 @@
       {
         "id": 28,
         "name": "MOAB",
-        "desc": "Your explosions double in size, but they also do half damage to you",
+        "desc": "Your explosions double in size and deal 50% more damage",
         "rarity": 3,
         "weapons": ["RocketLauncher"],
         "stacks": 0
@@ -271,6 +271,63 @@
         "desc": "Increase your weapon damage by 400%, but reduce attack speed to 33%",
         "rarity": 3,
         "weapons": ["Sword"],
+        "stacks": 0
+      },
+      {
+        "id": 37,
+        "name": "Second Wind",
+        "desc": "Decrease your skill cooldown by 10%",
+        "rarity": 1,
+        "stacks": 0
+      },
+      {
+        "id": 38,
+        "name": "Increased Focus",
+        "desc": "Increase your skill duration by 10%",
+        "rarity": 1,
+        "stacks": 0
+      },
+      {
+        "id": 39,
+        "name": "Corrupted Dash",
+        "desc": "Dash cooldown is reduced by 50%, but you no longer gain immunity during dash",
+        "rarity": 6,
+        "skills": ["dash"],
+        "single": false,
+        "stacks": 0
+      },
+      {
+        "id": 40,
+        "name": "Corrupted Vanish",
+        "desc": "Your shots during vanish deal 300% damage, but vanish cooldown is increased by 100% and duration is reduced by 50%",
+        "rarity": 6,
+        "skills": ["vanish"],
+        "single": false,
+        "stacks": 0
+      },
+      {
+        "id": 41,
+        "name": "Corrupted Decoy",
+        "desc": "Decoy explodes at the end of its duration for 100 times player damage, but decoy cooldown is increased by 25%",
+        "rarity": 6,
+        "skills": ["decoy"],
+        "single": false,
+        "stacks": 0
+      },
+      {
+        "id": 42,
+        "name": "Death's Dance",
+        "desc": "Your Crit and Crit Damage scale based on missing health, down to 20% health",
+        "rarity": 6,
+        "single": false,
+        "stacks": 0
+      },
+      {
+        "id": 43,
+        "name": "Direct Hit",
+        "desc": "Your explosions are half the size and deal 100% more damage",
+        "rarity": 3,
+        "weapons": ["RocketLauncher"],
         "stacks": 0
       }
     ]

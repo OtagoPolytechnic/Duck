@@ -18,6 +18,8 @@ TagManager:
   - Target
   - Shield
   - BossShield
+  - BladesCenter
+  - Blades
   layers:
   - Default
   - TransparentFX

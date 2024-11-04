@@ -34,6 +34,7 @@ public class EnemyBullet : MonoBehaviour
         }
         Vector3 direction = player.transform.position - transform.position;
         rb.velocity = new Vector2(direction.x, direction.y).normalized * bulletSpeed;
+        gameObject.transform.rotation = originEnemy.transform.GetChild(0).rotation;
         heldVelocity = rb.velocity;
     }
 

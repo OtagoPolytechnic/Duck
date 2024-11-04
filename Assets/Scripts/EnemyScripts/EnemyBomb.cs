@@ -106,6 +106,7 @@ public class EnemyBomb : MonoBehaviour
         
         }
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        
         // Destroy the object after flashing
         Destroy(gameObject);
     }
