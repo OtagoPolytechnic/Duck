@@ -27,10 +27,6 @@ public class FinalBossBehaviour : EnemyBase
     [SerializeField] private GameObject bossShieldPrefab;
     private GameObject currentShield;
 
-    private float bulletAngleOffset = 0f; // Track the angle for shooting
-    [SerializeField] private float angleIncrement = 5f; // Angle increment for each bullet
-    private const float fullCircle = 360f; // Full circle in degrees
-
     private void Awake()
     {
         mapManager = FindObjectOfType<MapManager>();
@@ -41,6 +37,8 @@ public class FinalBossBehaviour : EnemyBase
         enemiesSpawnedAt50 = false;
         enemiesSpawnedAt25 = false;
     }
+
+    private bool isShooting = false;
 
     void Update()
     {
@@ -57,17 +55,32 @@ public class FinalBossBehaviour : EnemyBase
             stopCheck = false;
         }
 
-        distance = Vector2.Distance(transform.position, player.transform.position);
-        Vector2 direction = player.transform.position - transform.position;
-
         if (SkillEffects.Instance.vanishActive) { return; }
+        RotateTowardsPlayer();
+
+        CheckHealthAndSpawnEnemies();
+
+        if (attackCooldown <= 0 && !isShooting)
+        {
+            isShooting = true;
+            Shoot();
+        }
         else
         {
-            direction.Normalize();
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.GetChild(0).rotation = Quaternion.Euler(Vector3.forward * angle);
+            attackCooldown -= Time.deltaTime;
         }
 
+        if (attackCooldown <= 0 && isShooting)
+        {
+            isShooting = false;
+            attackCooldown = attackInterval;
+        }
+
+        Move();
+    }
+
+    private void CheckHealthAndSpawnEnemies()
+    {
         if (Health <= MaxHealth * 0.75f && !enemiesSpawnedAt75)
         {
             StartCoroutine(SpawnEnemies());
@@ -83,25 +96,6 @@ public class FinalBossBehaviour : EnemyBase
             StartCoroutine(SpawnEnemies());
             enemiesSpawnedAt25 = true;
         }
-
-        if (distance >= attackRange)
-        {
-            Move();
-        }
-        else
-        {
-            if (attackCooldown <= 0)
-            {
-                if (SkillEffects.Instance.vanishActive) { return; }
-                Shoot();
-            }
-            else
-            {
-                attackCooldown -= Time.deltaTime;
-            }
-        }
-
-        Bleed();
     }
 
     public override void Move()
@@ -113,27 +107,22 @@ public class FinalBossBehaviour : EnemyBase
 
     void Shoot()
     {
-        // Calculate the bullet direction with the angle offset
-        float angle = bulletAngleOffset * Mathf.Deg2Rad; // Convert to radians
-        Vector2 shootDirection = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        if (bullet == null || bulletPosition == null)
+        {
+            Debug.LogError("Bullet prefab or position is not assigned!");
+            return;
+        }
 
         GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
-        newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, false); // Pass false for shotgun
-        newBullet.GetComponent<BossBullet>().originEnemy = this;
-
-        // Set the bullet's velocity or direction if needed (depending on your bullet script)
-        newBullet.GetComponent<BossBullet>().SetDirection(shootDirection);
-
-        SFXManager.Instance.PlaySFX("EnemyShoot");
-
-        // Increment the angle offset for the next bullet
-        bulletAngleOffset += angleIncrement;
-
-        // Reset the angle offset if a full circle is completed
-        if (bulletAngleOffset >= fullCircle)
+        if (newBullet == null)
         {
-            bulletAngleOffset -= fullCircle; // Keep it within 0-360
+            Debug.LogError("Failed to instantiate the bullet!");
+            return;
         }
+
+        newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, false);
+        newBullet.GetComponent<BossBullet>().originEnemy = this;
+        SFXManager.Instance.PlaySFX("EnemyShoot");
 
         attackCooldown = attackInterval;
     }
@@ -157,6 +146,7 @@ public class FinalBossBehaviour : EnemyBase
         isImmune = true;
         currentShield = Instantiate(bossShieldPrefab, transform.position, Quaternion.identity);
         currentShield.transform.parent = this.transform;
+
         for (int i = 0; i < enemiesToSpawn; i++)
         {
             int randomIndex = Random.Range(0, enemyPrefabs.Count);
@@ -169,6 +159,14 @@ public class FinalBossBehaviour : EnemyBase
 
             Instantiate(enemyPrefabs[randomIndex], spawnPosition, Quaternion.identity);
         }
+    }
+
+    private void RotateTowardsPlayer()
+    {
+        Vector2 direction = player.transform.position - transform.position;
+        direction.Normalize();
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
     private Vector2 GetRandomSpawnPosition()
