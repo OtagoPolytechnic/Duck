@@ -14,10 +14,10 @@ public class FinalBossBehaviour : EnemyBase
 
     private float attackCooldown;
 
-    [SerializeField] private List<GameObject> enemyPrefabs; 
-    [SerializeField] private int enemiesToSpawn = 12; 
-    [SerializeField] private float spawnRadius = 10f; 
-    [SerializeField] private float minSpawnDistance = 10f; 
+    [SerializeField] private List<GameObject> enemyPrefabs;
+    [SerializeField] private int enemiesToSpawn = 12;
+    [SerializeField] private float spawnRadius = 10f;
+    [SerializeField] private float minSpawnDistance = 10f;
     [SerializeField] private float respawnDelay = 5f;
 
     private bool enemiesSpawnedAt75;
@@ -25,7 +25,11 @@ public class FinalBossBehaviour : EnemyBase
     private bool enemiesSpawnedAt25;
 
     [SerializeField] private GameObject bossShieldPrefab;
-    private GameObject currentShield; 
+    private GameObject currentShield;
+
+    private float bulletAngleOffset = 0f; // Track the angle for shooting
+    [SerializeField] private float angleIncrement = 5f; // Angle increment for each bullet
+    private const float fullCircle = 360f; // Full circle in degrees
 
     private void Awake()
     {
@@ -64,21 +68,20 @@ public class FinalBossBehaviour : EnemyBase
             transform.GetChild(0).rotation = Quaternion.Euler(Vector3.forward * angle);
         }
 
-     
         if (Health <= MaxHealth * 0.75f && !enemiesSpawnedAt75)
         {
             StartCoroutine(SpawnEnemies());
-            enemiesSpawnedAt75 = true; 
+            enemiesSpawnedAt75 = true;
         }
         else if (Health <= MaxHealth * 0.50f && !enemiesSpawnedAt50)
         {
             StartCoroutine(SpawnEnemies());
-            enemiesSpawnedAt50 = true; 
+            enemiesSpawnedAt50 = true;
         }
         else if (Health <= MaxHealth * 0.25f && !enemiesSpawnedAt25)
         {
             StartCoroutine(SpawnEnemies());
-            enemiesSpawnedAt25 = true; 
+            enemiesSpawnedAt25 = true;
         }
 
         if (distance >= attackRange)
@@ -110,10 +113,28 @@ public class FinalBossBehaviour : EnemyBase
 
     void Shoot()
     {
+        // Calculate the bullet direction with the angle offset
+        float angle = bulletAngleOffset * Mathf.Deg2Rad; // Convert to radians
+        Vector2 shootDirection = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+
         GameObject newBullet = Instantiate(bullet, bulletPosition.position, Quaternion.identity);
         newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, false); // Pass false for shotgun
         newBullet.GetComponent<BossBullet>().originEnemy = this;
+
+        // Set the bullet's velocity or direction if needed (depending on your bullet script)
+        newBullet.GetComponent<BossBullet>().SetDirection(shootDirection);
+
         SFXManager.Instance.PlaySFX("EnemyShoot");
+
+        // Increment the angle offset for the next bullet
+        bulletAngleOffset += angleIncrement;
+
+        // Reset the angle offset if a full circle is completed
+        if (bulletAngleOffset >= fullCircle)
+        {
+            bulletAngleOffset -= fullCircle; // Keep it within 0-360
+        }
+
         attackCooldown = attackInterval;
     }
 
@@ -121,21 +142,19 @@ public class FinalBossBehaviour : EnemyBase
     {
         SpawnEnemiesAroundBoss();
 
-   
         yield return new WaitUntil(() => CountActiveEnemies() <= 1);
         isImmune = false;
 
         if (currentShield != null)
         {
             Destroy(currentShield);
-            currentShield = null; 
+            currentShield = null;
         }
     }
 
     private void SpawnEnemiesAroundBoss()
     {
         isImmune = true;
-        // Instantiate the BossShield at the boss's position
         currentShield = Instantiate(bossShieldPrefab, transform.position, Quaternion.identity);
         currentShield.transform.parent = this.transform;
         for (int i = 0; i < enemiesToSpawn; i++)
@@ -143,7 +162,6 @@ public class FinalBossBehaviour : EnemyBase
             int randomIndex = Random.Range(0, enemyPrefabs.Count);
             Vector2 spawnPosition;
 
-   
             do
             {
                 spawnPosition = GetRandomSpawnPosition();
@@ -166,6 +184,6 @@ public class FinalBossBehaviour : EnemyBase
 
     private int CountActiveEnemies()
     {
-        return GameObject.FindGameObjectsWithTag("Enemy").Length; 
+        return GameObject.FindGameObjectsWithTag("Enemy").Length;
     }
 }
