@@ -39,6 +39,12 @@ public class RiotBossBehaviour : EnemyBase
     {
         if (GameSettings.gameState != GameState.InGame || Dying) { return; }
 
+        if (shieldInstance == null && transform.GetChild(0).gameObject.activeSelf == false)
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
+            transform.GetChild(1).gameObject.SetActive(false);
+        }
+
         if (SkillEffects.Instance.decoyActive && !stopCheck)
         {
             player = GameObject.FindGameObjectWithTag("Decoy");
@@ -66,27 +72,15 @@ public class RiotBossBehaviour : EnemyBase
         {
             Move();
         }
-        else if (GameSettings.gameState ==GameState.InGame) 
+        else if (GameSettings.gameState ==GameState.InGame && shieldInstance == null) 
         {
-           
-            if (shieldInstance == null)
+            if (attackCooldown <= 0)
             {
-
-                //ResetSprites
-                if(transform.GetChild(0).gameObject.activeSelf == false)
-                {
-                    transform.GetChild(0).gameObject.SetActive(true);
-                    transform.GetChild(1).gameObject.SetActive(false);
-                }
-
-                if (attackCooldown <= 0)
-                {
-                    Shoot();
-                }
-                else
-                {
-                    attackCooldown -= Time.deltaTime; 
-                }
+                Shoot();
+            }
+            else
+            {
+                attackCooldown -= Time.deltaTime; 
             }
         }
 
