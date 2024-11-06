@@ -37,6 +37,7 @@ public class Blades : MonoBehaviour
 
         if (isMoving)
         {
+            transform.Rotate(new Vector3(0,0,720 * Time.deltaTime));
             if (moveDirection)
             {
                 MoveTowards(bladesCenter.transform.position);
