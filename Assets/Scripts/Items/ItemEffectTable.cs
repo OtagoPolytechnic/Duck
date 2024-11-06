@@ -87,7 +87,7 @@ public class ItemEffectTable : MonoBehaviour
                     switch(randomStats[i])
                     {
                         case 0:
-                            WeaponStats.Instance.FlatDamage += 6;
+                            PlayerStats.Instance.PercentBonusHealth += PlayerStats.Instance.PercentBonusHealth / 16; //Roughly 6.25% max health
                             Debug.Log($"Damage: {WeaponStats.Instance.Damage}");
                             break;
                         case 1:
