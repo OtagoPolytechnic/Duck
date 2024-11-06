@@ -36,7 +36,7 @@ public class Timeout : MonoBehaviour
         GameSettings.gameState = GameState.InGame;
 
         sprite.color = new Color32(255, 255, 255, 255);
-        if (PlayerStats.Instance.lifeEggs.Count > 0)
+        if (PlayerStats.Instance.Respawns > 0)
         {
             PlayerStats.Instance.Respawn();
         }
