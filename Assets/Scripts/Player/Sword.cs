@@ -21,7 +21,11 @@ public class Sword : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Shield"))
+        {
+            other.gameObject.GetComponent<RiotShield>().TakeDamage();
+        }
+        else if (other.gameObject.CompareTag("Enemy"))
         {            
             if (crit)
             {
