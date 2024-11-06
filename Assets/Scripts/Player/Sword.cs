@@ -42,7 +42,14 @@ public class Sword : MonoBehaviour
             Debug.Log("Hit bullet");
             GameObject bulletInstance = Instantiate(reflectedBullet, other.gameObject.transform.position, Quaternion.identity);
             bulletInstance.GetComponent<Rigidbody2D>().velocity = -other.gameObject.GetComponent<Rigidbody2D>().velocity;
-            bulletInstance.GetComponent<ReflectedBullet>().Damage = other.gameObject.GetComponent<EnemyBullet>().Damage;
+            if (other.gameObject.GetComponent<EnemyBullet>() != null)
+            {
+                bulletInstance.GetComponent<ReflectedBullet>().Damage = other.gameObject.GetComponent<EnemyBullet>().Damage;
+            }
+            else if (other.gameObject.GetComponent<BossBullet>() != null)
+            {
+                bulletInstance.GetComponent<ReflectedBullet>().Damage = other.gameObject.GetComponent<BossBullet>().BulletDamage;
+            }
 
             Destroy(other.gameObject);
         }
