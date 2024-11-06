@@ -106,6 +106,7 @@ public class RiotBossBehaviour : EnemyBase
         newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, false);
         SFXManager.Instance.PlaySFX("EnemyShoot");
         attackCooldown = attackInterval; 
+        newBullet.GetComponent<BossBullet>().originEnemy = this;
     }
 
     //Spawns napalm bomb at random intervals between set times
