@@ -10,9 +10,7 @@ public class Blades : MonoBehaviour
     private bool isMoving = false;
     private bool moveDirection = false;
     private float attackCooldown;
-    private float moveInDuration = 2f; 
     private float moveOutDelay = 5f;   
-    private float moveOutDuration = 2f; 
     private int bladeDamage;
     public EnemyBase originEnemy;
 
