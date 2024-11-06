@@ -26,6 +26,7 @@ public class BladeBossBehaviour : EnemyBase
     private bool attacking = false;
     private GameObject attack;
     private SpriteRenderer sprite;
+    private GameObject chargeSprite;
     private List<GameObject> blades = new List<GameObject>(); 
     private GameObject currentBladeCenter; 
 
@@ -38,6 +39,7 @@ public class BladeBossBehaviour : EnemyBase
         attack = gameObject.transform.GetChild(0).GetChild(0).gameObject;
         SpawnBlades();
         sprite = GetComponentInChildren<SpriteRenderer>();
+        chargeSprite = sprite.gameObject.transform.GetChild(2).gameObject;
     }
 
     //This spawns blades around the player and an empty blade center object to aid with blade movement
@@ -137,7 +139,7 @@ public class BladeBossBehaviour : EnemyBase
     private IEnumerator StartCharging()
     {
            
-        sprite.color = new Color32(255, 0, 0, 255);
+        sprite.color = new Color32(255, 50, 50, 255);
        
         float waitTime = 1f;
         float elapsedTime = 0f;
@@ -150,7 +152,7 @@ public class BladeBossBehaviour : EnemyBase
                 yield return null;
             }
         }
- chargeTimer = 0f;
+        chargeTimer = 0f;
         Vector2 direction = (player.transform.position - transform.position).normalized;
         float extraDistance = 4f;
         targetPosition = (Vector2)player.transform.position + direction * extraDistance;
@@ -161,8 +163,9 @@ public class BladeBossBehaviour : EnemyBase
         Debug.Log("BladeBoss is charging towards position: " + targetPosition);
 
         isCharging = true;
-
-
+        sprite.enabled = false;
+        chargeSprite.SetActive(true);
+        sprite.color = Color.white;
     }
 
     private void Charge()
@@ -175,7 +178,8 @@ public class BladeBossBehaviour : EnemyBase
             isCharging = false;
             attack.SetActive(false);
             attacking = false;
-            sprite.color = Color.white;
+            sprite.enabled = true;
+            chargeSprite.SetActive(false);
         }
     }
     private void OnDestroy()
