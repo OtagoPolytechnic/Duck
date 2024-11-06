@@ -51,6 +51,7 @@ public class Timer : MonoBehaviour
         {
             return;
         }
+        setTimerText();
 
         if (GameSettings.gameState == GameState.InGame && GameSettings.waveNumber % 5 != 0 || TerminalBehaviour.Instance.stopBoss)
         {
@@ -76,7 +77,6 @@ public class Timer : MonoBehaviour
             }
         }
 
-        setTimerText();
     }
 
     public void EndWave()
@@ -97,6 +97,28 @@ public class Timer : MonoBehaviour
     private void setTimerText()
     {
         timerText.text = currentTime.ToString("0") + " s";
+        if (currentTime <= 5)
+        {
+            timerText.style.color = Color.red;
+            float fontSize = timerText.resolvedStyle.fontSize;
+            if (fontSize < 70f)
+            {
+                timerText.style.fontSize = fontSize + 1f;
+            }
+        }
+        else
+        {
+            timerText.style.color = Color.white;
+            timerText.style.fontSize = 50;
+        }
+        if (currentTime <= 0)
+        {
+            timerText.visible = false;
+        }
+        else
+        {
+            timerText.visible = true;
+        }
     }
 
     private void NextWave()

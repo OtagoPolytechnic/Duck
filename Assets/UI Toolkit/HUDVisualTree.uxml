@@ -10,7 +10,7 @@
         </ui:IMGUIContainer>
         <ui:Label text="POINTS: 0" display-tooltip-when-elided="true" name="Points" class="header text" style="margin-right: 40px; white-space: normal; margin-top: 0; margin-left: 0; flex-basis: auto; flex-wrap: wrap; flex-direction: column;" />
     </ui:VisualElement>
-    <ui:Label text="Timer" display-tooltip-when-elided="true" name="Timer" class="text" style="margin-left: 120px; margin-top: 0;" />
+    <ui:Label text="Timer" display-tooltip-when-elided="true" name="Timer" class="text" style="margin-left: 120px; margin-top: 0; align-self: center;" />
     <ui:VisualElement name="MidScreenContainer" style="flex-grow: 1; flex-direction: column-reverse; align-items: center; -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/PublicPixel.ttf?fileID=12800000&amp;guid=9cdf889b2baddf840996f4d8b05c1651&amp;type=3#PublicPixel&quot;); -unity-font-definition: initial;">
         <ui:IMGUIContainer name="DurationBackground" style="background-image: url(&quot;project://database/Assets/Scripts/HealthBar/HP_MP_Bar%20(1).png?fileID=-2002936986&amp;guid=3245bd78fbd9e8949b410b9f27e116de&amp;type=3#HP_MP_Bar (1)_0&quot;); height: 30px; width: 200px; margin-top: 0; flex-direction: column; align-items: stretch; justify-content: center; position: relative; top: 0; left: 0; -unity-background-image-tint-color: rgb(255, 255, 255); visibility: visible;">
             <ui:IMGUIContainer name="DurationContainer" style="flex-direction: column; align-items: stretch; justify-content: center; width: 196px; height: 30px; margin-left: 0; min-width: auto; position: absolute; margin-right: 0; left: 2px; top: -1px;">
