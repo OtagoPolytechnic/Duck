@@ -36,7 +36,8 @@ public class Sword : MonoBehaviour
                 other.gameObject.GetComponent<EnemyBase>().ReceiveDamage(WeaponStats.Instance.Damage, false);
             }
         }
-        else if (WeaponStats.Instance.HasReflector && reflecting && other.gameObject.CompareTag("Bullet") && other.gameObject.layer == 9)
+        else if (WeaponStats.Instance.HasReflector && reflecting && other.gameObject.CompareTag("Bullet") && other.gameObject.layer == 9 
+        && other.gameObject.name != "NapalmBomb(Clone)" && other.gameObject.name != "Bomb(Clone)")
         {
             SFXManager.Instance.PlaySFX("Deflect");
             Debug.Log("Hit bullet");
@@ -50,8 +51,6 @@ public class Sword : MonoBehaviour
             {
                 bulletInstance.GetComponent<ReflectedBullet>().Damage = other.gameObject.GetComponent<BossBullet>().BulletDamage;
             }
-
-            Destroy(other.gameObject);
         }
     }
 }
