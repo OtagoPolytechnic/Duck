@@ -51,6 +51,7 @@ public class Sword : MonoBehaviour
             {
                 bulletInstance.GetComponent<ReflectedBullet>().Damage = other.gameObject.GetComponent<BossBullet>().BulletDamage;
             }
+            Destroy(other.gameObject);
         }
     }
 }
