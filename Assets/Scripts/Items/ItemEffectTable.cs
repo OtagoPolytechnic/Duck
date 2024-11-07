@@ -6,8 +6,6 @@ using System.Linq;
 public class ItemEffectTable : MonoBehaviour
 {
     //If you add a new item in the items.json file you need to add the functionality in here
-    [SerializeField]
-    private GameObject eggPrefab;
     public void ItemPicked(Item item)
     {
         int id;
@@ -61,9 +59,7 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Explosion damage: {WeaponStats.Instance.ExplosionDamage}");
                 break;
             case 08: //Egg
-                //This is going to be changed to not being actual items on the ground
-                GameObject newEgg = Instantiate(eggPrefab,  new Vector3(0,0,0), Quaternion.identity, GameObject.Find("Nest").transform);
-                newEgg.transform.localScale = new Vector3(1f/3f, 1f/3f, 1f/3f); //Properly setting the scale to one third
+                PlayerStats.Instance.Respawns += 1;
                 break;
             case 09: //Lucky Feather
                 WeaponStats.Instance.FlatCritChance += 8; //8% crit chance
