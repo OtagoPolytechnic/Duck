@@ -87,7 +87,7 @@ public class ItemEffectTable : MonoBehaviour
                     switch(randomStats[i])
                     {
                         case 0:
-                            WeaponStats.Instance.FlatDamage += 6;
+                            PlayerStats.Instance.PercentBonusHealth += PlayerStats.Instance.PercentBonusHealth / 16; //Roughly 6.25% max health
                             Debug.Log($"Damage: {WeaponStats.Instance.Damage}");
                             break;
                         case 1:
@@ -212,7 +212,7 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                 break;
             case 32: //Full Breakfast
-                PlayerStats.Instance.PercentBonusHealth += PlayerStats.Instance.PercentBonusHealth / 30;
+                PlayerStats.Instance.PercentBonusHealth += (PlayerStats.Instance.PercentBonusHealth / 10) * 3; //30% max health. The other option is /3 which is 33% max health
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}");
                 break;
             case 33: //Expert Aim

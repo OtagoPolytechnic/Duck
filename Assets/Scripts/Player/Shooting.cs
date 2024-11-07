@@ -19,7 +19,7 @@ public class Shooting : MonoBehaviour
     private float reflectCooldown;
     private bool toggled = false;
     private bool held = false;
-    private bool ready;
+    //private bool ready;
     Vector2 lookDirection;
     float lookAngle;
 
@@ -134,7 +134,7 @@ public class Shooting : MonoBehaviour
 
     private void Shoot()
     {
-        ready = false;
+        //ready = false;
         if (WeaponStats.Instance.CurrentWeapon == WeaponType.Sword)
         {
             if (WeaponStats.Instance.HasSwordBeam && PlayerStats.Instance.CurrentHealth == PlayerStats.Instance.MaxHealth)

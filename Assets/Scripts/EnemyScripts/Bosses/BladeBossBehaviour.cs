@@ -17,13 +17,11 @@ public class BladeBossBehaviour : EnemyBase
     [SerializeField] private float spacing = 0.5f;
 
     private bool isCharging = false;
-    private float chargeDuration = 1f;
     private float chargeTimer = 0f;
     private float chargeCooldown;
     private float chargeCooldownMin = 1f;
     private float chargeCooldownMax = 2f;
     private Vector2 targetPosition;
-    private bool attacking = false;
     private GameObject attack;
     private SpriteRenderer sprite;
     private GameObject chargeSprite;
@@ -158,7 +156,6 @@ public class BladeBossBehaviour : EnemyBase
         targetPosition = (Vector2)player.transform.position + direction * extraDistance;
         attack.GetComponent<BoxCollider2D>().enabled = true; 
         attack.GetComponent<ChargeAttack>().originEnemy = this;
-        attacking = true;
         attack.SetActive(true); 
         Debug.Log("BladeBoss is charging towards position: " + targetPosition);
 
@@ -177,7 +174,6 @@ public class BladeBossBehaviour : EnemyBase
             Debug.Log("BladeBoss has finished charging.");
             isCharging = false;
             attack.SetActive(false);
-            attacking = false;
             sprite.enabled = true;
             chargeSprite.SetActive(false);
         }
