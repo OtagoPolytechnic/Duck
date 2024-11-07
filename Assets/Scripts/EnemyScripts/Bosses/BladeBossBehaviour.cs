@@ -175,7 +175,7 @@ public class BladeBossBehaviour : EnemyBase
             isCharging = false;
             attack.SetActive(false);
             attacking = false;
-            sprite.color = Color.white;
+            sprite.color = Color.black;
         }
     }
     private void OnDestroy()

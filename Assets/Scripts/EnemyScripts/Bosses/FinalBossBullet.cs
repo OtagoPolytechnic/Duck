@@ -11,7 +11,6 @@ public class FinalBossBullet : MonoBehaviour
     private Vector3 startPos;
     private Vector2 heldVelocity;
 
-    // Variable to hold the bullet damage
     private int bulletDamage;
     public int BulletDamage
     {
@@ -19,31 +18,34 @@ public class FinalBossBullet : MonoBehaviour
         set { bulletDamage = value; }
     }
 
-    private bool isShotgunBullet; // Determines if bullet is for shotgun boss
+    private bool isShotgunBullet; 
     private float angleOffset;
+    private static float currentAngle = 0f;
+    private const float angleIncrement = 40f; 
 
     void Start()
     {
         startPos = transform.position;
         rb = GetComponent<Rigidbody2D>();
 
-        // Set bullet damage and speed based on current wave
         bulletDamage = 30 + (GameSettings.waveNumber / 5) * 5;
         bulletSpeed = 5 + (GameSettings.waveNumber / 5);
         range = 20f + (GameSettings.waveNumber / 5) * 20;
 
-        // Generate a random angle and calculate direction
-        float angle = Random.Range(0f, 360f);
-        Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+        Vector2 direction = new Vector2(Mathf.Cos(currentAngle * Mathf.Deg2Rad), Mathf.Sin(currentAngle * Mathf.Deg2Rad));
 
-        // Set the bullet's velocity based on the random direction
         rb.velocity = direction.normalized * bulletSpeed;
         heldVelocity = rb.velocity;
+        currentAngle += angleIncrement;
+
+        if (currentAngle >= 360f)
+        {
+            currentAngle -= 360f;
+        }
     }
 
     public void InitializeBullet(GameObject player, int damage, bool isShotgun, float angleOffset = 0f)
     {
-        // You can leave player as null since it's no longer needed
         this.bulletDamage = damage;
         this.isShotgunBullet = isShotgun;
         this.angleOffset = angleOffset;
@@ -60,7 +62,6 @@ public class FinalBossBullet : MonoBehaviour
             rb.velocity = heldVelocity;
         }
 
-        // Destroy bullet after exceeding range
         float distTravelled = Vector3.Distance(startPos, transform.position);
         if (distTravelled > range)
         {
