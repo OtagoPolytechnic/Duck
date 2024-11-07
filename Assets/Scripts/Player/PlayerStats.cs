@@ -124,10 +124,21 @@ public class PlayerStats : MonoBehaviour
     {
         get {return (FlatLifestealPercentage * PercentLifestealPercentage) / 100;}
     }
+
+    //Respawns
+    private int respawns;
+    public int Respawns
+    {
+        get {return respawns;}
+        set
+        {
+            respawns = value;
+            HealthBar.Instance.UpdateRespawnDisplay(respawns);
+        }
+    }
     
     //other vars
     [SerializeField] private GameObject damageText;
-    public List<GameObject> lifeEggs;
     public UnityEvent onPlayerRespawn = new UnityEvent();
     public bool deathsDance;
     
@@ -143,6 +154,7 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         CurrentHealth = MaxHealth;
+        Respawns = GameSettings.startingRespawns;
     }
 
     void Update()
@@ -188,14 +200,7 @@ public class PlayerStats : MonoBehaviour
     {
         //This event currently has no listeners, it is here for future use 
         onPlayerRespawn?.Invoke();
-
-        if (lifeEggs.Count > 0) //This should never run if there are no eggs, but this is here just in case
-        {
-            gameObject.transform.position = lifeEggs[lifeEggs.Count - 1].transform.position;
-            Destroy(lifeEggs[lifeEggs.Count - 1]);
-            lifeEggs.Remove(lifeEggs[lifeEggs.Count - 1]);
-        }
-        //Debug.Log("Player health before collisions turned off: " + CurrentHealth);
+        Respawns--;
         CurrentHealth = MaxHealth;
         StartCoroutine(DisableCollisionForDuration(2f));
     }

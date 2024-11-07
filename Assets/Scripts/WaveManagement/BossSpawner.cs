@@ -14,7 +14,6 @@ public class BossSpawner : MonoBehaviour
     private VisualElement document;
     private VisualElement container;
     private int bossHealth = 1500;
-    private int bossMaxHealth = 1500;
     public GameObject bossHealthBar;
     public GameObject bigBoss;
 
