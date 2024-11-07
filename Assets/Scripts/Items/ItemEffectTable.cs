@@ -6,8 +6,6 @@ using System.Linq;
 public class ItemEffectTable : MonoBehaviour
 {
     //If you add a new item in the items.json file you need to add the functionality in here
-    [SerializeField]
-    private GameObject eggPrefab;
     public void ItemPicked(Item item)
     {
         int id;
@@ -61,9 +59,7 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Explosion damage: {WeaponStats.Instance.ExplosionDamage}");
                 break;
             case 08: //Egg
-                //This is going to be changed to not being actual items on the ground
-                GameObject newEgg = Instantiate(eggPrefab,  new Vector3(0,0,0), Quaternion.identity, GameObject.Find("Nest").transform);
-                newEgg.transform.localScale = new Vector3(1f/3f, 1f/3f, 1f/3f); //Properly setting the scale to one third
+                PlayerStats.Instance.Respawns += 1;
                 break;
             case 09: //Lucky Feather
                 WeaponStats.Instance.FlatCritChance += 8; //8% crit chance
@@ -87,7 +83,7 @@ public class ItemEffectTable : MonoBehaviour
                     switch(randomStats[i])
                     {
                         case 0:
-                            WeaponStats.Instance.FlatDamage += 6;
+                            PlayerStats.Instance.PercentBonusHealth += PlayerStats.Instance.PercentBonusHealth / 16; //Roughly 6.25% max health
                             Debug.Log($"Damage: {WeaponStats.Instance.Damage}");
                             break;
                         case 1:
@@ -212,7 +208,7 @@ public class ItemEffectTable : MonoBehaviour
                 Debug.Log($"Speed: {TopDownMovement.Instance.MoveSpeed}");
                 break;
             case 32: //Full Breakfast
-                PlayerStats.Instance.PercentBonusHealth += PlayerStats.Instance.PercentBonusHealth / 30;
+                PlayerStats.Instance.PercentBonusHealth += (PlayerStats.Instance.PercentBonusHealth / 10) * 3; //30% max health. The other option is /3 which is 33% max health
                 Debug.Log($"Max health: {PlayerStats.Instance.MaxHealth}");
                 break;
             case 33: //Expert Aim

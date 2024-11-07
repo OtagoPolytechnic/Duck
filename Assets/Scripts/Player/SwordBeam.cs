@@ -26,8 +26,13 @@ public class SwordBeam : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.CompareTag("Shield"))
+        {
+            other.gameObject.GetComponent<RiotShield>().TakeDamage();
+            Destroy(gameObject);
+        }
         //destroys bullet on hit with player and lowers health
-        if (other.gameObject.CompareTag("Enemy"))
+        else if (other.gameObject.CompareTag("Enemy"))
         {
             if (other.gameObject.GetComponent<EnemyBase>())
             {

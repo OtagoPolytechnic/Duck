@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  originEnemy: {fileID: 0}
   bulletSpeed: 5
 --- !u!1 &8316006223160660946
 GameObject:
