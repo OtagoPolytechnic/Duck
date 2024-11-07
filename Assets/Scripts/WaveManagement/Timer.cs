@@ -99,7 +99,7 @@ public class Timer : MonoBehaviour
         timerText.text = currentTime.ToString("0") + " s";
         if (currentTime <= 5)
         {
-            timerText.style.color = Color.red;
+            timerText.style.color = new StyleColor(new Color32(182,39,38,255));
             float fontSize = timerText.resolvedStyle.fontSize;
             if (fontSize < 70f)
             {
