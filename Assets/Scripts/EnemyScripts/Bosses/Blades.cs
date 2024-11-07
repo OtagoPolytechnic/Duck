@@ -33,6 +33,8 @@ public class Blades : MonoBehaviour
     {
         if (GameSettings.gameState != GameState.InGame) { return; }
 
+        transform.Rotate(new Vector3(0,0,720 * Time.deltaTime));
+
         if (isMoving)
         {
             if (moveDirection)
