@@ -10,9 +10,7 @@ public class Blades : MonoBehaviour
     private bool isMoving = false;
     private bool moveDirection = false;
     private float attackCooldown;
-    private float moveInDuration = 2f; 
     private float moveOutDelay = 5f;   
-    private float moveOutDuration = 2f; 
     private int bladeDamage;
     public EnemyBase originEnemy;
 
@@ -34,6 +32,8 @@ public class Blades : MonoBehaviour
     void Update()
     {
         if (GameSettings.gameState != GameState.InGame) { return; }
+
+        transform.Rotate(new Vector3(0,0,720 * Time.deltaTime));
 
         if (isMoving)
         {

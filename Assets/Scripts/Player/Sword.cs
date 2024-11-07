@@ -21,7 +21,11 @@ public class Sword : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Shield"))
+        {
+            other.gameObject.GetComponent<RiotShield>().TakeDamage();
+        }
+        else if (other.gameObject.CompareTag("Enemy"))
         {            
             if (crit)
             {
@@ -32,14 +36,21 @@ public class Sword : MonoBehaviour
                 other.gameObject.GetComponent<EnemyBase>().ReceiveDamage(WeaponStats.Instance.Damage, false);
             }
         }
-        else if (WeaponStats.Instance.HasReflector && reflecting && other.gameObject.CompareTag("Bullet") && other.gameObject.layer == 9)
+        else if (WeaponStats.Instance.HasReflector && reflecting && other.gameObject.CompareTag("Bullet") && other.gameObject.layer == 9 
+        && other.gameObject.name != "NapalmBomb(Clone)" && other.gameObject.name != "Bomb(Clone)")
         {
             SFXManager.Instance.PlaySFX("Deflect");
             Debug.Log("Hit bullet");
             GameObject bulletInstance = Instantiate(reflectedBullet, other.gameObject.transform.position, Quaternion.identity);
             bulletInstance.GetComponent<Rigidbody2D>().velocity = -other.gameObject.GetComponent<Rigidbody2D>().velocity;
-            bulletInstance.GetComponent<ReflectedBullet>().Damage = other.gameObject.GetComponent<EnemyBullet>().Damage;
-
+            if (other.gameObject.GetComponent<EnemyBullet>() != null)
+            {
+                bulletInstance.GetComponent<ReflectedBullet>().Damage = other.gameObject.GetComponent<EnemyBullet>().Damage;
+            }
+            else if (other.gameObject.GetComponent<BossBullet>() != null)
+            {
+                bulletInstance.GetComponent<ReflectedBullet>().Damage = other.gameObject.GetComponent<BossBullet>().BulletDamage;
+            }
             Destroy(other.gameObject);
         }
     }
