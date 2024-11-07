@@ -83,7 +83,7 @@ public class BladeBossBehaviour : EnemyBase
     void Update()
     {
         if (GameSettings.gameState != GameState.InGame || Dying) { return; }
-
+        
         if (SkillEffects.Instance.decoyActive && !stopCheck)
         {
             player = GameObject.FindGameObjectWithTag("Decoy");
