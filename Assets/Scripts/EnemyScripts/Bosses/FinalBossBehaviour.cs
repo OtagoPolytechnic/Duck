@@ -138,10 +138,12 @@ public class FinalBossBehaviour : EnemyBase
 
     private IEnumerator SpawnEnemies()
     {
+        BossHealthBar.Instance.finalBossShield = true;
         SpawnEnemiesAroundBoss();
 
         yield return new WaitUntil(() => CountActiveEnemies() <= 1);
         isImmune = false;
+        BossHealthBar.Instance.finalBossShield = false;
 
         if (currentShield != null)
         {
