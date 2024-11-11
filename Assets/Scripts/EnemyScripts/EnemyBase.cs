@@ -128,6 +128,7 @@ public abstract class EnemyBase : MonoBehaviour
         
         if (sprite != null)
         {
+            sprite.enabled = true;
             sprite.color = new Color32(255, 255, 255, 225);
             sprite.transform.rotation = Quaternion.identity;
             transform.localScale = new Vector3(1,1,0);

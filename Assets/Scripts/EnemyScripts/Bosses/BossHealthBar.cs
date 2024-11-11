@@ -14,7 +14,8 @@ public class BossHealthBar : MonoBehaviour
     private float maxHealthBarSize;
     public EnemyBase boss;
     private float bossMaxHealth;
-    private IMGUIContainer shieldBar;
+    private VisualElement shieldIcon;
+    private Label shieldText;
     
 
     public float BossMaxHealth
@@ -35,7 +36,8 @@ public class BossHealthBar : MonoBehaviour
         healthText = document.Q<Label>("HealthNumber");
         healthBar = document.Q<IMGUIContainer>("Health");
         healthContainer = document.Q<VisualElement>("BossHealthContainer"); // Reference to the container
-        shieldBar = document.Q<IMGUIContainer>("Shield");
+        shieldIcon = document.Q<VisualElement>("ShieldIcon");
+        shieldText = document.Q<Label>("ShieldNumber");
     }
 
     void Update()
@@ -50,20 +52,19 @@ public class BossHealthBar : MonoBehaviour
         healthText.text = boss.Health.ToString("F0") + "/" + bossMaxHealth.ToString("F0");
         if (RiotShield.Instance != null && RiotShield.Instance.shieldHealth > 0)
         {
-            shieldBar.visible = true;
-            float shieldFraction = (float)RiotShield.Instance.shieldHealth / RiotShield.Instance.maxShieldHealth;
-            shieldBar.style.width = Length.Percent(shieldFraction * 100);
+            shieldIcon.visible = true;
+            shieldText.text = RiotShield.Instance.shieldHealth.ToString();
         }
-        else if (shieldBar.visible)
+        else if (shieldIcon.visible)
         {
-            shieldBar.visible = false;
+            shieldIcon.visible = false;
         }
 
         // Hide the health bar if boss health is 0 or less
         if (boss.Health <= 0)
         {
             healthContainer.visible = false; // Hide the container holding the health bar
-            shieldBar.visible = false;
+            shieldIcon.visible = false;
         }
     }
 }

@@ -19,7 +19,7 @@ public class Shooting : MonoBehaviour
     private float reflectCooldown;
     private bool toggled = false;
     private bool held = false;
-    private bool ready;
+    //private bool ready;
     Vector2 lookDirection;
     float lookAngle;
 
@@ -67,9 +67,16 @@ public class Shooting : MonoBehaviour
             }
         }
 
-        if (reflectCooldown > 0)
+        if (WeaponStats.Instance.HasReflector)
         {
-            reflectCooldown -= Time.deltaTime;
+            if (reflectCooldown > 0)
+            {
+                reflectCooldown -= Time.deltaTime;
+            }
+            else if (!swordInHand.transform.GetChild(0).gameObject.activeSelf)
+            {
+                swordInHand.transform.GetChild(0).gameObject.SetActive(true); //Show the reflector ready sprite
+            }
         }
     }
 
@@ -127,7 +134,7 @@ public class Shooting : MonoBehaviour
 
     private void Shoot()
     {
-        ready = false;
+        //ready = false;
         if (WeaponStats.Instance.CurrentWeapon == WeaponType.Sword)
         {
             if (WeaponStats.Instance.HasSwordBeam && PlayerStats.Instance.CurrentHealth == PlayerStats.Instance.MaxHealth)
@@ -228,6 +235,7 @@ public class Shooting : MonoBehaviour
         if (swordAttack.GetComponent<Sword>().Reflecting)
         {
             swordAttack.GetComponent<Sword>().Reflecting = false;
+            swordInHand.transform.GetChild(0).gameObject.SetActive(false); //Hide the reflector ready sprite
             reflectCooldown = WeaponStats.Instance.ReflectCooldown;
         }
         StopCoroutine(SwordAttack());
