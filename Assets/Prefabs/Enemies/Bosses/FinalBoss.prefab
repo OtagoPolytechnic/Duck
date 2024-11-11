@@ -218,14 +218,14 @@ MonoBehaviour:
   bullet: {fileID: 5418265743146168994, guid: a7b5b3b6cb580c343ae9599b2c978ee5, type: 3}
   bulletPosition: {fileID: 5656455699881316956}
   attackRange: 5
-  attackInterval: 0.25
+  attackInterval: 0.15
   enemyPrefabs:
   - {fileID: 5656455698361903583, guid: 980030a52f3410942961b5b65cab304c, type: 3}
   - {fileID: 5656455698361903583, guid: 89cf6ce5061806d459c67f6abed42a2c, type: 3}
   - {fileID: 5656455698361903583, guid: 655d05248ad59fd4082bcd2e6ebfdb06, type: 3}
   - {fileID: 5656455698361903583, guid: 9a374ca1f9af1714baed0cd00ee39b01, type: 3}
   enemiesToSpawn: 12
-  spawnRadius: 15
+  spawnRadius: 5
   minSpawnDistance: 10
   respawnDelay: 5
   bossShieldPrefab: {fileID: 6665001260212449872, guid: 79a0aea8b575f6844be8d856052c5a28, type: 3}

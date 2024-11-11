@@ -16,7 +16,7 @@ public class FinalBossBehaviour : EnemyBase
 
     [SerializeField] private List<GameObject> enemyPrefabs;
     [SerializeField] private int enemiesToSpawn = 12;
-    [SerializeField] private float spawnRadius = 10f;
+    [SerializeField] private float shootAngle = 10f;
     [SerializeField] private float minSpawnDistance = 10f;
     [SerializeField] private float respawnDelay = 5f;
     private SpriteRenderer sprite;
@@ -186,8 +186,8 @@ public class FinalBossBehaviour : EnemyBase
         float angle = Random.Range(0f, 360f);
         float radian = angle * Mathf.Deg2Rad;
 
-        float x = transform.position.x + Mathf.Cos(radian) * spawnRadius;
-        float y = transform.position.y + Mathf.Sin(radian) * spawnRadius;
+        float x = transform.position.x + Mathf.Cos(radian) * shootAngle;
+        float y = transform.position.y + Mathf.Sin(radian) * shootAngle;
 
         return new Vector2(x, y);
     }
