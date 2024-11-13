@@ -34,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
         set {spawnTimer = value;}
     }
     private float lastSpawn; //Time since last spawn
-    private int enemyCap = 10;
+    private int enemyCap = 15;
     public int EnemyCap
     {
         get {return enemyCap;}

@@ -166,7 +166,7 @@ public class Timer : MonoBehaviour
         }
         else
         {
-            EnemySpawner.Instance.EnemyCap += 1;
+            EnemySpawner.Instance.EnemyCap += 2;
         }
 
         // Scale stats if after wave 25
