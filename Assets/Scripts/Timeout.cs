@@ -29,10 +29,9 @@ public class Timeout : MonoBehaviour
             Debug.LogError("Did not get sprite, make sure player hierarchy has a sprite render");
         }
 
-
-        StartCoroutine(PlayerStats.Instance.DisableCollisionForDuration(duration));
-
+        Physics2D.IgnoreLayerCollision(7, 9, true);
         yield return new WaitForSeconds(duration);
+        Physics2D.IgnoreLayerCollision(7, 9, false);
         GameSettings.gameState = GameState.InGame;
 
         sprite.color = new Color32(255, 255, 255, 255);
