@@ -129,8 +129,8 @@ public class FinalBossBehaviour : EnemyBase
             return;
         }
 
-        newBullet.GetComponent<BossBullet>().InitializeBullet(player, Damage, false);
-        newBullet.GetComponent<BossBullet>().originEnemy = this;
+        newBullet.GetComponent<FinalBossBullet>().InitializeBullet(player, Damage, false);
+        newBullet.GetComponent<FinalBossBullet>().originEnemy = this;
         SFXManager.Instance.PlaySFX("EnemyShoot");
 
         attackCooldown = attackInterval;
