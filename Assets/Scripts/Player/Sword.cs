@@ -23,7 +23,10 @@ public class Sword : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Shield"))
         {
-            other.gameObject.GetComponent<RiotShield>().TakeDamage();
+            if ( other.gameObject.GetComponent<RiotShield>() != null)
+            {
+                other.gameObject.GetComponent<RiotShield>().TakeDamage();
+            }
         }
         else if (other.gameObject.CompareTag("Enemy"))
         {            
@@ -50,6 +53,10 @@ public class Sword : MonoBehaviour
             else if (other.gameObject.GetComponent<BossBullet>() != null)
             {
                 bulletInstance.GetComponent<ReflectedBullet>().Damage = other.gameObject.GetComponent<BossBullet>().BulletDamage;
+            }
+            else if (other.gameObject.GetComponent<FinalBossBullet>() != null)
+            {
+                bulletInstance.GetComponent<ReflectedBullet>().Damage = other.gameObject.GetComponent<FinalBossBullet>().BulletDamage;
             }
             Destroy(other.gameObject);
         }

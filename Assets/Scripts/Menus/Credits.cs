@@ -17,7 +17,7 @@ public class Credits : MonoBehaviour
         Label paragraph = document.Q<Label>("Paragraph");
         paragraph.text = "Developers:\n\nAlex Reid\nKyle Black\nRohan Anakin\nPalin Wiseman\n\n" +
         "Former developers:\n\nLorna Hart\nJun Xu\n\n" +
-        "Music: \"8Bit Music - 062022\"  -  GWriterStudio\n\n" +
+        "Music by GWriterStudio\n8Bit Music - 062022\nhttps://assetstore.unity.com/packages/audio/music/8bit-music-062022-225623\n\n" +
         "Reroll icon by Stephen Kerr from Noun Project (CC BY 3.0) https://thenounproject.com/browse/icons/term/reroll/ ";
     }
 

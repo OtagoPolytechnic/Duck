@@ -155,6 +155,7 @@ public class PlayerStats : MonoBehaviour
     {
         CurrentHealth = MaxHealth;
         Respawns = GameSettings.startingRespawns;
+        Physics2D.IgnoreLayerCollision(7, 9, false);
     }
 
     void Update()
@@ -210,9 +211,16 @@ public class PlayerStats : MonoBehaviour
         // Set the collision matrix to ignore collisions between the player layer and enemy attacks for the specified duration
         Physics2D.IgnoreLayerCollision(7, 9, true);
 
-        // Wait for the specified duration
-        yield return new WaitForSeconds(duration);
-
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += .1f;
+            yield return new WaitForSeconds(.1f);
+            while (GameSettings.gameState != GameState.InGame)
+            {
+                yield return null;
+            }
+        }
         // Re-enable collisions between the player layer and itself
         Physics2D.IgnoreLayerCollision(7, 9, false);
     }
