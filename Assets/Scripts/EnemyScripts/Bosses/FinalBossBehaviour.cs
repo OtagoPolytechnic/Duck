@@ -20,6 +20,7 @@ public class FinalBossBehaviour : EnemyBase
     [SerializeField] private float minSpawnDistance = 10f;
     [SerializeField] private float respawnDelay = 5f;
     private SpriteRenderer sprite;
+    [SerializeField] private List<Sprite> spritesList;
     private bool enemiesSpawnedAt75;
     private bool enemiesSpawnedAt50;
     private bool enemiesSpawnedAt25;
@@ -62,11 +63,11 @@ public class FinalBossBehaviour : EnemyBase
 
         if (isImmune)
         {
-            sprite.color = new Color32(83, 73, 255, 255); // Color when immune
+            sprite.sprite = spritesList[1]; // Sprite when immune
         }
         else
         {
-            sprite.color = new Color32(255, 255, 255, 255); // Color when not immune
+            sprite.sprite = spritesList[0]; // Sprite when not immune
         }
 
         if (attackCooldown <= 0 && !isShooting)
@@ -150,13 +151,11 @@ public class FinalBossBehaviour : EnemyBase
             Destroy(currentShield);
             currentShield = null;
         }
-        sprite.color = new Color32(255, 255, 255, 255);
     }
 
     private void SpawnEnemiesAroundBoss()
     {
         isImmune = true;
-        sprite.color = new Color32(83, 73, 255, 255);
         currentShield = Instantiate(bossShieldPrefab, transform.position, Quaternion.identity);
         currentShield.transform.parent = this.transform;
 

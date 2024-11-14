@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: c2ce86a5fd11a8145949405b7d2d0b49, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 007dee70f1b190043b0a44ca5382e2e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -114,7 +114,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5575887171487423865}
@@ -225,9 +225,12 @@ MonoBehaviour:
   - {fileID: 5656455698361903583, guid: 655d05248ad59fd4082bcd2e6ebfdb06, type: 3}
   - {fileID: 5656455698361903583, guid: 9a374ca1f9af1714baed0cd00ee39b01, type: 3}
   enemiesToSpawn: 12
-  spawnRadius: 5
+  shootAngle: 10
   minSpawnDistance: 10
   respawnDelay: 5
+  spritesList:
+  - {fileID: 21300000, guid: 007dee70f1b190043b0a44ca5382e2e2, type: 3}
+  - {fileID: 21300000, guid: 2e4be97aac0ba7b42aaa9a20ec3f4d00, type: 3}
   bossShieldPrefab: {fileID: 6665001260212449872, guid: 79a0aea8b575f6844be8d856052c5a28, type: 3}
 --- !u!1 &5656455699881316957
 GameObject:
