@@ -11,6 +11,7 @@ public class SFXManager : MonoBehaviour
     private AudioMixer audioMixer;
 
     private Dictionary<string, AudioClip> soundClips;
+    private Dictionary<string, AudioClip> musicClips;
     private AudioSource sfxAudioSource;
     private AudioSource musicAudioSource;
     
@@ -58,8 +59,6 @@ public class SFXManager : MonoBehaviour
             { "DuckHit", Resources.Load<AudioClip>(AUDIO_PATH + "DuckHit") },
             { "EnemyDie", Resources.Load<AudioClip>(AUDIO_PATH + "PointGet2") },
             { "GameOver", Resources.Load<AudioClip>(AUDIO_PATH + "GameOver") },
-            { "TitleMusic", Resources.Load<AudioClip>(AUDIO_PATH + "TitleMusic") },
-            { "WaveMusic", Resources.Load<AudioClip>(AUDIO_PATH + "WaveMusic") },
             { "Explosion", Resources.Load<AudioClip>(AUDIO_PATH + "Explosion2") },
             { "Button-Press", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press") },
             { "Button-Press2", Resources.Load<AudioClip>(AUDIO_PATH + "Button-Press2") },
@@ -71,6 +70,20 @@ public class SFXManager : MonoBehaviour
             { "Radiation", Resources.Load<AudioClip>(AUDIO_PATH + "Radiation2") },
             { "Deflect", Resources.Load<AudioClip>(AUDIO_PATH + "Deflect") },
             { "PlayerHurt", Resources.Load<AudioClip>(AUDIO_PATH + "PlayerHurt") },
+        };
+
+        musicClips = new Dictionary<string, AudioClip>
+        {
+            { "TitleMusic", Resources.Load<AudioClip>(AUDIO_PATH + "TitleMusic") },
+            { "Wave1", Resources.Load<AudioClip>(AUDIO_PATH + "Wave1") },
+            { "Wave2", Resources.Load<AudioClip>(AUDIO_PATH + "Wave2") },
+            { "Wave3", Resources.Load<AudioClip>(AUDIO_PATH + "Wave3") },
+            { "Wave4", Resources.Load<AudioClip>(AUDIO_PATH + "Wave4") },
+            { "Wave5", Resources.Load<AudioClip>(AUDIO_PATH + "Wave5") },
+            { "Wave6", Resources.Load<AudioClip>(AUDIO_PATH + "Wave6") },
+            { "Wave7", Resources.Load<AudioClip>(AUDIO_PATH + "Wave7") },
+            { "Wave8", Resources.Load<AudioClip>(AUDIO_PATH + "Wave8") },
+            { "Wave9", Resources.Load<AudioClip>(AUDIO_PATH + "Wave9") }
         };
     }
 
@@ -115,7 +128,12 @@ public class SFXManager : MonoBehaviour
 
     public void PlayBackgroundMusic(string name)
     {
-        if (soundClips.TryGetValue(name, out AudioClip clip))
+        if(name == "WaveMusic") //This converts WaveMusic to the name of a specific and random wave music
+        {
+            int index = Random.Range(1, 10);
+            name = "Wave" + index;
+        }
+        if (musicClips.TryGetValue(name, out AudioClip clip))
         {
             // Check if the music is already playing and if it's the same clip
             if (musicAudioSource.clip == clip && musicAudioSource.isPlaying)

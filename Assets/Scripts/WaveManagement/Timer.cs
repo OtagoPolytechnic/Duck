@@ -111,7 +111,7 @@ public class Timer : MonoBehaviour
             timerText.style.color = Color.white;
             timerText.style.fontSize = 50;
         }
-        if (currentTime <= 0)
+        if (currentTime <= 0 || waveNumber % 5 == 0)
         {
             timerText.visible = false;
         }
@@ -166,7 +166,7 @@ public class Timer : MonoBehaviour
         }
         else
         {
-            EnemySpawner.Instance.EnemyCap += 1;
+            EnemySpawner.Instance.EnemyCap += 2;
         }
 
         // Scale stats if after wave 25
