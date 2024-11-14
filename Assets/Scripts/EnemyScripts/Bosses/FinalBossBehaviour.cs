@@ -87,7 +87,10 @@ public class FinalBossBehaviour : EnemyBase
         }
 
         Move();
-        Bleed();
+        if (!isImmune)
+        {
+            Bleed();
+        }
     }
 
     private void CheckHealthAndSpawnEnemies()
