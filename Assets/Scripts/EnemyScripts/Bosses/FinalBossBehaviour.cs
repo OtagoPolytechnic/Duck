@@ -110,7 +110,7 @@ public class FinalBossBehaviour : EnemyBase
 
     public override void Move()
     {
-        if (SkillEffects.Instance.vanishActive) { return; }
+        if (SkillEffects.Instance.vanishActive || isImmune) { return; }
         float tileSpeedModifier = mapManager.GetTileWalkingSpeed(transform.position);
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, (Speed * tileSpeedModifier) * Time.deltaTime);
     }
