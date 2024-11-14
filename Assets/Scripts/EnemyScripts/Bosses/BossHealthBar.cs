@@ -16,7 +16,7 @@ public class BossHealthBar : MonoBehaviour
     private float bossMaxHealth;
     private VisualElement shieldIcon;
     private Label shieldText;
-    
+    public bool finalBossShield;
 
     public float BossMaxHealth
     { 
@@ -54,6 +54,11 @@ public class BossHealthBar : MonoBehaviour
         {
             shieldIcon.visible = true;
             shieldText.text = RiotShield.Instance.shieldHealth.ToString();
+        }
+        else if (finalBossShield)
+        {
+            shieldIcon.visible = true;
+            shieldText.text = "∞";
         }
         else if (shieldIcon.visible)
         {

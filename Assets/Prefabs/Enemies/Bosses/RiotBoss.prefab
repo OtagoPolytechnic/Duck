@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 5656455698361903576}
   - component: {fileID: 699683085790582889}
   - component: {fileID: -4847292594370482136}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RiotBoss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
