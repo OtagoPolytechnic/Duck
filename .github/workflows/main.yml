@@ -83,7 +83,7 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          custom_tag: ${{ github.event.pull_request.title }}
+          custom_tag: ${{ github.event.pull_request.title }}-beta
           tag_prefix: NULL
 
       - name: Create a GitHub release #create new release
@@ -91,7 +91,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Duckstruction Alpha ${{ github.event.pull_request.title }}
+          name: name: Duckstruction Beta ${{ github.event.pull_request.title }}
           body: ${{ github.event.pull_request.body }}
 
       - name: Create Build Folder #create a folder to store the build artifact 

@@ -144,7 +144,7 @@ public class BladeBossBehaviour : EnemyBase
         while (elapsedTime < waitTime)
         {
             elapsedTime += .1f;
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSecondsRealtime(.1f);
             while (GameSettings.gameState != GameState.InGame)
             {
                 yield return null;

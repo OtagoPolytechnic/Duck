@@ -17,6 +17,7 @@ TagManager:
   - BossPointer
   - Target
   - Shield
+  - BossShield
   - BladesCenter
   - Blades
   layers:

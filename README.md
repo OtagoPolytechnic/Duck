@@ -70,3 +70,4 @@ See [license file](https://github.com/OtagoPolytechnic/Duck/blob/main/LICENSE) f
 ## Credits
 
 Reroll icon by Stephen Kerr from [Noun Project](https://thenounproject.com/browse/icons/term/reroll/) (CC BY 3.0)
+Music by GWriterStudio -  8Bit Music - 062022  -  https://assetstore.unity.com/packages/audio/music/8bit-music-062022-225623

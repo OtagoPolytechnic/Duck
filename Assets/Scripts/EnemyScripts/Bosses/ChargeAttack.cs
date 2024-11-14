@@ -11,6 +11,7 @@ public class ChargeAttack : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         damage = gameObject.GetComponentInParent<EnemyBase>().Damage;
+        damage += (GameSettings.waveNumber / 5);
     }
     void OnTriggerEnter2D(Collider2D other)
     {
