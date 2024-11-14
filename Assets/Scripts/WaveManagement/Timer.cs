@@ -111,7 +111,7 @@ public class Timer : MonoBehaviour
             timerText.style.color = Color.white;
             timerText.style.fontSize = 50;
         }
-        if (currentTime <= 0)
+        if (currentTime <= 0 || waveNumber % 5 == 0)
         {
             timerText.visible = false;
         }
