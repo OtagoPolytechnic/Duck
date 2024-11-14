@@ -6,10 +6,8 @@ public class FinalBossBehaviour : EnemyBase
 {
     public GameObject player;
     private bool stopCheck;
-    private float distance;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletPosition;
-    [SerializeField] private float attackRange;
     [SerializeField] private float attackInterval;
 
     private float attackCooldown;
@@ -18,7 +16,6 @@ public class FinalBossBehaviour : EnemyBase
     [SerializeField] private int enemiesToSpawn = 12;
     [SerializeField] private float shootAngle = 10f;
     [SerializeField] private float minSpawnDistance = 10f;
-    [SerializeField] private float respawnDelay = 5f;
     private SpriteRenderer sprite;
     [SerializeField] private List<Sprite> spritesList;
     private bool enemiesSpawnedAt75;
